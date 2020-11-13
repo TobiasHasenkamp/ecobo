@@ -1,6 +1,6 @@
 # ecoBo
 
-Ratgeber- und Social-Communication-Platform für nachhaltigen Konsum in Bochum. Kernstück der Web-App ist eine kartenbasierte Darstelung verschiedenster nachhaltiger Angebote in (und um) Bochum, wobei Benutzer eigene Angebote eintragen und  reviewen können. Auf diese Weise kann eine lokale Community zu nachhaltigem Konsum wachsen. Darüberhinaus wäre die Web-App um weitergehende Vernetzungs- und Social-Communication-Features erweiterbar.
+Ratgeber- und Social-Communication-Platform für nachhaltigen Konsum in Bochum. Kernstück der Web-App ist eine karten- und listenbasierte Darstellung verschiedenster nachhaltiger Angebote in (und um) Bochum, wobei Benutzer eigene Angebote eintragen und reviewen können. Auf diese Weise kann eine lokale Community zu nachhaltigem Konsum wachsen und die eingetragenen Daten aktuell halten. Darüberhinaus wäre die Web-App um weitergehende Vernetzungs- und Social-Communication-Features erweiterbar.
 
 ReactJS / Java - Project for Neue Fische Java course 2020
 
