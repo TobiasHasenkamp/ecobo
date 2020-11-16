@@ -7,7 +7,7 @@ import BackgroundInfoPage from "./main/BackgroundInfoPage";
 import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
 import MapPage from "./main/MapPage";
-import Header from "./main/Header";
+import NavBar from "./main/NavBar";
 import LoginPage from "./main/account-route/LoginPage";
 
 
@@ -18,31 +18,31 @@ function App() {
       <Switch>
 
           <Route path="/bo/map">
-              <Header/>
+              <NavBar/>
               <MapPage/>
           </Route>
           <Route path="/bo/list">
-              <Header/>
+              <NavBar/>
               <ListPage/>
           </Route>
           <Route path="/acc">
-              <Header/>
+              <NavBar/>
               <AccountPage/>
           </Route>
           <Route path="/infos">
-              <Header/>
+              <NavBar/>
               <BackgroundInfoPage/>
           </Route>
           <Route path="/features">
-              <Header/>
+              <NavBar/>
               <FeaturePage/>
           </Route>
           <Route path="/home">
-              <Header/>
+              <NavBar/>
               <HomePage/>
           </Route>
           <Route path="/login">
-              <Header/>
+              <NavBar/>
               <LoginPage/>
           </Route>
           <Route path="/">

@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
-export default function Header() {
+export default function NavBar() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -12,7 +12,7 @@ export default function Header() {
 
     return (
 
-        <StyledHeader>
+        <StyledNavBar>
 
             <Link to="/home">
                 <p>Home</p>
@@ -27,14 +27,14 @@ export default function Header() {
             }
 
 
-        </StyledHeader>
+        </StyledNavBar>
 
     );
 
 }
 
 
-const StyledHeader = styled.div`
+const StyledNavBar = styled.div`
 
   justify-items: center;
   display: grid;
