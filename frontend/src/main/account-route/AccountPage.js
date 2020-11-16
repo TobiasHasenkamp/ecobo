@@ -1,11 +1,30 @@
 import PageHeader from "../PageHeader";
-import React from "react";
+import React, {useContext} from "react";
 import styled from "styled-components/macro";
 import GradientBorderlineBottom from "../designElements/GradientBorderlineBottom";
 import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
 import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
+import {useHistory} from "react-router-dom";
+import IsLoggedInContext from "../contexts/IsLoggedInContext";
 
 export default function AccountPage() {
+
+    const {switchLoginStatus} = useContext(IsLoggedInContext);
+    const history = useHistory();
+
+    function handleEditButton() {
+        history.push("/404");
+    }
+
+    function handleDeleteButton() {
+        history.push("/404");
+    }
+
+    function handleLogoutButton() {
+        switchLoginStatus(false);
+        history.push("/home");
+    }
+
 
     return(
 
@@ -39,8 +58,8 @@ export default function AccountPage() {
                     <h3>Geburtsdatum:</h3>
                     <div>20.10.1990</div><br/><br/><br/>
 
-                    <StyledButton>Edit</StyledButton>
-                    <StyledButton>Delete</StyledButton>
+                    <StyledButton onClick={() => handleEditButton()}>Edit</StyledButton>
+                    <StyledButton onClick={() => handleDeleteButton()}>Delete</StyledButton>
 
                 </StyledRightBar>
 
@@ -57,7 +76,7 @@ export default function AccountPage() {
                 <h3>Angelegte Seiten:</h3>
                 none
 
-                <StyledLogoutButton>Logout</StyledLogoutButton>
+                <StyledLogoutButton onClick={() => handleLogoutButton()}>Logout</StyledLogoutButton>
 
 
             </StyledSiteSection>

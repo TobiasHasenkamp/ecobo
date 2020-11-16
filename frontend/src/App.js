@@ -9,11 +9,15 @@ import MapPage from "./main/MapPage";
 import NavBar from "./main/NavBar";
 import LoginPage from "./main/account-route/LoginPage";
 import "./App.css";
+import UnderConstructionPage from "./main/UnderConstructionPage";
+import IsLoggedInContextProvider from "./main/contexts/IsLoggedInContextProvider";
 
 
 function App() {
 
   return (
+
+      <IsLoggedInContextProvider>
 
           <Switch>
 
@@ -45,12 +49,17 @@ function App() {
                   <NavBar/>
                   <LoginPage/>
               </Route>
+              <Route path="/404">
+                  <NavBar/>
+                  <UnderConstructionPage/>
+              </Route>
               <Route path="/">
                   <Redirect to="/home"/>
               </Route>
 
-
           </Switch>
+
+      </IsLoggedInContextProvider>
 
   );
 }
