@@ -48,18 +48,16 @@ const StyledHomePageMenu = styled.div`
     text-shadow: 0.6px 0.6px 0.3px var(--grey);
   }
   
-    a {
-      color: var(--darkgrey);
-      text-decoration: none;
-      
-      :hover {
-          color: var(--darkgrey2);
+  a {
+     color: var(--darkgrey);
+     text-decoration: none;
+     :hover {
+         color: var(--darkgrey2);
       }
-      
-      :active {
-          color: var(--lightgrey);
+     :active {
+         color: var(--lightgrey);
       }
-  }
+    }
 `
 
 const FlexDiv = styled.div`

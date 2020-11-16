@@ -132,7 +132,7 @@ const StyledLeftBarText = styled.div`
 `
 
 const StyledRightBar = styled.div`
-  margin: 3% 10%;
+    margin: 3% 10%;
     line-height: 0.85em;
     font-size: 0.8em;
     color: var(--darkgrey);
