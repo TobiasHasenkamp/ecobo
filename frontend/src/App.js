@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./main/HomePage";
-import AccountPage from "./main/AccountPage";
+import AccountPage from "./main/account-route/AccountPage";
 import BackgroundInfoPage from "./main/BackgroundInfoPage";
 import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
