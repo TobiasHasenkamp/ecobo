@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
+import GradientBorderlineBottom from "./designElements/GradientBorderlineBottom";
 
 export default function NavBar() {
 
@@ -12,30 +13,31 @@ export default function NavBar() {
 
     return (
 
-        <StyledNavBar>
+        <>
+            <StyledNavBar>
 
-            <Link to="/home">
-                <p>Home</p>
-            </Link>
+                <Link to="/home">
+                    <p>Home</p>
+                </Link>
 
-            <p>Logo</p>
+                <p>Logo</p>
 
-            {
-                isLoggedIn ?
-                    <Link to="/acc" onClick={() => handleLogin()}> <p>Konto</p> </Link> :
-                    <Link to="/login" onClick={() => handleLogin()}> <p>Login</p> </Link>
-            }
+                {
+                    isLoggedIn ?
+                        <Link to="/acc" onClick={() => handleLogin()}> <p>Konto</p> </Link> :
+                        <Link to="/login" onClick={() => handleLogin()}> <p>Login</p> </Link>
+                }
 
 
-        </StyledNavBar>
+            </StyledNavBar>
+            <GradientBorderlineBottom/>
+        </>
 
     );
 
 }
 
-
 const StyledNavBar = styled.div`
-
   justify-items: center;
   display: grid;
   grid-template-columns: auto auto auto;

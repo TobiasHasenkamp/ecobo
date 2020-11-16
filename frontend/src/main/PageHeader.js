@@ -1,46 +1,26 @@
 import React from "react";
 import styled from "styled-components/macro";
+import GradientBorderlineBottom from "./designElements/GradientBorderlineBottom";
+import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
+import GreenBoxMedium from "./designElements/GreenBoxMedium";
 
 export default function PageHeader({title}) {
 
     return (
 
         <>
-            <StyledDarkGradientLineTop/>
             <StyledTitle>{title}</StyledTitle>
-            <StyledDarkGradientLineBottom/>
-            <StyledDarkGreenBox/>
-            <StyledDarkGradientLineTop/>
+            <GradientBorderlineTop/>
+            <GreenBoxMedium/>
+            <GradientBorderlineBottom/>
         </>
 
     );
 }
 
-
-
-const StyledDarkGradientLineBottom = styled.div`
-  display: block;
-  width: 100%;
-  height: 7px;
-  background-image: linear-gradient(ghostwhite, var(--grey));
-`
-
-const StyledDarkGradientLineTop = styled.div`
-  display: block;
-  width: 100%;
-  height: 7px;
-  background-image: linear-gradient(var(--grey), ghostwhite);
-`
-
-const StyledDarkGreenBox = styled.div`
-  display: block;
-  width: 100%;
-  background-color: var(--darkgreen);
-  height: 25px;
-`
-
 const StyledTitle = styled.p`
-    color: black;
+    color: var(--darkgrey);
+    text-decoration: none;
     margin: 6px;
     font-size: 1.3em;
     text-align: center;

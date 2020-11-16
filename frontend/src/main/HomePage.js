@@ -1,19 +1,18 @@
 import styled from "styled-components/macro";
 import React from "react";
 import {Link} from "react-router-dom";
+import GreenBoxLargeWithGradientBorderline from "./designElements/GreenBoxLargeWithGradientBorderline";
 
 export default function HomePage() {
 
     return(
 
-        <div>
+        <>
 
-            <StyledDarkGradientLineTop/>
             <FlexDiv>
                 <StyledHomeImage src="homePhoto1.jpg"/>
             </FlexDiv>
-            <StyledDarkGradientLineBottom/>
-            <StyledDarkGreenBox/>
+            <GreenBoxLargeWithGradientBorderline/>
 
             <StyledHomePageMenu>
                 <p><Link to="/bo/map">Eco Map</Link></p>
@@ -21,7 +20,7 @@ export default function HomePage() {
                 <p><Link to="/infos">Hintergrundinfos</Link></p>
             </StyledHomePageMenu>
 
-        </div>
+        </>
 
     );
 
@@ -36,34 +35,12 @@ const StyledHomeImage = styled.img`
   max-width: 450px;
 `
 
-const StyledDarkGreenBox = styled.div`
-  display: block;
-  width: 100%;
-  background-color: var(--darkgreen);
-  height: 35px;
-`
-
-const StyledDarkGradientLineBottom = styled.div`
-  display: block;
-  width: 100%;
-  height: 7px;
-  background-image: linear-gradient(ghostwhite, var(--grey));
-`
-
-const StyledDarkGradientLineTop = styled.div`
-  display: block;
-  width: 100%;
-  height: 7px;
-  background-image: linear-gradient(var(--grey), ghostwhite);
-`
-
 const StyledHomePageMenu = styled.div`
   display: block;
   text-align: center;
   margin: 35px;
   
   p {
-    //color: var(--darkgreen);
     color: black;
     margin: 14px;
     font-size: 1.5em;
