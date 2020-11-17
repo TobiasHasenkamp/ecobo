@@ -1,12 +1,10 @@
 package de.th.ecobobackend.controller;
 
 import de.th.ecobobackend.model.EcoElement;
+import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.service.EcoElementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,8 +30,8 @@ public class EcoElementController {
     }
 
     @PostMapping
-    public EcoElement postEcoElement() {
-        return ecoElementService.addEcoElement();
+    public EcoElement postEcoElement(@RequestBody EcoElementDto ecoElementDto) {
+        return ecoElementService.addEcoElement(ecoElementDto);
     }
 
     @PostMapping("/random")

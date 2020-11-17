@@ -1,6 +1,7 @@
 package de.th.ecobobackend.service;
 
 import de.th.ecobobackend.model.EcoElement;
+import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,8 @@ public class EcoElementService {
         return ecoElementMongoDB.findAll();
     }
 
-    public EcoElement addEcoElement(){
-        return ecoElementMongoDB.save(ecoElementBuilder.build());
+    public EcoElement addEcoElement(EcoElementDto ecoElementDto){
+        return ecoElementMongoDB.save(ecoElementBuilder.build(ecoElementDto));
     }
 
     public EcoElement addRandomEcoElement() {
