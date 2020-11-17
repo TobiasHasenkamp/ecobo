@@ -1,8 +1,17 @@
 import PageHeader from "./PageHeader";
 import React from "react";
 import styled from "styled-components/macro";
+import {FaRegListAlt} from "react-icons/fa";
+import {useHistory} from "react-router-dom"
 
 export default function ListPage() {
+
+    const history = useHistory();
+
+    function handleEditElement() {
+        history.push("/404");
+    }
+
 
     return(
 
@@ -24,12 +33,15 @@ export default function ListPage() {
                     <StyledElement>
                         <div/>
                         <StyledElementHeader>
-                        <StyledNameCell>
-                            Bioladen 1
-                        </StyledNameCell>
-                        <StyledCell>
-                            Unverpackt-Laden
-                        </StyledCell>
+                            <StyledNameCell>
+                                Bioladen 1
+                            </StyledNameCell>
+                            <StyledCell>
+                                Unverpackt-Laden
+                            </StyledCell>
+                            <StyledIconDiv>
+                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                            </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
@@ -51,6 +63,9 @@ export default function ListPage() {
                             <StyledCell>
                                 Bio-Supermarkt
                             </StyledCell>
+                            <StyledIconDiv>
+                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                            </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
@@ -84,6 +99,9 @@ export default function ListPage() {
                             <StyledCell>
                                 ....
                             </StyledCell>
+                            <StyledIconDiv>
+                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                            </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
@@ -105,6 +123,9 @@ export default function ListPage() {
                             <StyledCell>
                                 ....
                             </StyledCell>
+                            <StyledIconDiv>
+                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                            </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
@@ -137,6 +158,9 @@ export default function ListPage() {
                             <StyledCell>
                                 ....
                             </StyledCell>
+                            <StyledIconDiv>
+                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                            </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
@@ -158,6 +182,9 @@ export default function ListPage() {
                             <StyledCell>
                                 ....
                             </StyledCell>
+                            <StyledIconDiv>
+                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                            </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
@@ -189,6 +216,9 @@ export default function ListPage() {
                             <StyledCell>
                                 ....
                             </StyledCell>
+                            <StyledIconDiv>
+                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                            </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
@@ -210,6 +240,9 @@ export default function ListPage() {
                             <StyledCell>
                                 ....
                             </StyledCell>
+                            <StyledIconDiv>
+                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                            </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
@@ -264,19 +297,51 @@ const StyledHeaderRow = styled.div`
     display: table-cell;
     
     &.blue{
-      background: blue;
+      background: #0066cc;
     }
     
     &.red{
-      background: #ea6153;
+      background: #b32d00;
+    }
+    
+    &.red2{
+      background: #cc3300;
+    }
+    
+    &.turquoise{
+      background: #009999;
+    }
+    
+    &.lightblue{
+      background: #3366ff;
+    }
+    
+    &.brownRed{
+      background: #993300;
+    }
+    
+    &.purple{
+      background: #993399;
     }
     
     &.yellow{
-      background: darkorange;
+      background: #ffcc66;
+    }
+    
+    &.orange{
+      background: #ff944d;
+    }
+    
+    &.lightyellow{
+      background: #ffff99;
     }
     
     &.green{
       background: forestgreen;
+    }
+    
+    &.lightgreen{
+      background: #99ff99;
     }
 `
 
@@ -309,5 +374,9 @@ const StyledElementBody = styled.div`
 
 const StyledElementHeader = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr 0.12fr;
+`
+
+const StyledIconDiv = styled.div`
+  margin: 6px 0 0 0;
 `

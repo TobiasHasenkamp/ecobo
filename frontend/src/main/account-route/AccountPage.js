@@ -6,6 +6,8 @@ import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
 import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
 import {useHistory} from "react-router-dom";
 import IsLoggedInContext from "../contexts/IsLoggedInContext";
+import { FaEdit } from 'react-icons/fa';
+import { FaCheck, FaTrash } from 'react-icons/fa';
 
 export default function AccountPage() {
 
@@ -51,15 +53,28 @@ export default function AccountPage() {
                 </StyledLeftBar>
 
                 <StyledRightBar>
-                    <h3>Username:</h3>
-                    <div>TobiasHasenkamp</div><br/>
+
+
+
+                    <StyledGrid>
+
+                    <div>
+                        <h3>Username:</h3>
+                        <div>TobiasHasenkamp</div><br/>
+                    </div>
+
+                    <StyledButtonBar>
+                        <FaEdit onClick={() => handleEditButton()}/>
+                        {/*<FaCheck/>*/}
+                        <FaTrash onClick={() => handleDeleteButton()}/>
+                    </StyledButtonBar>
+
+                    </StyledGrid>
+
                     <h3>E-Mail:</h3>
                     <div><h4>tobias.hasenkamp@googlemail.com</h4></div><br/>
                     <h3>Geburtsdatum:</h3>
                     <div>20.10.1990</div><br/><br/><br/>
-
-                    <StyledButton onClick={() => handleEditButton()}>Edit</StyledButton>
-                    <StyledButton onClick={() => handleDeleteButton()}>Delete</StyledButton>
 
                 </StyledRightBar>
 
@@ -132,21 +147,22 @@ const StyledLeftBarText = styled.div`
 `
 
 const StyledRightBar = styled.div`
-    margin: 3% 10%;
+    margin: 7% 10%;
     line-height: 0.85em;
-    font-size: 0.8em;
+    font-size: 1.0em;
     color: var(--darkgrey);
+    
   h3{
       color: black;
-      font-size: 1em;
+      font-size: 0.8em;
   }
   h3 + div {
-    line-height: 0.5em;
+    line-height: 0.7em;
   }
   h4 {
     color: var(--darkgrey);
     line-height: 0;
-    font-size: 0.85em;
+    font-size: 0.75em;
     font-weight: normal;
     margin: 0;
   }
@@ -199,4 +215,16 @@ const StyledSiteSection = styled.div`
   h3 {
     font-size: 1.15em;
   }
+`
+
+const StyledGrid = styled.div`
+  display: grid;
+  grid-template-columns: 75% 25%;
+`
+
+const StyledButtonBar = styled.div`
+  margin: 13px 5px 0 10px;
+  display: flex;
+  justify-content: space-between;
+  ;
 `

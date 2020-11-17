@@ -25,13 +25,13 @@ const StyledDarkGreenBox = styled.div`
 const StyledDarkGreenGradientLineTop = styled.div`
   display: block;
   width: 100%;
-  height: 7px;
+  height: 5px;
   background-image: linear-gradient(ghostwhite, var(--grey));
 `
 
 const StyledDarkGreenGradientLineBottom = styled.div`
   display: block;
   width: 100%;
-  height: 7px;
+  height: 5px;
   background-image: linear-gradient(var(--grey), ghostwhite);
 `

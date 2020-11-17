@@ -23,7 +23,7 @@ body {
 
   :root {
     --green: #158467;
-    --darkgreen: #197163;
+    --darkgreen:  #00802b;
     --lightyellow: #fadcac;
     --white: #EEEDFF;
     --darkgrey: #222831;
