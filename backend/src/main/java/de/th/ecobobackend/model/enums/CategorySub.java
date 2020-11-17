@@ -7,5 +7,5 @@ public enum CategorySub {
     BIOLADEN,
     BIOSUPERMARKT,
     ECOFASHIONSTORE,
-    SECONDHANDSTORE
+    SECONDHANDSTORE,
 }

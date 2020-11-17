@@ -12,16 +12,13 @@ export default function ListPage() {
         history.push("/404");
     }
 
+    return (
 
-    return(
+    <div>
 
-        <div>
+        <PageHeader title="EcoMap"/>
 
-            <PageHeader title="EcoMap"/>
-
-
-            <StyledWrapperDiv>
-
+        <StyledWrapperDiv>
                 {/*=========================================================
                 BIOLÄDEN
                 =========================================================*/}
