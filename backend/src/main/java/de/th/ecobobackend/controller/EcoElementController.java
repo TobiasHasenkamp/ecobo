@@ -32,7 +32,12 @@ public class EcoElementController {
     }
 
     @PostMapping
-    public String postEcoElements() {
+    public EcoElement postEcoElement() {
         return ecoElementService.addEcoElement();
+    }
+
+    @PostMapping("/random")
+    public EcoElement postRandomEcoElement() {
+        return ecoElementService.addRandomEcoElement();
     }
 }

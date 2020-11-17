@@ -11,10 +11,12 @@ import java.util.List;
 public class EcoElementService {
 
     private final EcoElementMongoDB ecoElementMongoDB;
+    private final EcoElementBuilder ecoElementBuilder;
 
     @Autowired
-    public EcoElementService(EcoElementMongoDB ecoElementMongoDB){
+    public EcoElementService(EcoElementMongoDB ecoElementMongoDB, EcoElementBuilder ecoElementBuilder){
         this.ecoElementMongoDB = ecoElementMongoDB;
+        this.ecoElementBuilder = ecoElementBuilder;
     }
 
 
@@ -26,14 +28,11 @@ public class EcoElementService {
         return ecoElementMongoDB.findAll();
     }
 
-    public String addEcoElement(){
-        ecoElementMongoDB.save(EcoElement.builder()
-                .id("123")
-                .name("Testelement")
-                .creator("Testcreator")
-                .category("Bioladen")
-                .build());
-        return "123";
+    public EcoElement addEcoElement(){
+        return ecoElementMongoDB.save(ecoElementBuilder.build());
     }
 
+    public EcoElement addRandomEcoElement() {
+        return ecoElementMongoDB.save(ecoElementBuilder.buildRandomElement());
+    }
 }
