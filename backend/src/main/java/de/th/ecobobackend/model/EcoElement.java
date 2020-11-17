@@ -1,5 +1,7 @@
 package de.th.ecobobackend.model;
 
+import de.th.ecobobackend.model.enums.Category;
+import de.th.ecobobackend.model.enums.CategorySub;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +22,8 @@ public class EcoElement {
     @Id
     String id;
     String name;
-    String category;
-    String categorySub;
+    Category category;
+    CategorySub categorySub;
     String subtitle;
     String district;
     String address;

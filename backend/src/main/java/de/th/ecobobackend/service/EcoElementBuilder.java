@@ -2,6 +2,8 @@ package de.th.ecobobackend.service;
 
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
+import de.th.ecobobackend.model.enums.Category;
+import de.th.ecobobackend.model.enums.CategorySub;
 import de.th.ecobobackend.utils.IDUtils;
 import de.th.ecobobackend.utils.TimestampUtils;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,11 @@ public class EcoElementBuilder {
     }
 
     public EcoElement build(EcoElementDto ecoElementDto){
+
+        if (ecoElementDto.getCategorySub() == null){
+            ecoElementDto.setCategorySub(CategorySub.NONE);
+        }
+
         return EcoElement.builder()
                 .id(idUtils.generateID())
                 .name(ecoElementDto.getName())
@@ -52,8 +59,8 @@ public class EcoElementBuilder {
         return EcoElement.builder()
                 .id(idUtils.generateID())
                 .name("TestElement")
-                .category("categoryXy")
-                .categorySub("SubcategoryXy")
+                .category(Category.BIOLADEN)
+                .categorySub(CategorySub.BIOSUPERMARKT)
                 .subtitle("a nice small Bioladen")
                 .district("Bo-Mitte")
                 .address("Teststr. 49")
