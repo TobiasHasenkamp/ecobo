@@ -3,6 +3,7 @@ package de.th.ecobobackend.service;
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.utils.IDUtils;
+import de.th.ecobobackend.utils.TimestampUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +12,11 @@ import java.util.List;
 public class EcoElementBuilder {
 
     private final IDUtils idUtils;
+    private final TimestampUtils timestampUtils;
 
-    public EcoElementBuilder(IDUtils idUtils) {
+    public EcoElementBuilder(IDUtils idUtils, TimestampUtils timeStampUtils) {
         this.idUtils = idUtils;
+        this.timestampUtils = timeStampUtils;
     }
 
     public EcoElement build(EcoElementDto ecoElementDto){
@@ -22,6 +25,7 @@ public class EcoElementBuilder {
                 .name(ecoElementDto.getName())
                 .category(ecoElementDto.getCategory())
                 .categorySub(ecoElementDto.getCategorySub())
+                //the other attributes will be used later
                 //.subtitle(ecoElementDto.getSubtitle())
                 //.district(ecoElementDto.getDistrict())
                 //.address(ecoElementDto.getAddress())
@@ -35,10 +39,11 @@ public class EcoElementBuilder {
                 .isInBochum(true)
                 //.certificate1(ecoElementDto.getCertificate1())
                 //.certificate2(ecoElementDto.getCertificate2())
+                //later change to the creator
                 .creator("Tobias")
-                .dateCreated("testDate")
-                .dateLastUpdated("testDate2")
-                .dateReviewed("testDate3")
+                .dateCreated(timestampUtils.generateTimeStamp())
+                .dateLastUpdated(timestampUtils.generateTimeStamp())
+                .dateReviewed(null)
                 .reviewComments(List.of())
                 .build();
     }
@@ -46,9 +51,9 @@ public class EcoElementBuilder {
     public EcoElement buildRandomElement(){
         return EcoElement.builder()
                 .id(idUtils.generateID())
-                .name("name")
-                .category("categoryRandom")
-                .categorySub("categorySub")
+                .name("TestElement")
+                .category("categoryXy")
+                .categorySub("SubcategoryXy")
                 .subtitle("a nice small Bioladen")
                 .district("Bo-Mitte")
                 .address("Teststr. 49")
@@ -63,9 +68,9 @@ public class EcoElementBuilder {
                 .certificate1(true)
                 .certificate2(true)
                 .creator("Tobias")
-                .dateCreated("testDate")
-                .dateLastUpdated("testDate2")
-                .dateReviewed("testDate3")
+                .dateCreated(timestampUtils.generateTimeStamp())
+                .dateLastUpdated(timestampUtils.generateTimeStamp())
+                .dateReviewed(null)
                 .reviewComments(List.of())
                 .build();
     }

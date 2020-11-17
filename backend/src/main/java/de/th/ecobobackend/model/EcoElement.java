@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -38,9 +39,9 @@ public class EcoElement {
     Boolean certificate2;
 
     String creator;
-    String dateCreated;
-    String dateLastUpdated;
-    String dateReviewed;
+    Instant dateCreated;
+    Instant dateLastUpdated;
+    Instant dateReviewed;
 
     List<String> reviewComments;
 
