@@ -6,13 +6,14 @@ import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
 import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
 import {useHistory} from "react-router-dom";
 import IsLoggedInContext from "../contexts/IsLoggedInContext";
-import { FaEdit } from 'react-icons/fa';
-import { FaCheck, FaTrash } from 'react-icons/fa';
+import EditIconButton from "../designElements/buttons/EditIconButton";
+import DeleteIconButton from "../designElements/buttons/DeleteIconButton";
 
 export default function AccountPage() {
 
     const {switchLoginStatus} = useContext(IsLoggedInContext);
     const history = useHistory();
+
 
     function handleEditButton() {
         history.push("/404");
@@ -64,9 +65,9 @@ export default function AccountPage() {
                     </div>
 
                     <StyledButtonBar>
-                        <FaEdit onClick={() => handleEditButton()}/>
+                        <EditIconButton handle={handleEditButton}/>
                         {/*<FaCheck/>*/}
-                        <FaTrash onClick={() => handleDeleteButton()}/>
+                        <DeleteIconButton handle={handleDeleteButton}/>
                     </StyledButtonBar>
 
                     </StyledGrid>
@@ -173,21 +174,6 @@ const StyledEditPictureButton = styled.div`
   padding-top: 7px;
   font-size: 0.7em;
   text-align: center;
-`
-
-const StyledButton = styled.button`
-  min-width: 30%;
-  background-color: var(--grey);
-  border: none;
-  border-radius: 8%;
-  color: var(--darkgrey);
-  padding: 7px 10px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 0.9em;
-  font-weight: bolder;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  margin-right: 8px;
 `
 
 const StyledLogoutButton = styled.button`

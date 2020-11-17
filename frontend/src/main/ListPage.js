@@ -1,8 +1,8 @@
 import PageHeader from "./PageHeader";
 import React from "react";
 import styled from "styled-components/macro";
-import {FaRegListAlt} from "react-icons/fa";
 import {useHistory} from "react-router-dom"
+import ShowIconButton from "./designElements/buttons/ShowIconButton";
 
 export default function ListPage() {
 
@@ -40,7 +40,7 @@ export default function ListPage() {
                                 Unverpackt-Laden
                             </StyledCell>
                             <StyledIconDiv>
-                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                                <ShowIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
@@ -64,7 +64,7 @@ export default function ListPage() {
                                 Bio-Supermarkt
                             </StyledCell>
                             <StyledIconDiv>
-                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                                <ShowIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
@@ -100,7 +100,7 @@ export default function ListPage() {
                                 ....
                             </StyledCell>
                             <StyledIconDiv>
-                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                                <ShowIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
@@ -124,7 +124,7 @@ export default function ListPage() {
                                 ....
                             </StyledCell>
                             <StyledIconDiv>
-                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                                <ShowIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
@@ -159,7 +159,7 @@ export default function ListPage() {
                                 ....
                             </StyledCell>
                             <StyledIconDiv>
-                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                                <ShowIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
@@ -183,7 +183,7 @@ export default function ListPage() {
                                 ....
                             </StyledCell>
                             <StyledIconDiv>
-                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                                <ShowIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
@@ -217,7 +217,7 @@ export default function ListPage() {
                                 ....
                             </StyledCell>
                             <StyledIconDiv>
-                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                                <ShowIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
@@ -241,7 +241,7 @@ export default function ListPage() {
                                 ....
                             </StyledCell>
                             <StyledIconDiv>
-                                <FaRegListAlt onClick={() => handleEditElement()}/>
+                                <ShowIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
