@@ -5,7 +5,6 @@ import AccountPage from "./main/account-route/AccountPage";
 import BackgroundInfoPage from "./main/BackgroundInfoPage";
 import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
-import ListPageNew from "./main/ListPageNew";
 import MapPage from "./main/MapPage";
 import NavBar from "./main/NavBar";
 import LoginPage from "./main/account-route/LoginPage";
@@ -30,10 +29,6 @@ function App() {
               <Route path="/bo/list">
                   <NavBar/>
                   <ListPage/>
-              </Route>
-              <Route path="/bo/listNew">
-                  <NavBar/>
-                  <ListPageNew/>
               </Route>
               <Route path="/acc">
                   <NavBar/>
