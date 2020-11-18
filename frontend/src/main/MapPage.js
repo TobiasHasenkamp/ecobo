@@ -31,7 +31,7 @@ export default function MapPage() {
 
         //the crossOrigin doesn't work as intended the way it is implemented right now. it should render to 'crossorigin=""' but renders to 'crossorigin' inside
         //both the leafletJSFile and the leafletCSSStyleSheet in the head of the page. This seems to cause no problems right now, but maybe later?
-    })
+    }, []);
 
     return(
 
