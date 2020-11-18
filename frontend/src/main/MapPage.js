@@ -9,7 +9,6 @@ import GreenBoxMedium from "./designElements/GreenBoxMedium";
 
 export default function MapPage() {
 
-
     useEffect(() => {
 
         //Add the leaflet css stylesheet to the pages head
@@ -33,6 +32,9 @@ export default function MapPage() {
         //both the leafletJSFile and the leafletCSSStyleSheet in the head of the page. This seems to cause no problems right now, but maybe later?
     }, []);
 
+    const firstPosition = [51.481, 7.2200];
+    const secondPosition = [51.484, 7.2210];
+
     return(
 
         <>
@@ -43,17 +45,32 @@ export default function MapPage() {
             <GradientBorderlineTop/>
             <GreenBoxMedium/>
 
-
-            <MapContainer className="MapClass" center={[51.4841, 7.2200]} zoom={13} scrollWheelZoom={true} style={{minHeight: "65vh"}}>
+            <MapContainer
+                          center={[51.4841, 7.2200]}
+                          zoom={13}
+                          minZoom={10}
+                          //topleft, bottomleft, bottomright, topright
+                          maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
+                          scrollWheelZoom={true}
+                          wheelDebounceTime={15}
+                          style={{minHeight: "65vh"}}
+            >
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[51.505, -0.09]}>
+
+                <Marker position={firstPosition} title="TestTooltip" opacity="0.8" draggable="true">
                     <Popup>
-                        A pretty CSS3 popup. <br/> Easily customizable.
+                        1A pretty CSS3 popup. <br/> Easily customizable.
                     </Popup>
                 </Marker>
+                <Marker position={secondPosition}>
+                    <Popup>
+                        2A pretty CSS3 popup. <br/> Easily customizable.
+                    </Popup>
+                </Marker>
+
             </MapContainer>
 
 
