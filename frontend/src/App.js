@@ -11,13 +11,14 @@ import LoginPage from "./main/account-route/LoginPage";
 import "./App.css";
 import UnderConstructionPage from "./main/UnderConstructionPage";
 import IsLoggedInContextProvider from "./main/contexts/IsLoggedInContextProvider";
+import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider";
 
 
 function App() {
 
   return (
 
-      <IsLoggedInContextProvider>
+      <IsLoggedInContextProvider> <EcoElementContextProvider>
 
           <Switch>
 
@@ -59,7 +60,7 @@ function App() {
 
           </Switch>
 
-      </IsLoggedInContextProvider>
+      </EcoElementContextProvider> </IsLoggedInContextProvider>
 
   );
 }
