@@ -105,7 +105,7 @@ export default function AccountPage() {
 const StyledUserSection = styled.div`
   display: grid;
   grid-template-columns: 30% 70%;
-  height: 32vh;
+  height: auto;
 `
 
 const StyledLeftBar = styled.div`
@@ -126,6 +126,7 @@ const StyledUserPhoto = styled.img`
   border: white solid 2px;
 `
 const StyledPhotoSection = styled.div`
+  width: 95%;
   overflow: hidden;
   align-self: center;
   background-color: var(--darkgreen);
