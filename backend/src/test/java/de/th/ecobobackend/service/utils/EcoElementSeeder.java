@@ -1,8 +1,9 @@
-package de.th.ecobobackend.service;
+package de.th.ecobobackend.service.utils;
 
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
+import de.th.ecobobackend.service.EcoElementBuilder;
 import de.th.ecobobackend.utils.IDUtils;
 import de.th.ecobobackend.utils.TimestampUtils;
 
@@ -32,8 +33,8 @@ public class EcoElementSeeder {
         EcoElement result = EcoElement.builder()
                 .id("123")
                 .name("TestElement")
-                .category(Category.BIOLADEN)
-                .categorySub(CategorySub.BIOSUPERMARKT)
+                .category(Category.FOODSTORE)
+                .categorySub(CategorySub.FOODSTORE_SUPERMARKET)
                 .subtitle("a nice small Bioladen")
                 .district("Bo-Mitte")
                 .address("Teststr. 49")

@@ -4,8 +4,9 @@ import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom"
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./controller/EcoElementController";
-import SuperMarketList from "./list-route/SuperMarketList";
+import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
+import FairShopList from "./list-route/FairShopList";
 
 export default function ListPageNew() {
 
@@ -26,10 +27,14 @@ export default function ListPageNew() {
 
             <PageHeader title="EcoMap"/>
             <StyledWrapperDiv>
-                <SuperMarketList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
+                <FoodStoreList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
                 <RestaurantList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
+                <FairShopList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
 
                 {/* at the moment necessary to keep the full list visible when scrolling */}
+                <br/>
+                <br/>
+                <br/>
                 <br/>
                 <br/>
                 <br/>

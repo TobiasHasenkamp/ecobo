@@ -3,13 +3,13 @@ import React from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 
-export default function RestaurantList({ecoElements, handleEditElement}){
+export default function FairShopList({ecoElements, handleEditElement}){
 
     return (
 
-        <StyledWrapperTable name="Restaurants">
-            <StyledHeaderRow className="blue">
-                Restaurants
+        <StyledWrapperTable name="Weltläden">
+            <StyledHeaderRow className="yellow">
+                Weltläden
             </StyledHeaderRow>
             {
                 ecoElements?.map((element) => (

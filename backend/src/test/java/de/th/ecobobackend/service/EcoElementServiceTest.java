@@ -2,6 +2,7 @@ package de.th.ecobobackend.service;
 
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
+import de.th.ecobobackend.service.utils.EcoElementSeeder;
 import de.th.ecobobackend.utils.IDUtils;
 import de.th.ecobobackend.utils.TimestampUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -85,25 +86,25 @@ class EcoElementServiceTest {
     @DisplayName("The findAllByCategory method should return a list of corresponding objects")
     void getElementsByCategoryShouldReturnElements(){
         //When
-        when(ecoElementMongoDB.findAllByCategory(Category.BIOLADEN))
+        when(ecoElementMongoDB.findAllByCategory(Category.FOODSTORE))
                 .thenReturn(Optional.of(ecoElementSeeder.get4RandomEcoElementsForTesting()));
 
         //Then
-        assertThat(ecoElementService.findAllByCategory(Category.BIOLADEN).size(), is(4));
-        assertThat(ecoElementService.findAllByCategory(Category.BIOLADEN).get(0).getCreator(), is("Tobias"));
-        assertThat(ecoElementService.findAllByCategory(Category.BIOLADEN).get(1).getName(), is("TestElement"));
+        assertThat(ecoElementService.findAllByCategory(Category.FOODSTORE).size(), is(4));
+        assertThat(ecoElementService.findAllByCategory(Category.FOODSTORE).get(0).getCreator(), is("Tobias"));
+        assertThat(ecoElementService.findAllByCategory(Category.FOODSTORE).get(1).getName(), is("TestElement"));
     }
 
     @Test
     @DisplayName("The findAllByCategory method should throw if no objects corresponds to the category")
     void getElementsByCategoryShouldThrow(){
         //When
-        when(ecoElementMongoDB.findAllByCategory(Category.WELTLADEN))
+        when(ecoElementMongoDB.findAllByCategory(Category.FAIRSHOP))
                 .thenReturn(Optional.empty());
 
         //Then
         try {
-            ecoElementService.findAllByCategory(Category.WELTLADEN);
+            ecoElementService.findAllByCategory(Category.FAIRSHOP);
             fail();
         } catch (ResponseStatusException exception ){
             assertThat(exception.getStatus(), is(HttpStatus.NOT_FOUND));
