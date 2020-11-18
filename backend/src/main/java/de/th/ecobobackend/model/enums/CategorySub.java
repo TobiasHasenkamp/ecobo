@@ -6,7 +6,7 @@ public enum CategorySub {
     FOODSTORE_NORMAL,           //Bioladen
     FOODSTORE_HEALTHSTORE,      //Reformhaus
     FOODSTORE_ZEROWASTESHOP,    //Unverpackt-Laden
-    FOODSTORE_FARMSHOP,
+    FOODSTORE_FARMSHOP,      //Hofladen
     RESTAURANT_SNACKBAR,        //Imbiss
     RESTAURANT_CAFE,            //Café
     RESTAURANT_RESTAURANT,      //Restaurant
