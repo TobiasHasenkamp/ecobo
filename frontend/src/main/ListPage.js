@@ -7,6 +7,8 @@ import {getEcoElements} from "./controller/EcoElementController";
 import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";
+import AddItemButton from "./designElements/buttons/AddItemButton";
+import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
 
 export default function ListPage() {
 
@@ -15,7 +17,8 @@ export default function ListPage() {
 
     useEffect(() => {
         getEcoElements().then(setEcoElements);
-    }, [setEcoElements]);
+    }, []);
+
 
     function handleEditElement() {
         history.push("/404");
@@ -26,12 +29,18 @@ export default function ListPage() {
         <div>
 
             <PageHeader title="EcoMap"/>
+            <TabBarWithOneLink text="Show as Map" link="/bo/map"/>
+
             <StyledWrapperDiv>
                 <FoodStoreList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
                 <RestaurantList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
                 <FairShopList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
 
-                {/* at the moment necessary to keep the full list visible when scrolling */}
+                {/* the brs are necessary at the moment to keep the full list visible when scrolling */}
+                <br/>
+                <AddItemButton/>
+                <br/>
+                <br/>
                 <br/>
                 <br/>
                 <br/>
@@ -41,6 +50,7 @@ export default function ListPage() {
                 <br/>
 
             </StyledWrapperDiv>
+            <StyledBottomDiv/>
 
         </div>
 
@@ -54,5 +64,17 @@ const StyledWrapperDiv = styled.div`
   width: auto;
   height: 90vh;
   overflow: scroll;
+  z-index: 5;
 `
+
+const StyledBottomDiv = styled.div`
+  background: white;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 65px;
+  z-index: 10;
+`
+
 

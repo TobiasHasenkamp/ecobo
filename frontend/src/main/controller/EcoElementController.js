@@ -5,7 +5,7 @@ export const getEcoElements = () => {
         .then(response => response.data);
 };
 
-export const addEcoElement = (name, category, categorySub) => {
-    return axios.post("/api/elements", {name, category, categorySub})
+export const addEcoElement = (name, category, categorySub, address, lon, lat) => {
+    return axios.post("/api/elements", {name, category, categorySub, address, lat, lon})
         .then(response => response.data);
 };

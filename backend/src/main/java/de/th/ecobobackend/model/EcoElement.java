@@ -31,6 +31,8 @@ public class EcoElement {
     String adminNote;
     String url;
     String urlFacebook;
+    Double lon;
+    Double lat;
 
     Boolean isVisible;
     Boolean isReviewed;

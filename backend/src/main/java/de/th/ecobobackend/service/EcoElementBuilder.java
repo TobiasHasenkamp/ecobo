@@ -26,6 +26,12 @@ public class EcoElementBuilder {
         if (ecoElementDto.getCategorySub() == null){
             ecoElementDto.setCategorySub(CategorySub.NONE);
         }
+        if (ecoElementDto.getLat() == null){
+            ecoElementDto.setLat(0.0);
+        }
+        if (ecoElementDto.getLon() == null){
+            ecoElementDto.setLon(0.0);
+        }
 
         return EcoElement.builder()
                 .id(idUtils.generateID())
@@ -35,7 +41,7 @@ public class EcoElementBuilder {
                 //the other attributes will be used later
                 //.subtitle(ecoElementDto.getSubtitle())
                 //.district(ecoElementDto.getDistrict())
-                //.address(ecoElementDto.getAddress())
+                .address(ecoElementDto.getAddress())
                 //.openingTimes(ecoElementDto.getOpeningTimes())
                 //.adminNote(ecoElementDto.getAdminNote())
                 //.url(ecoElementDto.getUrl())
@@ -52,6 +58,8 @@ public class EcoElementBuilder {
                 .dateLastUpdated(timestampUtils.generateTimeStamp())
                 .dateReviewed(null)
                 .reviewComments(List.of())
+                .lon(ecoElementDto.getLon())
+                .lat(ecoElementDto.getLat())
                 .build();
     }
 
@@ -79,6 +87,8 @@ public class EcoElementBuilder {
                 .dateLastUpdated(timestampUtils.generateTimeStamp())
                 .dateReviewed(null)
                 .reviewComments(List.of())
+                .lon(51.47030285)
+                .lat(7.21021848113432)
                 .build();
     }
 

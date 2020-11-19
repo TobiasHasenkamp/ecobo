@@ -5,6 +5,7 @@ import AccountPage from "./main/account-route/AccountPage";
 import BackgroundInfoPage from "./main/BackgroundInfoPage";
 import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
+import AddElementPage from "./main/ecoElement-route/AddElementPage";
 import MapPage from "./main/MapPage";
 import NavBar from "./main/NavBar";
 import LoginPage from "./main/account-route/LoginPage";
@@ -29,6 +30,10 @@ function App() {
               <Route path="/bo/list">
                   <NavBar/>
                   <ListPage/>
+              </Route>
+              <Route path="/bo/addElement">
+                  <NavBar/>
+                  <AddElementPage/>
               </Route>
               <Route path="/acc">
                   <NavBar/>
