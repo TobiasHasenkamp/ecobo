@@ -8,6 +8,8 @@ import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";
 import getLonAndLatForAddress from "./controller/MapMarkerController";
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 export default function ListPage() {
 
@@ -47,6 +49,10 @@ export default function ListPage() {
         //history.push("/404");
     }
 
+    function handleAddElementButton() {
+        history.push("/bo/addElement");
+    }
+
     return(
 
         <div>
@@ -57,12 +63,14 @@ export default function ListPage() {
                 <RestaurantList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
                 <FairShopList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
 
-                {/* at the moment necessary to keep the full list visible when scrolling */}
+                {/* the brs are necessary at the moment to keep the full list visible when scrolling */}
                 <br/>
+                <StyledActionButton>
+                    <Fab color="primary" aria-label="add" size="small" onClick={handleAddElementButton}>
+                        <AddIcon />
+                    </Fab>
+                </StyledActionButton>
                 <br/>
-                <div>
-
-                </div>
                 <br/>
                 <br/>
                 <br/>
@@ -70,6 +78,9 @@ export default function ListPage() {
                 <br/>
 
             </StyledWrapperDiv>
+            <StyledBottomDiv/>
+
+
 
         </div>
 
@@ -83,5 +94,30 @@ const StyledWrapperDiv = styled.div`
   width: auto;
   height: 90vh;
   overflow: scroll;
+  z-index: 5;
+`
+
+const StyledBottomDiv = styled.div`
+  background: white;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 65px;
+  z-index: 10;
+`
+
+const StyledActionButton = styled.button`
+  margin: 0;
+  padding: 0;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  font: inherit;
+  color: inherit;
+  position: fixed;
+  right: 25px;
+  bottom: 15px;
+  z-index: 100;
 `
 
