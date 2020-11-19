@@ -1,16 +1,18 @@
 package de.th.ecobobackend.service;
 
+import de.th.ecobobackend.model.EcoElement;
+import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.enums.Category;
+import de.th.ecobobackend.model.enums.CategorySub;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.service.utils.EcoElementSeeder;
-import de.th.ecobobackend.utils.IDUtils;
-import de.th.ecobobackend.utils.TimestampUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -22,9 +24,7 @@ class EcoElementServiceTest {
     //Given for all Tests
 
     final EcoElementMongoDB ecoElementMongoDB = mock(EcoElementMongoDB.class);
-    final IDUtils idUtils = new IDUtils();
-    final TimestampUtils timestampUtils = new TimestampUtils();
-    final EcoElementBuilder ecoElementBuilder = new EcoElementBuilder(idUtils, timestampUtils);
+    final EcoElementBuilder ecoElementBuilder = mock(EcoElementBuilder.class);
     final EcoElementService ecoElementService = new EcoElementService(ecoElementMongoDB, ecoElementBuilder);
     final EcoElementSeeder ecoElementSeeder = new EcoElementSeeder();
 
@@ -96,7 +96,7 @@ class EcoElementServiceTest {
     }
 
     @Test
-    @DisplayName("The findAllByCategory method should throw if no objects corresponds to the category")
+    @DisplayName("The findAllByCategory method should throw if no object corresponds to the category")
     void getElementsByCategoryShouldThrow(){
         //When
         when(ecoElementMongoDB.findAllByCategory(Category.FAIRSHOP))
@@ -109,6 +109,55 @@ class EcoElementServiceTest {
         } catch (ResponseStatusException exception ){
             assertThat(exception.getStatus(), is(HttpStatus.NOT_FOUND));
         }
+    }
+
+    @Test
+    @DisplayName("The addEcoElement method should return the same object")
+    void addEcoElementShouldReturnEcoElement(){
+        //Given
+
+        String inputDate = "2020-11-17T10:51:00Z";
+        Instant inputDateAsInstant = Instant.parse(inputDate);
+
+        EcoElementDto incomingEcoElementDto = new EcoElementDto("Bioladen", Category.FOODSTORE, CategorySub.FOODSTORE_NORMAL,
+                "", "", "", "", "", "", "", true,
+                false, false, 1.0, 1.0);
+
+        EcoElement expectedEcoElement = EcoElement.builder()
+                .id("123")
+                .name("Bioladen")
+                .category(Category.FOODSTORE)
+                .categorySub(CategorySub.FOODSTORE_NORMAL)
+                .subtitle("")
+                .district("")
+                .address("")
+                .openingTimes("")
+                .adminNote("")
+                .url("")
+                .creator("Tobias")
+                .urlFacebook("")
+                .isInBochum(true)
+                .certificate1(false)
+                .certificate2(false)
+                .lon(1.0)
+                .lat(1.0)
+                .dateCreated(inputDateAsInstant)
+                .build();
+
+        //When
+        when(ecoElementBuilder.build(incomingEcoElementDto))
+                .thenReturn(expectedEcoElement);
+        when(ecoElementMongoDB.save(expectedEcoElement))
+                .thenReturn(expectedEcoElement);
+        EcoElement receivedEcoElement = ecoElementService.addEcoElement(incomingEcoElementDto);
+
+        //Then
+        assertThat(receivedEcoElement.getName(), is(expectedEcoElement.getName()));
+        assertThat(receivedEcoElement.getCategory(), is(expectedEcoElement.getCategory()));
+        assertThat(receivedEcoElement.getCategorySub(), is(expectedEcoElement.getCategorySub()));
+        assertThat(receivedEcoElement.getCreator(), is(expectedEcoElement.getCreator()));
+        assertThat(receivedEcoElement.getLat(), is(expectedEcoElement.getLat()));
+        verify(ecoElementMongoDB).save(expectedEcoElement);
     }
 
 }
