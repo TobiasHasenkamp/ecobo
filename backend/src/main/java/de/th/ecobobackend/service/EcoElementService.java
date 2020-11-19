@@ -57,12 +57,10 @@ public class EcoElementService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    //not tested yet
     public EcoElement addEcoElement(EcoElementDto ecoElementDto){
         return ecoElementMongoDB.save(ecoElementBuilder.build(ecoElementDto));
     }
 
-    //not tested yet
     public EcoElement addRandomEcoElement() {
         return ecoElementMongoDB.save(ecoElementBuilder.buildRandomElement());
     }
