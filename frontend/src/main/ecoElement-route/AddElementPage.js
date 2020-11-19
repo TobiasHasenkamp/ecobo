@@ -1,20 +1,24 @@
 import React, {useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
 import PageHeader from "../PageHeader";
 import getLonAndLatForAddress from "../controller/MapMarkerController";
+import {addEcoElement} from "../controller/EcoElementController";
 
 export default function AddElementPage() {
 
+    const history = useHistory();
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [categorySub, setCategorySub] = useState("");
     const [address, setAddress] = useState("");
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
+    const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
     let finalLat;
     let finalLon;
 
     useEffect(() => {
-        console.log(address);
-    }, [address])
+        console.log(lonLatOfRequest);
+    }, [lonLatOfRequest]);
 
     useEffect(() => {
 
@@ -26,8 +30,11 @@ export default function AddElementPage() {
                 finalLon = p[key];
             }
         }
-        if (finalLon !== undefined) {
-            console.log(finalLon, finalLat)
+        if (finalLon !== undefined && buttonHasBeenClicked) {
+            console.log(finalLat, finalLon);
+            setButtonHasBeenClicked(false);
+            addEcoElement(name, category, categorySub, address, finalLat, finalLon);
+            history.push("/bo/list");
         }
     }, [lonLatOfRequest]);
 
@@ -49,6 +56,7 @@ export default function AddElementPage() {
 
     function handleButtonClick(event){
         event.preventDefault();
+        setButtonHasBeenClicked(true);
         getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest);
     }
 

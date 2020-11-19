@@ -22,8 +22,6 @@ export default function ListPage() {
     }, [setEcoElements]);
 
 
-
-
     function handleEditElement() {
         history.push("/404");
     }
