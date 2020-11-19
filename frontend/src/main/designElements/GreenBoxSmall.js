@@ -17,5 +17,5 @@ const StyledDarkGreenBox = styled.div`
   display: block;
   width: 100%;
   background-color: var(--darkgreen);
-  height: 12px;
+  height: 19px;
 `
