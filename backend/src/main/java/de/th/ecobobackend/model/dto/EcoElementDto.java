@@ -24,4 +24,6 @@ public class EcoElementDto {
     Boolean isInBochum;
     Boolean certificate1;
     Boolean certificate2;
+    String lon;
+    String lat;
 }

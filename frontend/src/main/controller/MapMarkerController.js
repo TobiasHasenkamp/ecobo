@@ -3,13 +3,14 @@ import axios from "axios";
 
 export default function getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest){
 
+    console.log(address);
 
     const options = {
         method: 'GET',
         url: 'https://forward-reverse-geocoding.p.rapidapi.com/v1/search',
         params: {
             format: 'jsonv2',
-            q: address,
+            q: "Bochum, " + address,
             polygon_threshold: '0.0',
             'accept-language': 'en'
         },

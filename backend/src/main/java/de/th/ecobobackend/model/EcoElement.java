@@ -45,6 +45,9 @@ public class EcoElement {
     Instant dateLastUpdated;
     Instant dateReviewed;
 
+    String lon;
+    String lat;
+
     List<String> reviewComments;
 
 }

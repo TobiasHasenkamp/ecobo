@@ -1,5 +1,6 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState} from "react";
 import PageHeader from "../PageHeader";
+import getLonAndLatForAddress from "../controller/MapMarkerController";
 
 export default function AddElementPage() {
 
@@ -7,10 +8,28 @@ export default function AddElementPage() {
     const [category, setCategory] = useState("");
     const [categorySub, setCategorySub] = useState("");
     const [address, setAddress] = useState("");
+    const [lonLatOfRequest, setLonLatOfRequest] = useState({});
+    let finalLat;
+    let finalLon;
 
     useEffect(() => {
-        console.log(name, category, categorySub, address);
-    }, [name, category, categorySub, address])
+        console.log(address);
+    }, [address])
+
+    useEffect(() => {
+
+        let p = lonLatOfRequest[0];
+        for (let key in p) {
+            if (p.hasOwnProperty(key) && key === "lat") {
+                finalLat = p[key];
+            } else if (p.hasOwnProperty(key) && key === "lon") {
+                finalLon = p[key];
+            }
+        }
+        if (finalLon !== undefined) {
+            console.log(finalLon, finalLat)
+        }
+    }, [lonLatOfRequest]);
 
 
     function handleChange(event){
@@ -28,6 +47,11 @@ export default function AddElementPage() {
         }
     }
 
+    function handleButtonClick(event){
+        event.preventDefault();
+        getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest);
+    }
+
     return (
 
         <div>
@@ -35,10 +59,12 @@ export default function AddElementPage() {
 
             <form>
 
-                <label> Name: <input name="name" value={name} onChange={handleChange} type="text"/></label><br/>
-                <label> Category: <input name="category" value={category} onChange={handleChange} type="text"/></label><br/>
-                <label> SubCategory: <input name="categorySub" value={categorySub} onChange={handleChange} type="text"/></label><br/>
-                <label> Address: <input name="address" value={address} onChange={handleChange} type="text"/></label><br/>
+                <label> Name: <input name="name" value={name} onChange={handleChange} type="text"/></label><br/><br/>
+                <label> Category: <input name="category" value={category} onChange={handleChange} type="text"/></label><br/><br/>
+                <label> SubCategory: <input name="categorySub" value={categorySub} onChange={handleChange} type="text"/></label><br/><br/>
+                <label> Address: <input name="address" value={address} onChange={handleChange} type="text"/></label><br/><br/>
+
+                <button onClick={handleButtonClick}>Add new Element</button>
 
 
 

@@ -1,5 +1,5 @@
 import PageHeader from "./PageHeader";
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useContext} from "react";
 import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom"
 import EcoElementContext from "./contexts/EcoElementContext";
@@ -7,7 +7,6 @@ import {getEcoElements} from "./controller/EcoElementController";
 import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";
-import getLonAndLatForAddress from "./controller/MapMarkerController";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -15,38 +14,18 @@ export default function ListPage() {
 
     const history = useHistory();
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
-    const [lonLatOfRequest, setLonLatOfRequest] = useState({});
-    let finalLat;
-    let finalLon;
+
+
 
     useEffect(() => {
         getEcoElements().then(setEcoElements);
     }, [setEcoElements]);
 
-    useEffect(() => {
 
-        let p = lonLatOfRequest[0];
-
-        for (let key in p) {
-            if (p.hasOwnProperty(key) && key === "lat") {
-                finalLat = p[key];
-            } else if (p.hasOwnProperty(key) && key === "lon") {
-                finalLon = p[key];
-            }
-        }
-
-        if (finalLon !== undefined) {
-            console.log(finalLon, finalLat)
-        }
-
-    }, [lonLatOfRequest]);
 
 
     function handleEditElement() {
-
-        getLonAndLatForAddress("Bochum, Verkehrsstr. 49", lonLatOfRequest, setLonLatOfRequest)
-
-        //history.push("/404");
+        history.push("/404");
     }
 
     function handleAddElementButton() {
@@ -107,7 +86,7 @@ const StyledBottomDiv = styled.div`
   z-index: 10;
 `
 
-const StyledActionButton = styled.button`
+const StyledActionButton = styled.div`
   margin: 0;
   padding: 0;
   align-self: flex-start;
