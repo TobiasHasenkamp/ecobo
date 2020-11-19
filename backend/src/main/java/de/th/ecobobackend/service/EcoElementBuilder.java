@@ -27,10 +27,10 @@ public class EcoElementBuilder {
             ecoElementDto.setCategorySub(CategorySub.NONE);
         }
         if (ecoElementDto.getLat() == null){
-            ecoElementDto.setLat("");
+            ecoElementDto.setLat(0.0);
         }
         if (ecoElementDto.getLon() == null){
-            ecoElementDto.setLon("");
+            ecoElementDto.setLon(0.0);
         }
 
         return EcoElement.builder()
@@ -87,8 +87,8 @@ public class EcoElementBuilder {
                 .dateLastUpdated(timestampUtils.generateTimeStamp())
                 .dateReviewed(null)
                 .reviewComments(List.of())
-                .lon("51.47030285")
-                .lat("7.21021848113432")
+                .lon(51.47030285)
+                .lat(7.21021848113432)
                 .build();
     }
 

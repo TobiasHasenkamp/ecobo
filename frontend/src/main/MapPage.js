@@ -1,13 +1,23 @@
 import PageHeader from "./PageHeader";
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
 import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
 import {Link} from "react-router-dom";
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
 import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
 import GreenBoxMedium from "./designElements/GreenBoxMedium";
+import EcoElementContext from "./contexts/EcoElementContext";
+import {getEcoElements} from "./controller/EcoElementController";
+import AddItemButton from "./designElements/buttons/AddItemButton";
 
 export default function MapPage() {
+
+    const {ecoElements, setEcoElements} = useContext(EcoElementContext);
+
+    useEffect(() => {
+        getEcoElements().then(setEcoElements);
+    }, [setEcoElements]);
+
 
     useEffect(() => {
 
@@ -32,8 +42,6 @@ export default function MapPage() {
         //both the leafletJSFile and the leafletCSSStyleSheet in the head of the page. This seems to cause no problems right now, but maybe later?
     }, []);
 
-    const firstPosition = [51.481, 7.2200];
-    const secondPosition = [51.484, 7.2210];
 
     return(
 
@@ -60,21 +68,26 @@ export default function MapPage() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <Marker position={firstPosition} title="TestTooltip" opacity="0.8" draggable="true">
-                    <Popup>
-                        1A pretty CSS3 popup. <br/> Easily customizable.
-                    </Popup>
-                </Marker>
-                <Marker position={secondPosition}>
-                    <Popup>
-                        2A pretty CSS3 popup. <br/> Easily customizable.
-                    </Popup>
-                </Marker>
+                {
+                    ecoElements?.map((element) => (
+
+                            <Marker key={element.id} position={[element.lon, element.lat]}
+                                    title={element.name}>
+                                <Popup>
+                                    {element.name} <br/> {element.category} / {element.categorySub} / {element.address}
+                                </Popup>
+                            </Marker>
+                    ))
+                }
+
+
 
             </MapContainer>
 
+            <AddItemButton/>
 
             <GreenBoxWithGradientBorderlineUntilSiteEnds/>
+
         </>
 
     );

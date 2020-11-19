@@ -31,6 +31,8 @@ public class EcoElement {
     String adminNote;
     String url;
     String urlFacebook;
+    Double lon;
+    Double lat;
 
     Boolean isVisible;
     Boolean isReviewed;
@@ -44,9 +46,6 @@ public class EcoElement {
     Instant dateCreated;
     Instant dateLastUpdated;
     Instant dateReviewed;
-
-    String lon;
-    String lat;
 
     List<String> reviewComments;
 
