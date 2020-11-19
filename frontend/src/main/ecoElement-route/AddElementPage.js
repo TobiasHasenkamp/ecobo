@@ -8,17 +8,14 @@ export default function AddElementPage() {
 
     const history = useHistory();
     const [name, setName] = useState("");
-    const [category, setCategory] = useState("");
-    const [categorySub, setCategorySub] = useState("");
+    const [category, setCategory] = useState("FOODSTORE");
+    const [categorySub, setCategorySub] = useState("FOODSTORE_SUPERMARKET");
     const [address, setAddress] = useState("");
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
     let finalLat;
     let finalLon;
 
-    useEffect(() => {
-        console.log(lonLatOfRequest);
-    }, [lonLatOfRequest]);
 
     useEffect(() => {
 
@@ -52,6 +49,7 @@ export default function AddElementPage() {
         else if (event.target.name === "address"){
             setAddress(event.target.value);
         }
+
     }
 
     function handleButtonClick(event){
@@ -68,13 +66,33 @@ export default function AddElementPage() {
             <form>
 
                 <label> Name: <input name="name" value={name} onChange={handleChange} type="text"/></label><br/><br/>
-                <label> Category: <input name="category" value={category} onChange={handleChange} type="text"/></label><br/><br/>
-                <label> SubCategory: <input name="categorySub" value={categorySub} onChange={handleChange} type="text"/></label><br/><br/>
-                <label> Address: <input name="address" value={address} onChange={handleChange} type="text"/></label><br/><br/>
+                <label> Category:
+                    <select name="category" value={category} onChange={handleChange}>
+                        <option>FOODSTORE</option>
+                        <option>RESTAURANT</option>
+                        <option>FAIRSHOP</option>
+                    </select>
+                </label><br/><br/>
+                <label> SubCategory:
+                    <select name="categorySub" value={categorySub} onChange={handleChange}>
+                        <option>FOODSTORE_SUPERMARKET</option>
+                        <option>FOODSTORE_NORMAL</option>
+                        <option>FOODSTORE_HEALTHSTORE</option>
+                        <option>FOODSTORE_ZEROWASTESHOP</option>
+                        <option>FOODSTORE_FARMSHOP</option>
+                        <option>RESTAURANT_SNACKBAR</option>
+                        <option>RESTAURANT_CAFE</option>
+                        <option>RESTAURANT_RESTAURANT</option>
+                        <option>RESTAURANT_ICECREAM_CAFE</option>
+                        <option>RESTAURANT_BAKERY</option>
+                        <option>FAIRSHOP_NORMAL</option>
+                        <option>FAIRSHOP_TEMPORARY</option>
+                    </select>
+                </label><br/><br/>
+
+                <label> Address: <input name="address" value={address} onChange={handleChange} /></label><br/><br/>
 
                 <button onClick={handleButtonClick}>Add new Element</button>
-
-
 
             </form>
         </div>
