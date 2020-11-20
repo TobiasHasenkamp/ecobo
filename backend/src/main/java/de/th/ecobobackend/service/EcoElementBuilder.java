@@ -53,7 +53,7 @@ public class EcoElementBuilder {
                 //.certificate1(ecoElementDto.getCertificate1())
                 //.certificate2(ecoElementDto.getCertificate2())
                 //later change to the creator
-                .creator("Tobias")
+                .creator(ecoElementDto.getCreator())
                 .dateCreated(timestampUtils.generateTimeStamp())
                 .dateLastUpdated(timestampUtils.generateTimeStamp())
                 .dateReviewed(null)

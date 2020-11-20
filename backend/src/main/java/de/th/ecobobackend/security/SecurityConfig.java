@@ -16,12 +16,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MongoDBUserDetailsService userDetailsService;
-    //private final JwtAuthFilter jwtAuthFilter;
+    private final JwtAuthFilter jwtAuthFilter;
 
     @Autowired
-    public SecurityConfig(MongoDBUserDetailsService userDetailsService /*, JWTAuthFilter jwtAuthFilter*/){
+    public SecurityConfig(MongoDBUserDetailsService userDetailsService, JwtAuthFilter jwtAuthFilter){
         this.userDetailsService = userDetailsService;
-        //this.jwtAuthFilter = jwtAuthFilter;
+        this.jwtAuthFilter = jwtAuthFilter;
     }
 
     @Override
@@ -31,9 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/**").permitAll()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                //.and()
-                //.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

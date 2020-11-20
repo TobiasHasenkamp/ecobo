@@ -121,7 +121,7 @@ class EcoElementServiceTest {
 
         EcoElementDto incomingEcoElementDto = new EcoElementDto("Bioladen", Category.FOODSTORE, CategorySub.FOODSTORE_NORMAL,
                 "", "", "", "", "", "", "", true,
-                false, false, 1.0, 1.0);
+                false, false, 1.0, 1.0, "Testperson");
 
         EcoElement expectedEcoElement = EcoElement.builder()
                 .id("123")

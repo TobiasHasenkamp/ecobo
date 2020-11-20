@@ -26,4 +26,5 @@ public class EcoElementDto {
     Boolean certificate2;
     Double lon;
     Double lat;
+    String creator;
 }
