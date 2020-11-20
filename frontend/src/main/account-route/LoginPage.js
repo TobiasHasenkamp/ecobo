@@ -1,17 +1,38 @@
 import PageHeader from "../PageHeader";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components/macro";
 import IsLoggedInContext from "../contexts/IsLoggedInContext";
 import {useHistory} from "react-router-dom";
+import {LoginRequest} from "../controller/LoginController";
+import LoginTokenContext from "../contexts/LoginTokenContext";
 
 export default function LoginPage() {
 
     const history = useHistory();
     const {switchLoginStatus} = useContext(IsLoggedInContext);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const {setToken} = useContext(LoginTokenContext);
 
-    function handleLoginButton() {
-        switchLoginStatus(true);
-        history.push("/home")
+    function handleLogin(event) {
+        event.preventDefault();
+        LoginRequest(username, password)
+                .then((data) => setToken(data))
+                .then(() => switchLoginStatus(true))
+                .then(() => history.push("/home"))
+                .catch(() => setError("Unknown username or password"));
+    }
+
+
+    function handleUsernameChange(event) {
+        setUsername(event.target.value)
+        console.log(username);
+    }
+
+    function handlePasswordChange(event) {
+        setPassword(event.target.value)
+        console.log(password);
     }
 
     return(
@@ -22,7 +43,20 @@ export default function LoginPage() {
             <StyledLoginPageContent>
                 <p>Login page</p>
 
-                <StyledLoginButton onClick={() => handleLoginButton()}>Login</StyledLoginButton>
+                <form onSubmit={handleLogin}>
+                    <label>Username <input type="text" name="username"
+                                           value={username} onChange={handleUsernameChange}/>
+                    </label>
+                    <br/>
+                    <br/>
+                    <label>Password <input type="password" name="password"
+                                           value={password} onChange={handlePasswordChange}/>
+                    </label>
+                    <StyledLoginButton/>
+                </form>
+
+                <br/>
+                <p>{error}</p>
 
             </StyledLoginPageContent>
 

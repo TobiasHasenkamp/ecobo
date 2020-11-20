@@ -13,13 +13,14 @@ import "./App.css";
 import UnderConstructionPage from "./main/UnderConstructionPage";
 import IsLoggedInContextProvider from "./main/contexts/IsLoggedInContextProvider";
 import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider";
+import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider";
 
 
 function App() {
 
   return (
 
-      <IsLoggedInContextProvider> <EcoElementContextProvider>
+      <LoginTokenContextProvider><IsLoggedInContextProvider> <EcoElementContextProvider>
 
           <Switch>
 
@@ -65,7 +66,7 @@ function App() {
 
           </Switch>
 
-      </EcoElementContextProvider> </IsLoggedInContextProvider>
+      </EcoElementContextProvider> </IsLoggedInContextProvider></LoginTokenContextProvider>
 
   );
 }

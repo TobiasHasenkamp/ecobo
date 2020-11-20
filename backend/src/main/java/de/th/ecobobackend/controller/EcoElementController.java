@@ -26,7 +26,7 @@ public class EcoElementController {
     //============================================================================
 
     @GetMapping
-    public List<EcoElement> getEcoElements() {
+    public List<EcoElement> getEcoElements(Principal principal) {
         return ecoElementService.getAllEcoElements();
     }
 

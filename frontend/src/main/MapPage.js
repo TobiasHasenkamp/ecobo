@@ -7,15 +7,16 @@ import {getEcoElements} from "./controller/EcoElementController";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
 import styled from "styled-components/macro";
+import LoginTokenContext from "./contexts/LoginTokenContext";
 
 export default function MapPage() {
 
+    const {token} = useContext(LoginTokenContext);
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
 
     useEffect(() => {
-        getEcoElements().then(setEcoElements);
-    }, [setEcoElements]);
-
+        getEcoElements(token, setEcoElements);
+    }, [token]);
 
     useEffect(() => {
 
@@ -66,6 +67,7 @@ export default function MapPage() {
                     />
 
                     {
+
                         ecoElements?.map((element) => (
 
                                 <Marker key={element.id} position={[element.lon, element.lat]}

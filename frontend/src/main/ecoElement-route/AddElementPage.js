@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import PageHeader from "../PageHeader";
 import getLonAndLatForAddress from "../controller/MapMarkerController";
 import {addEcoElement} from "../controller/EcoElementController";
+import LoginTokenContext from "../contexts/LoginTokenContext";
 
 export default function AddElementPage() {
 
@@ -13,6 +14,7 @@ export default function AddElementPage() {
     const [address, setAddress] = useState("");
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
+    const {token} = useContext(LoginTokenContext);
     let finalLat;
     let finalLon;
 
@@ -30,7 +32,7 @@ export default function AddElementPage() {
         if (finalLon !== undefined && buttonHasBeenClicked) {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
-            addEcoElement(name, category, categorySub, address, finalLat, finalLon);
+            addEcoElement(name, category, categorySub, address, finalLat, finalLon, token);
             history.goBack();
         }
     }, [lonLatOfRequest]);
