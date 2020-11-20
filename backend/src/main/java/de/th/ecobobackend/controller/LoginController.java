@@ -1,6 +1,5 @@
 package de.th.ecobobackend.controller;
 
-
 import de.th.ecobobackend.model.dto.UserLoginDto;
 import de.th.ecobobackend.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auth/login")
@@ -30,12 +28,11 @@ public class LoginController {
         this.jwtUtils = jwtUtils;
     }
 
-
     @PostMapping
-    public String loginMethod(@RequestBody UserLoginDto loginData){
+    public String login(@RequestBody UserLoginDto loginDto){
 
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginData.getUsername(), loginData.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
         try {
             authenticationManager.authenticate(authenticationToken);
@@ -43,8 +40,7 @@ public class LoginController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Username or Password");
         }
 
-        HashMap<String, Object> claims = new HashMap<>(Map.of("role", "admin"));
-        return jwtUtils.createToken(claims, loginData.getUsername());
+        return jwtUtils.createToken(loginDto.getUsername(), new HashMap<>());
 
     }
 

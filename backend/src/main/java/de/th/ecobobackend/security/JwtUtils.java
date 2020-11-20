@@ -1,6 +1,7 @@
 package de.th.ecobobackend.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
-import io.jsonwebtoken.Jwts;
+
 
 @Service
 public class JwtUtils {
@@ -18,7 +19,7 @@ public class JwtUtils {
     @Value("${jwt.secretkey}")
     private String key;
 
-    public String createToken(Map<String, Object> claims, String username){
+    public String createToken(String username, Map<String,Object> claims){
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
@@ -26,6 +27,7 @@ public class JwtUtils {
                 .setExpiration(Date.from(Instant.now().plus(Duration.ofHours(2)))) //expires in 2 Hours
                 .signWith(SignatureAlgorithm.HS512,key) //sign token with algorithm and key
                 .compact();
+
     }
 
     public Claims parseToken(String token){
