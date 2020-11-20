@@ -13,6 +13,7 @@ import "./App.css";
 import UnderConstructionPage from "./main/UnderConstructionPage";
 import IsLoggedInContextProvider from "./main/contexts/IsLoggedInContextProvider";
 import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider";
+import LoadingPage from "./main/LoadingPage";
 
 
 function App() {
@@ -54,6 +55,10 @@ function App() {
               <Route path="/login">
                   <NavBar/>
                   <LoginPage/>
+              </Route>
+              <Route path="/loading">
+                  <NavBar/>
+                  <LoadingPage/>
               </Route>
               <Route path="/404">
                   <NavBar/>

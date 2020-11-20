@@ -31,7 +31,8 @@ export default function AddElementPage() {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
             addEcoElement(name, category, categorySub, address, finalLat, finalLon);
-            history.goBack();
+
+            history.push("/loading");
         }
     }, [lonLatOfRequest]);
 
