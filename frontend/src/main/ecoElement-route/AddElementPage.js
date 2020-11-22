@@ -4,6 +4,7 @@ import PageHeader from "../PageHeader";
 import getLonAndLatForAddress from "../controller/MapMarkerController";
 import {addEcoElement} from "../controller/EcoElementController";
 import LoginTokenContext from "../contexts/LoginTokenContext";
+import styled from "styled-components/macro";
 
 export default function AddElementPage() {
 
@@ -65,40 +66,66 @@ export default function AddElementPage() {
         <div>
             <PageHeader title="Add a new Element"/>
 
-            <form>
+            <StyledForm>
 
-                <label> Name: <input name="name" value={name} onChange={handleChange} type="text"/></label><br/><br/>
-                <label> Category:
-                    <select name="category" value={category} onChange={handleChange}>
-                        <option>FOODSTORE</option>
-                        <option>RESTAURANT</option>
-                        <option>FAIRSHOP</option>
-                    </select>
-                </label><br/><br/>
-                <label> SubCategory:
-                    <select name="categorySub" value={categorySub} onChange={handleChange}>
-                        <option>FOODSTORE_SUPERMARKET</option>
-                        <option>FOODSTORE_NORMAL</option>
-                        <option>FOODSTORE_HEALTHSTORE</option>
-                        <option>FOODSTORE_ZEROWASTESHOP</option>
-                        <option>FOODSTORE_FARMSHOP</option>
-                        <option>RESTAURANT_SNACKBAR</option>
-                        <option>RESTAURANT_CAFE</option>
-                        <option>RESTAURANT_RESTAURANT</option>
-                        <option>RESTAURANT_ICECREAM_CAFE</option>
-                        <option>RESTAURANT_BAKERY</option>
-                        <option>FAIRSHOP_NORMAL</option>
-                        <option>FAIRSHOP_TEMPORARY</option>
-                    </select>
-                </label><br/><br/>
+                <label htmlFor="name"> Name: </label>
+                <input name="name" value={name} onChange={handleChange} type="text"/>
 
-                <label> Address: <input name="address" value={address} onChange={handleChange} /></label><br/><br/>
+                <label htmlFor="category"> Category: </label>
+                <select name="category" value={category} onChange={handleChange}>
+                    <option>FOODSTORE</option>
+                    <option>RESTAURANT</option>
+                    <option>FAIRSHOP</option>
+                </select>
 
-                <button onClick={handleButtonClick}>Add new Element</button>
+                <label htmlFor="categorySub"> Sub:</label>
+                <select name="categorySub" value={categorySub} onChange={handleChange}>
+                    <option>FOODSTORE_SUPERMARKET</option>
+                    <option>FOODSTORE_NORMAL</option>
+                    <option>FOODSTORE_HEALTHSTORE</option>
+                    <option>FOODSTORE_ZEROWASTESHOP</option>
+                    <option>FOODSTORE_FARMSHOP</option>
+                    <option>RESTAURANT_SNACKBAR</option>
+                    <option>RESTAURANT_CAFE</option>
+                    <option>RESTAURANT_RESTAURANT</option>
+                    <option>RESTAURANT_ICECREAM_CAFE</option>
+                    <option>RESTAURANT_BAKERY</option>
+                    <option>FAIRSHOP_NORMAL</option>
+                    <option>FAIRSHOP_TEMPORARY</option>
+                </select>
 
-            </form>
+                <label htmlFor="address"> Address:</label>
+                <input name="address" value={address} onChange={handleChange} />
+
+                <div>
+                    <button onClick={handleButtonClick}>Add new Element</button>
+                </div>
+
+            </StyledForm>
         </div>
 
     )
 
 }
+
+
+const StyledForm = styled.form`
+  margin: 24px;
+  display: grid;
+  grid-template-rows: min-content min-content min-content min-content min-content;
+  grid-template-columns: min-content auto;
+  grid-gap: 15px 5px;
+  
+  label{
+    font-weight: bold;
+    padding: 5px;
+  }
+  
+  div {
+    grid-column: span 2;
+  }
+  
+
+ 
+
+`
