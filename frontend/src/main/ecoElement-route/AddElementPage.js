@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import PageHeader from "../PageHeader";
 import getLonAndLatForAddress from "../controller/MapMarkerController";
 import {addEcoElement} from "../controller/EcoElementController";
+import LoginTokenContext from "../contexts/LoginTokenContext";
+import styled from "styled-components/macro";
 
 export default function AddElementPage() {
 
@@ -13,12 +15,11 @@ export default function AddElementPage() {
     const [address, setAddress] = useState("");
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
-    let finalLat;
-    let finalLon;
-
+    const {token} = useContext(LoginTokenContext);
 
     useEffect(() => {
-
+        let finalLat;
+        let finalLon;
         let p = lonLatOfRequest[0];
         for (let key in p) {
             if (p.hasOwnProperty(key) && key === "lat") {
@@ -30,10 +31,12 @@ export default function AddElementPage() {
         if (finalLon !== undefined && buttonHasBeenClicked) {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
-            addEcoElement(name, category, categorySub, address, finalLat, finalLon);
-
+            addEcoElement(name, category, categorySub, address, finalLat, finalLon, token);
             history.push("/loading");
         }
+
+        // this error is wrong, adding other dependencies here will completely change the data flow on this side
+        // eslint-disable-next-line
     }, [lonLatOfRequest]);
 
 
@@ -64,40 +67,66 @@ export default function AddElementPage() {
         <div>
             <PageHeader title="Add a new Element"/>
 
-            <form>
+            <StyledForm>
 
-                <label> Name: <input name="name" value={name} onChange={handleChange} type="text"/></label><br/><br/>
-                <label> Category:
-                    <select name="category" value={category} onChange={handleChange}>
-                        <option>FOODSTORE</option>
-                        <option>RESTAURANT</option>
-                        <option>FAIRSHOP</option>
-                    </select>
-                </label><br/><br/>
-                <label> SubCategory:
-                    <select name="categorySub" value={categorySub} onChange={handleChange}>
-                        <option>FOODSTORE_SUPERMARKET</option>
-                        <option>FOODSTORE_NORMAL</option>
-                        <option>FOODSTORE_HEALTHSTORE</option>
-                        <option>FOODSTORE_ZEROWASTESHOP</option>
-                        <option>FOODSTORE_FARMSHOP</option>
-                        <option>RESTAURANT_SNACKBAR</option>
-                        <option>RESTAURANT_CAFE</option>
-                        <option>RESTAURANT_RESTAURANT</option>
-                        <option>RESTAURANT_ICECREAM_CAFE</option>
-                        <option>RESTAURANT_BAKERY</option>
-                        <option>FAIRSHOP_NORMAL</option>
-                        <option>FAIRSHOP_TEMPORARY</option>
-                    </select>
-                </label><br/><br/>
+                <label htmlFor="name"> Name: </label>
+                <input name="name" value={name} onChange={handleChange} type="text"/>
 
-                <label> Address: <input name="address" value={address} onChange={handleChange} /></label><br/><br/>
+                <label htmlFor="category"> Category: </label>
+                <select name="category" value={category} onChange={handleChange}>
+                    <option>FOODSTORE</option>
+                    <option>RESTAURANT</option>
+                    <option>FAIRSHOP</option>
+                </select>
 
-                <button onClick={handleButtonClick}>Add new Element</button>
+                <label htmlFor="categorySub"> Sub:</label>
+                <select name="categorySub" value={categorySub} onChange={handleChange}>
+                    <option>FOODSTORE_SUPERMARKET</option>
+                    <option>FOODSTORE_NORMAL</option>
+                    <option>FOODSTORE_HEALTHSTORE</option>
+                    <option>FOODSTORE_ZEROWASTESHOP</option>
+                    <option>FOODSTORE_FARMSHOP</option>
+                    <option>RESTAURANT_SNACKBAR</option>
+                    <option>RESTAURANT_CAFE</option>
+                    <option>RESTAURANT_RESTAURANT</option>
+                    <option>RESTAURANT_ICECREAM_CAFE</option>
+                    <option>RESTAURANT_BAKERY</option>
+                    <option>FAIRSHOP_NORMAL</option>
+                    <option>FAIRSHOP_TEMPORARY</option>
+                </select>
 
-            </form>
+                <label htmlFor="address"> Address:</label>
+                <input name="address" value={address} onChange={handleChange} />
+
+                <div>
+                    <button onClick={handleButtonClick}>Add new Element</button>
+                </div>
+
+            </StyledForm>
         </div>
 
     )
 
 }
+
+
+const StyledForm = styled.form`
+  margin: 24px;
+  display: grid;
+  grid-template-rows: min-content min-content min-content min-content min-content;
+  grid-template-columns: min-content auto;
+  grid-gap: 15px 5px;
+  
+  label{
+    font-weight: bold;
+    padding: 5px;
+  }
+  
+  div {
+    grid-column: span 2;
+  }
+  
+
+ 
+
+`

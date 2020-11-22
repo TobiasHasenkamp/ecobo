@@ -9,15 +9,17 @@ import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
+import LoginTokenContext from "./contexts/LoginTokenContext";
 
 export default function ListPage() {
 
     const history = useHistory();
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
+    const {token} = useContext(LoginTokenContext);
 
     useEffect(() => {
-        getEcoElements().then(setEcoElements);
-    }, []);
+        getEcoElements(token, setEcoElements);
+    }, [token, setEcoElements]);
 
 
     function handleEditElement() {

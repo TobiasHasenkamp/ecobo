@@ -6,8 +6,10 @@ export default function GreenBoxWithGradientBorderlineUntilSiteEnds () {
     return (
 
         <>
-            <StyledDarkGreenGradientLineTop/>
-            <StyledDarkGreenBox/>
+            <StyledDiv>
+                <StyledDarkGreenGradientLineTop/>
+                <StyledDarkGreenBox/>
+            </StyledDiv>
         </>
 
     );
@@ -15,14 +17,20 @@ export default function GreenBoxWithGradientBorderlineUntilSiteEnds () {
 }
 
 const StyledDarkGreenBox = styled.div`
-  display: block;
   width: 100%;
   background-color: var(--darkgreen);
-  height: 450px;
+  min-height: 250px;
+  max-height: 250px;
+`
+
+const StyledDiv = styled.div`
+  width: 100%;
+  background-color: var(--darkgreen);
+  min-height: 250px;
+  max-height: 350px;
 `
 
 const StyledDarkGreenGradientLineTop = styled.div`
-  display: block;
   width: 100%;
   height: 5px;
   background-image: linear-gradient(ghostwhite, var(--grey));
