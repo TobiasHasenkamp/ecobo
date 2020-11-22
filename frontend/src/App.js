@@ -15,13 +15,14 @@ import IsLoggedInContextProvider from "./main/contexts/IsLoggedInContextProvider
 import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider";
 import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider";
 import styled from "styled-components/macro";
+import LoadingPage from "./main/LoadingPage";
 
 
 function App() {
 
   return (
 
-      <LoginTokenContextProvider><IsLoggedInContextProvider> <EcoElementContextProvider>
+      <LoginTokenContextProvider> <IsLoggedInContextProvider> <EcoElementContextProvider>
 
           <StyledPageLayout>
               <Switch>
@@ -58,6 +59,10 @@ function App() {
                       <NavBar/>
                       <LoginPage/>
                   </Route>
+                  <Route path="/loading">
+                      <NavBar/>
+                      <LoadingPage/>
+                  </Route>
                   <Route path="/404">
                       <NavBar/>
                       <UnderConstructionPage/>
@@ -70,7 +75,7 @@ function App() {
 
         </StyledPageLayout>
 
-      </EcoElementContextProvider> </IsLoggedInContextProvider></LoginTokenContextProvider>
+      </EcoElementContextProvider> </IsLoggedInContextProvider> </LoginTokenContextProvider>
 
   );
 }

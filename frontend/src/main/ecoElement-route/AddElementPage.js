@@ -32,7 +32,7 @@ export default function AddElementPage() {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
             addEcoElement(name, category, categorySub, address, finalLat, finalLon, token);
-            history.goBack();
+            history.push("/loading");
         }
 
         // this error is wrong, adding other dependencies here will completely change the data flow on this side
