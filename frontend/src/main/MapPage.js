@@ -8,6 +8,7 @@ import AddItemButton from "./designElements/buttons/AddItemButton";
 import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
 import styled from "styled-components/macro";
 import LoginTokenContext from "./contexts/LoginTokenContext";
+import 'leaflet/dist/leaflet.css';
 
 export default function MapPage() {
 
@@ -20,14 +21,7 @@ export default function MapPage() {
 
     useEffect(() => {
 
-        //Add the leaflet css stylesheet to the pages head
-        const leafletCSSStylesheet = document.createElement("link");
-        document.head.append(leafletCSSStylesheet);
-        leafletCSSStylesheet.setAttribute("rel", "stylesheet");
-        leafletCSSStylesheet.setAttribute("href", "https://unpkg.com/leaflet@1.7.1/dist/leaflet.css");
-        leafletCSSStylesheet.setAttribute("integrity",
-            "sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==");
-        leafletCSSStylesheet.setAttribute("crossorigin", "");
+
 
         //Add the leaflet javascript file to the pages head
         const leafletJSFile = document.createElement("script");
@@ -50,51 +44,58 @@ export default function MapPage() {
 
             <TabBarWithOneLink text="Show as List" link="/bo/list"/>
 
-            <StyledMapContainer>
-                <MapContainer
-                              center={[51.4841, 7.2200]}
-                              zoom={13}
-                              minZoom={10}
-                              //topleft, bottomleft, bottomright, topright
-                              maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
-                              scrollWheelZoom={true}
-                              wheelDebounceTime={15}
-                              style={{minHeight: "65vh"}}
-                >
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
+            <StyledContentDiv>
 
-                    {
+                    <MapContainer
+                                  center={[51.4841, 7.2200]}
+                                  zoom={13}
+                                  minZoom={10}
+                                  //topleft, bottomleft, bottomright, topright
+                                  maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
+                                  scrollWheelZoom={true}
+                                  wheelDebounceTime={15}
+                                  style={{height: "100%"}}
+                    >
+                        <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
 
-                        ecoElements?.map((element) => (
+                        {
 
-                                <Marker key={element.id} position={[element.lon, element.lat]}
-                                        title={element.name}>
-                                    <Popup>
-                                        {element.name} <br/> {element.category} / {element.categorySub} / {element.address}
-                                    </Popup>
-                                </Marker>
-                        ))
-                    }
+                            ecoElements?.map((element) => (
+
+                                    <Marker key={element.id} position={[element.lon, element.lat]}
+                                            title={element.name}>
+                                        <Popup>
+                                            {element.name} <br/> {element.category} / {element.categorySub} / {element.address}
+                                        </Popup>
+                                    </Marker>
+                            ))
+                        }
 
 
 
-                </MapContainer>
-            </StyledMapContainer>
+                    </MapContainer>
+
+                <GreenBoxWithGradientBorderlineUntilSiteEnds/>
+
+
+
+            </StyledContentDiv>
 
             <AddItemButton/>
-
-            <GreenBoxWithGradientBorderlineUntilSiteEnds/>
-
         </>
 
     );
 }
 
 
-const StyledMapContainer = styled.div`
-  height: 50vh;
-  //overflow: hidden;
+
+const StyledContentDiv = styled.div`
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-rows: 1fr auto;
+  grid-gap: 0;
 `
