@@ -16,12 +16,10 @@ export default function AddElementPage() {
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
     const {token} = useContext(LoginTokenContext);
-    let finalLat;
-    let finalLon;
-
 
     useEffect(() => {
-
+        let finalLat;
+        let finalLon;
         let p = lonLatOfRequest[0];
         for (let key in p) {
             if (p.hasOwnProperty(key) && key === "lat") {
@@ -36,6 +34,9 @@ export default function AddElementPage() {
             addEcoElement(name, category, categorySub, address, finalLat, finalLon, token);
             history.goBack();
         }
+
+        // this error is wrong, adding other dependencies here will completely change the data flow on this side
+        // eslint-disable-next-line
     }, [lonLatOfRequest]);
 
 

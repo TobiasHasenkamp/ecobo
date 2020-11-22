@@ -9,6 +9,20 @@ import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
 import styled from "styled-components/macro";
 import LoginTokenContext from "./contexts/LoginTokenContext";
 import 'leaflet/dist/leaflet.css';
+import 'leaflet/dist/leaflet.js';
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+
+//to fix the "image not found"-bugs that occur when reloading the page
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+});
+L.Marker.prototype.options.icon = DefaultIcon;
+
+
 
 export default function MapPage() {
 
@@ -17,24 +31,7 @@ export default function MapPage() {
 
     useEffect(() => {
         getEcoElements(token, setEcoElements);
-    }, [token]);
-
-    useEffect(() => {
-
-
-
-        //Add the leaflet javascript file to the pages head
-        const leafletJSFile = document.createElement("script");
-        document.head.append(leafletJSFile);
-        leafletJSFile.setAttribute("src", "https://unpkg.com/leaflet@1.7.1/dist/leaflet.js");
-        leafletJSFile.setAttribute("integrity",
-            "sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==");
-        leafletJSFile.setAttribute("crossorigin", "");
-
-        //the crossOrigin doesn't work as intended the way it is implemented right now. it should render to 'crossorigin=""' but renders to 'crossorigin' inside
-        //both the leafletJSFile and the leafletCSSStyleSheet in the head of the page. This seems to cause no problems right now, but maybe later?
-
-    }, []);
+    }, [token, setEcoElements]);
 
 
     return(

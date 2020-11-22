@@ -19,7 +19,7 @@ export default function ListPage() {
 
     useEffect(() => {
         getEcoElements(token, setEcoElements);
-    }, [token]);
+    }, [token, setEcoElements]);
 
 
     function handleEditElement() {

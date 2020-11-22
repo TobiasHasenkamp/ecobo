@@ -17,5 +17,7 @@ export const getEcoElements = (token, setEcoElements) => {
 
 export const addEcoElement = (name, category, categorySub, address, lon, lat, token, setEcoElements) => {
     axios.post("/api/elements", {name, category, categorySub, address, lat, lon}, header(token))
-        .then(response => response.data)
-        .then((data) => setEcoElements(data))};
+        .then((response) => response.data)
+        .then(setEcoElements);
+
+};

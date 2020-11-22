@@ -27,12 +27,10 @@ export default function LoginPage() {
 
     function handleUsernameChange(event) {
         setUsername(event.target.value)
-        console.log(username);
     }
 
     function handlePasswordChange(event) {
         setPassword(event.target.value)
-        console.log(password);
     }
 
     return(
