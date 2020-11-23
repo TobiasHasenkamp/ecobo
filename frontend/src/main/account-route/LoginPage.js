@@ -5,13 +5,12 @@ import IsLoggedInContext from "../contexts/IsLoggedInContext";
 import {useHistory} from "react-router-dom";
 import {LoginRequest} from "../controller/LoginController";
 import LoginTokenContext from "../contexts/LoginTokenContext";
-import TokenValidation from "./methods/tokenValidation";
 
 export default function LoginPage() {
 
     const history = useHistory();
     const {switchLoginStatus} = useContext(IsLoggedInContext);
-    const {token, setToken, username, setUsername, password, setPassword} = useContext(LoginTokenContext);
+    const {setToken, setUsername, setPassword} = useContext(LoginTokenContext);
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [error, setError] = useState("");
@@ -22,13 +21,11 @@ export default function LoginPage() {
         setUsername(loginUsername);
         setPassword(loginPassword);
 
-        if (TokenValidation(token, setToken, username, setUsername, password, setPassword)){
-            LoginRequest(loginUsername, loginPassword)
-                    .then((data) => setToken(data))
-                    .then(() => switchLoginStatus(true))
-                    .then(() => history.push("/home"))
-                    .catch(() => setError("Unknown username or password"));
-        }
+        LoginRequest(loginUsername, loginPassword)
+            .then((data) => setToken(data))
+            .then(() => switchLoginStatus(true))
+            .then(() => history.push("/home"))
+            .catch(() => setError("Unknown username or password"));
     }
 
 

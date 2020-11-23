@@ -22,7 +22,6 @@ export default function tokenValidation(token, setToken, username, setUsername, 
 
         }
 
-        console.log("2");
         return true;
 
 }

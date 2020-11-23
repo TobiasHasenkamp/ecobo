@@ -4,12 +4,13 @@ import jwtDecode from "jwt-decode";
 import {useEffect} from "react";
 import loadTokenFromLocalStorage from "../account-route/methods/loadTokenFromLocalStorage";
 import getUsernameFromTokenFromLocalStorage from "../account-route/methods/getUsernameFromTokenFromLocalStorage";
+import getPasswordFromTokenFromLocalStorage from "../account-route/methods/getPasswordFromTokenFromLocalStorage";
 
 export default function LoginTokenContextProvider({children}){
 
     const [token, setToken] = useState(loadTokenFromLocalStorage());
     const [username, setUsername] = useState(getUsernameFromTokenFromLocalStorage);
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState(getPasswordFromTokenFromLocalStorage);
 
     useEffect(() => {
         if (token) {
