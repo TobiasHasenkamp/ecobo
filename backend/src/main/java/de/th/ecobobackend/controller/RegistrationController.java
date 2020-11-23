@@ -29,9 +29,6 @@ public class RegistrationController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String passwordToRegisterEncoded = encoder.encode(loginDto.getPassword());
 
-        System.out.println(usernameToRegister);
-        System.out.println(passwordToRegister);
-
         //check if the passwords is safe enough
         //first general tests
         if (passwordToRegister.length() < 2 || passwordToRegister.isBlank()) {

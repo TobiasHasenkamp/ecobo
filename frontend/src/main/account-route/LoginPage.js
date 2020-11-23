@@ -50,7 +50,6 @@ export default function LoginPage() {
 
     function handleRegistration(event){
         event.preventDefault();
-        console.log("Registration triggered");
 
         //test if the entered usernames match each other
         if (registrationPassword1 !== registrationPassword2){
