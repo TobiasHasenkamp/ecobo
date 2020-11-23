@@ -8,7 +8,7 @@ export default function ProgressBar({percentCompleted}) {
         width: '75%',
         backgroundColor: "#e0e0de",
         borderRadius: 50,
-        margin: 50
+        margin: 30
     }
 
     const completedPercentStyle = {
@@ -26,14 +26,10 @@ export default function ProgressBar({percentCompleted}) {
         fontWeight: 'bold'
     }
 
-    const percentCompletedFloor = Math.floor(percentCompleted);
-
     return(
         <div style={progressBarStyle}>
             <div style={completedPercentStyle}>
-                <span style={labelStyle}>
-                    {`${percentCompletedFloor}%`}
-                </span>
+                <span style={labelStyle}/>
             </div>
 
         </div>
