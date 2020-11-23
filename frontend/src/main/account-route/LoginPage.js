@@ -43,19 +43,17 @@ export default function LoginPage() {
             <PageHeader title="Login"/>
 
             <StyledLoginPageContent>
-                <p>Login page</p>
 
-                <form onSubmit={handleLogin}>
-                    <label>Username <input type="text" name="username"
-                                           value={loginUsername} onChange={handleUsernameChange}/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <label>Password <input type="password" name="password"
-                                           value={loginPassword} onChange={handlePasswordChange}/>
-                    </label>
-                    <StyledLoginButton/>
-                </form>
+                <StyledForm onSubmit={handleLogin}>
+                    <label htmlFor="username">Username </label>
+                    <input type="text" name="username" value={loginUsername} onChange={handleUsernameChange}/>
+                    <label htmlFor="password">Password </label>
+                    <input type="password" name="password" value={loginPassword} onChange={handlePasswordChange}/>
+
+                    <div>
+                        <button onClick={handleLogin}>Login</button>
+                    </div>
+                </StyledForm>
 
                 <br/>
                 <p>{error}</p>
@@ -72,20 +70,19 @@ const StyledLoginPageContent = styled.div`
   margin: 10px;
 `
 
-const StyledLoginButton = styled.button`
-  position: fixed;
-  bottom: 5vh;
-  right: 5vh;
-  min-width: 30%;
-  background-color: var(--grey);
-  border: none;
-  border-radius: 8%;
-  color: var(--darkgrey);
-  padding: 7px 10px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.1em;
-  font-weight: bolder;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  margin-right: 8px;
+const StyledForm = styled.form`
+  margin: 24px;
+  display: grid;
+  grid-template-rows: min-content min-content  min-content;
+  grid-template-columns: min-content auto;
+  grid-gap: 15px 5px;
+  
+  label{
+    font-weight: bold;
+    padding: 5px;
+  }
+  
+  div {
+    grid-column: span 2;
+  }
 `
