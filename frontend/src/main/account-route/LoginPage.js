@@ -10,12 +10,18 @@ export default function LoginPage() {
 
     const history = useHistory();
     const {switchLoginStatus} = useContext(IsLoggedInContext);
-    const {username, setUsername, password, setPassword, setToken} = useContext(LoginTokenContext);
+    const {setUsername, setPassword, setToken} = useContext(LoginTokenContext);
+    const [loginUsername, setLoginUsername] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
     const [error, setError] = useState("");
 
     function handleLogin(event) {
         event.preventDefault();
-        LoginRequest(username, password)
+
+        setUsername(loginUsername);
+        setPassword(loginPassword);
+
+        LoginRequest(loginUsername, loginPassword)
                 .then((data) => setToken(data))
                 .then(() => switchLoginStatus(true))
                 .then(() => history.push("/home"))
@@ -24,11 +30,11 @@ export default function LoginPage() {
 
 
     function handleUsernameChange(event) {
-        setUsername(event.target.value)
+        setLoginUsername(event.target.value)
     }
 
     function handlePasswordChange(event) {
-        setPassword(event.target.value)
+        setLoginPassword(event.target.value)
     }
 
     return(
@@ -41,12 +47,12 @@ export default function LoginPage() {
 
                 <form onSubmit={handleLogin}>
                     <label>Username <input type="text" name="username"
-                                           value={username} onChange={handleUsernameChange}/>
+                                           value={loginUsername} onChange={handleUsernameChange}/>
                     </label>
                     <br/>
                     <br/>
                     <label>Password <input type="password" name="password"
-                                           value={password} onChange={handlePasswordChange}/>
+                                           value={loginPassword} onChange={handlePasswordChange}/>
                     </label>
                     <StyledLoginButton/>
                 </form>

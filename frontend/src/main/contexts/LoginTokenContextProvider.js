@@ -6,8 +6,8 @@ import {useEffect} from "react";
 export default function LoginTokenContextProvider({children}){
 
     const [token, setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState(jwtDecode(localStorage.getItem("ACCESS_TOKEN")).username);
+    const [password, setPassword] = useState(jwtDecode(localStorage.getItem("ACCESS_TOKEN")).password);
 
     useEffect(() => {
         if (token) {
