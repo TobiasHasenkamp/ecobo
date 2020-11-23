@@ -22,15 +22,13 @@ export default function LoginPage() {
 
 
     useEffect(() => {
-
         if (errorRegistration === "Registration successful."){
             LoginRequest(registrationUsername, registrationPassword1)
                 .then((data) => setToken(data))
                 .then(() => switchLoginStatus(true))
-                .then(() => history.push("/home"))
+                .then(() => history.push("/loading"))
                 .catch(() => setErrorLogin("Unknown username or password"));
         }
-
         // this error is wrong, adding other dependencies here will completely change the data flow on this side
         // eslint-disable-next-line
     }, [errorRegistration, history])
@@ -58,9 +56,10 @@ export default function LoginPage() {
         if (registrationPassword1 !== registrationPassword2){
             setErrorRegistration("Passwords don't match.")
         }
-
-        RegistrationRequest(registrationUsername, registrationPassword1)
-            .then((data) => setErrorRegistration(data));
+        else {
+            RegistrationRequest(registrationUsername, registrationPassword1)
+                .then((data) => setErrorRegistration(data));
+        }
     }
 
 
