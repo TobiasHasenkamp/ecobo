@@ -27,6 +27,8 @@ export default function LoadingPage() {
             clearInterval(interval);
         }
 
+        // this error is wrong, adding other dependencies here will completely change the data flow on this side
+        // eslint-disable-next-line
     }, [percentCompleted]);
 
 
