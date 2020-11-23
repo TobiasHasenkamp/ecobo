@@ -24,9 +24,10 @@ public class RegistrationController {
     public String registration(@RequestBody UserLoginDto loginDto) {
 
         String usernameToRegister = loginDto.getUsername();
+        String passwordToRegister = loginDto.getPassword();
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String passwordToRegister = encoder.encode(loginDto.getPassword());
+        String passwordToRegisterEncoded = encoder.encode(loginDto.getPassword());
 
         System.out.println(usernameToRegister);
         System.out.println(passwordToRegister);
@@ -53,7 +54,7 @@ public class RegistrationController {
         if (!userProfileService.isUsernameOccupied(usernameToRegister)) {
             try {
                 //add the username
-                userProfileService.registerNewUser(loginDto, passwordToRegister);
+                userProfileService.registerNewUser(loginDto, passwordToRegisterEncoded);
                 return "Registration successful.";
             } catch (Exception e) {
                 return "Registration not possible. Please try later.";

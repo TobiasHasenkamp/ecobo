@@ -1,12 +1,11 @@
 import PageHeader from "../PageHeader";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import IsLoggedInContext from "../contexts/IsLoggedInContext";
 import {useHistory} from "react-router-dom";
-import {LoginRequest} from "../services/LoginService";
+import {LoginRequest, RegistrationRequest} from "../services/LoginService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
-import GreenBoxSmall from "../designElements/GreenBoxSmall";
 
 export default function LoginPage() {
 
@@ -20,6 +19,22 @@ export default function LoginPage() {
     const [registrationPassword2, setRegistrationPassword2] = useState("");
     const [errorLogin, setErrorLogin] = useState("");
     const [errorRegistration, setErrorRegistration] = useState("");
+
+
+    useEffect(() => {
+
+        if (errorRegistration === "Registration successful."){
+            LoginRequest(registrationUsername, registrationPassword1)
+                .then((data) => setToken(data))
+                .then(() => switchLoginStatus(true))
+                .then(() => history.push("/home"))
+                .catch(() => setErrorLogin("Unknown username or password"));
+        }
+
+        // this error is wrong, adding other dependencies here will completely change the data flow on this side
+        // eslint-disable-next-line
+    }, [errorRegistration, history])
+
 
     function handleLogin(event){
         event.preventDefault();
@@ -38,6 +53,14 @@ export default function LoginPage() {
     function handleRegistration(event){
         event.preventDefault();
         console.log("Registration triggered");
+
+        //test if the entered usernames match each other
+        if (registrationPassword1 !== registrationPassword2){
+            setErrorRegistration("Passwords don't match.")
+        }
+
+        RegistrationRequest(registrationUsername, registrationPassword1)
+            .then((data) => setErrorRegistration(data));
     }
 
 
@@ -79,16 +102,13 @@ export default function LoginPage() {
                     </div>
                 </StyledForm>
 
-                <br/>
-                <p>{errorRegistration}</p>
+                <p>{errorLogin}</p>
 
             </StyledLoginPageContent>
 
             <br/>
 
-            <GreenBoxSmall/>
             <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map"/>
-            <br/>
 
             <StyledLoginPageContent>
 
