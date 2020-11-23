@@ -2,9 +2,14 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 
+html {
+  height: 100%;
+}
+
 body {
     font-family: "Lucida Grande";
     margin: 0;
+    height: 100%;
     
     a {
       color: var(--white);
