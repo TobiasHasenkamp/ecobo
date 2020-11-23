@@ -3,7 +3,7 @@ import React, {useEffect, useContext} from "react";
 import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom"
 import EcoElementContext from "./contexts/EcoElementContext";
-import {getEcoElements} from "./controller/EcoElementController";
+import {getEcoElements} from "./services/EcoElementService";
 import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";

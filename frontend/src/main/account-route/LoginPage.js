@@ -3,7 +3,7 @@ import React, {useContext, useState} from "react";
 import styled from "styled-components/macro";
 import IsLoggedInContext from "../contexts/IsLoggedInContext";
 import {useHistory} from "react-router-dom";
-import {LoginRequest} from "../controller/LoginController";
+import {LoginRequest} from "../services/LoginService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 
 export default function LoginPage() {
