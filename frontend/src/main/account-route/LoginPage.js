@@ -5,6 +5,8 @@ import IsLoggedInContext from "../contexts/IsLoggedInContext";
 import {useHistory} from "react-router-dom";
 import {LoginRequest} from "../services/LoginService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
+import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
+import GreenBoxSmall from "../designElements/GreenBoxSmall";
 
 export default function LoginPage() {
 
@@ -13,9 +15,12 @@ export default function LoginPage() {
     const {setToken, setUsername, setPassword} = useContext(LoginTokenContext);
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+    const [registrationUsername, setRegistrationUsername] = useState("");
+    const [registrationPassword1, setRegistrationPassword1] = useState("");
+    const [registrationPassword2, setRegistrationPassword2] = useState("");
     const [error, setError] = useState("");
 
-    function handleLogin(event) {
+    function handleLogin(event){
         event.preventDefault();
 
         setUsername(loginUsername);
@@ -29,12 +34,30 @@ export default function LoginPage() {
     }
 
 
-    function handleUsernameChange(event) {
+    function handleRegistration(event){
+        event.preventDefault();
+        console.log("Registration triggered");
+    }
+
+
+    function handleUsernameChangeLogin(event) {
         setLoginUsername(event.target.value)
     }
 
-    function handlePasswordChange(event) {
+    function handlePasswordChangeLogin(event) {
         setLoginPassword(event.target.value)
+    }
+
+    function handleUsernameChangeRegistration(event) {
+        setRegistrationUsername(event.target.value)
+    }
+
+    function handlePasswordChange1Registration(event) {
+        setRegistrationPassword1(event.target.value)
+    }
+
+    function handlePasswordChange2Registration(event) {
+        setRegistrationPassword2(event.target.value)
     }
 
     return(
@@ -46,12 +69,32 @@ export default function LoginPage() {
 
                 <StyledForm onSubmit={handleLogin}>
                     <label htmlFor="username">Username </label>
-                    <input type="text" name="username" value={loginUsername} onChange={handleUsernameChange}/>
-                    <label htmlFor="password">Password </label>
-                    <input type="password" name="password" value={loginPassword} onChange={handlePasswordChange}/>
+                    <input type="text" name="username" value={loginUsername} onChange={handleUsernameChangeLogin}/>
+                    <label htmlFor="password">Passwort </label>
+                    <input type="password" name="password" value={loginPassword} onChange={handlePasswordChangeLogin}/>
 
                     <div>
                         <button onClick={handleLogin}>Login</button>
+                    </div>
+                </StyledForm>
+
+                <br/> <br/>
+
+                <GreenBoxSmall/>
+                <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map"/>
+                <br/>
+                <div> <strong>Registrierung</strong></div>
+
+                <StyledForm onSubmit={handleRegistration}>
+                    <label htmlFor="usernameNew">Username </label>
+                    <input type="text" name="usernameNew" value={registrationUsername} onChange={handleUsernameChangeRegistration}/>
+                    <label htmlFor="passwordNew1">Passwort </label>
+                    <input type="password" name="passwordNew1" value={registrationPassword1} onChange={handlePasswordChange1Registration}/>
+                    <label htmlFor="passwordNew2">Passwort wiederholen</label>
+                    <input type="password" name="passwordNew2" value={registrationPassword2} onChange={handlePasswordChange2Registration}/>
+
+                    <div>
+                        <button>Registration</button>
                     </div>
                 </StyledForm>
 
