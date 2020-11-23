@@ -8,10 +8,12 @@ import {useHistory} from "react-router-dom";
 import IsLoggedInContext from "../contexts/IsLoggedInContext";
 import EditIconButton from "../designElements/buttons/EditIconButton";
 import DeleteIconButton from "../designElements/buttons/DeleteIconButton";
+import LoginTokenContext from "../contexts/LoginTokenContext";
 
 export default function AccountPage() {
 
     const {switchLoginStatus} = useContext(IsLoggedInContext);
+    const {setToken, setUsername, setPassword} = useContext(LoginTokenContext);
     const history = useHistory();
 
 
@@ -24,6 +26,10 @@ export default function AccountPage() {
     }
 
     function handleLogoutButton() {
+        setToken("");
+        setUsername("");
+        setPassword("");
+        localStorage.clear();
         switchLoginStatus(false);
         history.push("/home");
     }

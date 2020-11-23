@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const LoginRequest = (username, password) => {
-        const loginData = {username: username, password: password};
+export const LoginRequest = (loginUsername, loginPassword) => {
+        const loginData = {username: loginUsername, password: loginPassword};
         return axios.post("/auth/login", loginData).then((response) => response.data);
     }
 

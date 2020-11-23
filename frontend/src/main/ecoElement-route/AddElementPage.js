@@ -5,6 +5,7 @@ import getLonAndLatForAddress from "../controller/MapMarkerController";
 import {addEcoElement} from "../controller/EcoElementController";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import styled from "styled-components/macro";
+import tokenValidation from "../account-route/methods/tokenValidation";
 
 export default function AddElementPage() {
 
@@ -59,7 +60,12 @@ export default function AddElementPage() {
     function handleButtonClick(event){
         event.preventDefault();
         setButtonHasBeenClicked(true);
-        getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest);
+        if (tokenValidation()){
+            getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest);
+        }
+        else {
+            console.log("Please login.")
+        }
     }
 
     return (
