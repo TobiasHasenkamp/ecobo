@@ -18,7 +18,8 @@ export default function LoginPage() {
     const [registrationUsername, setRegistrationUsername] = useState("");
     const [registrationPassword1, setRegistrationPassword1] = useState("");
     const [registrationPassword2, setRegistrationPassword2] = useState("");
-    const [error, setError] = useState("");
+    const [errorLogin, setErrorLogin] = useState("");
+    const [errorRegistration, setErrorRegistration] = useState("");
 
     function handleLogin(event){
         event.preventDefault();
@@ -30,7 +31,7 @@ export default function LoginPage() {
             .then((data) => setToken(data))
             .then(() => switchLoginStatus(true))
             .then(() => history.push("/home"))
-            .catch(() => setError("Unknown username or password"));
+            .catch(() => setErrorLogin("Unknown username or password"));
     }
 
 
@@ -78,12 +79,18 @@ export default function LoginPage() {
                     </div>
                 </StyledForm>
 
-                <br/> <br/>
-
-                <GreenBoxSmall/>
-                <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map"/>
                 <br/>
-                <div> <strong>Registrierung</strong></div>
+                <p>{errorRegistration}</p>
+
+            </StyledLoginPageContent>
+
+            <br/>
+
+            <GreenBoxSmall/>
+            <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map"/>
+            <br/>
+
+            <StyledLoginPageContent>
 
                 <StyledForm onSubmit={handleRegistration}>
                     <label htmlFor="usernameNew">Username </label>
@@ -99,7 +106,7 @@ export default function LoginPage() {
                 </StyledForm>
 
                 <br/>
-                <p>{error}</p>
+                <p>{errorRegistration}</p>
 
             </StyledLoginPageContent>
 
@@ -110,19 +117,19 @@ export default function LoginPage() {
 
 
 const StyledLoginPageContent = styled.div`
-  margin: 10px;
+  margin: 8px;
 `
 
 const StyledForm = styled.form`
-  margin: 24px;
+  margin: 15px;
   display: grid;
   grid-template-rows: min-content min-content  min-content;
   grid-template-columns: min-content auto;
-  grid-gap: 15px 5px;
+  grid-gap: 20px 5px;
   
   label{
     font-weight: bold;
-    padding: 5px;
+    padding: 6px 8px;
   }
   
   div {
