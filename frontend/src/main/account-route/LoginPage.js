@@ -29,7 +29,7 @@ export default function LoginPage() {
                 .then(() => history.push("/loading"))
                 .catch(() => setErrorLogin("Unknown username or password"));
         }
-        // this error is wrong, adding other dependencies here will completely change the data flow on this side
+        // this error is wrong, adding other dependencies here will completely change the data flow on this page
         // eslint-disable-next-line
     }, [errorRegistration, history])
 
