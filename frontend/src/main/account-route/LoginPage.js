@@ -10,10 +10,8 @@ export default function LoginPage() {
 
     const history = useHistory();
     const {switchLoginStatus} = useContext(IsLoggedInContext);
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const {username, setUsername, password, setPassword, setToken} = useContext(LoginTokenContext);
     const [error, setError] = useState("");
-    const {setToken} = useContext(LoginTokenContext);
 
     function handleLogin(event) {
         event.preventDefault();
