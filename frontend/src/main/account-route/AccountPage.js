@@ -50,12 +50,12 @@ export default function AccountPage() {
                 <StyledLeftBar>
                     <div/>
                         <StyledPhotoSection>
-                            <StyledUserPhoto src="/profilePics/tobiashasenkamp.png"/>
+                            <StyledUserPhoto src="/profilePics/placeholder.webp"/>
                             <StyledEditPictureButton>Edit Picture</StyledEditPictureButton>
                         </StyledPhotoSection>
                         <StyledLeftBarText>
                             <h3>Angemeldet:</h3>
-                            <div>16.11.2020</div><br/>
+                            <div> {userData.registrationDate} </div><br/>
                             <h3>Rolle:</h3>
                             <div>Administrator</div><br/>
                             <h3>Registriert über:</h3>

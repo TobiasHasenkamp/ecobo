@@ -13,7 +13,7 @@ export default function LoginTokenContextProvider({children}){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        console.log(isLoggedIn);
+        console.log("is logged in: " + isLoggedIn);
     })
 
     useEffect(() => {
