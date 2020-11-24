@@ -30,7 +30,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (request.getServletPath().matches("/auth/login")){
             return true;
         }
-        if (request.getServletPath().contains("/auth/userdata")){
+        if (request.getServletPath().contains("/acc/userdata")){
             return true;
         }
         return false;

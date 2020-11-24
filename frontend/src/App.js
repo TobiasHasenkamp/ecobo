@@ -11,7 +11,6 @@ import NavBar from "./main/NavBar";
 import LoginPage from "./main/account-route/LoginPage";
 import "./App.css";
 import UnderConstructionPage from "./main/UnderConstructionPage";
-import IsLoggedInContextProvider from "./main/contexts/IsLoggedInContextProvider";
 import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider";
 import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider";
 import styled from "styled-components/macro";
@@ -22,7 +21,7 @@ function App() {
 
   return (
 
-      <LoginTokenContextProvider> <IsLoggedInContextProvider> <EcoElementContextProvider>
+      <LoginTokenContextProvider> <EcoElementContextProvider>
 
           <StyledPageLayout>
               <Switch>
@@ -39,7 +38,7 @@ function App() {
                       <NavBar/>
                       <AddElementPage/>
                   </Route>
-                  <Route path="/acc">
+                  <Route path="/acc/:userNameParam">
                       <NavBar/>
                       <AccountPage/>
                   </Route>
@@ -75,7 +74,7 @@ function App() {
 
         </StyledPageLayout>
 
-      </EcoElementContextProvider> </IsLoggedInContextProvider> </LoginTokenContextProvider>
+      </EcoElementContextProvider> </LoginTokenContextProvider>
 
   );
 }
