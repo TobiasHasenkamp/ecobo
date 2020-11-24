@@ -1,4 +1,4 @@
-import ShowIconButton from "../designElements/buttons/ShowIconButton";
+import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
 import React from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
@@ -23,7 +23,7 @@ export default function RestaurantList({ecoElements, handleEditElement}){
                                 {element.title}
                             </StyledCell>
                             <StyledIconDiv>
-                                <ShowIconButton handle={handleEditElement}/>
+                                <ShowElementIconButton handle={handleEditElement}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>

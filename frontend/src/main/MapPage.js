@@ -5,7 +5,6 @@ import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/EcoElementService";
 import AddItemButton from "./designElements/buttons/AddItemButton";
-import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
 import styled from "styled-components/macro";
 import LoginTokenContext from "./contexts/LoginTokenContext";
 import 'leaflet/dist/leaflet.css';
@@ -13,6 +12,7 @@ import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import TabBarWithIcons from "./designElements/TabBarWithIcons";
 
 
 //to fix the "image not found"-bugs that occur when reloading the page
@@ -39,7 +39,8 @@ export default function MapPage() {
         <>
             <PageHeader title="EcoMap"/>
 
-            <TabBarWithOneLink text="Show as List" link="/bo/list"/>
+
+            <TabBarWithIcons type="map"/>
 
             <StyledContentDiv>
 

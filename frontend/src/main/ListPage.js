@@ -8,8 +8,8 @@ import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
-import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
 import LoginTokenContext from "./contexts/LoginTokenContext";
+import TabBarWithIcons from "./designElements/TabBarWithIcons";
 
 export default function ListPage() {
 
@@ -31,7 +31,7 @@ export default function ListPage() {
         <div>
 
             <PageHeader title="EcoMap"/>
-            <TabBarWithOneLink text="Show as Map" link="/bo/map"/>
+            <TabBarWithIcons type="list"/>
 
             <StyledWrapperDiv>
                 <FoodStoreList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
