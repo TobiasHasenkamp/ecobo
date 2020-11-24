@@ -14,7 +14,7 @@ export default function LoginTokenContextProvider({children}){
 
     useEffect(() => {
         console.log("is logged in: " + isLoggedIn);
-    })
+    }, [isLoggedIn, token])
 
     useEffect(() => {
         if (token) {
@@ -25,8 +25,10 @@ export default function LoginTokenContextProvider({children}){
                     setUsername(decodedToken.sub);
                     setIsLoggedIn(true);
                     }
+                else {
+                    localStorage.clear();
+                }
                 } catch(e) {
-                setIsLoggedIn(false);
                 console.log(e);
             }
         }
