@@ -12,7 +12,7 @@ export default function FairShopList({ecoElements, handleEditElement}){
                 Weltläden
             </StyledHeaderRow>
             {
-                ecoElements?.map((element) => (
+                ecoElements?.filter(element => element.category === "FAIRSHOP").map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>
@@ -28,7 +28,7 @@ export default function FairShopList({ecoElements, handleEditElement}){
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
-                                {element.category}
+                                {element.categorySub}
                             </StyledCell>
                             <StyledCell>
                                 Symbole...

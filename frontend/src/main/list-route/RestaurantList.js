@@ -12,7 +12,7 @@ export default function RestaurantList({ecoElements, handleEditElement}){
                 Restaurants
             </StyledHeaderRow>
             {
-                ecoElements?.map((element) => (
+                ecoElements?.filter(element => element.category === "RESTAURANT").map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>
@@ -28,7 +28,7 @@ export default function RestaurantList({ecoElements, handleEditElement}){
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
-                                {element.category}
+                                {element.categorySub}
                             </StyledCell>
                             <StyledCell>
                                 Symbole...

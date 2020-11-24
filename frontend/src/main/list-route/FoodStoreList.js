@@ -12,7 +12,7 @@ export default function FoodStoreList({ecoElements, handleEditElement}){
                     Bioläden
                 </StyledHeaderRow>
                 {
-                    ecoElements?.map((element) => (
+                    ecoElements?.filter(element => element.category === "FOODSTORE").map((element) => (
                         <StyledElement key={element.id}>
                             <div/>
                             <StyledElementHeader>
@@ -28,7 +28,7 @@ export default function FoodStoreList({ecoElements, handleEditElement}){
                             </StyledElementHeader>
                             <StyledElementBody>
                                 <StyledCell>
-                                    {element.category}
+                                    {element.categorySub}
                                 </StyledCell>
                                 <StyledCell>
                                     Symbole...
