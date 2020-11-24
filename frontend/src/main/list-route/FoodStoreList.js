@@ -3,7 +3,7 @@ import React from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 
-export default function FoodStoreList({ecoElements, handleEditElement}){
+export default function FoodStoreList({ecoElements}){
 
     return (
 
@@ -23,7 +23,7 @@ export default function FoodStoreList({ecoElements, handleEditElement}){
                                     {element.title}
                                 </StyledCell>
                                 <StyledIconDiv>
-                                    <ShowElementIconButton handle={handleEditElement}/>
+                                    <ShowElementIconButton elementId={element.id}/>
                                 </StyledIconDiv>
                             </StyledElementHeader>
                             <StyledElementBody>

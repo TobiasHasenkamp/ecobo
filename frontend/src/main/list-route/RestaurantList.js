@@ -3,7 +3,9 @@ import React from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 
-export default function RestaurantList({ecoElements, handleEditElement}){
+export default function RestaurantList({ecoElements}){
+
+
 
     return (
 
@@ -23,7 +25,7 @@ export default function RestaurantList({ecoElements, handleEditElement}){
                                 {element.title}
                             </StyledCell>
                             <StyledIconDiv>
-                                <ShowElementIconButton handle={handleEditElement}/>
+                                <ShowElementIconButton elementId={element.id}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>

@@ -3,11 +3,15 @@ package de.th.ecobobackend.controller;
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.service.EcoElementService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/elements")
@@ -28,6 +32,16 @@ public class EcoElementController {
     @GetMapping
     public List<EcoElement> getEcoElements() {
         return ecoElementService.getAllEcoElements();
+    }
+
+    @GetMapping("{ecoElementId}")
+    public EcoElement getEcoElementById(@PathVariable @NonNull Optional<String> ecoElementId){
+        if (ecoElementId.isPresent()){
+            System.out.println("test");
+            return ecoElementService.findById(ecoElementId.get());
+        }
+        System.out.println("test2");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping

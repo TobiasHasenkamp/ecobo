@@ -15,6 +15,7 @@ import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider
 import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider";
 import styled from "styled-components/macro";
 import LoadingPage from "./main/LoadingPage";
+import EcoElementPage from "./main/list-route/EcoElementPage";
 
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
                   <Route path="/bo/addElement">
                       <NavBar/>
                       <AddElementPage/>
+                  </Route>
+                  <Route path="/bo/element/:ecoElementIDParam">
+                      <NavBar/>
+                      <EcoElementPage/>
                   </Route>
                   <Route path="/acc/:userNameParam">
                       <NavBar/>
