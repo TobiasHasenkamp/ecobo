@@ -13,6 +13,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import TabBarWithIcons from "./designElements/TabBarWithIcons";
+import BlackLineMedium from "./designElements/BlackLineMedium";
 
 
 //to fix the "image not found"-bugs that occur when reloading the page
@@ -41,6 +42,7 @@ export default function MapPage() {
 
 
             <TabBarWithIcons type="map"/>
+            <BlackLineMedium/>
 
             <StyledContentDiv>
 
