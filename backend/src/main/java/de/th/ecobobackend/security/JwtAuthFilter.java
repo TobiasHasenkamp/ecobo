@@ -22,6 +22,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         this.jwtUtils = jwtUtils;
     }
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        //later rewrite this section so that it only is active on certain requests and else returns true
+
+        if (request.getServletPath().matches("/auth/login")){
+            return true;
+        }
+        if (request.getServletPath().contains("/auth/userdata")){
+            return true;
+        }
+        return false;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
