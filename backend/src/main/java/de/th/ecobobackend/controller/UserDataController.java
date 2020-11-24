@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/auth/userdata")
+@RequestMapping("/acc/userdata")
 public class UserDataController {
 
     private final UserProfileService userProfileService;

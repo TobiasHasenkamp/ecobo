@@ -2,12 +2,13 @@ import styled from "styled-components/macro";
 import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import GradientBorderlineBottom from "./designElements/GradientBorderlineBottom";
-import IsLoggedInContext from "./contexts/IsLoggedInContext";
+import LoginTokenContext from "./contexts/LoginTokenContext";
 
 export default function NavBar() {
 
+    const {username, isLoggedIn} = useContext(LoginTokenContext);
 
-    const {isLoggedIn} = useContext(IsLoggedInContext);
+    const linkToAccountPage = "/acc/" + username;
 
     return (
 
@@ -22,7 +23,7 @@ export default function NavBar() {
 
                 {
                     isLoggedIn ?
-                        <Link to="/acc"> <p>Konto</p> </Link> :
+                        <Link to={linkToAccountPage}> <p>Konto</p> </Link> :
                         <Link to="/login"> <p>Login</p> </Link>
                 }
 
