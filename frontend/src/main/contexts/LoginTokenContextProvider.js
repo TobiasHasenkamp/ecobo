@@ -23,7 +23,6 @@ export default function LoginTokenContextProvider({children}){
                 if (decodedToken.exp > new Date().getTime() / 1000) {
                     localStorage.setItem("ACCESS_TOKEN", token);
                     setUsername(decodedToken.sub);
-                    console.log("isloggedin: " + isLoggedIn);
                     setIsLoggedIn(true);
                     }
                 } catch(e) {
