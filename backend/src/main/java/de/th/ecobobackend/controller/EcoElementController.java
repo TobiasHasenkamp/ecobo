@@ -26,7 +26,7 @@ public class EcoElementController {
     //============================================================================
 
     @GetMapping
-    public List<EcoElement> getEcoElements(Principal principal) {
+    public List<EcoElement> getEcoElements() {
         return ecoElementService.getAllEcoElements();
     }
 
@@ -37,7 +37,7 @@ public class EcoElementController {
     }
 
     @PostMapping("/random")
-    public EcoElement postRandomEcoElement(Principal principal) {
+    public EcoElement postRandomEcoElement() {
         return ecoElementService.addRandomEcoElement();
     }
 }

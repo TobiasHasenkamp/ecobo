@@ -32,7 +32,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String authorization = httpServletRequest.getHeader("Authorization");
         if(authorization == null || authorization.isBlank()){
             filterChain.doFilter(httpServletRequest, httpServletResponse);
-            System.out.println("lol");
+            System.out.println("login was unsuccessful.");
             return;
         }
 
@@ -46,7 +46,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         "",
                         Collections.emptyList()
                 ));
-                System.out.println("geklappt!");
+                System.out.println("Login was successful.");
             }
         } catch (Exception e){
             System.out.println(e);

@@ -20,7 +20,7 @@ export default function getLonAndLatForAddress(address, lonLatOfRequest, setLonL
         }
     };
 
-    return axios.request(options).then(response => response.data).then((data) => setLonLatOfRequest(data));
+    axios.request(options).then(response => response.data).then((data) => setLonLatOfRequest(data));
 }
 
 

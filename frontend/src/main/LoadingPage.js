@@ -3,6 +3,7 @@ import ProgressBar from "./designElements/ProgressBar";
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import PageHeader from "./PageHeader";
+import styled from "styled-components/macro";
 
 
 export default function LoadingPage() {
@@ -16,7 +17,7 @@ export default function LoadingPage() {
     useEffect(() => {
 
         let interval = setInterval(
-            () => setPercentCompleted(percentCompleted + (100/3)), 1000
+            () => setPercentCompleted(percentCompleted + (100)), 850
         );
 
         if (percentCompleted > 100){
@@ -35,8 +36,13 @@ export default function LoadingPage() {
     return (
         <>
                 <PageHeader title={pageHeader}/>
-                <div>Daten werden verarbeitet</div> <br/>
+                <StyledDiv>Daten werden verarbeitet</StyledDiv> <br/>
                 <ProgressBar percentCompleted={percentCompleted} />
         </>
     );
 }
+
+
+const StyledDiv = styled.div`
+  margin: 25px 25px 5px 25px;
+`

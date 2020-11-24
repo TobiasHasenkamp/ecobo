@@ -1,36 +1,85 @@
 import PageHeader from "../PageHeader";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import IsLoggedInContext from "../contexts/IsLoggedInContext";
 import {useHistory} from "react-router-dom";
-import {LoginRequest} from "../controller/LoginController";
+import {LoginRequest, RegistrationRequest} from "../services/LoginService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
+import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
 
 export default function LoginPage() {
 
     const history = useHistory();
     const {switchLoginStatus} = useContext(IsLoggedInContext);
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const {setToken} = useContext(LoginTokenContext);
+    const {setToken, setUsername, setPassword} = useContext(LoginTokenContext);
+    const [loginUsername, setLoginUsername] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+    const [registrationUsername, setRegistrationUsername] = useState("");
+    const [registrationPassword1, setRegistrationPassword1] = useState("");
+    const [registrationPassword2, setRegistrationPassword2] = useState("");
+    const [errorLogin, setErrorLogin] = useState("");
+    const [errorRegistration, setErrorRegistration] = useState("");
 
-    function handleLogin(event) {
-        event.preventDefault();
-        LoginRequest(username, password)
+
+    useEffect(() => {
+        if (errorRegistration === "Registration successful."){
+            LoginRequest(registrationUsername, registrationPassword1)
                 .then((data) => setToken(data))
                 .then(() => switchLoginStatus(true))
-                .then(() => history.push("/home"))
-                .catch(() => setError("Unknown username or password"));
+                .then(() => history.push("/loading"))
+                .catch(() => setErrorLogin("Unknown username or password"));
+        }
+        // this error is wrong, adding other dependencies here will completely change the data flow on this page
+        // eslint-disable-next-line
+    }, [errorRegistration, history])
+
+
+    function handleLogin(event){
+        event.preventDefault();
+
+        setUsername(loginUsername);
+        setPassword(loginPassword);
+
+        LoginRequest(loginUsername, loginPassword)
+            .then((data) => setToken(data))
+            .then(() => switchLoginStatus(true))
+            .then(() => history.push("/home"))
+            .catch(() => setErrorLogin("Unknown username or password"));
     }
 
 
-    function handleUsernameChange(event) {
-        setUsername(event.target.value)
+    function handleRegistration(event){
+        event.preventDefault();
+
+        //test if the entered usernames match each other
+        if (registrationPassword1 !== registrationPassword2){
+            setErrorRegistration("Passwords don't match.")
+        }
+        else {
+            RegistrationRequest(registrationUsername, registrationPassword1)
+                .then((data) => setErrorRegistration(data));
+        }
     }
 
-    function handlePasswordChange(event) {
-        setPassword(event.target.value)
+
+    function handleUsernameChangeLogin(event) {
+        setLoginUsername(event.target.value)
+    }
+
+    function handlePasswordChangeLogin(event) {
+        setLoginPassword(event.target.value)
+    }
+
+    function handleUsernameChangeRegistration(event) {
+        setRegistrationUsername(event.target.value)
+    }
+
+    function handlePasswordChange1Registration(event) {
+        setRegistrationPassword1(event.target.value)
+    }
+
+    function handlePasswordChange2Registration(event) {
+        setRegistrationPassword2(event.target.value)
     }
 
     return(
@@ -39,22 +88,43 @@ export default function LoginPage() {
             <PageHeader title="Login"/>
 
             <StyledLoginPageContent>
-                <p>Login page</p>
 
-                <form onSubmit={handleLogin}>
-                    <label>Username <input type="text" name="username"
-                                           value={username} onChange={handleUsernameChange}/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <label>Password <input type="password" name="password"
-                                           value={password} onChange={handlePasswordChange}/>
-                    </label>
-                    <StyledLoginButton/>
-                </form>
+                <StyledForm onSubmit={handleLogin}>
+                    <label htmlFor="username">Username </label>
+                    <input type="text" name="username" value={loginUsername} onChange={handleUsernameChangeLogin}/>
+                    <label htmlFor="password">Passwort </label>
+                    <input type="password" name="password" value={loginPassword} onChange={handlePasswordChangeLogin}/>
+
+                    <div>
+                        <button onClick={handleLogin}>Login</button>
+                    </div>
+                </StyledForm>
+
+                <p>{errorLogin}</p>
+
+            </StyledLoginPageContent>
+
+            <br/>
+
+            <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map"/>
+
+            <StyledLoginPageContent>
+
+                <StyledForm onSubmit={handleRegistration}>
+                    <label htmlFor="usernameNew">Username </label>
+                    <input type="text" name="usernameNew" value={registrationUsername} onChange={handleUsernameChangeRegistration}/>
+                    <label htmlFor="passwordNew1">Passwort </label>
+                    <input type="password" name="passwordNew1" value={registrationPassword1} onChange={handlePasswordChange1Registration}/>
+                    <label htmlFor="passwordNew2">Passwort wiederholen</label>
+                    <input type="password" name="passwordNew2" value={registrationPassword2} onChange={handlePasswordChange2Registration}/>
+
+                    <div>
+                        <button>Registration</button>
+                    </div>
+                </StyledForm>
 
                 <br/>
-                <p>{error}</p>
+                <p>{errorRegistration}</p>
 
             </StyledLoginPageContent>
 
@@ -65,23 +135,22 @@ export default function LoginPage() {
 
 
 const StyledLoginPageContent = styled.div`
-  margin: 10px;
+  margin: 8px;
 `
 
-const StyledLoginButton = styled.button`
-  position: fixed;
-  bottom: 5vh;
-  right: 5vh;
-  min-width: 30%;
-  background-color: var(--grey);
-  border: none;
-  border-radius: 8%;
-  color: var(--darkgrey);
-  padding: 7px 10px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.1em;
-  font-weight: bolder;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  margin-right: 8px;
+const StyledForm = styled.form`
+  margin: 15px;
+  display: grid;
+  grid-template-rows: min-content min-content  min-content;
+  grid-template-columns: min-content auto;
+  grid-gap: 20px 5px;
+  
+  label{
+    font-weight: bold;
+    padding: 6px 8px;
+  }
+  
+  div {
+    grid-column: span 2;
+  }
 `

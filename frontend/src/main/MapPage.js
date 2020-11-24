@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
 import EcoElementContext from "./contexts/EcoElementContext";
-import {getEcoElements} from "./controller/EcoElementController";
+import {getEcoElements} from "./services/EcoElementService";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
 import styled from "styled-components/macro";
