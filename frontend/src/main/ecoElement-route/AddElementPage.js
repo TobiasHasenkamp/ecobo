@@ -6,6 +6,7 @@ import {addEcoElement} from "../services/EcoElementService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import styled from "styled-components/macro";
 import tokenValidation from "../account-route/methods/tokenValidation";
+import EcoElementContext from "../contexts/EcoElementContext";
 
 export default function AddElementPage() {
 
@@ -17,6 +18,7 @@ export default function AddElementPage() {
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
     const {token} = useContext(LoginTokenContext);
+    const {setEcoElement} = useContext(EcoElementContext);
 
     useEffect(() => {
         let finalLat;
@@ -32,8 +34,8 @@ export default function AddElementPage() {
         if (finalLon !== undefined && buttonHasBeenClicked) {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
-            addEcoElement(name, category, categorySub, address, finalLat, finalLon, token);
-            history.push("/loading");
+            addEcoElement(name, category, categorySub, address, finalLat, finalLon, token, setEcoElement);
+            history.push("/loading/map");
         }
 
         // this error is wrong, adding other dependencies here will completely change the data flow on this side
