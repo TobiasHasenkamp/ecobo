@@ -17,6 +17,7 @@ import styled from "styled-components/macro";
 import LoadingPage from "./main/LoadingPage";
 import EcoElementPage from "./main/list-route/EcoElementPage";
 import EditElementPage from "./main/list-route/EditElementPage";
+import DeletePage from "./main/list-route/DeletePage";
 
 
 function App() {
@@ -47,6 +48,10 @@ function App() {
                   <Route path="/bo/editElement/:ecoElementIDParam">
                       <NavBar/>
                       <EditElementPage/>
+                  </Route>
+                  <Route path="/bo/deleteElement/:ecoElementIDParam">
+                      <NavBar/>
+                      <DeletePage/>
                   </Route>
                   <Route path="/bo/element/:ecoElementIDParam">
                       <NavBar/>

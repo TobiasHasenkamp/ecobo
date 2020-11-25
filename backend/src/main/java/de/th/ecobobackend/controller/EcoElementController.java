@@ -59,11 +59,19 @@ public class EcoElementController {
             return ecoElementService.updateEcoElement(ecoElementDto, ecoElementId.get(), principal);
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    }
 
+    @DeleteMapping("{ecoElementId}")
+    public void deleteEcoElement(@PathVariable @NonNull Optional<String> ecoElementId, Principal principal){
+        if (ecoElementId.isPresent()) {
+            ecoElementService.deleteEcoElement(ecoElementId.get(), principal);
+        }
     }
 
     @PostMapping("/random")
     public EcoElement postRandomEcoElement() {
         return ecoElementService.addRandomEcoElement();
     }
+
+
 }

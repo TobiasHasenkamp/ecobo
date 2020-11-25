@@ -59,7 +59,7 @@ export default function EcoElementPage(){
 
 
     function handleDelete(){
-        console.log("delete clicked");
+        history.push("/bo/deleteElement/" + ecoElement.id);
     }
 
     function handleEdit(){

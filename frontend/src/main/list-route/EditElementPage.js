@@ -73,7 +73,7 @@ export default function EditElementPage() {
         }
     }
 
-    function handleButtonClick(event){
+    function handleEditButtonClick(event){
         event.preventDefault();
         setButtonHasBeenClicked(true);
         if (tokenValidation() && address !== ecoElement.address){
@@ -84,10 +84,15 @@ export default function EditElementPage() {
         }
     }
 
+
+    function handleCancelButtonClick(){
+        history.push("/bo/element/" + ecoElement.id)
+    }
+
     return (
 
         <div>
-            <PageHeader title={`Edit: ${ecoElement.name}`}/>
+            <PageHeader title={`Edit ${ecoElement.name}`}/>
 
             <StyledForm>
 
@@ -150,7 +155,8 @@ export default function EditElementPage() {
                     <input name="address" value={address} onChange={handleChange} className="hasChanged"/> }
 
                 <div>
-                    <button onClick={handleButtonClick}>Confirm changes</button>
+                    <button onClick={handleEditButtonClick}>Confirm changes</button>
+                    <button onClick={handleCancelButtonClick}>Cancel</button>
                 </div>
 
             </StyledForm>
@@ -161,7 +167,7 @@ export default function EditElementPage() {
 }
 
 
-const StyledForm = styled.form`
+const StyledForm = styled.div`
   margin: 24px;
   display: grid;
   grid-template-rows: min-content min-content min-content min-content min-content;
@@ -179,5 +185,9 @@ const StyledForm = styled.form`
   
   .hasChanged {
     font-weight: bold;
+  }
+  
+  button {
+    margin: 4px 6px;
   }
 `
