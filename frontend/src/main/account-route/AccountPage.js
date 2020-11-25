@@ -55,11 +55,9 @@ export default function AccountPage() {
                         </StyledPhotoSection>
                         <StyledLeftBarText>
                             <h3>Angemeldet:</h3>
-                            <div> {userData.registrationDate} </div><br/>
+                            <div> {userData.registrationDateExternal} </div><br/>
                             <h3>Rolle:</h3>
                             <div>Administrator</div><br/>
-                            <h3>Registriert über:</h3>
-                            <div>Github</div>
                         </StyledLeftBarText>
                     <div/>
                 </StyledLeftBar>

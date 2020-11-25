@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -19,5 +20,6 @@ public class UserProfile {
     @Id
     private String username;
     private String password;
-    private String registrationDate;
+    private Instant registrationDateInternal;
+    private String registrationDateExternal;
 }

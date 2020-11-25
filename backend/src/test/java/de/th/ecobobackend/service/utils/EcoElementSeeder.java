@@ -49,9 +49,9 @@ public class EcoElementSeeder {
                 .certificate1(true)
                 .certificate2(true)
                 .creator("Tobias")
-                .dateCreated(inputDateAsInstant)
-                .dateLastUpdated(inputDateAsInstant)
-                .dateReviewed(inputDateAsInstant)
+                .dateCreatedInternal(inputDateAsInstant)
+                .dateLastUpdatedInternal(inputDateAsInstant)
+                .dateReviewedInternal(inputDateAsInstant)
                 .reviewComments(List.of())
                 .build();
 

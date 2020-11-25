@@ -141,7 +141,7 @@ class EcoElementServiceTest {
                 .certificate2(false)
                 .lon(1.0)
                 .lat(1.0)
-                .dateCreated(inputDateAsInstant)
+                .dateCreatedInternal(inputDateAsInstant)
                 .build();
 
         //When

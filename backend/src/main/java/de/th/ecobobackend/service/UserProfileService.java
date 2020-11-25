@@ -9,9 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,13 +47,11 @@ public class UserProfileService {
 
     public UserProfile registerNewUser(UserLoginDto userLoginDto, String encryptedPassword){
 
-        SimpleDateFormat dateWithTime = new SimpleDateFormat("dd.MM.yyyy");
-        String dateWithoutTime = dateWithTime.format(new Date());
-
         UserProfile newUser = UserProfile.builder()
                         .username(userLoginDto.getUsername())
                         .password(encryptedPassword)
-                        .registrationDate(dateWithoutTime)
+                        .registrationDateInternal(timestampUtils.generateTimeStamp())
+                        .registrationDateExternal(timestampUtils.generateReadableDateStamp())
                         .build();
 
         return userProfileMongoDB.save(newUser);
