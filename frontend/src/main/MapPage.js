@@ -1,5 +1,5 @@
 import PageHeader from "./PageHeader";
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
 import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
 import EcoElementContext from "./contexts/EcoElementContext";
@@ -29,8 +29,11 @@ export default function MapPage() {
 
     const {token} = useContext(LoginTokenContext);
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
+    const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
 
     useEffect(() => {
+        let randomValue = Math.random();
+        setRandomKeyToForceReload(randomValue);
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
 
@@ -46,37 +49,39 @@ export default function MapPage() {
 
             <StyledContentDiv>
 
-                    <MapContainer
-                                  center={[51.4841, 7.2200]}
-                                  zoom={13}
-                                  minZoom={10}
-                                  //topleft, bottomleft, bottomright, topright
-                                  maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
-                                  scrollWheelZoom={true}
-                                  wheelDebounceTime={15}
-                                  style={{height: "100%"}}
-                    >
-                        <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
+                {ecoElements &&
+                <MapContainer
+                    key={randomKeyToForceRerender}
+                    center={[51.4841, 7.2200]}
+                    zoom={13}
+                    minZoom={10}
+                    //topleft, bottomleft, bottomright, topright
+                    maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
+                    scrollWheelZoom={true}
+                    wheelDebounceTime={15}
+                    className={"map"}
+                >
+                    <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
 
-                        {
+                    {
 
-                            ecoElements?.map((element) => (
+                        ecoElements?.map((element) => (
 
-                                    <Marker key={element.id} position={[element.lon, element.lat]}
-                                            title={element.name}>
-                                        <Popup>
-                                            {element.name} <br/> {element.category} / {element.categorySub} / {element.address}
-                                        </Popup>
-                                    </Marker>
-                            ))
-                        }
+                            <Marker key={element.id} position={[element.lon, element.lat]}
+                                    title={element.name}>
+                                <Popup>
+                                    {element.name} <br/> {element.category} / {element.categorySub} / {element.address}
+                                </Popup>
+                            </Marker>
+                        ))
+                    }
 
 
-
-                    </MapContainer>
+                </MapContainer>
+                }
 
                 <GreenBoxWithGradientBorderlineUntilSiteEnds/>
 
@@ -97,5 +102,14 @@ const StyledContentDiv = styled.div`
   width: 100%;
   height: 100%;
   grid-template-rows: 1fr auto;
-  grid-gap: 0;
+  grid-gap: 3px;
+  
+   .map {
+    margin-left: -1px;
+    margin-right: -1px;
+    height: 100%;
+    width: 100%;
+    border: var(--darkgrey) solid 1.5px;
+  }
+  
 `
