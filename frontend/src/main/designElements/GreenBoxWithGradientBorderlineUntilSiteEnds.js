@@ -1,5 +1,6 @@
 import styled from "styled-components/macro";
 import React from "react";
+import BlackLineMedium from "./BlackLineMedium";
 
 export default function GreenBoxWithGradientBorderlineUntilSiteEnds () {
 
@@ -7,7 +8,7 @@ export default function GreenBoxWithGradientBorderlineUntilSiteEnds () {
 
         <>
             <StyledDiv>
-                <StyledDarkGreenGradientLineTop/>
+                <BlackLineMedium/>
                 <StyledDarkGreenBox/>
             </StyledDiv>
         </>
@@ -28,10 +29,4 @@ const StyledDiv = styled.div`
   background-color: var(--darkgreen);
   min-height: 250px;
   max-height: 350px;
-`
-
-const StyledDarkGreenGradientLineTop = styled.div`
-  width: 100%;
-  height: 5px;
-  background-image: linear-gradient(ghostwhite, var(--grey));
 `

@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 import {FaRegListAlt} from "react-icons/fa";
 import React from "react";
 
-export default function ShowIconButton({handle}) {
+export default function ShowElementIconButton({handle}) {
 
     return (
 
