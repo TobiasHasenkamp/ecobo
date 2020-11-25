@@ -75,9 +75,14 @@ export default function EditElementPage() {
 
     function handleEditButtonClick(event){
         event.preventDefault();
-        setButtonHasBeenClicked(true);
         if (tokenValidation() && address !== ecoElement.address){
+            setButtonHasBeenClicked(true);
             getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest);
+        }
+        else if (tokenValidation()){
+            setButtonHasBeenClicked(false);
+            updateEcoElement(name, ecoElement.id, category, categorySub, address, ecoElement.lon, ecoElement.lat, token, setEcoElement);
+            history.push("/loading/map");
         }
         else {
             console.log("Please login.")
