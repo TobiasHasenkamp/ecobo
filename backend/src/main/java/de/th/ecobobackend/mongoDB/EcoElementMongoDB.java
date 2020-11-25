@@ -2,7 +2,6 @@ package de.th.ecobobackend.mongoDB;
 
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.enums.Category;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;

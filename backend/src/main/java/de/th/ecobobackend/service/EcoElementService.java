@@ -3,6 +3,7 @@ package de.th.ecobobackend.service;
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.enums.Category;
+import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,14 @@ public class EcoElementService {
 
     private final EcoElementMongoDB ecoElementMongoDB;
     private final EcoElementBuilder ecoElementBuilder;
+    private final NewsfeedService newsfeedService;
 
     @Autowired
-    public EcoElementService(EcoElementMongoDB ecoElementMongoDB, EcoElementBuilder ecoElementBuilder){
+    public EcoElementService(EcoElementMongoDB ecoElementMongoDB, EcoElementBuilder ecoElementBuilder,
+                             NewsfeedService newsfeedService){
         this.ecoElementMongoDB = ecoElementMongoDB;
         this.ecoElementBuilder = ecoElementBuilder;
+        this.newsfeedService = newsfeedService;
     }
 
 
@@ -59,6 +63,9 @@ public class EcoElementService {
     }
 
     public EcoElement addEcoElement(EcoElementDto ecoElementDto){
+
+        newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_ADDED, ecoElementDto.getName(),
+                                        ecoElementDto.getCreator(), ecoElementDto.getCategorySub());
         return ecoElementMongoDB.save(ecoElementBuilder.build(ecoElementDto));
     }
 
@@ -75,9 +82,10 @@ public class EcoElementService {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN);
             }
             else{
-                //why do  have to cast it into an EcoElement - this should work without any problems.
-                EcoElement updatedEcoElement = (EcoElement) ecoElementBuilder
+                EcoElement updatedEcoElement = ecoElementBuilder
                                     .buildUpdatedEcoElement(ecoElementDto, existingEcoElement, ecoElementId);
+                newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
+                        ecoElementDto.getCreator(), ecoElementDto.getCategorySub());
                 return ecoElementMongoDB.save(updatedEcoElement);
             }
         }
@@ -88,13 +96,14 @@ public class EcoElementService {
 
     public void deleteEcoElement(String ecoElementId, Principal principal) {
 
-        EcoElement existingEcoElement = ecoElementMongoDB.findById(ecoElementId).get();
-
         if (ecoElementMongoDB.findById(ecoElementId).isPresent()){
+            EcoElement existingEcoElement = ecoElementMongoDB.findById(ecoElementId).get();
             if (!existingEcoElement.getCreator().equals(principal.getName())){
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN);
             }
             else{
+                newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_DELETED, existingEcoElement.getName(),
+                        existingEcoElement.getCreator(), existingEcoElement.getCategorySub());
                 ecoElementMongoDB.deleteById(ecoElementId);
             }
         }
