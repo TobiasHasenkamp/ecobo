@@ -1,7 +1,7 @@
 import React from "react";
 import ProgressBar from "./designElements/ProgressBar";
 import {useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import PageHeader from "./PageHeader";
 import styled from "styled-components/macro";
 
@@ -12,6 +12,7 @@ export default function LoadingPage() {
 
     const [percentCompleted, setPercentCompleted] = useState(0);
     const pageHeader = "Add a new item"
+    const location = useLocation();
 
 
     useEffect(() => {
@@ -21,7 +22,13 @@ export default function LoadingPage() {
         );
 
         if (percentCompleted > 100){
-            history.go(-2);
+
+            if (location.pathname === "/loading/map"){
+                history.push("/bo/map/centered")
+            }
+            else {
+                history.go(-2);
+            }
         }
 
         return function cleanup() {

@@ -14,6 +14,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import TabBarWithIcons from "./designElements/TabBarWithIcons";
 import BlackLineMedium from "./designElements/BlackLineMedium";
+import {useLocation} from "react-router-dom";
 
 
 //to fix the "image not found"-bugs that occur when reloading the page
@@ -28,14 +29,30 @@ L.Marker.prototype.options.icon = DefaultIcon;
 export default function MapPage() {
 
     const {token} = useContext(LoginTokenContext);
-    const {ecoElements, setEcoElements} = useContext(EcoElementContext);
+    const {ecoElements, setEcoElements, ecoElement} = useContext(EcoElementContext);
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
+    const [coordinatesToCenterMapLon, setCoordinatesToCenterMapLon] = useState(51.4841);
+    const [coordinatesToCenterMapLat, setCoordinatesToCenterMapLat] = useState(7.2200);
+    const [zoomValue, setZoomValue] = useState(13);
+    const location = useLocation();
 
     useEffect(() => {
+
+        if (location.pathname === "/bo/map/centered" && ecoElement.lon && ecoElement.lat){
+            setCoordinatesToCenterMapLon(ecoElement.lon);
+            setCoordinatesToCenterMapLat(ecoElement.lat);
+            setZoomValue(16);
+        }
+        else {
+            setCoordinatesToCenterMapLon(51.4841);
+            setCoordinatesToCenterMapLat(7.2200);
+            setZoomValue(13);
+        }
+
         let randomValue = Math.random();
         setRandomKeyToForceReload(randomValue);
         getEcoElements(token, setEcoElements);
-    }, [token, setEcoElements]);
+    }, [token, setEcoElements], location, coordinatesToCenterMapLat, coordinatesToCenterMapLon, zoomValue);
 
 
     return(
@@ -52,8 +69,8 @@ export default function MapPage() {
                 {ecoElements &&
                 <MapContainer
                     key={randomKeyToForceRerender}
-                    center={[51.4841, 7.2200]}
-                    zoom={13}
+                    center={[coordinatesToCenterMapLon, coordinatesToCenterMapLat]}
+                    zoom={zoomValue}
                     minZoom={10}
                     //topleft, bottomleft, bottomright, topright
                     maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}

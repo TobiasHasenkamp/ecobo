@@ -31,6 +31,10 @@ function App() {
                       <NavBar/>
                       <MapPage/>
                   </Route>
+                  <Route path="/bo/map/centered">
+                      <NavBar/>
+                      <MapPage/>
+                  </Route>
                   <Route path="/bo/list">
                       <NavBar/>
                       <ListPage/>
@@ -63,7 +67,11 @@ function App() {
                       <NavBar/>
                       <LoginPage/>
                   </Route>
-                  <Route path="/loading">
+                  <Route exact path="/loading">
+                      <NavBar/>
+                      <LoadingPage/>
+                  </Route>
+                  <Route path="/loading/map">
                       <NavBar/>
                       <LoadingPage/>
                   </Route>
