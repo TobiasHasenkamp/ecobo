@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,4 +65,42 @@ public class EcoElementService {
     public EcoElement addRandomEcoElement() {
         return ecoElementMongoDB.save(ecoElementBuilder.buildRandomElement());
     }
+
+    public EcoElement updateEcoElement(EcoElementDto ecoElementDto, String ecoElementId, Principal principal) {
+
+        EcoElement existingEcoElement = ecoElementMongoDB.findById(ecoElementId).get();
+
+        if (ecoElementMongoDB.findById(ecoElementId).isPresent()){
+            if (!existingEcoElement.getCreator().equals(principal.getName())){
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
+            else{
+                //why do  have to cast it into an EcoElement - this should work without any problems.
+                EcoElement updatedEcoElement = (EcoElement) ecoElementBuilder
+                                    .buildUpdatedEcoElement(ecoElementDto, existingEcoElement, ecoElementId);
+                return ecoElementMongoDB.save(updatedEcoElement);
+            }
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public void deleteEcoElement(String ecoElementId, Principal principal) {
+
+        EcoElement existingEcoElement = ecoElementMongoDB.findById(ecoElementId).get();
+
+        if (ecoElementMongoDB.findById(ecoElementId).isPresent()){
+            if (!existingEcoElement.getCreator().equals(principal.getName())){
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
+            else{
+                ecoElementMongoDB.deleteById(ecoElementId);
+            }
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
