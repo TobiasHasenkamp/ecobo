@@ -85,7 +85,7 @@ public class EcoElementService {
                 EcoElement updatedEcoElement = ecoElementBuilder
                                     .buildUpdatedEcoElement(ecoElementDto, existingEcoElement, ecoElementId);
                 newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
-                        ecoElementDto.getCreator(), ecoElementDto.getCategorySub());
+                        existingEcoElement.getCreator(), ecoElementDto.getCategorySub());
                 return ecoElementMongoDB.save(updatedEcoElement);
             }
         }
