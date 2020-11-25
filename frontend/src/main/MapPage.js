@@ -52,7 +52,8 @@ export default function MapPage() {
         let randomValue = Math.random();
         setRandomKeyToForceReload(randomValue);
         getEcoElements(token, setEcoElements);
-    }, [token, setEcoElements], location, coordinatesToCenterMapLat, coordinatesToCenterMapLon, zoomValue);
+    }, [token, setEcoElements, ecoElement.lat, ecoElement.lon, location.pathname,
+        coordinatesToCenterMapLat, coordinatesToCenterMapLon, zoomValue]);
 
 
     return(

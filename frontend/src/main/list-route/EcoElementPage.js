@@ -188,8 +188,9 @@ export default function EcoElementPage(){
                         minZoom={12}
                         //topleft, bottomleft, bottomright, topright
                         maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
-                        scrollWheelZoom={true}
+                        scrollWheelZoom={"center"}
                         wheelDebounceTime={15}
+                        dragging={false}
                         className={"map"}
                     >
                         <TileLayer
