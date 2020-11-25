@@ -45,7 +45,7 @@ class EcoElementBuilderTest {
             .certificate2(false)
             .lon(1.0)
             .lat(1.0)
-            .dateCreated(Instant.ofEpochSecond(Instant.now().getEpochSecond()))
+            .dateCreatedInternal(Instant.ofEpochSecond(Instant.now().getEpochSecond()))
             .build();
 
     @Test
@@ -64,7 +64,7 @@ class EcoElementBuilderTest {
         assertThat(receivedEcoElement.getLon(), is(expectedEcoElement.getLon()));
         assertThat(receivedEcoElement.getLat(), is(expectedEcoElement.getLat()));
         assertThat(receivedEcoElement.getId().length(), is(36));
-        assertThat(receivedEcoElement.getDateCreated(), is(inputDateAsInstant));
+        assertThat(receivedEcoElement.getDateCreatedInternal(), is(inputDateAsInstant));
     }
 
 }

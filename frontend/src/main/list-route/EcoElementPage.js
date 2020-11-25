@@ -218,11 +218,11 @@ export default function EcoElementPage(){
                     <br/>
 
                     <strong>Angelegt am:</strong>
-                    <div>{ecoElement.dateCreated}</div>
+                    <div>{ecoElement.dateCreatedExternal}</div>
                     <br/>
 
                     <strong>Zuletzt geändert:</strong>
-                    <div>{ecoElement.dateLastUpdated}</div>
+                    <div>{ecoElement.dateLastUpdatedExternal}</div>
                     <br/>
 
 
