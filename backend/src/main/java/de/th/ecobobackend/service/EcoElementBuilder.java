@@ -4,12 +4,9 @@ import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
-import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.utils.IDUtils;
 import de.th.ecobobackend.utils.TimestampUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -101,7 +98,7 @@ public class EcoElementBuilder {
     }
 
 
-    public Object build2(EcoElementDto ecoElementDto, EcoElement existingEcoElement, String ecoElementId) {
+    public Object buildUpdatedEcoElement(EcoElementDto ecoElementDto, EcoElement existingEcoElement, String ecoElementId) {
 
         if (ecoElementDto.getCategorySub() == null){
             ecoElementDto.setCategorySub(CategorySub.NONE);

@@ -76,7 +76,8 @@ public class EcoElementService {
             }
             else{
                 //why do  have to cast it into an EcoElement - this should work without any problems.
-                EcoElement updatedEcoElement = (EcoElement) ecoElementBuilder.build2(ecoElementDto, existingEcoElement, ecoElementId);
+                EcoElement updatedEcoElement = (EcoElement) ecoElementBuilder
+                                    .buildUpdatedEcoElement(ecoElementDto, existingEcoElement, ecoElementId);
                 return ecoElementMongoDB.save(updatedEcoElement);
             }
         }
