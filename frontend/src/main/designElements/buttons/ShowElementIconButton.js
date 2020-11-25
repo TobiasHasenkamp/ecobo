@@ -1,13 +1,20 @@
 import styled from "styled-components/macro";
 import {FaRegListAlt} from "react-icons/fa";
 import React from "react";
+import {useHistory} from "react-router-dom";
 
-export default function ShowElementIconButton({handle}) {
+export default function ShowElementIconButton({elementId}) {
+
+    const history = useHistory();
+
+    function handleShowElement() {
+        history.push("/bo/element/" + elementId);
+    }
 
     return (
 
         <>
-            <StyledShowIconButton onClick={() => handle()}>
+            <StyledShowIconButton onClick={() => handleShowElement()}>
                 <FaRegListAlt/>
             </StyledShowIconButton>
         </>

@@ -101,4 +101,6 @@ export const StyledElementHeader = styled.div`
 
 export const StyledIconDiv = styled.div`
   margin: 6px 12px 0 0;
+  display: flex;
+  
 `

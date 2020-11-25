@@ -5,8 +5,8 @@ import GradientBorderlineBottom from "../designElements/GradientBorderlineBottom
 import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
 import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
 import {useHistory, useParams} from "react-router-dom";
-import EditIconButton from "../designElements/buttons/EditIconButton";
-import DeleteIconButton from "../designElements/buttons/DeleteIconButton";
+import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
+import DeleteIconButtonMedium from "../designElements/buttons/DeleteIconButtonMedium";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import {getUserData} from "../services/UserDataService";
 
@@ -76,9 +76,9 @@ export default function AccountPage() {
                     </div>
 
                     <StyledButtonBar>
-                        <EditIconButton handle={handleEditButton}/>
+                        <EditIconButtonMedium handle={handleEditButton}/>
                         {/*<FaCheck/>*/}
-                        <DeleteIconButton handle={handleDeleteButton}/>
+                        <DeleteIconButtonMedium handle={handleDeleteButton}/>
                     </StyledButtonBar>
 
                     </StyledGrid>
