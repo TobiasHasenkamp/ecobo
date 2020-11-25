@@ -8,7 +8,7 @@ const header = (token) => ({
 });
 
 export const getEcoElements = (token, setEcoElements) => {
-    axios.get("/api/elements",
+    axios.get("/api/elements/",
         header(token))
         .then((response) => response.data)
         .then((data) => {setEcoElements(data)});
@@ -22,9 +22,13 @@ export const getEcoElementById = (ecoElementIdFromParam, token, setEcoElement) =
 };
 
 export const addEcoElement = (name, category, categorySub, address, lon, lat, token, setEcoElement) => {
-    axios.post("/api/elements", {name, category, categorySub, address, lat, lon}, header(token))
+    axios.post("/api/elements/", {name, category, categorySub, address, lat, lon}, header(token))
         .then((response) => response.data)
-        .then(setEcoElement)
-        //.then(setEcoElements);
+        .then(setEcoElement);
+};
 
+export const updateEcoElement = (name, id, category, categorySub, address, lon, lat, token, setEcoElement) => {
+    axios.put("/api/elements/" + id, {name, category, categorySub, address, lat, lon}, header(token))
+        .then((response) => response.data)
+        .then(setEcoElement);
 };

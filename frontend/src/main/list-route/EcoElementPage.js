@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/EcoElementContext";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import {getEcoElementById} from "../services/EcoElementService";
@@ -25,6 +25,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function EcoElementPage(){
 
+    const history = useHistory();
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
     const {token} = useContext(LoginTokenContext);
     const [tableColor, setTableColor] = useState("lightgreen");
@@ -61,6 +62,10 @@ export default function EcoElementPage(){
         console.log("delete clicked");
     }
 
+    function handleEdit(){
+        history.push("/bo/editElement/" + ecoElement.id);
+    }
+
     function hasTitle(){
         return ecoElement.title !== "";
     }
@@ -88,7 +93,7 @@ export default function EcoElementPage(){
                                     <div/>
                                 </StyledCell>
                                 <StyledIconDiv>
-                                    <EditIconButtonMedium handle={handleDelete}/>
+                                    <EditIconButtonMedium handle={handleEdit}/>
                                     <DeleteIconButtonSmall handle={handleDelete}/>
                                 </StyledIconDiv>
                             </StyledElementHeader>

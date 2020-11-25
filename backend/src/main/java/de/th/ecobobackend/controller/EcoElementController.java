@@ -50,6 +50,18 @@ public class EcoElementController {
         return ecoElementService.addEcoElement(ecoElementDto);
     }
 
+    @PutMapping("{ecoElementId}")
+    public EcoElement updateEcoElement(@RequestBody EcoElementDto ecoElementDto,
+                                       @PathVariable @NonNull Optional<String> ecoElementId,
+                                       Principal principal) {
+
+        if (ecoElementId.isPresent()){
+            return ecoElementService.updateEcoElement(ecoElementDto, ecoElementId.get(), principal);
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+    }
+
     @PostMapping("/random")
     public EcoElement postRandomEcoElement() {
         return ecoElementService.addRandomEcoElement();

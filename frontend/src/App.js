@@ -5,7 +5,7 @@ import AccountPage from "./main/account-route/AccountPage";
 import BackgroundInfoPage from "./main/BackgroundInfoPage";
 import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
-import AddElementPage from "./main/ecoElement-route/AddElementPage";
+import AddElementPage from "./main/list-route/AddElementPage";
 import MapPage from "./main/MapPage";
 import NavBar from "./main/NavBar";
 import LoginPage from "./main/account-route/LoginPage";
@@ -16,6 +16,7 @@ import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider
 import styled from "styled-components/macro";
 import LoadingPage from "./main/LoadingPage";
 import EcoElementPage from "./main/list-route/EcoElementPage";
+import EditElementPage from "./main/list-route/EditElementPage";
 
 
 function App() {
@@ -42,6 +43,10 @@ function App() {
                   <Route path="/bo/addElement">
                       <NavBar/>
                       <AddElementPage/>
+                  </Route>
+                  <Route path="/bo/editElement/:ecoElementIDParam">
+                      <NavBar/>
+                      <EditElementPage/>
                   </Route>
                   <Route path="/bo/element/:ecoElementIDParam">
                       <NavBar/>
