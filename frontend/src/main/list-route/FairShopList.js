@@ -1,9 +1,9 @@
-import ShowIconButton from "../designElements/buttons/ShowIconButton";
+import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
 import React from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 
-export default function FairShopList({ecoElements, handleEditElement}){
+export default function FairShopList({ecoElements}){
 
     return (
 
@@ -12,7 +12,7 @@ export default function FairShopList({ecoElements, handleEditElement}){
                 Weltläden
             </StyledHeaderRow>
             {
-                ecoElements?.map((element) => (
+                ecoElements?.filter(element => element.category === "FAIRSHOP").map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>
@@ -23,12 +23,12 @@ export default function FairShopList({ecoElements, handleEditElement}){
                                 {element.title}
                             </StyledCell>
                             <StyledIconDiv>
-                                <ShowIconButton handle={handleEditElement}/>
+                                <ShowElementIconButton elementId={element.id}/>
                             </StyledIconDiv>
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
-                                {element.category}
+                                {element.categorySub}
                             </StyledCell>
                             <StyledCell>
                                 Symbole...

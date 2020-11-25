@@ -1,20 +1,25 @@
 import PageHeader from "../PageHeader";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import GradientBorderlineBottom from "../designElements/GradientBorderlineBottom";
 import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
 import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
-import {useHistory} from "react-router-dom";
-import IsLoggedInContext from "../contexts/IsLoggedInContext";
-import EditIconButton from "../designElements/buttons/EditIconButton";
-import DeleteIconButton from "../designElements/buttons/DeleteIconButton";
+import {useHistory, useParams} from "react-router-dom";
+import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
+import DeleteIconButtonMedium from "../designElements/buttons/DeleteIconButtonMedium";
 import LoginTokenContext from "../contexts/LoginTokenContext";
+import {getUserData} from "../services/UserDataService";
 
 export default function AccountPage() {
-
-    const {switchLoginStatus} = useContext(IsLoggedInContext);
-    const {setToken, setUsername, setPassword} = useContext(LoginTokenContext);
+    const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
     const history = useHistory();
+    const {userNameParam} = useParams();
+    const [userData, setUserData] = useState({});
+
+
+    useEffect(() => {
+        getUserData(userNameParam, token, setUserData);
+    }, [userNameParam, token])
 
 
     function handleEditButton() {
@@ -30,7 +35,7 @@ export default function AccountPage() {
         setUsername("");
         setPassword("");
         localStorage.clear();
-        switchLoginStatus(false);
+        setIsLoggedIn(false);
         history.push("/home");
     }
 
@@ -45,12 +50,12 @@ export default function AccountPage() {
                 <StyledLeftBar>
                     <div/>
                         <StyledPhotoSection>
-                            <StyledUserPhoto src="/profilePics/tobiashasenkamp.png"/>
+                            <StyledUserPhoto src="/profilePics/placeholder.webp"/>
                             <StyledEditPictureButton>Edit Picture</StyledEditPictureButton>
                         </StyledPhotoSection>
                         <StyledLeftBarText>
                             <h3>Angemeldet:</h3>
-                            <div>16.11.2020</div><br/>
+                            <div> {userData.registrationDate} </div><br/>
                             <h3>Rolle:</h3>
                             <div>Administrator</div><br/>
                             <h3>Registriert über:</h3>
@@ -67,21 +72,21 @@ export default function AccountPage() {
 
                     <div>
                         <h3>Username:</h3>
-                        <div>TobiasHasenkamp</div><br/>
+                        <div> {userData.username} </div><br/>
                     </div>
 
                     <StyledButtonBar>
-                        <EditIconButton handle={handleEditButton}/>
+                        <EditIconButtonMedium handle={handleEditButton}/>
                         {/*<FaCheck/>*/}
-                        <DeleteIconButton handle={handleDeleteButton}/>
+                        <DeleteIconButtonMedium handle={handleDeleteButton}/>
                     </StyledButtonBar>
 
                     </StyledGrid>
 
                     <h3>E-Mail:</h3>
-                    <div><h4>tobias.hasenkamp@googlemail.com</h4></div><br/>
+                    <div><h4>beispiel@e-mail.de</h4></div><br/>
                     <h3>Geburtsdatum:</h3>
-                    <div>20.10.1990</div><br/><br/><br/>
+                    <div>xx.xx.19xx</div><br/><br/><br/>
 
                 </StyledRightBar>
 

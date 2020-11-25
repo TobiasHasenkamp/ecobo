@@ -1,7 +1,6 @@
 import PageHeader from "../PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
-import IsLoggedInContext from "../contexts/IsLoggedInContext";
 import {useHistory} from "react-router-dom";
 import {LoginRequest, RegistrationRequest} from "../services/LoginService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
@@ -10,8 +9,7 @@ import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
 export default function LoginPage() {
 
     const history = useHistory();
-    const {switchLoginStatus} = useContext(IsLoggedInContext);
-    const {setToken, setUsername, setPassword} = useContext(LoginTokenContext);
+    const {setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [registrationUsername, setRegistrationUsername] = useState("");
@@ -25,7 +23,7 @@ export default function LoginPage() {
         if (errorRegistration === "Registration successful."){
             LoginRequest(registrationUsername, registrationPassword1)
                 .then((data) => setToken(data))
-                .then(() => switchLoginStatus(true))
+                .then(() => setIsLoggedIn(true))
                 .then(() => history.push("/loading"))
                 .catch(() => setErrorLogin("Unknown username or password"));
         }
@@ -42,7 +40,7 @@ export default function LoginPage() {
 
         LoginRequest(loginUsername, loginPassword)
             .then((data) => setToken(data))
-            .then(() => switchLoginStatus(true))
+            .then(() => setIsLoggedIn(true))
             .then(() => history.push("/home"))
             .catch(() => setErrorLogin("Unknown username or password"));
     }

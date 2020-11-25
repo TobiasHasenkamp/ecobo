@@ -1,9 +1,9 @@
-import ShowIconButton from "../designElements/buttons/ShowIconButton";
+import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
 import React from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 
-export default function FoodStoreList({ecoElements, handleEditElement}){
+export default function FoodStoreList({ecoElements}){
 
     return (
 
@@ -12,7 +12,7 @@ export default function FoodStoreList({ecoElements, handleEditElement}){
                     Bioläden
                 </StyledHeaderRow>
                 {
-                    ecoElements?.map((element) => (
+                    ecoElements?.filter(element => element.category === "FOODSTORE").map((element) => (
                         <StyledElement key={element.id}>
                             <div/>
                             <StyledElementHeader>
@@ -23,12 +23,12 @@ export default function FoodStoreList({ecoElements, handleEditElement}){
                                     {element.title}
                                 </StyledCell>
                                 <StyledIconDiv>
-                                    <ShowIconButton handle={handleEditElement}/>
+                                    <ShowElementIconButton elementId={element.id}/>
                                 </StyledIconDiv>
                             </StyledElementHeader>
                             <StyledElementBody>
                                 <StyledCell>
-                                    {element.category}
+                                    {element.categorySub}
                                 </StyledCell>
                                 <StyledCell>
                                     Symbole...

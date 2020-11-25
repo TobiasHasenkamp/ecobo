@@ -1,14 +1,14 @@
 import styled from "styled-components/macro";
-import {FaRegListAlt} from "react-icons/fa";
+import {FaBorderAll} from "react-icons/fa";
 import React from "react";
 
-export default function ShowIconButton({handle}) {
+export default function ShowAsCardsIconButton({handle}) {
 
     return (
 
         <>
             <StyledShowIconButton onClick={() => handle()}>
-                <FaRegListAlt/>
+                <FaBorderAll/>
             </StyledShowIconButton>
         </>
 
@@ -17,7 +17,7 @@ export default function ShowIconButton({handle}) {
 }
 
 const StyledShowIconButton = styled.button`
-  margin: 0;
+  margin: 3px 10px;
   padding: 0;
   align-self: flex-start;
   background: transparent;

@@ -1,19 +1,17 @@
 import PageHeader from "./PageHeader";
 import React, {useEffect, useContext} from "react";
 import styled from "styled-components/macro";
-import {useHistory} from "react-router-dom"
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/EcoElementService";
 import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
-import TabBarWithOneLink from "./designElements/TabBarWithOneLink";
 import LoginTokenContext from "./contexts/LoginTokenContext";
+import TabBarWithIcons from "./designElements/TabBarWithIcons";
 
 export default function ListPage() {
 
-    const history = useHistory();
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const {token} = useContext(LoginTokenContext);
 
@@ -21,22 +19,17 @@ export default function ListPage() {
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
 
-
-    function handleEditElement() {
-        history.push("/404");
-    }
-
     return(
 
         <div>
 
             <PageHeader title="EcoMap"/>
-            <TabBarWithOneLink text="Show as Map" link="/bo/map"/>
+            <TabBarWithIcons type="list"/>
 
             <StyledWrapperDiv>
-                <FoodStoreList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
-                <RestaurantList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
-                <FairShopList ecoElements={ecoElements} handleEditElement={handleEditElement}/>
+                <FoodStoreList ecoElements={ecoElements}/>
+                <RestaurantList ecoElements={ecoElements}/>
+                <FairShopList ecoElements={ecoElements}/>
 
                 {/* the brs are necessary at the moment to keep the full list visible when scrolling */}
                 <br/>
