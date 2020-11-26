@@ -1,26 +1,11 @@
 import styled from "styled-components/macro";
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import GreenBoxLargeWithGradientBorderline from "./designElements/GreenBoxLargeWithGradientBorderline";
-import NewsfeedContext from "./contexts/NewsfeedContext";
-import {getNewsfeed5} from "./services/NewsfeedService";
-import LoginTokenContext from "./contexts/LoginTokenContext";
-import { faCheckSquare } from '@fortawesome/free-solid-svg-icons'
-import {FaFontAwesome} from "react-icons/all";
+
+import NewsfeedComponent from "./NewsfeedComponent";
 
 export default function HomePage() {
-
-    const {token} = useContext(LoginTokenContext);
-    const {newsfeed5, setNewsfeed5} = useContext(NewsfeedContext);
-
-    useEffect(() => {
-        getNewsfeed5(token, setNewsfeed5);
-    }, [])
-
-    useEffect(() => {
-       console.log(newsfeed5);
-    }, [newsfeed5])
-
 
     return(
 
@@ -37,15 +22,9 @@ export default function HomePage() {
                 <p><Link to="/infos">Hintergrundinfos</Link></p>*/}
             </StyledHomePageMenu>
 
-            <StyledNewsfeed className="fa-ul">
+            <NewsfeedComponent/>
 
-                {newsfeed5.map((newsfeedElement) => <li key={newsfeedElement.id} >
-                                                            <FaFontAwesome icon={faCheckSquare} listItem/>
-                                                                {newsfeedElement.dateExternal}:
-                                                                {newsfeedElement.message}
-                                                    </li>)}
 
-            </StyledNewsfeed>
 
         </>
 
@@ -93,16 +72,3 @@ const FlexDiv = styled.div`
   justify-content: center;
 `
 
-const StyledNewsfeed = styled.ul`
-  width: auto;
-  margin: 15px;
-  list-style-type: circle;
-  font-size: 0.70em;
-  border-left: 5px solid var(--darkgreen);
-  padding: 10px 20px;
-
-  li{
-    margin: 3px;
-  }
-
-`
