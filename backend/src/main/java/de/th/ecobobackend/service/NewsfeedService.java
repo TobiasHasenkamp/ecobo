@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NewsfeedService {
@@ -56,26 +55,24 @@ public class NewsfeedService {
 
         String newsfeedMessage = "";
 
-        if (type == NewsfeedType.ECOELEMENT_ADDED){
-            newsfeedMessage = ecoElementName + " (" + categorySub + ") was added by " + creatorName + ". Please review!";
-        }
-        else if (type == NewsfeedType.ECOELEMENT_DELETED){
-            newsfeedMessage = ecoElementName + " (" + categorySub + ") was deleted.";
-        }
-        else if (type == NewsfeedType.ECOELEMENT_IN_DELETE_PROCESS){
-            newsfeedMessage = ecoElementName + " (" + categorySub + ") is in Removal process. Please review!";
-        }
-        else if (type == NewsfeedType.ECOELEMENT_REVIEWED){
-            newsfeedMessage = ecoElementName + " (" + categorySub + ") has been reviewed and approved.";
-        }
-        else if (type == NewsfeedType.ECOELEMENT_UPDATED){
-            newsfeedMessage = ecoElementName + " (" + categorySub + ") was updated by " + creatorName + ". Please review!";
+        if (ecoElementName.length() > 25){
+            ecoElementName = ecoElementName.substring(0, 23) + "...";
         }
 
-        String linkedElementID = "";
-        Optional<EcoElement> foundElementInDB = ecoElementMongoDB.findByName(ecoElementName);
-        if (foundElementInDB.isPresent() && foundElementInDB.get().getCreator().equals(creatorName)){
-            linkedElementID = foundElementInDB.get().getId();
+        if (type == NewsfeedType.ECOELEMENT_ADDED){
+            newsfeedMessage = ecoElementName + " ist neu.";
+        }
+        else if (type == NewsfeedType.ECOELEMENT_DELETED){
+            newsfeedMessage = ecoElementName + " wurde gelöscht.";
+        }
+        else if (type == NewsfeedType.ECOELEMENT_IN_DELETE_PROCESS){
+            newsfeedMessage = ecoElementName + " soll gelöscht werden.";
+        }
+        else if (type == NewsfeedType.ECOELEMENT_REVIEWED){
+            newsfeedMessage = ecoElementName + " wurde reviewed.";
+        }
+        else if (type == NewsfeedType.ECOELEMENT_UPDATED){
+            newsfeedMessage = ecoElementName + " hat ein Update.";
         }
 
         NewsfeedElement newNewsfeedElement = NewsfeedElement.builder()
@@ -85,7 +82,7 @@ public class NewsfeedService {
                 .message(newsfeedMessage)
                 .dateInternal(timestampUtils.generateTimeStamp())
                 .dateExternal(timestampUtils.generateReadableDateStamp())
-                .linkedElement(linkedElementID)
+                .linkedElement(ecoElementName)
                 .build();
 
         newsfeedMongoDB.save(newNewsfeedElement);
@@ -93,7 +90,13 @@ public class NewsfeedService {
 
     public void addNewsFeedElementForUser(String userName){
 
-        String newsfeedMessage = "Welcome to our new user " + userName + ".";
+        String originalUsername = userName;
+
+        if (userName.length() > 25){
+            userName = userName.substring(0, 23) + "...";
+        }
+
+        String newsfeedMessage = "Willkommen " + userName + "!";
 
         NewsfeedElement newNewsfeedElement = NewsfeedElement.builder()
                 .id(idUtils.generateID())
@@ -102,7 +105,7 @@ public class NewsfeedService {
                 .message(newsfeedMessage)
                 .dateInternal(timestampUtils.generateTimeStamp())
                 .dateExternal(timestampUtils.generateReadableDateStamp())
-                .linkedElement(userName)
+                .linkedElement(originalUsername)
                 .build();
 
         newsfeedMongoDB.save(newNewsfeedElement);

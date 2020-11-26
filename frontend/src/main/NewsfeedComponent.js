@@ -1,35 +1,55 @@
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import {FaCheck, FaQuestion, FaWarehouse} from "react-icons/fa";
-import ListItemText from "@material-ui/core/ListItemText";
-import {AiOutlineCheckCircle} from "react-icons/ai";
-import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
 import NewsfeedContext from "./contexts/NewsfeedContext";
 import {getNewsfeed5} from "./services/NewsfeedService";
 import LoginTokenContext from "./contexts/LoginTokenContext";
 import {Link} from "react-router-dom";
 import {BiMessageAltDetail, FiDelete, GrUpdate, GrUserAdd} from "react-icons/all";
+import EcoElementContext from "./contexts/EcoElementContext";
+import {getEcoElements} from "./services/EcoElementService";
 
 export default function NewsfeedComponent(){
 
+    const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const {newsfeed5, setNewsfeed5} = useContext(NewsfeedContext);
-
-    useEffect(() => {
-        getNewsfeed5(token, setNewsfeed5);
-    }, [])
-
-    useEffect(() => {
-        console.log(newsfeed5);
-    }, [newsfeed5])
-
     const {token} = useContext(LoginTokenContext);
 
+    useEffect(() => {
+        getEcoElements(token, setEcoElements);
+    }, [token, setEcoElements]);
+
+
+    useEffect(() => {
+        if (token && ecoElements){
+            getNewsfeed5(token, setNewsfeed5);
+        }
+    }, [setNewsfeed5, ecoElements, token])
+
+
+    function getLink(newsfeedElementForLink){
+
+        if (ecoElements !== undefined && newsfeedElementForLink !== undefined) {
+
+            const newsfeedType = newsfeedElementForLink.type;
+
+            if (newsfeedType === "USER_REGISTRATION") {
+                return "/home";
+            } else if (newsfeedType === "ADMIN_MESSAGE") {
+                return "/home";
+            } else if (newsfeedType === "NONE") {
+                return "/home";
+            } else {
+                const linkedElement = ecoElements.find(element => element.name === newsfeedElementForLink.linkedElement);
+                if (linkedElement !== undefined) {
+                    return "/bo/element/" + linkedElement.id;
+                }
+                else {
+                    return "/home";
+                }
+            }
+        }
+    }
 
     function getDateDifference(dateInternal){
 
@@ -37,45 +57,92 @@ export default function NewsfeedComponent(){
         const date = new Date(dateInternal);
         const daysPassed = (today - date) / (1000 * 60 * 60 *24);
 
-        if (daysPassed < 0.9){
-            return "vor " + (Math.round(daysPassed * 24)) + "h"
+
+        if (daysPassed < 0.06){
+            if (Math.round(daysPassed * 24 * 60) < 2){
+                return "jetzt";
+            }
+            else {
+                return "vor " + (Math.round(daysPassed * 24 * 60)) + "min";
+            }
+        }
+        else if (daysPassed < 0.9){
+            return "vor " + (Math.round(daysPassed * 24)) + "h";
         }
         else if (daysPassed < 25){
-            return "vor " + (Math.round(daysPassed)) + " Tagen"
+            if (Math.round(daysPassed) === 1){
+                return "vor " + (Math.round(daysPassed)) + " Tag";
+            }
+            else {
+                return "vor " + (Math.round(daysPassed)) + " Tagen";
+            }
         }
         else if (daysPassed < 340){
-            return "vor " + (Math.round(daysPassed/30)) + " Monaten"
+            if (Math.round(daysPassed/30) === 1){
+                return "vor " + (Math.round(daysPassed/30)) + " Monat";
+            }
+            else {
+                return "vor " + (Math.round(daysPassed/30)) + " Monaten";
+            }
         }
         else {
-            return "vor " + (Math.round(daysPassed/365)) + " Jahren"
+            if (Math.round(daysPassed/365) === 1){
+                return "vor " + (Math.round(daysPassed/365)) + " Jahr";
+            }
+            else {
+                return "vor " + (Math.round(daysPassed/365)) + " Jahren";
+            }
+        }
+    }
+
+    function returnIcon(newsfeedType){
+
+        if (newsfeedType === "ECOELEMENT_ADDED"){
+            return <FaWarehouse/>
+        }
+        else if (newsfeedType === "ECOELEMENT_UPDATED"){
+            return <GrUpdate/>
+        }
+        else if (newsfeedType === "ECOELEMENT_DELETED"){
+            return <FiDelete/>
+        }
+        else if (newsfeedType === "ECOELEMENT_REVIEWED"){
+            return <FaCheck/>
+        }
+        else if (newsfeedType === "ECOELEMENT_IN_DELETE_PROCESS"){
+            return <FaQuestion/>
+        }
+        else if (newsfeedType === "USER_REGISTRATION"){
+            return <GrUserAdd/>
+        }
+        else if (newsfeedType === "ADMIN_MESSAGE"){
+            return <BiMessageAltDetail/>
+        }
+        else {
+            return <BiMessageAltDetail/>
         }
     }
 
     return (
 
-        <StyledNewsfeed>
 
-            {newsfeed5.map((newsfeedElement) => (
+        <div>
+            <StyledNewsfeedHeader>Newsfeed:</StyledNewsfeedHeader>
+            <StyledNewsfeed>
+                {newsfeed5.map((newsfeedElement) => (
+                    <Link key={newsfeedElement.id} to={getLink(newsfeedElement)}>
+                        <div className="row">
+                            {returnIcon(newsfeedElement.type)}
+                            <div>{getDateDifference(newsfeedElement.dateInternal)}</div>
+                            <div>{newsfeedElement.message.slice(0, 40)}</div>
+                        </div>
+                    </Link>
 
-                <Link key={newsfeedElement.id} to={"/bo/element/" + newsfeedElement.linkedElement}>
-                    <div className="row">
-                        {newsfeedElement.type === "ECOELEMENT_ADDED" && <FaWarehouse/>}
-                        {newsfeedElement.type === "ECOELEMENT_UPDATED" && <GrUpdate/>}
-                        {newsfeedElement.type === "ECOELEMENT_DELETED" && <FiDelete/>}
-                        {newsfeedElement.type === "ECOELEMENT_REVIEWED" && <FaCheck/>}
-                        {newsfeedElement.type === "ECOELEMENT_IN_DELETE_PROCESS" && <FaQuestion/>}
-                        {newsfeedElement.type === "USER_REGISTRATION" && <GrUserAdd/>}
-                        {newsfeedElement.type === "ADMIN_MESSAGE" && <BiMessageAltDetail/>}
-                        {newsfeedElement.type === "NONE" && <BiMessageAltDetail/>}
-                        <div>{getDateDifference(newsfeedElement.dateInternal)}</div>
-                        <div>{newsfeedElement.message.slice(0, 28)}</div>
-                    </div>
-                </Link>
+                    ))
+                }
+            </StyledNewsfeed>
+        </div>
 
-                ))
-            }
-
-        </StyledNewsfeed>
 
         )
 }
@@ -83,29 +150,38 @@ export default function NewsfeedComponent(){
 
 const StyledNewsfeed = styled.div`
   width: auto;
-  margin: 15px;
+  margin: 0 15px 15px 15px;
   font-size: 0.8em;
   border-left: 5px solid var(--darkgreen);
-  padding: 10px 20px;
-  list-style: none;
+  padding: 10px 14px 10px 14px;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 5px;
+  grid-template-rows: min-content min-content min-content min-content min-content;
+  grid-gap: 3px;
   background-color: lightgray;
   
   a{
       color: var(--darkgrey);
-      
       :active{
-        color: black;
+        color: var(--darkgrey);
+      }
+      :hover{
+        color: var(--darkgrey);
       }
   }
 
   .row{
         display: grid;
-        grid-template-columns: min-content auto auto;
-        grid-gap: 15px;
-  }
-  
-   
+        grid-template-columns: min-content minmax(min-content, 23%) minmax(min-content, 77%);
+        grid-gap: 11px;
+        justify-content: left;
+  } 
+`
+
+const StyledNewsfeedHeader = styled.div`
+  width: auto;
+  margin: 15px 15px 0 15px;
+  padding: 10px 14px 5px 10px;
+  font-size: 0.85em;
+  font-weight: bold;
+  color: var(--darkgrey);
 `
