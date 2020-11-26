@@ -1,5 +1,6 @@
 package de.th.ecobobackend.mongoDB;
 
+import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.NewsfeedElement;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

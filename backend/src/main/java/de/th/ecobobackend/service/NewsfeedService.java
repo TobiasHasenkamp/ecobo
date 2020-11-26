@@ -1,27 +1,35 @@
 package de.th.ecobobackend.service;
 
+import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.NewsfeedElement;
 import de.th.ecobobackend.model.enums.CategorySub;
 import de.th.ecobobackend.model.enums.NewsfeedType;
+import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.mongoDB.NewsfeedMongoDB;
 import de.th.ecobobackend.utils.IDUtils;
 import de.th.ecobobackend.utils.TimestampUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NewsfeedService {
 
     private final NewsfeedMongoDB newsfeedMongoDB;
+    private final EcoElementMongoDB ecoElementMongoDB;
     private final IDUtils idUtils;
     private final TimestampUtils timestampUtils;
 
-    public NewsfeedService(NewsfeedMongoDB newsfeedMongoDB, IDUtils idUtils, TimestampUtils timestampUtils) {
+    @Autowired
+    public NewsfeedService(NewsfeedMongoDB newsfeedMongoDB, IDUtils idUtils, TimestampUtils timestampUtils,
+                           EcoElementMongoDB ecoElementMongoDB) {
         this.newsfeedMongoDB = newsfeedMongoDB;
         this.idUtils = idUtils;
         this.timestampUtils = timestampUtils;
+        this.ecoElementMongoDB = ecoElementMongoDB;
     }
 
     //============================================================================
@@ -29,7 +37,6 @@ public class NewsfeedService {
     //============================================================================
 
     public List<NewsfeedElement> getNewsfeed() {
-        System.out.println("kommt an 2");
         return newsfeedMongoDB.findAll();
     }
 
@@ -65,6 +72,12 @@ public class NewsfeedService {
             newsfeedMessage = ecoElementName + " (" + categorySub + ") was updated by " + creatorName + ". Please review!";
         }
 
+        String linkedElementID = "";
+        Optional<EcoElement> foundElementInDB = ecoElementMongoDB.findByName(ecoElementName);
+        if (foundElementInDB.isPresent() && foundElementInDB.get().getCreator().equals(creatorName)){
+            linkedElementID = foundElementInDB.get().getId();
+        }
+
         NewsfeedElement newNewsfeedElement = NewsfeedElement.builder()
                 .id(idUtils.generateID())
                 .number(newsfeedMongoDB.findAll().size() + 1)
@@ -72,6 +85,7 @@ public class NewsfeedService {
                 .message(newsfeedMessage)
                 .dateInternal(timestampUtils.generateTimeStamp())
                 .dateExternal(timestampUtils.generateReadableDateStamp())
+                .linkedElement(linkedElementID)
                 .build();
 
         newsfeedMongoDB.save(newNewsfeedElement);
@@ -88,6 +102,7 @@ public class NewsfeedService {
                 .message(newsfeedMessage)
                 .dateInternal(timestampUtils.generateTimeStamp())
                 .dateExternal(timestampUtils.generateReadableDateStamp())
+                .linkedElement(userName)
                 .build();
 
         newsfeedMongoDB.save(newNewsfeedElement);
@@ -102,6 +117,7 @@ public class NewsfeedService {
                 .message(message)
                 .dateInternal(timestampUtils.generateTimeStamp())
                 .dateExternal(timestampUtils.generateReadableDateStamp())
+                .linkedElement("")
                 .build();
 
         newsfeedMongoDB.save(newNewsfeedElement);
