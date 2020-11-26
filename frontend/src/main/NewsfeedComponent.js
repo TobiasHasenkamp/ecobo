@@ -40,13 +40,7 @@ export default function NewsfeedComponent(){
             } else if (newsfeedType === "NONE") {
                 return "/home";
             } else {
-                const linkedElement = ecoElements.find(element => element.name === newsfeedElementForLink.linkedElement);
-                if (linkedElement !== undefined) {
-                    return "/bo/element/" + linkedElement.id;
-                }
-                else {
-                    return "/home";
-                }
+                return "/bo/element/" + newsfeedElementForLink.linkedElement;
             }
         }
     }
@@ -58,7 +52,7 @@ export default function NewsfeedComponent(){
         const daysPassed = (today - date) / (1000 * 60 * 60 *24);
 
 
-        if (daysPassed < 0.06){
+        if (daysPassed < 0.04){
             if (Math.round(daysPassed * 24 * 60) < 2){
                 return "jetzt";
             }
@@ -174,6 +168,7 @@ const StyledNewsfeed = styled.div`
         grid-template-columns: min-content minmax(min-content, 23%) minmax(min-content, 77%);
         grid-gap: 11px;
         justify-content: left;
+        padding: 2px 0;
   } 
 `
 
