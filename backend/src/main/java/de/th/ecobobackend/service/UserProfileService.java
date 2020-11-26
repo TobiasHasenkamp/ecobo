@@ -2,6 +2,7 @@ package de.th.ecobobackend.service;
 
 import de.th.ecobobackend.model.UserProfile;
 import de.th.ecobobackend.model.dto.UserLoginDto;
+import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.UserProfileMongoDB;
 import de.th.ecobobackend.utils.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,15 @@ public class UserProfileService {
 
     private final UserProfileMongoDB userProfileMongoDB;
     private final TimestampUtils timestampUtils;
+    private final NewsfeedService newsfeedService;
 
     @Autowired
-    public UserProfileService(UserProfileMongoDB userProfileMongoDB, TimestampUtils timeStampUtils) {
+    public UserProfileService(UserProfileMongoDB userProfileMongoDB, TimestampUtils timeStampUtils,
+                              NewsfeedService newsfeedService) {
         this.userProfileMongoDB = userProfileMongoDB;
         this.timestampUtils = timeStampUtils;
+        this.newsfeedService = newsfeedService;
+
     }
 
     //============================================================================
@@ -54,6 +59,7 @@ public class UserProfileService {
                         .registrationDateExternal(timestampUtils.generateReadableDateStamp())
                         .build();
 
+        newsfeedService.addNewsFeedElementForUser(userLoginDto.getUsername());
         return userProfileMongoDB.save(newUser);
     }
 

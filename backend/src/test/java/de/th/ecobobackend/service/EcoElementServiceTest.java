@@ -25,7 +25,8 @@ class EcoElementServiceTest {
 
     final EcoElementMongoDB ecoElementMongoDB = mock(EcoElementMongoDB.class);
     final EcoElementBuilder ecoElementBuilder = mock(EcoElementBuilder.class);
-    final EcoElementService ecoElementService = new EcoElementService(ecoElementMongoDB, ecoElementBuilder);
+    final NewsfeedService newsfeedService = mock(NewsfeedService.class);
+    final EcoElementService ecoElementService = new EcoElementService(ecoElementMongoDB, ecoElementBuilder, newsfeedService);
     final EcoElementSeeder ecoElementSeeder = new EcoElementSeeder();
 
     @Test

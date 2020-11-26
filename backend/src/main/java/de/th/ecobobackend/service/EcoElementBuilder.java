@@ -98,7 +98,7 @@ public class EcoElementBuilder {
     }
 
 
-    public Object buildUpdatedEcoElement(EcoElementDto ecoElementDto, EcoElement existingEcoElement, String ecoElementId) {
+    public EcoElement buildUpdatedEcoElement(EcoElementDto ecoElementDto, EcoElement existingEcoElement, String ecoElementId) {
 
         if (ecoElementDto.getCategorySub() == null){
             ecoElementDto.setCategorySub(CategorySub.NONE);
