@@ -65,6 +65,10 @@ export const StyledHeaderRow = styled.div`
     &.lightgreen{
       background: #99ff99;
     }
+    &.lightgrey{
+    background: #E0E0E0;
+    color: black;
+    }
 `
 
 export const StyledCell = styled.div`

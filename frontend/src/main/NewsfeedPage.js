@@ -8,7 +8,6 @@ import {Link} from "react-router-dom";
 import {BiMessageAltDetail, FiDelete, GrUpdate, GrUserAdd} from "react-icons/all";
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/EcoElementService";
-import {FaRegArrowAltCircleDown} from "react-icons/fa";
 
 export default function NewsfeedPage(){
 

@@ -14,6 +14,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
+import {FaFacebook, FaLink} from "react-icons/fa";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -137,23 +138,16 @@ export default function EcoElementPage(){
                                 </StyledCell>
                             </StyledElementBody>
 
-                            {/*Website*/}
+                            {/*Website/Facebook*/}
                             <StyledElementBody>
                                 <StyledCell>
-                                    Website:
+                                    Links:
                                 </StyledCell>
                                 <StyledCell>
-                                    www.beispiel.de
-                                </StyledCell>
-                            </StyledElementBody>
-
-                            {/*Facebook-Link*/}
-                            <StyledElementBody>
-                                <StyledCell>
-                                    Facebook:
-                                </StyledCell>
-                                <StyledCell>
-                                    www.facebook.de
+                                    <StyledIcons>
+                                        <a href="http://www.spiegel.de"> <FaLink/> </a>
+                                        <a href="http://www.facebook.de"> <FaFacebook/> </a>
+                                    </StyledIcons>
                                 </StyledCell>
                             </StyledElementBody>
 
@@ -177,6 +171,12 @@ export default function EcoElementPage(){
                             </StyledElementBody>
                         <div/>
                     </StyledElement>
+            </StyledWrapperTable>
+
+            <StyledWrapperTable>
+                <StyledHeaderRow className="lightgrey">
+                    Review-Status
+                </StyledHeaderRow>
             </StyledWrapperTable>
 
             <StyledDiv>
@@ -277,4 +277,19 @@ const StyledDivForElementData = styled.div`
   grid-gap: 3px;
   font-size: 0.75em;
   line-height: 0.9em;
+`
+
+const StyledIcons = styled.div`
+  font-size: 1.35em;
+  color: var(--darkgrey);
+  a {
+    color: var(--darkgrey);
+    
+    :hover{
+        color: var(--darkgrey);
+    }
+    :active {
+      color: var(--darkgrey);
+    }
+  }
 `
