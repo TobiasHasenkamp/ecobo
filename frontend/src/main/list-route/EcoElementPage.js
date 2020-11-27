@@ -266,8 +266,8 @@ export default function EcoElementPage(){
                         {addReviewSectionIsOpen &&
                         <StyledCell style={{ gridColumn: "1 / span 2" }}>
 
-                                {"Comment (optional): "}
-                                <input name="reviewComment" value={reviewComment} onChange={handleAddReviewCommentChange} type="text"/>
+                                <label style={{verticalAlign: "top"}} htmlFor="reviewComment">Comment (optional):</label> {" "}
+                                <StyledTextboxForComments rows={3} maxLength={200} name="reviewComment" value={reviewComment} onChange={handleAddReviewCommentChange} type="text"/>
                                 <StyledDivForAddingANewReview>Ihre Bewertung:
                                     <FaCheck name="positiveAddReviewButton" className="positive" onClick={handleAddReview}/>
                                     <FaTimes name="negativeAddReviewButton" className="negative" onClick={handleAddReview}/>
@@ -433,4 +433,9 @@ const StyledDivForAddingANewReview = styled.div`
       color: green;
       margin: -2px 5px;
     }
+`
+
+const StyledTextboxForComments = styled.textarea`
+    width: 95%;
+    margin-top: 5px;
 `
