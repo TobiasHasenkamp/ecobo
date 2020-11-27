@@ -21,7 +21,7 @@ public class EcoElementBuilder {
         this.timestampUtils = timeStampUtils;
     }
 
-    public EcoElement build(EcoElementDto ecoElementDto){
+    public EcoElement build(EcoElementDto ecoElementDto, String newID){
 
         if (ecoElementDto.getCategorySub() == null){
             ecoElementDto.setCategorySub(CategorySub.NONE);
@@ -34,7 +34,7 @@ public class EcoElementBuilder {
         }
 
         return EcoElement.builder()
-                .id(idUtils.generateID())
+                .id(newID)
                 .name(ecoElementDto.getName())
                 .category(ecoElementDto.getCategory())
                 .categorySub(ecoElementDto.getCategorySub())

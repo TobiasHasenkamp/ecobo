@@ -52,7 +52,7 @@ class EcoElementBuilderTest {
     @DisplayName("The build method should build an EcoElement corresponding to the DtoElement it was called with")
     void buildShouldBuildCorrectEcoElement() {
         //When
-        EcoElement receivedEcoElement = ecoElementBuilder.build(incomingEcoElementDto);
+        EcoElement receivedEcoElement = ecoElementBuilder.build(incomingEcoElementDto, "123");
 
         //Then
         assertThat(receivedEcoElement.getName(), is(expectedEcoElement.getName()));

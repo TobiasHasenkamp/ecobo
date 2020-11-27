@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (request.getServletPath().contains("/acc/userdata")){
             return true;
         }
-        if (request.getServletPath().contains("/auth/newsfeed")){
+        if (request.getServletPath().contains("/api/newsfeed")){
             return true;
         }
         return false;

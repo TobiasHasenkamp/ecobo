@@ -3,6 +3,8 @@ import React from "react";
 import {Link} from "react-router-dom";
 import GreenBoxLargeWithGradientBorderline from "./designElements/GreenBoxLargeWithGradientBorderline";
 
+import NewsfeedComponent from "./NewsfeedComponent";
+
 export default function HomePage() {
 
     return(
@@ -19,6 +21,10 @@ export default function HomePage() {
                 {/*<p><Link to="/features">Features</Link></p>
                 <p><Link to="/infos">Hintergrundinfos</Link></p>*/}
             </StyledHomePageMenu>
+
+            <NewsfeedComponent/>
+
+
 
         </>
 
@@ -65,3 +71,4 @@ const FlexDiv = styled.div`
   align-items: center;
   justify-content: center;
 `
+

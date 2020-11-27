@@ -5,6 +5,7 @@ import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
+import de.th.ecobobackend.utils.IDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,15 @@ public class EcoElementService {
     private final EcoElementMongoDB ecoElementMongoDB;
     private final EcoElementBuilder ecoElementBuilder;
     private final NewsfeedService newsfeedService;
+    private final IDUtils idUtils;
 
     @Autowired
     public EcoElementService(EcoElementMongoDB ecoElementMongoDB, EcoElementBuilder ecoElementBuilder,
-                             NewsfeedService newsfeedService){
+                             NewsfeedService newsfeedService, IDUtils idUtils){
         this.ecoElementMongoDB = ecoElementMongoDB;
         this.ecoElementBuilder = ecoElementBuilder;
         this.newsfeedService = newsfeedService;
+        this.idUtils = idUtils;
     }
 
 
@@ -64,9 +67,11 @@ public class EcoElementService {
 
     public EcoElement addEcoElement(EcoElementDto ecoElementDto){
 
-        newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_ADDED, ecoElementDto.getName(),
-                                        ecoElementDto.getCreator(), ecoElementDto.getCategorySub());
-        return ecoElementMongoDB.save(ecoElementBuilder.build(ecoElementDto));
+        String newID = idUtils.generateID();
+
+        newsfeedService.addNewsFeedElementForNewEcoElement(NewsfeedType.ECOELEMENT_ADDED, ecoElementDto.getName(),
+                                        ecoElementDto.getCreator(), ecoElementDto.getCategorySub(), newID);
+        return ecoElementMongoDB.save(ecoElementBuilder.build(ecoElementDto, newID));
     }
 
     public EcoElement addRandomEcoElement() {

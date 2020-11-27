@@ -24,4 +24,5 @@ public class NewsfeedElement {
     long number;
     String dateExternal;
     Instant dateInternal;
+    String linkedElement;
 }

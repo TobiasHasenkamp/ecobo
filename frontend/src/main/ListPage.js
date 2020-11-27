@@ -19,6 +19,10 @@ export default function ListPage() {
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
 
+    useEffect(() => {
+        console.log(ecoElements)
+    }, [ecoElements])
+
     return(
 
         <div>
