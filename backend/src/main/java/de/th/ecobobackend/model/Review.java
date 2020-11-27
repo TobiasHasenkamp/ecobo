@@ -20,4 +20,11 @@ public class Review {
     String dateReviewedExternal;
     Instant dateReviewedInternal;
     String reviewComment;
+
+    //Lombok/Spring doesnt update its setter correctly...
+    public boolean getPositive(){
+        return positive;
+    }
+
+
 }

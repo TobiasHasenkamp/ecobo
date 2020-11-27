@@ -1,6 +1,7 @@
 package de.th.ecobobackend.service;
 
 import de.th.ecobobackend.model.EcoElement;
+
 import de.th.ecobobackend.model.Review;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.dto.ReviewDto;
@@ -16,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EcoElementService {
@@ -71,7 +73,7 @@ public class EcoElementService {
 
         String newID = idUtils.generateID();
 
-        newsfeedService.addNewsFeedElementForNewEcoElement(NewsfeedType.ECOELEMENT_ADDED, ecoElementDto.getName(),
+        newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_ADDED, ecoElementDto.getName(),
                                         ecoElementDto.getCreator(), ecoElementDto.getCategorySub(), newID);
         return ecoElementMongoDB.save(ecoElementBuilder.build(ecoElementDto, newID));
     }
@@ -107,7 +109,7 @@ public class EcoElementService {
                 EcoElement updatedEcoElement = ecoElementBuilder
                         .buildUpdatedEcoElement(ecoElementDto, existingEcoElement, ecoElementId);
 
-                newsfeedService.addNewsFeedElementForNewEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
+                newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
                         existingEcoElement.getCreator(), ecoElementDto.getCategorySub(), ecoElementId);
                 return ecoElementMongoDB.save(updatedEcoElement);
             }
@@ -126,7 +128,7 @@ public class EcoElementService {
             }
             else{
                 newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_DELETED, existingEcoElement.getName(),
-                        existingEcoElement.getCreator(), existingEcoElement.getCategorySub());
+                        existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), "");
                 ecoElementMongoDB.deleteById(ecoElementId);
             }
         }
@@ -152,8 +154,22 @@ public class EcoElementService {
             else {
                 EcoElement updatedEcoElement = ecoElementBuilder
                         .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal);
-                /*newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
-                        existingEcoElement.getCreator(), ecoElementDto.getCategorySub());*/
+
+                //if the EcoElement reaches the review threshold with this new review
+                List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.getPositive()).collect(Collectors.toList());
+
+                double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * positiveReviews.size();
+                int numberOfPositiveReviews = positiveReviews.size();
+
+                System.out.println(positiveReviewPercentage);
+                System.out.println(numberOfPositiveReviews);
+
+                if (positiveReviewPercentage > 74.0 && numberOfPositiveReviews > 2){
+                    updatedEcoElement.setIsReviewed(true);
+                    newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_REVIEWED,
+                            existingEcoElement.getName(), existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), existingEcoElement.getId());
+                }
+
                 return ecoElementMongoDB.save(updatedEcoElement);
             }
         }

@@ -51,45 +51,8 @@ public class NewsfeedService {
         return newsFeedListToReturn;
     }
 
+
     public void addNewsFeedElementForEcoElement(NewsfeedType type, String ecoElementName,
-                                                String creatorName, CategorySub categorySub){
-
-        String newsfeedMessage = "";
-
-        if (ecoElementName.length() > 25){
-            ecoElementName = ecoElementName.substring(0, 23) + "...";
-        }
-
-        if (type == NewsfeedType.ECOELEMENT_ADDED){
-            newsfeedMessage = ecoElementName + " ist neu.";
-        }
-        else if (type == NewsfeedType.ECOELEMENT_DELETED){
-            newsfeedMessage = ecoElementName + " wurde gelöscht.";
-        }
-        else if (type == NewsfeedType.ECOELEMENT_IN_DELETE_PROCESS){
-            newsfeedMessage = ecoElementName + " soll gelöscht werden.";
-        }
-        else if (type == NewsfeedType.ECOELEMENT_REVIEWED){
-            newsfeedMessage = ecoElementName + " wurde reviewed.";
-        }
-        else if (type == NewsfeedType.ECOELEMENT_UPDATED){
-            newsfeedMessage = ecoElementName + " hat ein Update.";
-        }
-
-        NewsfeedElement newNewsfeedElement = NewsfeedElement.builder()
-                .id(idUtils.generateID())
-                .number(newsfeedMongoDB.findAll().size() + 1)
-                .type(type)
-                .message(newsfeedMessage)
-                .dateInternal(timestampUtils.generateTimeStamp())
-                .dateExternal(timestampUtils.generateReadableDateStamp())
-                .linkedElement(ecoElementName)
-                .build();
-
-        newsfeedMongoDB.save(newNewsfeedElement);
-    }
-
-    public void addNewsFeedElementForNewEcoElement(NewsfeedType type, String ecoElementName,
                                                 String creatorName, CategorySub categorySub, String newId){
 
         String newsfeedMessage = "";
