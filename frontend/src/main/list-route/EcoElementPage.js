@@ -4,7 +4,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
 import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/EcoElementContext";
 import LoginTokenContext from "../contexts/LoginTokenContext";
-import {getEcoElementById} from "../services/EcoElementService";
+import {addReviewToEcoElement, getEcoElementById} from "../services/EcoElementService";
 import DeleteIconButtonSmall from "../designElements/buttons/DeleteIconButtonSmall";
 import styled from "styled-components/macro";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
@@ -69,6 +69,10 @@ export default function EcoElementPage(){
 
     function hasTitle(){
         return ecoElement.title !== "";
+    }
+
+    function handleAddReview(){
+        addReviewToEcoElement(ecoElement.id, true, "Good shop!", token, setEcoElement);
     }
 
 
@@ -183,10 +187,12 @@ export default function EcoElementPage(){
                     {/*Review status*/}
                     <StyledElementBody>
                         <StyledCell>
-                            {console.log(ecoElement.reviewComments.filter(review => review.id === 123))}
-                            Status {ecoElement.reviewComments.filter(review => review.id === "123").map(() =>
-                                                <FaCheck key={ecoElement.reviewComments.id}/>
-                                            )}
+                            <div>Status
+                                {ecoElement.reviews !== undefined && ecoElement.reviews.length > 0 &&
+                                ecoElement.reviews.filter(review => review.author === "Tobias").map((review) => (
+                                    <FaCheck key={review.author}/>))
+                                }
+                            </div>
                         </StyledCell>
                         <StyledCell>
                         </StyledCell>
@@ -195,7 +201,7 @@ export default function EcoElementPage(){
                     {/*Add your own review*/}
                     <StyledElementBody>
                         <StyledCell className="cellSpanTwoCells" style={{ gridColumn: "1 / span 2" }}>
-                            Eigenes Review hinzufügen <FaRegArrowAltCircleDown/>
+                            Eigenes Review hinzufügen <FaRegArrowAltCircleDown onClick={handleAddReview}/>
                         </StyledCell>
                         <StyledCell>
                         </StyledCell>

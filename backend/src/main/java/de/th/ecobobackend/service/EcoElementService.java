@@ -1,7 +1,9 @@
 package de.th.ecobobackend.service;
 
 import de.th.ecobobackend.model.EcoElement;
+import de.th.ecobobackend.model.Review;
 import de.th.ecobobackend.model.dto.EcoElementDto;
+import de.th.ecobobackend.model.dto.ReviewDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
@@ -117,4 +119,30 @@ public class EcoElementService {
         }
     }
 
+    public EcoElement addReviewToEcoElement(String ecoElementId, ReviewDto reviewDto, Principal principal) {
+
+        EcoElement existingEcoElement = ecoElementMongoDB.findById(ecoElementId).get();
+
+        if (ecoElementMongoDB.findById(ecoElementId).isPresent()){
+
+            String principalName = principal.getName();
+            List<Review> existingReviewsForEcoElement = existingEcoElement.getReviews();
+
+            //if the users has already reviewed this item
+            if (existingReviewsForEcoElement.stream().anyMatch(
+                                    (review) -> (review.getAuthor().equals(principalName)))){
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
+            else {
+                EcoElement updatedEcoElement = ecoElementBuilder
+                        .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal);
+                /*newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
+                        existingEcoElement.getCreator(), ecoElementDto.getCategorySub());*/
+                return ecoElementMongoDB.save(updatedEcoElement);
+            }
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
 }
