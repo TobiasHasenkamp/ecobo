@@ -14,7 +14,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
-import {FaFacebook, FaLink, FaCheck, FaRegArrowAltCircleDown} from "react-icons/fa";
+import {FaFacebook, FaLink, FaCheck, FaRegArrowAltCircleDown, FaTimes} from "react-icons/fa";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -41,6 +41,7 @@ export default function EcoElementPage(){
     useEffect(() => {
 
         let randomValue = Math.random();
+        console.log(ecoElement.reviews)
         setRandomKeyToForceReload(randomValue);
 
         switch(ecoElement.category){
@@ -187,12 +188,13 @@ export default function EcoElementPage(){
                     {/*Review status*/}
                     <StyledElementBody>
                         <StyledCell>
-                            <div>Status
+                            <StyledDivForCheckMarkersForEveryReview> Status
                                 {ecoElement.reviews !== undefined && ecoElement.reviews.length > 0 &&
-                                ecoElement.reviews.filter(review => review.author === "Tobias").map((review) => (
-                                    <FaCheck key={review.author}/>))
-                                }
-                            </div>
+                                    ecoElement.reviews.map((review) => (
+                                        review.positive? <FaCheck key={review.author} className="positive"/>
+                                        : <FaTimes key={review.author} className="negative"/> )
+                                    )}
+                                </StyledDivForCheckMarkersForEveryReview>
                         </StyledCell>
                         <StyledCell>
                         </StyledCell>
@@ -324,5 +326,18 @@ const StyledIcons = styled.div`
     :active {
       color: var(--darkgrey);
     }
+  }
+`
+
+const StyledDivForCheckMarkersForEveryReview = styled.div`
+  
+  .negative{
+    color: red;
+    margin: 0 3px;
+  }
+  
+  .positive{
+    color: green;
+    margin: 0 3px;
   }
 `
