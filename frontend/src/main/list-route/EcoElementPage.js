@@ -14,7 +14,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
-import {FaFacebook, FaLink, FaCheck, FaRegArrowAltCircleDown, FaTimes} from "react-icons/fa";
+import {FaFacebook, FaLink, FaCheck, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp, FaTimes} from "react-icons/fa";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -31,6 +31,9 @@ export default function EcoElementPage(){
     const {token} = useContext(LoginTokenContext);
     const [tableColor, setTableColor] = useState("lightgreen");
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
+    const [commentSectionIsOpen, setCommentSectionIsOpen] = useState(false);
+    const [addReviewSectionIsOpen, setAddReviewSectionIsOpen] = useState(false);
+    const [reviewComment, setReviewComment] = useState("");
 
     const {ecoElementIDParam} = useParams();
 
@@ -40,6 +43,8 @@ export default function EcoElementPage(){
 
     useEffect(() => {
 
+        setCommentSectionIsOpen(false);
+        setAddReviewSectionIsOpen(false);
         let randomValue = Math.random();
         console.log(ecoElement.reviews)
         setRandomKeyToForceReload(randomValue);
@@ -72,8 +77,28 @@ export default function EcoElementPage(){
         return ecoElement.title !== "";
     }
 
-    function handleAddReview(){
-        addReviewToEcoElement(ecoElement.id, true, "Good shop!", token, setEcoElement);
+    function handleShowAddReviewSection(){
+        setAddReviewSectionIsOpen(!addReviewSectionIsOpen);
+    }
+
+    function handleShowCommentsSection(){
+        setCommentSectionIsOpen(!commentSectionIsOpen);
+    }
+
+    function handleAddReview(event){
+        //function seems to have problems, cause not every time the event is transported, maybe this is only a problem in the browser?
+        if (event.target.getAttribute("name") === "positiveAddReviewButton"){
+            addReviewToEcoElement(ecoElement.id, true, reviewComment, token, setEcoElement);
+            setAddReviewSectionIsOpen(false);
+        }
+        else if (event.target.getAttribute("name") === "negativeAddReviewButton"){
+            addReviewToEcoElement(ecoElement.id, false, reviewComment, token, setEcoElement);
+            setAddReviewSectionIsOpen(false);
+        }
+    }
+
+    function handleAddReviewCommentChange(event){
+        setReviewComment(event.target.value);
     }
 
 
@@ -187,24 +212,69 @@ export default function EcoElementPage(){
 
                     {/*Review status*/}
                     <StyledElementBody>
-                        <StyledCell>
-                            <StyledDivForCheckMarkersForEveryReview> Status
+                        <StyledCell style={{ gridColumn: "1 / span 2" }}>
+                            <StyledDivForCheckMarkersForEveryReview> {"Status: "}
                                 {ecoElement.reviews !== undefined && ecoElement.reviews.length > 0 &&
                                     ecoElement.reviews.map((review) => (
                                         review.positive? <FaCheck key={review.author} className="positive"/>
                                         : <FaTimes key={review.author} className="negative"/> )
                                     )}
+
+                                    {" ("}{Math.round(100 /
+                                            (ecoElement.reviews.length *
+                                                ecoElement.reviews.filter((review) => (review.positive)).length))
+                                    }% positiv)
+
+
                                 </StyledDivForCheckMarkersForEveryReview>
-                        </StyledCell>
-                        <StyledCell>
                         </StyledCell>
                     </StyledElementBody>
 
+                    {/*review system description*/}
+                    <StyledElementBody>
+                        <StyledCell style={{ gridColumn: "1 / span 2" }}>
+                            Für eine Bestätigung werden mindestens 75% positive von mindestens 3 positiven Reviews benötigt.
+                        </StyledCell>
+                    </StyledElementBody>
+
+                    {/*Show comments*/}
+                    <StyledElementBody>
+                        <StyledCell style={{ gridColumn: "1 / span 2" }}>
+                            {ecoElement.reviews.filter((review) => (review.reviewComment !== "")).length}
+                            {" Kommentare "}
+                            {commentSectionIsOpen? <FaRegArrowAltCircleUp onClick={handleShowCommentsSection}/>
+                                    : <FaRegArrowAltCircleDown onClick={handleShowCommentsSection}/>}
+                        </StyledCell>
+                        {commentSectionIsOpen &&
+                            <StyledCell style={{ gridColumn: "1 / span 2" }}>
+                                <StyledListForComments>
+                                {ecoElement.reviews.filter((review) => (review.reviewComment !== ""))
+                                    .map((review) => (<li key={review.author}>"{review.reviewComment}" ({review.author}, {review.dateReviewedExternal})</li>))}
+                                </StyledListForComments>
+                            </StyledCell>
+                        }
+                    </StyledElementBody>
+
+
+
                     {/*Add your own review*/}
                     <StyledElementBody>
-                        <StyledCell className="cellSpanTwoCells" style={{ gridColumn: "1 / span 2" }}>
-                            Eigenes Review hinzufügen <FaRegArrowAltCircleDown onClick={handleAddReview}/>
+                        <StyledCell style={{ gridColumn: "1 / span 2" }}>
+                            {"Eigenes Review hinzufügen "}{addReviewSectionIsOpen? <FaRegArrowAltCircleUp onClick={handleShowAddReviewSection}/>
+                            : <FaRegArrowAltCircleDown onClick={handleShowAddReviewSection}/>}
                         </StyledCell>
+                        {addReviewSectionIsOpen &&
+                        <StyledCell style={{ gridColumn: "1 / span 2" }}>
+
+                                {"Comment (optional): "}
+                                <input name="reviewComment" value={reviewComment} onChange={handleAddReviewCommentChange} type="text"/>
+                                <StyledDivForAddingANewReview>Ihre Bewertung:
+                                    <FaCheck name="positiveAddReviewButton" className="positive" onClick={handleAddReview}/>
+                                    <FaTimes name="negativeAddReviewButton" className="negative" onClick={handleAddReview}/>
+                                </StyledDivForAddingANewReview>
+
+                        </StyledCell>
+                        }
                         <StyledCell>
                         </StyledCell>
                     </StyledElementBody>
@@ -333,11 +403,34 @@ const StyledDivForCheckMarkersForEveryReview = styled.div`
   
   .negative{
     color: red;
-    margin: 0 3px;
+    margin: -2px 2px;
   }
   
   .positive{
     color: green;
-    margin: 0 3px;
+    margin: -2px 2px;
   }
+`
+
+const StyledListForComments = styled.ul`
+      font-size: 2.9vmin;
+      list-style: square;
+      padding: 0 24px;
+      margin: -7px 0 0 0;
+`
+
+const StyledDivForAddingANewReview = styled.div`
+      padding: 6px 0;
+      margin: 0;
+      font-size: 1.15em;
+      
+    .negative{
+        color: red;
+        margin: -2px 5px;
+    }
+  
+    .positive{
+      color: green;
+      margin: -2px 5px;
+    }
 `
