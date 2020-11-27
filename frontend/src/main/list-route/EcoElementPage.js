@@ -14,7 +14,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
-import {FaFacebook, FaLink} from "react-icons/fa";
+import {FaFacebook, FaLink, FaCheck, FaRegArrowAltCircleDown} from "react-icons/fa";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -173,11 +173,38 @@ export default function EcoElementPage(){
                     </StyledElement>
             </StyledWrapperTable>
 
-            <StyledWrapperTable>
-                <StyledHeaderRow className="lightgrey">
-                    Review-Status
-                </StyledHeaderRow>
-            </StyledWrapperTable>
+            {/*Review section*/}
+            {(ecoElement.isReviewed === false) &&
+                <StyledWrapperTable>
+                    <StyledHeaderRow className="lightgrey">
+                        Review-Status
+                    </StyledHeaderRow>
+
+                    {/*Review status*/}
+                    <StyledElementBody>
+                        <StyledCell>
+                            {console.log(ecoElement.reviewComments.filter(review => review.id === 123))}
+                            Status {ecoElement.reviewComments.filter(review => review.id === "123").map(() =>
+                                                <FaCheck key={ecoElement.reviewComments.id}/>
+                                            )}
+                        </StyledCell>
+                        <StyledCell>
+                        </StyledCell>
+                    </StyledElementBody>
+
+                    {/*Add your own review*/}
+                    <StyledElementBody>
+                        <StyledCell className="cellSpanTwoCells" style={{ gridColumn: "1 / span 2" }}>
+                            Eigenes Review hinzufügen <FaRegArrowAltCircleDown/>
+                        </StyledCell>
+                        <StyledCell>
+                        </StyledCell>
+                    </StyledElementBody>
+
+
+
+                </StyledWrapperTable>
+            }
 
             <StyledDiv>
 
