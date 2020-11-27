@@ -46,7 +46,6 @@ export default function EcoElementPage(){
         setCommentSectionIsOpen(false);
         setAddReviewSectionIsOpen(false);
         let randomValue = Math.random();
-        console.log(ecoElement.reviews)
         setRandomKeyToForceReload(randomValue);
 
         switch(ecoElement.category){
@@ -82,7 +81,9 @@ export default function EcoElementPage(){
     }
 
     function handleShowCommentsSection(){
-        setCommentSectionIsOpen(!commentSectionIsOpen);
+        if (ecoElement.reviews.filter((review) => (review.reviewComment !== "")).length > 0){
+            setCommentSectionIsOpen(!commentSectionIsOpen);
+        }
     }
 
     function handleAddReview(event){
@@ -99,6 +100,23 @@ export default function EcoElementPage(){
 
     function handleAddReviewCommentChange(event){
         setReviewComment(event.target.value);
+    }
+
+    function returnPercentageOfPositiveReviews(element) {
+
+        if (element.reviews.length > 0 && element.reviews.length !== undefined) {
+            const positivePercentage = Math.round(100 / element.reviews.length * element.reviews.filter(
+                (review) => (review.positive)).length);
+
+            if (positivePercentage === undefined || positivePercentage === Infinity || positivePercentage < 0){
+                return " (0% positiv)";
+            }
+
+            return " (" + positivePercentage + "% positiv)";
+        }
+        else {
+            return "-";
+        }
     }
 
 
@@ -210,6 +228,15 @@ export default function EcoElementPage(){
                         Review-Status
                     </StyledHeaderRow>
 
+                    {/*review message if item was reset*/}
+                    {(ecoElement.adminNote === "Review has been reseted because of an element edit." &&
+                    ecoElement.reviews.length < 2) &&
+                    <StyledElementBody>
+                        <StyledCell style={{ gridColumn: "1 / span 2" }}>
+                            Dieses Element wurde am {ecoElement.dateLastUpdatedExternal} substantiell geändert. Deshalb wurde der Review-Prozess neugestartet.
+                        </StyledCell>
+                    </StyledElementBody>}
+
                     {/*Review status*/}
                     <StyledElementBody>
                         <StyledCell style={{ gridColumn: "1 / span 2" }}>
@@ -220,11 +247,7 @@ export default function EcoElementPage(){
                                         : <FaTimes key={review.author} className="negative"/> )
                                     )}
 
-                                    {" ("}{Math.round(100 /
-                                            (ecoElement.reviews.length *
-                                                ecoElement.reviews.filter((review) => (review.positive)).length))
-                                    }% positiv)
-
+                                {returnPercentageOfPositiveReviews(ecoElement)}
 
                                 </StyledDivForCheckMarkersForEveryReview>
                         </StyledCell>
@@ -233,7 +256,7 @@ export default function EcoElementPage(){
                     {/*review system description*/}
                     <StyledElementBody>
                         <StyledCell style={{ gridColumn: "1 / span 2" }}>
-                            Für eine Bestätigung werden mindestens 75% positive von mindestens 3 positiven Reviews benötigt.
+                            Für eine Bestätigung werden mindestens 3 positive und insgesamt 75% positive Reviews benötigt.
                         </StyledCell>
                     </StyledElementBody>
 

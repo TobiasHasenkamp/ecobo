@@ -40,6 +40,8 @@ export default function NewsfeedComponent(){
                 return "/home";
             } else if (newsfeedType === "NONE") {
                 return "/home";
+            } else if (newsfeedType === "ECOELEMENT_DELETED") {
+                return "/home";
             } else {
                 return "/bo/element/" + newsfeedElementForLink.linkedElement;
             }

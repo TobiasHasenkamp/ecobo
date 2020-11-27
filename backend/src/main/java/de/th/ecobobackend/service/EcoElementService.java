@@ -89,8 +89,6 @@ public class EcoElementService {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN);
             }
             else{
-
-
                 //have name, category, subcategory, address or certificates changed? then reset any review process or restart one
                 if (existingEcoElement.getCategory().equals(ecoElementDto.getCategory()) ||
                         existingEcoElement.getCategorySub().equals(ecoElementDto.getCategorySub()) ||
@@ -99,17 +97,18 @@ public class EcoElementService {
                         existingEcoElement.getCertificate1().equals(ecoElementDto.getCertificate1()) ||
                         existingEcoElement.getCertificate2().equals(ecoElementDto.getCertificate2())){
 
-                    existingEcoElement.setIsReviewed(false);
-                    existingEcoElement.setDateReviewedExternal(null);
-                    existingEcoElement.setDateReviewedInternal(null);
-                    existingEcoElement.setAdminNote("Review has been reset because of an element edit.");
-                }
+                        existingEcoElement.setIsReviewed(false);
+                        existingEcoElement.setReviews(List.of());
+                        existingEcoElement.setDateReviewedExternal(null);
+                        existingEcoElement.setDateReviewedInternal(null);
+                        existingEcoElement.setAdminNote("Review has been reseted because of an element edit.");
+                    }
 
                 EcoElement updatedEcoElement = ecoElementBuilder
                         .buildUpdatedEcoElement(ecoElementDto, existingEcoElement, ecoElementId);
 
-                newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
-                        existingEcoElement.getCreator(), ecoElementDto.getCategorySub());
+                newsfeedService.addNewsFeedElementForNewEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
+                        existingEcoElement.getCreator(), ecoElementDto.getCategorySub(), ecoElementId);
                 return ecoElementMongoDB.save(updatedEcoElement);
             }
         }

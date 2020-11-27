@@ -13,11 +13,10 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 public class Review {
-
     @Id
     String author;
-    boolean isPositive;
-    boolean isFromAdmin;
+    boolean positive;
+    boolean fromAdmin;
     String dateReviewedExternal;
     Instant dateReviewedInternal;
     String reviewComment;
