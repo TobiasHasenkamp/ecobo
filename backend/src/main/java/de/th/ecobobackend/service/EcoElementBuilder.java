@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EcoElementBuilder {
@@ -150,7 +151,7 @@ public class EcoElementBuilder {
     }
 
     public EcoElement buildUpdatedEcoElementWithReview(ReviewDto reviewDto, EcoElement existingEcoElement,
-                                                       String ecoElementId, Principal principal) {
+                                                       String ecoElementId, Principal principal, Boolean deleteOldReview) {
         System.out.println(reviewDto.isPositive());
 
         Review newReview = Review.builder()
@@ -163,6 +164,11 @@ public class EcoElementBuilder {
                 .build();
 
         List<Review> newReviewList = existingEcoElement.getReviews();
+
+        if (deleteOldReview){
+            newReviewList = newReviewList.stream().filter((review) -> (!review.getAuthor()
+                                    .equals(principal.getName()))).collect(Collectors.toList());
+        }
         newReviewList.add(newReview);
 
         return EcoElement.builder()

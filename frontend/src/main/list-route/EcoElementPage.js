@@ -28,7 +28,7 @@ export default function EcoElementPage(){
 
     const history = useHistory();
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
-    const {token} = useContext(LoginTokenContext);
+    const {token, username} = useContext(LoginTokenContext);
     const [tableColor, setTableColor] = useState("lightgreen");
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
     const [commentSectionIsOpen, setCommentSectionIsOpen] = useState(false);
@@ -116,6 +116,16 @@ export default function EcoElementPage(){
         }
         else {
             return "-";
+        }
+    }
+
+    function returnHeadlineForAddingAReview(element){
+
+        if (element.reviews.filter((review) => (review.author === username)).length !== 0){
+            return "Dein bestehendes Review überschreiben "
+        }
+        else {
+            return "Eigenes Review hinzufügen ";
         }
     }
 
@@ -279,11 +289,10 @@ export default function EcoElementPage(){
                     </StyledElementBody>
 
 
-
                     {/*Add your own review*/}
                     <StyledElementBody>
                         <StyledCell style={{ gridColumn: "1 / span 2" }}>
-                            {"Eigenes Review hinzufügen "}{addReviewSectionIsOpen? <FaRegArrowAltCircleUp onClick={handleShowAddReviewSection}/>
+                            {returnHeadlineForAddingAReview(ecoElement)} {addReviewSectionIsOpen? <FaRegArrowAltCircleUp onClick={handleShowAddReviewSection}/>
                             : <FaRegArrowAltCircleDown onClick={handleShowAddReviewSection}/>}
                         </StyledCell>
                         {addReviewSectionIsOpen &&

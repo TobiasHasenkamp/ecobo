@@ -145,33 +145,37 @@ public class EcoElementService {
 
             String principalName = principal.getName();
             List<Review> existingReviewsForEcoElement = existingEcoElement.getReviews();
+            EcoElement updatedEcoElement;
+
+            List<Review> existingReviewsBySameAuthor = existingReviewsForEcoElement.stream().filter(
+                    (review) -> (review.getAuthor().equals(principalName))).collect(Collectors.toList());
 
             //if the user has already reviewed this item
-            if (existingReviewsForEcoElement.stream().anyMatch(
-                                    (review) -> (review.getAuthor().equals(principalName)))){
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            if (existingReviewsBySameAuthor.size() != 0){
+                updatedEcoElement = ecoElementBuilder
+                        .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal, true);
             }
             else {
-                EcoElement updatedEcoElement = ecoElementBuilder
-                        .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal);
-
-                //if the EcoElement reaches the review threshold with this new review
-                List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.getPositive()).collect(Collectors.toList());
-
-                double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * positiveReviews.size();
-                int numberOfPositiveReviews = positiveReviews.size();
-
-                System.out.println(positiveReviewPercentage);
-                System.out.println(numberOfPositiveReviews);
-
-                if (positiveReviewPercentage > 74.0 && numberOfPositiveReviews > 2){
-                    updatedEcoElement.setIsReviewed(true);
-                    newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_REVIEWED,
-                            existingEcoElement.getName(), existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), existingEcoElement.getId());
-                }
-
-                return ecoElementMongoDB.save(updatedEcoElement);
+                updatedEcoElement = ecoElementBuilder
+                        .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal, false);
             }
+
+            //if the EcoElement reaches the review threshold with this new review
+            List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.getPositive()).collect(Collectors.toList());
+
+            double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * positiveReviews.size();
+            int numberOfPositiveReviews = positiveReviews.size();
+
+            System.out.println(positiveReviewPercentage);
+            System.out.println(numberOfPositiveReviews);
+
+            if (positiveReviewPercentage > 74.0 && numberOfPositiveReviews > 2){
+                updatedEcoElement.setIsReviewed(true);
+                newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_REVIEWED,
+                        existingEcoElement.getName(), existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), existingEcoElement.getId());
+            }
+
+            return ecoElementMongoDB.save(updatedEcoElement);
         }
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
