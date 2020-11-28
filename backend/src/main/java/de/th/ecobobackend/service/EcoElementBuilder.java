@@ -138,7 +138,6 @@ public class EcoElementBuilder {
                 .creator(existingEcoElement.getCreator())
                 .dateCreatedInternal(existingEcoElement.getDateCreatedInternal())
                 .dateLastUpdatedInternal(timestampUtils.generateTimeStamp())
-                .dateReviewedInternal(null)
                 .dateCreatedExternal(existingEcoElement.getDateCreatedExternal())
                 .dateLastUpdatedExternal(timestampUtils.generateReadableDateStamp())
                 .dateReviewedExternal(existingEcoElement.getDateReviewedExternal())

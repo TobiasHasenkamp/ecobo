@@ -9,6 +9,7 @@ import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.utils.IDUtils;
+import de.th.ecobobackend.utils.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,14 +27,16 @@ public class EcoElementService {
     private final EcoElementBuilder ecoElementBuilder;
     private final NewsfeedService newsfeedService;
     private final IDUtils idUtils;
+    private final TimestampUtils timestampUtils;
 
     @Autowired
     public EcoElementService(EcoElementMongoDB ecoElementMongoDB, EcoElementBuilder ecoElementBuilder,
-                             NewsfeedService newsfeedService, IDUtils idUtils){
+                             NewsfeedService newsfeedService, IDUtils idUtils, TimestampUtils timestampUtils){
         this.ecoElementMongoDB = ecoElementMongoDB;
         this.ecoElementBuilder = ecoElementBuilder;
         this.newsfeedService = newsfeedService;
         this.idUtils = idUtils;
+        this.timestampUtils = timestampUtils;
     }
 
 
@@ -171,6 +174,8 @@ public class EcoElementService {
 
             if (positiveReviewPercentage > 74.0 && numberOfPositiveReviews > 2){
                 updatedEcoElement.setIsReviewed(true);
+                updatedEcoElement.setDateReviewedInternal(timestampUtils.generateTimeStamp());
+                updatedEcoElement.setDateReviewedExternal(timestampUtils.generateReadableDateStamp());
                 newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_REVIEWED,
                         existingEcoElement.getName(), existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), existingEcoElement.getId());
             }

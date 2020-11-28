@@ -15,7 +15,8 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
 import {FaFacebook, FaLink} from "react-icons/fa";
-import ReviewBox from "./EcoElementComponents/ReviewBox";
+import ReviewBox from "./subComponents/ReviewBox";
+import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -173,7 +174,9 @@ export default function EcoElementPage(){
                     </StyledElement>
             </StyledWrapperTable>
 
-            <ReviewBox ecoElement={ecoElement}/>
+            <ReviewBox/>
+
+            <RecentlyReviewedBox/>
 
             <StyledDiv>
 
