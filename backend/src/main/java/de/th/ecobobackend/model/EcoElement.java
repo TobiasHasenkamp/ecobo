@@ -43,10 +43,15 @@ public class EcoElement {
     Boolean certificate2;
 
     String creator;
-    Instant dateCreated;
-    Instant dateLastUpdated;
-    Instant dateReviewed;
 
-    List<String> reviewComments;
+    String dateCreatedExternal;
+    String dateLastUpdatedExternal;
+    String dateReviewedExternal;
+
+    Instant dateCreatedInternal;
+    Instant dateLastUpdatedInternal;
+    Instant dateReviewedInternal;
+
+    List<Review> reviews;
 
 }

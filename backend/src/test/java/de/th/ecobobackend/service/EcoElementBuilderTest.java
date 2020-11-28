@@ -45,14 +45,14 @@ class EcoElementBuilderTest {
             .certificate2(false)
             .lon(1.0)
             .lat(1.0)
-            .dateCreated(Instant.ofEpochSecond(Instant.now().getEpochSecond()))
+            .dateCreatedInternal(Instant.ofEpochSecond(Instant.now().getEpochSecond()))
             .build();
 
     @Test
     @DisplayName("The build method should build an EcoElement corresponding to the DtoElement it was called with")
     void buildShouldBuildCorrectEcoElement() {
         //When
-        EcoElement receivedEcoElement = ecoElementBuilder.build(incomingEcoElementDto);
+        EcoElement receivedEcoElement = ecoElementBuilder.build(incomingEcoElementDto, "123");
 
         //Then
         assertThat(receivedEcoElement.getName(), is(expectedEcoElement.getName()));
@@ -64,7 +64,7 @@ class EcoElementBuilderTest {
         assertThat(receivedEcoElement.getLon(), is(expectedEcoElement.getLon()));
         assertThat(receivedEcoElement.getLat(), is(expectedEcoElement.getLat()));
         assertThat(receivedEcoElement.getId().length(), is(36));
-        assertThat(receivedEcoElement.getDateCreated(), is(inputDateAsInstant));
+        assertThat(receivedEcoElement.getDateCreatedInternal(), is(inputDateAsInstant));
     }
 
 }

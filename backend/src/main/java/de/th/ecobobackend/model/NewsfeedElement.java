@@ -1,5 +1,6 @@
 package de.th.ecobobackend.model;
 
+import de.th.ecobobackend.model.enums.NewsfeedType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,18 +9,20 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Document(collection = "user")
 @Builder
-public class UserProfile {
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "newsfeed")
+public class NewsfeedElement {
 
     @Id
-    private String username;
-    private String password;
-    private Instant registrationDateInternal;
-    private String registrationDateExternal;
+    String id;
+    NewsfeedType type;
+    String message;
+    long number;
+    String dateExternal;
+    Instant dateInternal;
+    String linkedElement;
 }

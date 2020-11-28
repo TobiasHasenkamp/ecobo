@@ -5,7 +5,7 @@ import AccountPage from "./main/account-route/AccountPage";
 import BackgroundInfoPage from "./main/BackgroundInfoPage";
 import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
-import AddElementPage from "./main/ecoElement-route/AddElementPage";
+import AddElementPage from "./main/list-route/AddElementPage";
 import MapPage from "./main/MapPage";
 import NavBar from "./main/NavBar";
 import LoginPage from "./main/account-route/LoginPage";
@@ -16,18 +16,26 @@ import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider
 import styled from "styled-components/macro";
 import LoadingPage from "./main/LoadingPage";
 import EcoElementPage from "./main/list-route/EcoElementPage";
+import EditElementPage from "./main/list-route/EditElementPage";
+import DeletePage from "./main/list-route/DeletePage";
+import NewsfeedContextProvider from "./main/contexts/NewsfeedContextProvider";
+import NewsfeedPage from "./main/NewsfeedPage";
 
 
 function App() {
 
   return (
 
-      <LoginTokenContextProvider> <EcoElementContextProvider>
+      <LoginTokenContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider>
 
           <StyledPageLayout>
               <Switch>
 
                   <Route path="/bo/map">
+                      <NavBar/>
+                      <MapPage/>
+                  </Route>
+                  <Route path="/bo/map/centered">
                       <NavBar/>
                       <MapPage/>
                   </Route>
@@ -38,6 +46,14 @@ function App() {
                   <Route path="/bo/addElement">
                       <NavBar/>
                       <AddElementPage/>
+                  </Route>
+                  <Route path="/bo/editElement/:ecoElementIDParam">
+                      <NavBar/>
+                      <EditElementPage/>
+                  </Route>
+                  <Route path="/bo/deleteElement/:ecoElementIDParam">
+                      <NavBar/>
+                      <DeletePage/>
                   </Route>
                   <Route path="/bo/element/:ecoElementIDParam">
                       <NavBar/>
@@ -59,11 +75,19 @@ function App() {
                       <NavBar/>
                       <HomePage/>
                   </Route>
+                  <Route path="/newsfeed">
+                      <NavBar/>
+                      <NewsfeedPage/>
+                  </Route>
                   <Route path="/login">
                       <NavBar/>
                       <LoginPage/>
                   </Route>
-                  <Route path="/loading">
+                  <Route exact path="/loading">
+                      <NavBar/>
+                      <LoadingPage/>
+                  </Route>
+                  <Route path="/loading/map">
                       <NavBar/>
                       <LoadingPage/>
                   </Route>
@@ -79,7 +103,7 @@ function App() {
 
         </StyledPageLayout>
 
-      </EcoElementContextProvider> </LoginTokenContextProvider>
+      </NewsfeedContextProvider> </EcoElementContextProvider> </LoginTokenContextProvider>
 
   );
 }

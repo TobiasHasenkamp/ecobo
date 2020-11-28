@@ -6,6 +6,7 @@ import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.service.utils.EcoElementSeeder;
+import de.th.ecobobackend.utils.IDUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,10 @@ class EcoElementServiceTest {
 
     final EcoElementMongoDB ecoElementMongoDB = mock(EcoElementMongoDB.class);
     final EcoElementBuilder ecoElementBuilder = mock(EcoElementBuilder.class);
-    final EcoElementService ecoElementService = new EcoElementService(ecoElementMongoDB, ecoElementBuilder);
+    final NewsfeedService newsfeedService = mock(NewsfeedService.class);
+    final IDUtils idUtils = mock(IDUtils.class);
+    final EcoElementService ecoElementService = new EcoElementService(ecoElementMongoDB, ecoElementBuilder,
+                                                                        newsfeedService, idUtils);
     final EcoElementSeeder ecoElementSeeder = new EcoElementSeeder();
 
     @Test
@@ -141,11 +145,11 @@ class EcoElementServiceTest {
                 .certificate2(false)
                 .lon(1.0)
                 .lat(1.0)
-                .dateCreated(inputDateAsInstant)
+                .dateCreatedInternal(inputDateAsInstant)
                 .build();
 
         //When
-        when(ecoElementBuilder.build(incomingEcoElementDto))
+        when(ecoElementBuilder.build(incomingEcoElementDto, "123"))
                 .thenReturn(expectedEcoElement);
         when(ecoElementMongoDB.save(expectedEcoElement))
                 .thenReturn(expectedEcoElement);
