@@ -9,6 +9,7 @@ import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.utils.IDUtils;
+import de.th.ecobobackend.utils.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,14 +27,16 @@ public class EcoElementService {
     private final EcoElementBuilder ecoElementBuilder;
     private final NewsfeedService newsfeedService;
     private final IDUtils idUtils;
+    private final TimestampUtils timestampUtils;
 
     @Autowired
     public EcoElementService(EcoElementMongoDB ecoElementMongoDB, EcoElementBuilder ecoElementBuilder,
-                             NewsfeedService newsfeedService, IDUtils idUtils){
+                             NewsfeedService newsfeedService, IDUtils idUtils, TimestampUtils timestampUtils){
         this.ecoElementMongoDB = ecoElementMongoDB;
         this.ecoElementBuilder = ecoElementBuilder;
         this.newsfeedService = newsfeedService;
         this.idUtils = idUtils;
+        this.timestampUtils = timestampUtils;
     }
 
 
@@ -145,33 +148,39 @@ public class EcoElementService {
 
             String principalName = principal.getName();
             List<Review> existingReviewsForEcoElement = existingEcoElement.getReviews();
+            EcoElement updatedEcoElement;
+
+            List<Review> existingReviewsBySameAuthor = existingReviewsForEcoElement.stream().filter(
+                    (review) -> (review.getAuthor().equals(principalName))).collect(Collectors.toList());
 
             //if the user has already reviewed this item
-            if (existingReviewsForEcoElement.stream().anyMatch(
-                                    (review) -> (review.getAuthor().equals(principalName)))){
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            if (existingReviewsBySameAuthor.size() != 0){
+                updatedEcoElement = ecoElementBuilder
+                        .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal, true);
             }
             else {
-                EcoElement updatedEcoElement = ecoElementBuilder
-                        .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal);
-
-                //if the EcoElement reaches the review threshold with this new review
-                List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.getPositive()).collect(Collectors.toList());
-
-                double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * positiveReviews.size();
-                int numberOfPositiveReviews = positiveReviews.size();
-
-                System.out.println(positiveReviewPercentage);
-                System.out.println(numberOfPositiveReviews);
-
-                if (positiveReviewPercentage > 74.0 && numberOfPositiveReviews > 2){
-                    updatedEcoElement.setIsReviewed(true);
-                    newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_REVIEWED,
-                            existingEcoElement.getName(), existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), existingEcoElement.getId());
-                }
-
-                return ecoElementMongoDB.save(updatedEcoElement);
+                updatedEcoElement = ecoElementBuilder
+                        .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal, false);
             }
+
+            //if the EcoElement reaches the review threshold with this new review
+            List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.getPositive()).collect(Collectors.toList());
+
+            double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * positiveReviews.size();
+            int numberOfPositiveReviews = positiveReviews.size();
+
+            System.out.println(positiveReviewPercentage);
+            System.out.println(numberOfPositiveReviews);
+
+            if (positiveReviewPercentage > 74.0 && numberOfPositiveReviews > 2){
+                updatedEcoElement.setIsReviewed(true);
+                updatedEcoElement.setDateReviewedInternal(timestampUtils.generateTimeStamp());
+                updatedEcoElement.setDateReviewedExternal(timestampUtils.generateReadableDateStamp());
+                newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_REVIEWED,
+                        existingEcoElement.getName(), existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), existingEcoElement.getId());
+            }
+
+            return ecoElementMongoDB.save(updatedEcoElement);
         }
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

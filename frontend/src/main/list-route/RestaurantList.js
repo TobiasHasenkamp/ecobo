@@ -1,19 +1,31 @@
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
+import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 
 export default function RestaurantList({ecoElements}){
 
+    const [restaurantTableIsOpen, setRestaurantTableIsOpen] = useState(true);
 
+    function handleShowRestaurantTable(){
+        setRestaurantTableIsOpen(!restaurantTableIsOpen);
+    }
+
+    useEffect(() => {
+        setRestaurantTableIsOpen(true);
+    }, [])
 
     return (
 
         <StyledWrapperTable name="Restaurants">
             <StyledHeaderRow className="blue">
-                Restaurants
+                {"Restaurants "}
+                {restaurantTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>
+                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>}
             </StyledHeaderRow>
             {
+                restaurantTableIsOpen &&
                 ecoElements?.filter(element => element.category === "RESTAURANT").map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
