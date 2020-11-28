@@ -52,7 +52,7 @@ public class EcoElementSeeder {
                 .dateCreatedInternal(inputDateAsInstant)
                 .dateLastUpdatedInternal(inputDateAsInstant)
                 .dateReviewedInternal(inputDateAsInstant)
-                .reviewComments(List.of())
+                .reviews(List.of())
                 .build();
 
         return Optional.of(result);

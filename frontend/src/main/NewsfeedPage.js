@@ -2,18 +2,17 @@ import {FaCheck, FaQuestion, FaWarehouse} from "react-icons/fa";
 import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
 import NewsfeedContext from "./contexts/NewsfeedContext";
-import {getNewsfeed5} from "./services/NewsfeedService";
+import {getNewsfeed50} from "./services/NewsfeedService";
 import LoginTokenContext from "./contexts/LoginTokenContext";
 import {Link} from "react-router-dom";
 import {BiMessageAltDetail, FiDelete, GrUpdate, GrUserAdd} from "react-icons/all";
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/EcoElementService";
-import {FaRegArrowAltCircleDown} from "react-icons/fa";
 
-export default function NewsfeedComponent(){
+export default function NewsfeedPage(){
 
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
-    const {newsfeed5, setNewsfeed5} = useContext(NewsfeedContext);
+    const {newsfeed50, setNewsfeed50} = useContext(NewsfeedContext);
     const {token} = useContext(LoginTokenContext);
 
     useEffect(() => {
@@ -23,9 +22,9 @@ export default function NewsfeedComponent(){
 
     useEffect(() => {
         if (token && ecoElements){
-            getNewsfeed5(token, setNewsfeed5);
+            getNewsfeed50(token, setNewsfeed50);
         }
-    }, [setNewsfeed5, ecoElements, token])
+    }, [setNewsfeed50, ecoElements, token])
 
 
     function getLink(newsfeedElementForLink){
@@ -39,8 +38,6 @@ export default function NewsfeedComponent(){
             } else if (newsfeedType === "ADMIN_MESSAGE") {
                 return "/home";
             } else if (newsfeedType === "NONE") {
-                return "/home";
-            } else if (newsfeedType === "ECOELEMENT_DELETED") {
                 return "/home";
             } else {
                 return "/bo/element/" + newsfeedElementForLink.linkedElement;
@@ -126,7 +123,7 @@ export default function NewsfeedComponent(){
         <div>
             <StyledNewsfeedHeader>Newsfeed:</StyledNewsfeedHeader>
             <StyledNewsfeed>
-                {newsfeed5.map((newsfeedElement) => (
+                {newsfeed50.map((newsfeedElement) => (
                     <Link key={newsfeedElement.id} to={getLink(newsfeedElement)}>
                         <div className="row">
                             {returnIcon(newsfeedElement.type)}
@@ -135,20 +132,18 @@ export default function NewsfeedComponent(){
                         </div>
                     </Link>
 
-                    ))
+                ))
                 }
-                <RowWithArrowButton>
-                    <Link to="/newsfeed"><FaRegArrowAltCircleDown/></Link>
-                </RowWithArrowButton>
             </StyledNewsfeed>
         </div>
 
 
-        )
+    )
 }
 
 
 const StyledNewsfeed = styled.div`
+  overflow: scroll;
   width: auto;
   margin: 0 15px 15px 15px;
   font-size: 0.8em;
@@ -157,7 +152,7 @@ const StyledNewsfeed = styled.div`
   padding: 10px 14px 6px 14px;
   display: grid;
   grid-template-rows: min-content min-content min-content min-content min-content;
-  grid-gap: 3px;
+  grid-gap: 4px;
   background-color: lightgray;
   
   a{
@@ -172,7 +167,7 @@ const StyledNewsfeed = styled.div`
 
   .row{
         display: grid;
-        grid-template-columns: min-content minmax(min-content, 22%) minmax(min-content, 78%);
+        grid-template-columns: min-content minmax(min-content, 25%) minmax(min-content, 78%);
         grid-gap: 13px;
         justify-content: left;
         padding: 2px 0;
@@ -182,15 +177,8 @@ const StyledNewsfeed = styled.div`
 const StyledNewsfeedHeader = styled.div`
   width: auto;
   margin: 15px 15px 0 15px;
-  padding: 10px 14px 5px 10px;
-  font-size: 0.85em;
+  padding: 10px 14px 7px 10px;
+  font-size: 1.0em;
   font-weight: bold;
   color: var(--darkgrey);
-`
-
-const RowWithArrowButton = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  font-size: 1.3em;
-  margin: -10px 0 0 0;
 `

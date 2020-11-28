@@ -1,7 +1,10 @@
 package de.th.ecobobackend.service;
 
 import de.th.ecobobackend.model.EcoElement;
+
+import de.th.ecobobackend.model.Review;
 import de.th.ecobobackend.model.dto.EcoElementDto;
+import de.th.ecobobackend.model.dto.ReviewDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
@@ -14,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EcoElementService {
@@ -69,7 +73,7 @@ public class EcoElementService {
 
         String newID = idUtils.generateID();
 
-        newsfeedService.addNewsFeedElementForNewEcoElement(NewsfeedType.ECOELEMENT_ADDED, ecoElementDto.getName(),
+        newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_ADDED, ecoElementDto.getName(),
                                         ecoElementDto.getCreator(), ecoElementDto.getCategorySub(), newID);
         return ecoElementMongoDB.save(ecoElementBuilder.build(ecoElementDto, newID));
     }
@@ -87,10 +91,26 @@ public class EcoElementService {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN);
             }
             else{
+                //have name, category, subcategory, address or certificates changed? then reset any review process or restart one
+                if (existingEcoElement.getCategory().equals(ecoElementDto.getCategory()) ||
+                        existingEcoElement.getCategorySub().equals(ecoElementDto.getCategorySub()) ||
+                        existingEcoElement.getName().equals(ecoElementDto.getName()) ||
+                        existingEcoElement.getAddress().equals(ecoElementDto.getAddress()) ||
+                        existingEcoElement.getCertificate1().equals(ecoElementDto.getCertificate1()) ||
+                        existingEcoElement.getCertificate2().equals(ecoElementDto.getCertificate2())){
+
+                        existingEcoElement.setIsReviewed(false);
+                        existingEcoElement.setReviews(List.of());
+                        existingEcoElement.setDateReviewedExternal(null);
+                        existingEcoElement.setDateReviewedInternal(null);
+                        existingEcoElement.setAdminNote("Review has been reseted because of an element edit.");
+                    }
+
                 EcoElement updatedEcoElement = ecoElementBuilder
-                                    .buildUpdatedEcoElement(ecoElementDto, existingEcoElement, ecoElementId);
+                        .buildUpdatedEcoElement(ecoElementDto, existingEcoElement, ecoElementId);
+
                 newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_UPDATED, ecoElementDto.getName(),
-                        existingEcoElement.getCreator(), ecoElementDto.getCategorySub());
+                        existingEcoElement.getCreator(), ecoElementDto.getCategorySub(), ecoElementId);
                 return ecoElementMongoDB.save(updatedEcoElement);
             }
         }
@@ -108,7 +128,7 @@ public class EcoElementService {
             }
             else{
                 newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_DELETED, existingEcoElement.getName(),
-                        existingEcoElement.getCreator(), existingEcoElement.getCategorySub());
+                        existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), "");
                 ecoElementMongoDB.deleteById(ecoElementId);
             }
         }
@@ -117,4 +137,44 @@ public class EcoElementService {
         }
     }
 
+    public EcoElement addReviewToEcoElement(String ecoElementId, ReviewDto reviewDto, Principal principal) {
+
+        EcoElement existingEcoElement = ecoElementMongoDB.findById(ecoElementId).get();
+
+        if (ecoElementMongoDB.findById(ecoElementId).isPresent()){
+
+            String principalName = principal.getName();
+            List<Review> existingReviewsForEcoElement = existingEcoElement.getReviews();
+
+            //if the user has already reviewed this item
+            if (existingReviewsForEcoElement.stream().anyMatch(
+                                    (review) -> (review.getAuthor().equals(principalName)))){
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
+            else {
+                EcoElement updatedEcoElement = ecoElementBuilder
+                        .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal);
+
+                //if the EcoElement reaches the review threshold with this new review
+                List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.getPositive()).collect(Collectors.toList());
+
+                double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * positiveReviews.size();
+                int numberOfPositiveReviews = positiveReviews.size();
+
+                System.out.println(positiveReviewPercentage);
+                System.out.println(numberOfPositiveReviews);
+
+                if (positiveReviewPercentage > 74.0 && numberOfPositiveReviews > 2){
+                    updatedEcoElement.setIsReviewed(true);
+                    newsfeedService.addNewsFeedElementForEcoElement(NewsfeedType.ECOELEMENT_REVIEWED,
+                            existingEcoElement.getName(), existingEcoElement.getCreator(), existingEcoElement.getCategorySub(), existingEcoElement.getId());
+                }
+
+                return ecoElementMongoDB.save(updatedEcoElement);
+            }
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
 }

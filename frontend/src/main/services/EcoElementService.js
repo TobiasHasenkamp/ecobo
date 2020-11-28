@@ -37,6 +37,13 @@ export const updateEcoElement = (name, id, category, categorySub, address, lon, 
         .catch(console.log);
 };
 
+export const addReviewToEcoElement = (ecoElementId, positive, reviewComment, token, setEcoElement) => {
+    axios.put("/api/elements/review/" + ecoElementId, {positive, reviewComment}, header(token))
+        .then((response) => response.data)
+        .then(setEcoElement)
+        .catch(console.log);
+}
+
 export const deleteEcoElement = (id, token) => {
     axios.delete("/api/elements/" + id, header(token)).then()
         .catch(console.log);

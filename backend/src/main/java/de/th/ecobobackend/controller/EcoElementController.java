@@ -2,6 +2,7 @@ package de.th.ecobobackend.controller;
 
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
+import de.th.ecobobackend.model.dto.ReviewDto;
 import de.th.ecobobackend.service.EcoElementService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,17 @@ public class EcoElementController {
 
         if (ecoElementId.isPresent()){
             return ecoElementService.updateEcoElement(ecoElementDto, ecoElementId.get(), principal);
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping("/review/{ecoElementId}")
+    public EcoElement addReviewToEcoElement(@RequestBody ReviewDto reviewDto,
+                                            @PathVariable @NonNull Optional<String> ecoElementId,
+                                            Principal principal) {
+
+        if (ecoElementId.isPresent()) {
+            return ecoElementService.addReviewToEcoElement(ecoElementId.get(), reviewDto, principal);
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }

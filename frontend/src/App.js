@@ -19,6 +19,7 @@ import EcoElementPage from "./main/list-route/EcoElementPage";
 import EditElementPage from "./main/list-route/EditElementPage";
 import DeletePage from "./main/list-route/DeletePage";
 import NewsfeedContextProvider from "./main/contexts/NewsfeedContextProvider";
+import NewsfeedPage from "./main/NewsfeedPage";
 
 
 function App() {
@@ -73,6 +74,10 @@ function App() {
                   <Route path="/home">
                       <NavBar/>
                       <HomePage/>
+                  </Route>
+                  <Route path="/newsfeed">
+                      <NavBar/>
+                      <NewsfeedPage/>
                   </Route>
                   <Route path="/login">
                       <NavBar/>

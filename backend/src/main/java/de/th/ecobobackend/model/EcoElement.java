@@ -52,6 +52,6 @@ public class EcoElement {
     Instant dateLastUpdatedInternal;
     Instant dateReviewedInternal;
 
-    List<String> reviewComments;
+    List<Review> reviews;
 
 }
