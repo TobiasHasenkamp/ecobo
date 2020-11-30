@@ -224,19 +224,22 @@ const StyledFilterBarMenuButton = styled.div`
 `
 
 const StyledActiveFilterList = styled.div`
-  font-size: 0.6em;
+  font-size: 0.55em;
+  line-height: 1.0em;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   width: auto;
-  margin: 5px;
+  margin: 2px 8px 5px 8px;
   overflow-wrap: anywhere;
   
   div {
-      background: lightgray;
+      background: lightgrey;
+      opacity: 80%;
       color: black;
-      padding: 1px 6px;
-      border-radius: 25% 25% 25% 25%;
+      padding: 4px 4px;
+      border-radius: 8px;
       margin: 2px;
+      border: dimgray solid 1px;
   }
 `
