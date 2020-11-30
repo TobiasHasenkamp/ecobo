@@ -4,10 +4,10 @@ import ShowsAsListIconButton from "./buttons/ShowsAsListIconButton";
 import ShowAsMapIconButton from "./buttons/ShowAsMapIconButton";
 import ShowAsCardsIconButton from "./buttons/ShowAsCardsIconButton"
 import {useHistory} from "react-router-dom"
-import {FaRegArrowAltCircleDown} from "react-icons/fa";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import FilterListContext from "../contexts/FilterListContext";
+import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
 
 
 export default function TabBarWithIcons({type}) {
@@ -86,7 +86,6 @@ export default function TabBarWithIcons({type}) {
         setCategoryMenuStatusAndAnchor(null);
         setCertificatesMenuStatusAndAnchor(null);
         setLocationMenuStatusAndAnchor(null);
-        setFilterBarisOpen(false);
     }
 
 
@@ -98,35 +97,25 @@ export default function TabBarWithIcons({type}) {
 
                     <div onClick={handleOpenFilterBar}>
                         Filter
-                        <FaRegArrowAltCircleDown onClick={handleOpenFilterBar}
+
+                        {filterBarIsOpen ?
+                        <FaRegArrowAltCircleLeft onClick={handleOpenFilterBar}
                                                  style={{fontSize: "0.9em", marginLeft: "4px", marginBottom: "-2px"}}
                         />
+                        : <FaRegArrowAltCircleRight onClick={handleOpenFilterBar}
+                                                    style={{fontSize: "0.9em", marginLeft: "4px", marginBottom: "-2px"}}
+                         />}
                     </div>
 
                 </StyledFilterCell>
 
-                <StyledActiveFilterList>
-
-                    {returnActiveFilter()}
-
-                </StyledActiveFilterList>
-
-                <StyledChangeViewCell>
-
-                    {(type !== "map") && <ShowAsMapIconButton handle={handleLinkToMap}/>}
-                    {(type !== "list") && <ShowsAsListIconButton handle={handleLinkToList}/>}
-                    {(type !== "cards") && <ShowAsCardsIconButton handle={handleLinkToCards}/>}
-
-                </StyledChangeViewCell>
-
-                {filterBarIsOpen &&
-                    <StyledFilterBar>
-                        {"nach: "}
-                        <StyledFilterBarMenuButton onClick={handleOpenCategoryFilterMenu}>Typ</StyledFilterBarMenuButton>
-                        <StyledFilterBarMenuButton onClick={handleOpenCertificatesFilterMenu}>Zertifikat</StyledFilterBarMenuButton>
-                        <StyledFilterBarMenuButton onClick={handleOpenLocationFilterMenu}>Ort</StyledFilterBarMenuButton>
-                    </StyledFilterBar>
-                }
+                {filterBarIsOpen?
+                <StyledFilterBar>
+                    <StyledFilterBarMenuButton onClick={handleOpenCategoryFilterMenu}>Typ</StyledFilterBarMenuButton>
+                    <StyledFilterBarMenuButton onClick={handleOpenCertificatesFilterMenu}>Zertifikat</StyledFilterBarMenuButton>
+                    <StyledFilterBarMenuButton onClick={handleOpenLocationFilterMenu}>Ort</StyledFilterBarMenuButton>
+                </StyledFilterBar>
+                : <div/>}
 
                 <Menu
                     id="filterMenuForCategory"
@@ -163,6 +152,20 @@ export default function TabBarWithIcons({type}) {
                     {!filterList.includes("Weitmar") && <MenuItem name="Weitmar" onClick={handleAddItemToFilter}>Weitmar</MenuItem>}
                     {!filterList.includes("Riemke") && <MenuItem name="Riemke" onClick={handleAddItemToFilter}>Riemke</MenuItem>}
                 </Menu>
+
+                <StyledChangeViewCell>
+
+                    {(type !== "map") && <ShowAsMapIconButton handle={handleLinkToMap}/>}
+                    {(type !== "list") && <ShowsAsListIconButton handle={handleLinkToList}/>}
+                    {(type !== "cards") && <ShowAsCardsIconButton handle={handleLinkToCards}/>}
+
+                </StyledChangeViewCell>
+
+                <StyledActiveFilterList>
+
+                    {returnActiveFilter()}
+
+                </StyledActiveFilterList>
 
 
             </StyledTabBar>
@@ -208,30 +211,30 @@ const StyledChangeViewCell = styled.div`
 
 const StyledFilterBar = styled.div`
   font-size: 0.75em;
-  grid-column: 1 / span 3;
   display: flex;
   justify-content: space-around;
-  margin: 2px 12vh 2px 2vh;
+  margin: 1px 25px 4px 10px;
 `
 
 const StyledFilterBarMenuButton = styled.div`
-  font-weight: bold;
   font-size: 0.8em;
-  background: lightgray;
-  color: black;
+  background: steelblue;
+  color: white;
   padding: 2px 8px;
-  border-radius: 25% 25% 25% 25%;
+  border-radius: 8px;
   margin-top: -3px;
+  opacity: 85%;
 `
 
 const StyledActiveFilterList = styled.div`
   font-size: 0.55em;
   line-height: 1.0em;
+  grid-column: 1 / span 3;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   width: auto;
-  margin: 2px 8px 5px 8px;
+  margin: 5px 8px 5px 8px;
   overflow-wrap: anywhere;
   
   div {
