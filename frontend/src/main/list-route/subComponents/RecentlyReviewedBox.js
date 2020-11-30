@@ -14,7 +14,6 @@ export default function RecentlyReviewedBox(){
         const weeksPassed = (today - date) / (1000 * 60 * 60 *24 * 7);
 
         if (weeksPassed > 2){
-            console.log("weekspassed: " + weeksPassed);
             return false;
         }
         else {
