@@ -20,13 +20,14 @@ import EditElementPage from "./main/list-route/EditElementPage";
 import DeletePage from "./main/list-route/DeletePage";
 import NewsfeedContextProvider from "./main/contexts/NewsfeedContextProvider";
 import NewsfeedPage from "./main/NewsfeedPage";
+import FilterListContextProvider from "./main/contexts/FilterListContextProvider";
 
 
 function App() {
 
   return (
 
-      <LoginTokenContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider>
+      <LoginTokenContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider> <FilterListContextProvider>
 
           <StyledPageLayout>
               <Switch>
@@ -103,7 +104,7 @@ function App() {
 
         </StyledPageLayout>
 
-      </NewsfeedContextProvider> </EcoElementContextProvider> </LoginTokenContextProvider>
+      </FilterListContextProvider> </NewsfeedContextProvider> </EcoElementContextProvider> </LoginTokenContextProvider>
 
   );
 }

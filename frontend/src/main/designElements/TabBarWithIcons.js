@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import ShowsAsListIconButton from "./buttons/ShowsAsListIconButton";
 import ShowAsMapIconButton from "./buttons/ShowAsMapIconButton";
 import ShowAsCardsIconButton from "./buttons/ShowAsCardsIconButton"
@@ -7,6 +7,7 @@ import {useHistory} from "react-router-dom"
 import {FaRegArrowAltCircleDown} from "react-icons/fa";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import FilterListContext from "../contexts/FilterListContext";
 
 
 export default function TabBarWithIcons({type}) {
@@ -16,7 +17,7 @@ export default function TabBarWithIcons({type}) {
     const [categoryMenuStatusAndAnchor, setCategoryMenuStatusAndAnchor] = useState(null);
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [locationMenuStatusAndAnchor, setLocationMenuStatusAndAnchor] = useState(null);
-    const [filterList, setFilterList] = useState([]);
+    const {filterList, setFilterList} = useContext(FilterListContext);
 
     function handleLinkToMap() {
             history.push("/bo/map");
