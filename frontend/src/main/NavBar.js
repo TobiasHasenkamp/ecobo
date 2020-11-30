@@ -1,25 +1,69 @@
 import styled from "styled-components/macro";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {Link} from "react-router-dom";
 import GradientBorderlineBottom from "./designElements/GradientBorderlineBottom";
 import LoginTokenContext from "./contexts/LoginTokenContext";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import {useHistory} from "react-router-dom";
 
 export default function NavBar() {
 
     const {username, isLoggedIn} = useContext(LoginTokenContext);
+    const [menuStatusAndAnchor, setMenuStatusAndAnchor] = useState(null);
+    const history = useHistory();
 
     const linkToAccountPage = "/acc/" + username;
+
+    const handleClick = (event) => {
+        setMenuStatusAndAnchor(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setMenuStatusAndAnchor(null);
+    };
+
+    function handleClickHome(){
+        setMenuStatusAndAnchor(null);
+        history.push("/home");
+    }
+
+    function handleClickMap(){
+        setMenuStatusAndAnchor(null);
+        history.push("/bo/map");
+    }
+
+    function handleClickList(){
+        setMenuStatusAndAnchor(null);
+        history.push("/bo/list");
+    }
+
+    function handleClickGallery(){
+        setMenuStatusAndAnchor(null);
+        history.push("/404");
+    }
 
     return (
 
         <>
             <StyledNavBar>
 
-                <Link to="/home">
-                    <p>Home</p>
-                </Link>
+                <p onClick={handleClick}>Menü </p>
 
-                <p>[Logo]</p>
+                <Menu
+                    id="mainMenu"
+                    anchorEl={menuStatusAndAnchor}
+                    keepMounted
+                    open={Boolean(menuStatusAndAnchor)}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClickHome}>Home</MenuItem>
+                    <MenuItem onClick={handleClickMap}>Karte</MenuItem>
+                    <MenuItem onClick={handleClickList}>Liste</MenuItem>
+                    <MenuItem onClick={handleClickGallery}>Galerie</MenuItem>
+                </Menu>
+
+                <p>   </p>
 
                 {
                     isLoggedIn ?
@@ -44,4 +88,16 @@ const StyledNavBar = styled.div`
   color: var(--white);
   font-size: 1.2em;
   width: 100%;
+  
+  .menuItem{
+      color: black;
+      
+      :active{
+        color: black;
+      }
+      
+      :hover{
+        color: black;
+      }
+  }
 `
