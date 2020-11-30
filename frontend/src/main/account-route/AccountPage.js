@@ -119,33 +119,34 @@ const StyledUserSection = styled.div`
 
 const StyledLeftBar = styled.div`
   display: grid;
-  padding: 15px 0;
   grid-template-rows: 5% 40% 50% 5%;
   background-color: var(--darkgreen);
   margin-top: -10px;
-  margin-bottoM: -10px;
+  margin-bottom: -10px;
+  width: 100%;
 `
 
 const StyledUserPhoto = styled.img`
   margin: auto;
   display: block;
-  max-width: 60%;
-  max-height: 60%;
+  width: 65%;
   border-radius: 50%;
   border: white solid 2px;
 `
 const StyledPhotoSection = styled.div`
-  width: 95%;
+  width: auto;
   overflow: hidden;
   align-self: center;
   background-color: var(--darkgreen);
-  margin-top: -30px;
+  margin-top: -20px;
+  margin-left: 10px;
+  margin-right: 10px;
 `
 
 const StyledLeftBarText = styled.div`
-  margin-left: 6px;
+  margin-left: 10px;
+  margin-right: 10px;
   color: white;
-  padding: 0 12px;
   font-size: 0.65em;
   line-height: 0.75em;
   h3{
