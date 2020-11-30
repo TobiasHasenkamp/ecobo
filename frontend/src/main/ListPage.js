@@ -9,11 +9,13 @@ import FairShopList from "./list-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import LoginTokenContext from "./contexts/LoginTokenContext";
 import TabBarWithIcons from "./designElements/TabBarWithIcons";
+import FilterListContext from "./contexts/FilterListContext";
 
 export default function ListPage() {
 
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const {token} = useContext(LoginTokenContext);
+    const {filteredEcoElements} = useContext(FilterListContext);
 
     useEffect(() => {
         getEcoElements(token, setEcoElements);

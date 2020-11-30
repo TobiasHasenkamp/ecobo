@@ -1,12 +1,15 @@
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
+import FilterListContext from "../contexts/FilterListContext";
 
 export default function FoodStoreList({ecoElements}){
 
     const [foodStoreTableIsOpen, setFoodStoreTableIsOpen] = useState(true);
+    const {filterForCategoryIsActive, setFilterForCategoryIsActive} = useContext(FilterListContext);
+    const {filterForCategory, setFilterForCategory} = useContext(FilterListContext);
 
     function handleShowFoodStoreTable(){
         setFoodStoreTableIsOpen(!foodStoreTableIsOpen);
@@ -16,6 +19,18 @@ export default function FoodStoreList({ecoElements}){
         setFoodStoreTableIsOpen(true);
     }, [])
 
+    function filterAllowToShowFoodStores(){
+        if (!filterForCategoryIsActive){
+            return true;
+        }
+        else if (filterForCategoryIsActive && filterForCategory === "Bioladen"){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     return (
 
             <StyledWrapperTable name="Bioläden">
@@ -24,7 +39,7 @@ export default function FoodStoreList({ecoElements}){
                     {foodStoreTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>
                         : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>}
                 </StyledHeaderRow>
-                { foodStoreTableIsOpen &&
+                { foodStoreTableIsOpen && filterAllowToShowFoodStores() &&
                     ecoElements?.filter(element => element.category === "FOODSTORE").map((element) => (
                         <StyledElement key={element.id}>
                             <div/>

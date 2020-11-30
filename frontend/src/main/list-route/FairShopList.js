@@ -1,12 +1,15 @@
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
+import FilterListContext from "../contexts/FilterListContext";
 
 export default function FairShopList({ecoElements}){
 
     const [fairShopTableIsOpen, setFairShopTableIsOpen] = useState(true);
+    const {filterForCategoryIsActive, setFilterForCategoryIsActive} = useContext(FilterListContext);
+    const {filterForCategory, setFilterForCategory} = useContext(FilterListContext);
 
     function handleShowFairShopTable(){
         setFairShopTableIsOpen(!fairShopTableIsOpen);
@@ -15,6 +18,18 @@ export default function FairShopList({ecoElements}){
     useEffect(() => {
         setFairShopTableIsOpen(true);
     }, [])
+
+    function filterAllowToShowFairShops(){
+        if (!filterForCategoryIsActive){
+            return true;
+        }
+        else if (filterForCategoryIsActive && filterForCategory === "Weltladen"){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     return (
 
@@ -26,7 +41,7 @@ export default function FairShopList({ecoElements}){
 
             </StyledHeaderRow>
             {
-                fairShopTableIsOpen &&
+                fairShopTableIsOpen && filterAllowToShowFairShops() &&
                 ecoElements?.filter(element => element.category === "FAIRSHOP").map((element) => (
                     <StyledElement key={element.id}>
                         <div/>

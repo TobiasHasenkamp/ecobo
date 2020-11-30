@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import ShowsAsListIconButton from "./buttons/ShowsAsListIconButton";
 import ShowAsMapIconButton from "./buttons/ShowAsMapIconButton";
 import ShowAsCardsIconButton from "./buttons/ShowAsCardsIconButton"
@@ -8,6 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import FilterListContext from "../contexts/FilterListContext";
 import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
+import {Filter} from "@material-ui/icons";
 
 
 export default function TabBarWithIcons({type}) {
@@ -18,6 +19,8 @@ export default function TabBarWithIcons({type}) {
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [locationMenuStatusAndAnchor, setLocationMenuStatusAndAnchor] = useState(null);
     const {filterList, setFilterList} = useContext(FilterListContext);
+    const {filterForCategory, setFilterForCategory} = useContext(FilterListContext);
+
 
     function handleLinkToMap() {
             history.push("/bo/map");
@@ -63,8 +66,12 @@ export default function TabBarWithIcons({type}) {
         const filterToRemove = event.target.getAttribute("name");
         const newFilterList = filterList.filter(value => value !== filterToRemove);
         setFilterList(newFilterList);
-    }
 
+        if (filterToRemove === "Bioladen" || filterToRemove === "Restaurant" || filterToRemove === "Weltladen"){
+            setFilterForCategory(undefined);
+        }
+
+    }
 
     function returnActiveFilter(){
 
@@ -77,12 +84,17 @@ export default function TabBarWithIcons({type}) {
         )
     }
 
-
     function handleAddItemToFilter(event){
+        const filterToAdd = event.target.getAttribute("name");
         const newFilterList = filterList;
         newFilterList.push(event.target.getAttribute("name"));
         setFilterList(newFilterList);
-        console.log(newFilterList);
+
+        console.log("1: " + filterToAdd)
+        if (filterToAdd === "Bioladen" || filterToAdd === "Restaurant" || filterToAdd === "Weltladen"){
+            setFilterForCategory(filterToAdd);
+        }
+
         setCategoryMenuStatusAndAnchor(null);
         setCertificatesMenuStatusAndAnchor(null);
         setLocationMenuStatusAndAnchor(null);
