@@ -81,6 +81,8 @@ export default function NavBar() {
 }
 
 const StyledNavBar = styled.div`
+  position: fixed;
+  top: 0;
   justify-items: center;
   display: grid;
   grid-template-columns: auto auto auto;
@@ -88,6 +90,7 @@ const StyledNavBar = styled.div`
   color: var(--white);
   font-size: 1.2em;
   width: 100%;
+  height: 61px;
   
   .menuItem{
       color: black;

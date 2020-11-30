@@ -116,4 +116,5 @@ const StyledPageLayout = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: scroll;
+  margin-top: 61px;
 `
