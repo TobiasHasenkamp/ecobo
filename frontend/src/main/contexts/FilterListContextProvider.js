@@ -3,38 +3,71 @@ import FilterListContext from "./FilterListContext";
 
 export default function FilterListContextProvider({children}){
 
-    const [filterForCategory, setFilterForCategory] = useState(undefined);
-    const [filterList, setFilterList] = useState([]);
-    const [filterForCategoryIsActive, setFilterForCategoryIsActive] = useState(false);
+    const [filterListForCategory, setFilterListForCategory] = useState([]);
+    const [filterListForCertificates, setFilterListForCertificates] = useState([]);
+    const [filterListForLocation, setFilterListForLocation] = useState([]);
+    const [filterIsActive, setFilterIsActive] = useState(false);
 
 
-    //Use-effect to check if filter for Category is active
+    //Use-effect to check if filter is active
     useEffect(() => {
-        if (filterForCategory === undefined){
-            setFilterForCategoryIsActive(false);
+        if (filterListForCategory === [] && filterListForCertificates === [] && filterListForCertificates === []){
+            setFilterIsActive(false);
             console.log("Filter is not active")
         }
         else {
-            setFilterForCategoryIsActive(true);
+            setFilterIsActive(false);
             console.log("Filter is active")
         }
-    }, [filterForCategory])
-
-    useEffect(() => {
-        console.log("filterforcategory is active? :" + filterForCategoryIsActive);
-    }, [filterForCategoryIsActive])
+    }, [filterListForCategory, filterListForCertificates, filterListForLocation])
 
 
-    useEffect(() => {
-        console.log("Filter for category: " + filterForCategory)
-    }, [filterForCategory])
+
+    function returnIfItemsGetsFiltered(){
+        if (returnFilterCategories() && returnFilterCertificates() && returnFilterLocation()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function returnFilterCertificates(element){
+        //return true if element contains every searched certificate
+        if (filterListForCertificates.every(certificate => element.certificates.contains(certificate))){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function returnFilterCategories(element){
+        //return true if element belongs to searched category
+        if (filterListForCategory.some(category => element.categorySub === category)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function returnFilterLocation(element){
+        //return true if elements district is one of the searched districts
+        /*if (filterListLocation.some(location => element.district === location)){
+            return true;
+        }
+        else {
+            return false;
+        }*/
+        return true;
+    }
 
 
     return (
-        <FilterListContext.Provider value={{filterList, setFilterList, filterForCategory, setFilterForCategory, filterForCategoryIsActive, setFilterForCategoryIsActive}}>
+        <FilterListContext.Provider value={{filterIsActive, filterListForCategory, setFilterListForCategory, filterListForCertificates, setFilterListForCertificates, filterListForLocation, setFilterListForLocation}}>
             {children}
         </FilterListContext.Provider>
-
     )
 
 }

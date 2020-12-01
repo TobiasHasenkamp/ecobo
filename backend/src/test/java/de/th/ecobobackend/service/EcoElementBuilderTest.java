@@ -63,7 +63,7 @@ class EcoElementBuilderTest {
         assertThat(receivedEcoElement.getIsInBochum(), is(expectedEcoElement.getIsInBochum()));
         assertThat(receivedEcoElement.getLon(), is(expectedEcoElement.getLon()));
         assertThat(receivedEcoElement.getLat(), is(expectedEcoElement.getLat()));
-        assertThat(receivedEcoElement.getId().length(), is(36));
+        assertThat(receivedEcoElement.getId(), is("123"));
         assertThat(receivedEcoElement.getDateCreatedInternal(), is(inputDateAsInstant));
     }
 

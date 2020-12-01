@@ -17,8 +17,9 @@ export default function TabBarWithIcons({type}) {
     const [categoryMenuStatusAndAnchor, setCategoryMenuStatusAndAnchor] = useState(null);
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [locationMenuStatusAndAnchor, setLocationMenuStatusAndAnchor] = useState(null);
-    const {filterList, setFilterList} = useContext(FilterListContext);
-    const {filterForCategory, setFilterForCategory} = useContext(FilterListContext);
+    const {filterListForCategory, setFilterListForCategory} = useContext(FilterListContext);
+    const {filterListForCertificates, setFilterListForCertificates} = useContext(FilterListContext);
+    const {filterListForLocation, setFilterListForLocation} = useContext(FilterListContext);
 
 
     function handleLinkToMap() {
@@ -62,41 +63,62 @@ export default function TabBarWithIcons({type}) {
     }
 
     function handleRemoveFilter(event){
-        const filterToRemove = event.target.getAttribute("name");
-        const newFilterList = filterList.filter(value => value !== filterToRemove);
-        setFilterList(newFilterList);
 
-        if (filterToRemove === "Bioladen" || filterToRemove === "Restaurant" || filterToRemove === "Weltladen"){
-            setFilterForCategory(undefined);
+
+        const filterToRemove = event.target.getAttribute("name");
+
+        if (filterListForCategory !== undefined){
+            setFilterListForCategory(filterListForCategory.filter(filterElement => (filterElement !== filterToRemove)));
         }
 
-    }
+        if (filterListForCertificates !== undefined){
+            setFilterListForCertificates(filterListForCertificates.filter(filterElement => (filterElement !== filterToRemove)));
+        }
 
-    function returnActiveFilter(){
-
-        return(
-
-            filterList.map((element) => (
-                <div key={element} name={element} onClick={handleRemoveFilter}>{element}</div>
-            ))
-
-        )
+        if (filterListForLocation !== undefined){
+            setFilterListForLocation(filterListForLocation.filter(filterElement => (filterElement !== filterToRemove)));
+        }
     }
 
     function handleAddItemToFilter(event){
-        const filterToAdd = event.target.getAttribute("name");
-        const newFilterList = filterList;
-        newFilterList.push(event.target.getAttribute("name"));
-        setFilterList(newFilterList);
 
-        console.log("1: " + filterToAdd)
-        if (filterToAdd === "Bioladen" || filterToAdd === "Restaurant" || filterToAdd === "Weltladen"){
-            setFilterForCategory(filterToAdd);
+        const filterToAdd = event.target.getAttribute("name");
+        const filterTypeToAdd = event.target.getAttribute("title");
+
+        if (filterTypeToAdd === "category"){
+            const newFilterList = filterListForCategory;
+            newFilterList.push(filterToAdd);
+            setFilterListForCategory(newFilterList);
+        }
+        else if (filterTypeToAdd === "certificate"){
+            const newFilterList = filterListForCertificates;
+            newFilterList.push(filterToAdd);
+            setFilterListForCertificates(newFilterList);
+        }
+        else if (filterTypeToAdd === "location"){
+            const newFilterList = filterListForLocation;
+            newFilterList.push(filterToAdd);
+            setFilterListForLocation(newFilterList);
         }
 
         setCategoryMenuStatusAndAnchor(null);
         setCertificatesMenuStatusAndAnchor(null);
         setLocationMenuStatusAndAnchor(null);
+    }
+
+    function returnActiveFilter(){
+
+        const filterList = filterListForCategory.concat(filterListForLocation, filterListForCertificates);
+        //console.log("categoryfilterlist: " + filterListForCategory);
+        //console.log("certificatefilterlist: " + filterListForCertificates);
+        //console.log("locationfilterlist: " + filterListForLocation);
+
+        return(
+            filterList.map((filter) => (
+                <div key={filter} name={filter} onClick={handleRemoveFilter}>{filter}</div>
+            ))
+
+        )
     }
 
 
@@ -128,41 +150,50 @@ export default function TabBarWithIcons({type}) {
                 </StyledFilterBar>
                 : <div/>}
 
-                <Menu
-                    id="filterMenuForCategory"
-                    anchorEl={categoryMenuStatusAndAnchor}
-                    keepMounted
-                    open={Boolean(categoryMenuStatusAndAnchor)}
-                    onClose={handleCloseCategoryFilterMenu}
-                >
-                    {!filterList.includes("Bioladen") && <MenuItem name="Bioladen" onClick={handleAddItemToFilter}>Bioladen</MenuItem>}
-                    {!filterList.includes("Restaurant") && <MenuItem name="Restaurant" onClick={handleAddItemToFilter}>Restaurant</MenuItem>}
-                    {!filterList.includes("Weltladen") && <MenuItem name="Weltladen" onClick={handleAddItemToFilter}>Weltladen</MenuItem>}
-                </Menu>
+                {filterListForCategory?
+                    <Menu
+                        id="filterMenuForCategory"
+                        anchorEl={categoryMenuStatusAndAnchor}
+                        keepMounted
+                        open={Boolean(categoryMenuStatusAndAnchor)}
+                        onClose={handleCloseCategoryFilterMenu}
+                    >
+                        {!filterListForCategory.includes("Bioladen") && <MenuItem name="Bioladen" title="category" onClick={handleAddItemToFilter}>Bioladen</MenuItem>}
+                        {!filterListForCategory.includes("Restaurant") && <MenuItem name="Restaurant" title="category" onClick={handleAddItemToFilter}>Restaurant</MenuItem>}
+                        {!filterListForCategory.includes("Weltladen") && <MenuItem name="Weltladen" title="category" onClick={handleAddItemToFilter}>Weltladen</MenuItem>}
+                    </Menu>
+                : ""}
 
-                <Menu
-                    id="filterMenuForCertificates"
-                    anchorEl={certificatesMenuStatusAndAnchor}
-                    keepMounted
-                    open={Boolean(certificatesMenuStatusAndAnchor)}
-                    onClose={handleCloseCertificatesFilterMenu}
-                >
-                    {!filterList.includes("Veganes Angebot") && <MenuItem name="Veganes Angebot" onClick={handleAddItemToFilter}>Veganes Angebot</MenuItem>}
-                    {!filterList.includes("Vegetarisches Angebot") && <MenuItem name="Vegetarisches Angebot" onClick={handleAddItemToFilter}>Vegetarisches Angebot</MenuItem>}
-                    {!filterList.includes("Abholservice") && <MenuItem name="Abholservice" onClick={handleAddItemToFilter}>Abholservice</MenuItem>}
-                </Menu>
+                {filterListForCertificates?
+                    <Menu
+                        id="filterMenuForCertificates"
+                        anchorEl={certificatesMenuStatusAndAnchor}
+                        keepMounted
+                        open={Boolean(certificatesMenuStatusAndAnchor)}
+                        onClose={handleCloseCertificatesFilterMenu}
+                    >
+                        {!filterListForCertificates.includes("Veganes Angebot") && <MenuItem name="Veganes Angebot" title="certificate" onClick={handleAddItemToFilter}>Veganes Angebot</MenuItem>}
+                        {!filterListForCertificates.includes("Vegetarisches Angebot") && <MenuItem name="Vegetarisches Angebot" title="certificate" onClick={handleAddItemToFilter}>Vegetarisches Angebot</MenuItem>}
+                        {!filterListForCertificates.includes("Abholservice") && <MenuItem name="Abholservice" title="certificate" onClick={handleAddItemToFilter}>Abholservice</MenuItem>}
+                    </Menu>
+                : ""}
 
-                <Menu
-                    id="filterMenuForLocation"
-                    anchorEl={locationMenuStatusAndAnchor}
-                    keepMounted
-                    open={Boolean(locationMenuStatusAndAnchor)}
-                    onClose={handleCloseLocationFilterMenu}
-                >
-                    {!filterList.includes("Innenstadt") && <MenuItem name="Innenstadt" onClick={handleAddItemToFilter}>Innenstadt</MenuItem>}
-                    {!filterList.includes("Weitmar") && <MenuItem name="Weitmar" onClick={handleAddItemToFilter}>Weitmar</MenuItem>}
-                    {!filterList.includes("Riemke") && <MenuItem name="Riemke" onClick={handleAddItemToFilter}>Riemke</MenuItem>}
-                </Menu>
+                {filterListForLocation ?
+                    <Menu
+                        id="filterMenuForLocation"
+                        anchorEl={locationMenuStatusAndAnchor}
+                        keepMounted
+                        open={Boolean(locationMenuStatusAndAnchor)}
+                        onClose={handleCloseLocationFilterMenu}
+                    >
+                        {!filterListForLocation.includes("Innenstadt") && <MenuItem name="Innenstadt" title="location"
+                                                                                    onClick={handleAddItemToFilter}>Innenstadt</MenuItem>}
+                        {!filterListForLocation.includes("Weitmar") &&
+                        <MenuItem name="Weitmar" title="location" onClick={handleAddItemToFilter}>Weitmar</MenuItem>}
+                        {!filterListForLocation.includes("Riemke") &&
+                        <MenuItem name="Riemke" title="location" onClick={handleAddItemToFilter}>Riemke</MenuItem>}
+                    </Menu>
+                : ""}
 
                 <StyledChangeViewCell>
 
