@@ -1,8 +1,8 @@
 import styled from "styled-components/macro";
 import React, {useContext, useState} from "react";
-import ShowsAsListIconButton from "./buttons/ShowsAsListIconButton";
-import ShowAsMapIconButton from "./buttons/ShowAsMapIconButton";
-import ShowAsCardsIconButton from "./buttons/ShowAsCardsIconButton"
+import ShowsAsListIconButton from "../designElements/buttons/ShowsAsListIconButton";
+import ShowAsMapIconButton from "../designElements/buttons/ShowAsMapIconButton";
+import ShowAsCardsIconButton from "../designElements/buttons/ShowAsCardsIconButton"
 import {useHistory} from "react-router-dom"
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -223,10 +223,10 @@ const StyledTabBar = styled.div`
     a {
      color: var(--darkgrey);
      text-decoration: none;
-     :hover {
+     &hover {
          color: var(--darkgrey2);
       }
-     :active {
+     &active {
          color: var(--lightgrey);
       }
     }
@@ -255,16 +255,17 @@ const StyledFilterBar = styled.div`
 
 const StyledFilterBarMenuButton = styled.div`
   font-size: 0.8em;
-  background: steelblue;
+  background: dimgray;
   color: white;
   padding: 2px 8px;
   border-radius: 8px;
   margin-top: -3px;
   opacity: 85%;
+  box-shadow: 0 2px 0 gray();
 `
 
 const StyledActiveFilterList = styled.div`
-  font-size: 0.55em;
+  font-size: 0.6em;
   line-height: 1.0em;
   grid-column: 1 / span 3;
   display: flex;
@@ -277,10 +278,11 @@ const StyledActiveFilterList = styled.div`
   div {
       background: lightgrey;
       opacity: 80%;
-      color: black;
-      padding: 4px 4px;
+      color: gray();
+      padding: 5px 6px;
       border-radius: 8px;
       margin: 2px;
-      border: dimgray solid 1px;
+      //border: dimgray inset 2px;
+      box-shadow: 0 2px 0 gray();
   }
 `

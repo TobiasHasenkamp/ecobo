@@ -8,7 +8,7 @@ import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import LoginTokenContext from "./contexts/LoginTokenContext";
-import TabBarWithIcons from "./designElements/TabBarWithIcons";
+import TabBarWithIcons from "./list-route/TabBarWithIcons";
 import FilterResultList from "./list-route/FilterResultList";
 import FilterListContext from "./contexts/FilterListContext";
 

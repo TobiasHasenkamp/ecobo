@@ -12,7 +12,7 @@ import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import TabBarWithIcons from "./designElements/TabBarWithIcons";
+import TabBarWithIcons from "./list-route/TabBarWithIcons";
 import BlackLineMedium from "./designElements/BlackLineMedium";
 import {useLocation} from "react-router-dom";
 
