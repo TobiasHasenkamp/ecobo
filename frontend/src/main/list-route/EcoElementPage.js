@@ -4,7 +4,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
 import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/EcoElementContext";
 import LoginTokenContext from "../contexts/LoginTokenContext";
-import {getEcoElementById} from "../services/EcoElementService";
+import {getEcoElementById} from "../services/ecoElementService";
 import DeleteIconButtonSmall from "../designElements/buttons/DeleteIconButtonSmall";
 import styled from "styled-components/macro";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";

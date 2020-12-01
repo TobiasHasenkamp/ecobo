@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import PageHeader from "../PageHeader";
-import getLonAndLatForAddress from "../services/MapMarkerService";
-import {getEcoElementById, updateEcoElement} from "../services/EcoElementService";
+import getLonAndLatForAddress from "../services/mapMarkerService";
+import {getEcoElementById, updateEcoElement} from "../services/ecoElementService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import styled from "styled-components/macro";
 import tokenValidation from "../account-route/methods/tokenValidation";

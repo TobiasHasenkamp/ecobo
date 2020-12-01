@@ -2,7 +2,7 @@ import PageHeader from "./PageHeader";
 import React, {useEffect, useContext} from "react";
 import styled from "styled-components/macro";
 import EcoElementContext from "./contexts/EcoElementContext";
-import {getEcoElements} from "./services/EcoElementService";
+import {getEcoElements} from "./services/ecoElementService";
 import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";

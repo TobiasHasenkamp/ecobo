@@ -2,7 +2,7 @@ import {StyledCell, StyledElementBody, StyledHeaderRow, StyledWrapperTable} from
 import {FaCheck, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp, FaTimes} from "react-icons/fa";
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
-import {addReviewToEcoElement} from "../../services/EcoElementService";
+import {addReviewToEcoElement} from "../../services/ecoElementService";
 import EcoElementContext from "../../contexts/EcoElementContext";
 import LoginTokenContext from "../../contexts/LoginTokenContext";
 
