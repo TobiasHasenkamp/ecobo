@@ -17,6 +17,7 @@ import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium
 import {FaFacebook, FaLink} from "react-icons/fa";
 import ReviewBox from "./subComponents/ReviewBox";
 import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
+import returnCertificateIcon from "../services/returnCertificateIcon";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -72,6 +73,7 @@ export default function EcoElementPage(){
     function hasTitle(){
         return ecoElement.title !== "";
     }
+
 
     return (
 
@@ -166,7 +168,9 @@ export default function EcoElementPage(){
                                     Zertifikate:
                                 </StyledCell>
                                 <StyledCell>
-                                    {ecoElement.certificates?.map(certificate => <p key={certificate}>{certificate}</p>)}
+                                    {ecoElement.certificates?
+                                        ecoElement.certificates?.map(certificate => returnCertificateIcon(certificate))
+                                        : " - "}
                                 </StyledCell>
                             </StyledElementBody>
                         <div/>

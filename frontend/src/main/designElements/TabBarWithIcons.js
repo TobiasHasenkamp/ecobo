@@ -105,9 +105,6 @@ export default function TabBarWithIcons({type}) {
     function returnActiveFilter(){
 
         const filterList = filterListForCategory.concat(filterListForCertificates, filterListForLocation);
-        //console.log("categoryfilterlist: " + filterListForCategory);
-        //console.log("certificatefilterlist: " + filterListForCertificates);
-        //console.log("locationfilterlist: " + filterListForLocation);
 
         if (filterList.length !== 0) {
             return(
@@ -156,9 +153,9 @@ export default function TabBarWithIcons({type}) {
                         open={Boolean(categoryMenuStatusAndAnchor)}
                         onClose={handleCloseCategoryFilterMenu}
                     >
-                        {!filterListForCategory.includes("Bioladen") && <MenuItem name="FOODSTORE" title="category" onClick={handleAddItemToFilter}>Bioladen</MenuItem>}
-                        {!filterListForCategory.includes("Restaurant") && <MenuItem name="RESTAURANT" title="category" onClick={handleAddItemToFilter}>Restaurant</MenuItem>}
-                        {!filterListForCategory.includes("Weltladen") && <MenuItem name="FAIRSHOP" title="category" onClick={handleAddItemToFilter}>Weltladen</MenuItem>}
+                        {!filterListForCategory.includes("FOODSTORE") && <MenuItem name="FOODSTORE" title="category" onClick={handleAddItemToFilter}>Bioladen</MenuItem>}
+                        {!filterListForCategory.includes("RESTAURANT") && <MenuItem name="RESTAURANT" title="category" onClick={handleAddItemToFilter}>Restaurant</MenuItem>}
+                        {!filterListForCategory.includes("FAIRSHOP") && <MenuItem name="FAIRSHOP" title="category" onClick={handleAddItemToFilter}>Weltladen</MenuItem>}
                     </Menu>
                 : ""}
 
@@ -172,7 +169,7 @@ export default function TabBarWithIcons({type}) {
                     >
                         {!filterListForCertificates.includes("Veganes Angebot") && <MenuItem name="Veganes Angebot" title="certificate" onClick={handleAddItemToFilter}>Veganes Angebot</MenuItem>}
                         {!filterListForCertificates.includes("Vegetarisches Angebot") && <MenuItem name="Vegetarisches Angebot" title="certificate" onClick={handleAddItemToFilter}>Vegetarisches Angebot</MenuItem>}
-                        {!filterListForCertificates.includes("Abholservice") && <MenuItem name="Abholservice" title="certificate" onClick={handleAddItemToFilter}>Abholservice</MenuItem>}
+                        {!filterListForCertificates.includes("Lieferservice") && <MenuItem name="Lieferservice" title="certificate" onClick={handleAddItemToFilter}>Abholservice</MenuItem>}
                     </Menu>
                 : ""}
 
