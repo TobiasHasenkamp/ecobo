@@ -99,8 +99,7 @@ public class EcoElementService {
                         existingEcoElement.getCategorySub().equals(ecoElementDto.getCategorySub()) ||
                         existingEcoElement.getName().equals(ecoElementDto.getName()) ||
                         existingEcoElement.getAddress().equals(ecoElementDto.getAddress()) ||
-                        existingEcoElement.getCertificate1().equals(ecoElementDto.getCertificate1()) ||
-                        existingEcoElement.getCertificate2().equals(ecoElementDto.getCertificate2())){
+                        existingEcoElement.getCertificates().equals(ecoElementDto.getCertificates())) {
 
                         existingEcoElement.setIsReviewed(false);
                         existingEcoElement.setReviews(List.of());

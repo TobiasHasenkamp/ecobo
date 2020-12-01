@@ -7,6 +7,8 @@ import LoginTokenContext from "../contexts/LoginTokenContext";
 import styled from "styled-components/macro";
 import tokenValidation from "../account-route/methods/tokenValidation";
 import EcoElementContext from "../contexts/EcoElementContext";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
 export default function AddElementPage() {
 
@@ -19,6 +21,8 @@ export default function AddElementPage() {
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
     const {token} = useContext(LoginTokenContext);
     const {setEcoElement} = useContext(EcoElementContext);
+    const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
+    const [certificatesToAddList, setCertificatesToAddList] = useState([]);
 
     useEffect(() => {
         let finalLat;
@@ -34,7 +38,7 @@ export default function AddElementPage() {
         if (finalLon !== undefined && buttonHasBeenClicked) {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
-            addEcoElement(name, category, categorySub, address, finalLat, finalLon, token, setEcoElement);
+            addEcoElement(name, category, categorySub, address, finalLat, finalLon, certificatesToAddList, token, setEcoElement);
             history.push("/loading/map");
         }
 
@@ -42,6 +46,16 @@ export default function AddElementPage() {
         // eslint-disable-next-line
     }, [lonLatOfRequest]);
 
+    function handleButtonClick(event){
+        event.preventDefault();
+        setButtonHasBeenClicked(true);
+        if (tokenValidation()){
+            getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest);
+        }
+        else {
+            console.log("Please login.")
+        }
+    }
 
     function handleChange(event){
         if (event.target.name === "name"){
@@ -56,18 +70,37 @@ export default function AddElementPage() {
         else if (event.target.name === "address"){
             setAddress(event.target.value);
         }
-
     }
 
-    function handleButtonClick(event){
+    function handleOpenCertificatesMenu(event){
+        setCertificatesMenuStatusAndAnchor(event.currentTarget);
         event.preventDefault();
-        setButtonHasBeenClicked(true);
-        if (tokenValidation()){
-            getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest);
-        }
-        else {
-            console.log("Please login.")
-        }
+    }
+
+    function handleCloseCertificatesMenu(){
+        setCertificatesMenuStatusAndAnchor(null);
+    }
+
+    function handleAddCertificateToAddList(event){
+        const certificateToAdd = event.target.getAttribute("name");
+        const newCertificateList = certificatesToAddList;
+        newCertificateList.push(certificateToAdd);
+        setCertificatesToAddList(newCertificateList);
+        setCertificatesMenuStatusAndAnchor(null);
+    }
+
+    function handleRemoveCertificates(event){
+        const certificateToRemove = event.target.getAttribute("name");
+        const newCertificateList = certificatesToAddList.filter(value => value !== certificateToRemove);
+        setCertificatesToAddList(newCertificateList);
+    }
+
+    function returnActiveCertificates(){
+        return(
+            certificatesToAddList.map((element) => (
+                <div key={element} name={element} onClick={handleRemoveCertificates}>{element}</div>
+            ))
+        )
     }
 
     return (
@@ -106,6 +139,27 @@ export default function AddElementPage() {
                 <label htmlFor="address"> Address:</label>
                 <input name="address" value={address} onChange={handleChange} />
 
+                <button onClick={handleOpenCertificatesMenu}>Tags</button>
+
+                <Menu
+                    id="filterMenuForCertificates"
+                    anchorEl={certificatesMenuStatusAndAnchor}
+                    keepMounted
+                    open={Boolean(certificatesMenuStatusAndAnchor)}
+                    onClose={handleCloseCertificatesMenu}
+                >
+                    {!certificatesToAddList.includes("Veganes Angebot") && <MenuItem name="Veganes Angebot" onClick={handleAddCertificateToAddList}>Veganes Angebot</MenuItem>}
+                    {!certificatesToAddList.includes("Vegetarisches Angebot") && <MenuItem name="Vegetarisches Angebot" onClick={handleAddCertificateToAddList}>Vegetarisches Angebot</MenuItem>}
+                    {!certificatesToAddList.includes("Abholservice") && <MenuItem name="Abholservice" onClick={handleAddCertificateToAddList}>Abholservice</MenuItem>}
+                </Menu>
+
+                <StyledActiveCertificatesList>
+
+                    {returnActiveCertificates()}
+
+                </StyledActiveCertificatesList>
+
+
                 <div>
                     <button onClick={handleButtonClick}>Add new Element</button>
                 </div>
@@ -133,8 +187,25 @@ const StyledForm = styled.form`
   div {
     grid-column: span 2;
   }
+`
+
+const StyledActiveCertificatesList = styled.div`
+  font-size: 0.55em;
+  line-height: 1.0em;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: auto;
+  margin: 5px 8px 5px 8px;
+  overflow-wrap: anywhere;
   
-
- 
-
+  div {
+      background: lightgrey;
+      opacity: 80%;
+      color: black;
+      padding: 4px 4px;
+      border-radius: 8px;
+      margin: 2px;
+      border: dimgray solid 1px;
+  }
 `

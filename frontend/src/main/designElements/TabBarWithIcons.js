@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import ShowsAsListIconButton from "./buttons/ShowsAsListIconButton";
 import ShowAsMapIconButton from "./buttons/ShowAsMapIconButton";
 import ShowAsCardsIconButton from "./buttons/ShowAsCardsIconButton"
@@ -8,7 +8,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import FilterListContext from "../contexts/FilterListContext";
 import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
-import {Filter} from "@material-ui/icons";
 
 
 export default function TabBarWithIcons({type}) {
@@ -124,7 +123,7 @@ export default function TabBarWithIcons({type}) {
                 {filterBarIsOpen?
                 <StyledFilterBar>
                     <StyledFilterBarMenuButton onClick={handleOpenCategoryFilterMenu}>Typ</StyledFilterBarMenuButton>
-                    <StyledFilterBarMenuButton onClick={handleOpenCertificatesFilterMenu}>Zertifikat</StyledFilterBarMenuButton>
+                    <StyledFilterBarMenuButton onClick={handleOpenCertificatesFilterMenu}>Tags</StyledFilterBarMenuButton>
                     <StyledFilterBarMenuButton onClick={handleOpenLocationFilterMenu}>Ort</StyledFilterBarMenuButton>
                 </StyledFilterBar>
                 : <div/>}
