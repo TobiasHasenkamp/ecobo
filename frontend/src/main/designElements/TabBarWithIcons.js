@@ -10,6 +10,7 @@ import FilterListContext from "../contexts/FilterListContext";
 import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
 
 
+
 export default function TabBarWithIcons({type}) {
 
     const history = useHistory();
@@ -111,7 +112,6 @@ export default function TabBarWithIcons({type}) {
                 filterList.map(filterElement => (
                     <div key={filterElement} name={filterElement} onClick={handleRemoveFilter}>{filterElement}</div>
                 ))
-
             )
         }
     }
