@@ -9,11 +9,14 @@ import FairShopList from "./list-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import LoginTokenContext from "./contexts/LoginTokenContext";
 import TabBarWithIcons from "./designElements/TabBarWithIcons";
+import FilterResultList from "./list-route/FilterResultList";
+import FilterListContext from "./contexts/FilterListContext";
 
 export default function ListPage() {
 
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const {token} = useContext(LoginTokenContext);
+    const {filterIsActive} = useContext(FilterListContext);
 
     useEffect(() => {
         getEcoElements(token, setEcoElements);
@@ -28,9 +31,10 @@ export default function ListPage() {
             <TabBarWithIcons type="list"/>
 
             <StyledWrapperDiv>
-                <FoodStoreList ecoElements={ecoElements}/>
-                <RestaurantList ecoElements={ecoElements}/>
-                <FairShopList ecoElements={ecoElements}/>
+                {!filterIsActive && <FoodStoreList ecoElements={ecoElements}/>}
+                {!filterIsActive && <RestaurantList ecoElements={ecoElements}/>}
+                {!filterIsActive && <FairShopList ecoElements={ecoElements}/>}
+                {filterIsActive && <FilterResultList ecoElements={ecoElements}/>}
 
                 {/* the brs are necessary at the moment to keep the full list visible when scrolling */}
                 <br/>

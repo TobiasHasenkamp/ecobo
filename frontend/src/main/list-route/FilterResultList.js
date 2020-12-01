@@ -1,35 +1,27 @@
+import React, {useContext} from "react";
+import FilterListContext from "../contexts/FilterListContext";
+import {
+    StyledCell,
+    StyledElement, StyledElementBody,
+    StyledElementHeader,
+    StyledHeaderRow, StyledIconDiv,
+    StyledNameCell, StyledWrapperTable
+} from "./StyledElementsForTableDesign";
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
-import React, {useEffect, useState} from "react";
-import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
-    StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
-import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import returnCertificateIcon from "../services/returnCertificateIcon";
 
-export default function FairShopList({ecoElements}){
+export default function FilterResultList({ecoElements}){
 
-    const [fairShopTableIsOpen, setFairShopTableIsOpen] = useState(true);
+    const {returnIfItemsGetsFiltered} = useContext(FilterListContext);
 
-    function handleShowFairShopTable(){
-        setFairShopTableIsOpen(!fairShopTableIsOpen);
-    }
+    return(
 
-    useEffect(() => {
-        setFairShopTableIsOpen(true);
-    }, [])
-
-
-    return (
-
-        <StyledWrapperTable name="Weltläden">
-            <StyledHeaderRow className="yellow">
-                {"Weltläden "}
-                {fairShopTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>
-                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>}
-
+        <StyledWrapperTable name="Ergebnisse">
+            <StyledHeaderRow className="lightgrey">
+                {"Ergebnisse "}
             </StyledHeaderRow>
             {
-                fairShopTableIsOpen &&
-                ecoElements?.filter(element => element.category === "FAIRSHOP").map((element) => (
+                ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>
@@ -57,8 +49,14 @@ export default function FairShopList({ecoElements}){
                     </StyledElement>
                 ))
             }
+            {
+                (ecoElements.filter(element => (returnIfItemsGetsFiltered(element))).length === 0) && <p style={{margin: "15px"}}>Keine Ergebnisse gefunden.</p>
+            }
 
         </StyledWrapperTable>
 
+
+
     )
+
 }

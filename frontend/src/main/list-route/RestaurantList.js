@@ -1,15 +1,13 @@
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
-import FilterListContext from "../contexts/FilterListContext";
 import returnCertificateIcon from "../services/returnCertificateIcon";
 
 export default function RestaurantList({ecoElements}){
 
     const [restaurantTableIsOpen, setRestaurantTableIsOpen] = useState(true);
-    const {returnIfItemsGetsFiltered} = useContext(FilterListContext);
 
     function handleShowRestaurantTable(){
         setRestaurantTableIsOpen(!restaurantTableIsOpen);
@@ -30,7 +28,7 @@ export default function RestaurantList({ecoElements}){
             </StyledHeaderRow>
             {
                 restaurantTableIsOpen &&
-                ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).filter(element => element.category === "RESTAURANT").map((element) => (
+                ecoElements?.filter(element => element.category === "RESTAURANT").map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>
