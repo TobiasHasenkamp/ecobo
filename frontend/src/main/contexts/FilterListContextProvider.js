@@ -24,14 +24,10 @@ export default function FilterListContextProvider({children}){
 
 
     function returnIfItemsGetsFiltered(element){
-        //console.log("Filterlist for category: " + filterListForCategory);
         if (!filterIsActive){
-            //console.log("Filter is not active");
             return true;
         }
         else {
-            //console.log("Filter is active")
-            //console.log("abc: " + returnFilterCategories(element));
             if (returnFilterCategories(element) && returnFilterCertificates(element) && returnFilterLocation(element)) {
                 return true;
             } else {
@@ -61,7 +57,7 @@ export default function FilterListContextProvider({children}){
 
         if (filterListForCategory.length !== 0) {
             //return true if element belongs to searched category
-            if (filterListForCategory.some(filterElement => element.category === filterElement)) {
+            if (filterListForCategory.some(filterElement => element.categorySub === filterElement)) {
                 return true;
             } else {
                 return false;

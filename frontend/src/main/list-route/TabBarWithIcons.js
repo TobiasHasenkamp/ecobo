@@ -8,6 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import FilterListContext from "../contexts/FilterListContext";
 import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
+import translationService from "../services/translationService";
 
 
 
@@ -110,7 +111,9 @@ export default function TabBarWithIcons({type}) {
         if (filterList.length !== 0) {
             return(
                 filterList.map(filterElement => (
-                    <div key={filterElement} name={filterElement} onClick={handleRemoveFilter}>{filterElement}</div>
+                    <div key={filterElement} name={filterElement} onClick={handleRemoveFilter}>
+                        {translationService(filterElement)}
+                    </div>
                 ))
             )
         }
@@ -147,46 +150,101 @@ export default function TabBarWithIcons({type}) {
 
                 {filterListForCategory?
                     <Menu
+                        className="filterMenu"
                         id="filterMenuForCategory"
                         anchorEl={categoryMenuStatusAndAnchor}
                         keepMounted
                         open={Boolean(categoryMenuStatusAndAnchor)}
                         onClose={handleCloseCategoryFilterMenu}
                     >
-                        {!filterListForCategory.includes("FOODSTORE") && <MenuItem name="FOODSTORE" title="category" onClick={handleAddItemToFilter}>Bioladen</MenuItem>}
-                        {!filterListForCategory.includes("RESTAURANT") && <MenuItem name="RESTAURANT" title="category" onClick={handleAddItemToFilter}>Restaurant</MenuItem>}
-                        {!filterListForCategory.includes("FAIRSHOP") && <MenuItem name="FAIRSHOP" title="category" onClick={handleAddItemToFilter}>Weltladen</MenuItem>}
+                        {!filterListForCategory.includes("FOODSTORE_SUPERMARKET") &&
+                                <StyledMenuItem name="FOODSTORE_SUPERMARKET" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("FOODSTORE_SUPERMARKET")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("FOODSTORE_NORMAL") &&
+                                <StyledMenuItem name="FOODSTORE_NORMAL" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("FOODSTORE_NORMAL")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("FOODSTORE_HEALTHSTORE") &&
+                                <StyledMenuItem name="FOODSTORE_HEALTHSTORE" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("FOODSTORE_HEALTHSTORE")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("FOODSTORE_FARMSHOP") &&
+                                <StyledMenuItem name="FOODSTORE_FARMSHOP" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("FOODSTORE_FARMSHOP")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("RESTAURANT_SNACKBAR") &&
+                                <StyledMenuItem name="RESTAURANT_SNACKBAR" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANT_SNACKBAR")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("RESTAURANT_CAFE") &&
+                                <StyledMenuItem name="RESTAURANT_CAFE" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANT_CAFE")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("RESTAURANR_RESTAURANT") &&
+                                <StyledMenuItem name="RESTAURANR_RESTAURANT" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANR_RESTAURANT")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("RESTAURANT_ICECREAM_CAFE") &&
+                                <StyledMenuItem name="RESTAURANT_ICECREAM_CAFE" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANT_ICECREAM_CAFE")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("RESTAURANT_BAKERY") &&
+                                <StyledMenuItem name="RESTAURANT_BAKERY" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANT_BAKERY")}
+                                </StyledMenuItem>}
+                        {!filterListForCategory.includes("FAIRSHOP_NORMAL") &&
+                                <StyledMenuItem name="FAIRSHOP_NORMAL" title="category"
+                                          onClick={handleAddItemToFilter}>{translationService("FAIRSHOP_NORMAL")}
+                                </StyledMenuItem>}
                     </Menu>
                 : ""}
 
                 {filterListForCertificates?
                     <Menu
+                        className="filterMenu"
                         id="filterMenuForCertificates"
                         anchorEl={certificatesMenuStatusAndAnchor}
                         keepMounted
                         open={Boolean(certificatesMenuStatusAndAnchor)}
                         onClose={handleCloseCertificatesFilterMenu}
                     >
-                        {!filterListForCertificates.includes("Veganes Angebot") && <MenuItem name="Veganes Angebot" title="certificate" onClick={handleAddItemToFilter}>Veganes Angebot</MenuItem>}
-                        {!filterListForCertificates.includes("Vegetarisches Angebot") && <MenuItem name="Vegetarisches Angebot" title="certificate" onClick={handleAddItemToFilter}>Vegetarisches Angebot</MenuItem>}
-                        {!filterListForCertificates.includes("Lieferservice") && <MenuItem name="Lieferservice" title="certificate" onClick={handleAddItemToFilter}>Abholservice</MenuItem>}
+                        {!filterListForCertificates.includes("Veganes Angebot") &&
+                                        <StyledMenuItem name="Veganes Angebot" title="certificate"
+                                                        onClick={handleAddItemToFilter}>Veganes Angebot
+                                        </StyledMenuItem>}
+                        {!filterListForCertificates.includes("Vegetarisches Angebot") &&
+                                        <StyledMenuItem name="Vegetarisches Angebot" title="certificate"
+                                                        onClick={handleAddItemToFilter}>Vegetarisches Angebot
+                                        </StyledMenuItem>}
+                        {!filterListForCertificates.includes("Lieferservice") &&
+                                        <StyledMenuItem name="Lieferservice" title="certificate"
+                                                        onClick={handleAddItemToFilter}>Abholservice
+                                        </StyledMenuItem>}
                     </Menu>
                 : ""}
 
                 {filterListForLocation ?
                     <Menu
+                        className="filterMenu"
                         id="filterMenuForLocation"
                         anchorEl={locationMenuStatusAndAnchor}
                         keepMounted
                         open={Boolean(locationMenuStatusAndAnchor)}
                         onClose={handleCloseLocationFilterMenu}
                     >
-                        {!filterListForLocation.includes("Innenstadt") && <MenuItem name="Innenstadt" title="location"
-                                                                                    onClick={handleAddItemToFilter}>Innenstadt</MenuItem>}
+                        {!filterListForLocation.includes("Innenstadt") &&
+                                        <StyledMenuItem name="Innenstadt" title="location"
+                                                        onClick={handleAddItemToFilter}>Innenstadt
+                                        </StyledMenuItem>}
                         {!filterListForLocation.includes("Weitmar") &&
-                        <MenuItem name="Weitmar" title="location" onClick={handleAddItemToFilter}>Weitmar</MenuItem>}
+                                        <StyledMenuItem name="Weitmar" title="location"
+                                                        onClick={handleAddItemToFilter}>Weitmar
+                                        </StyledMenuItem>}
                         {!filterListForLocation.includes("Riemke") &&
-                        <MenuItem name="Riemke" title="location" onClick={handleAddItemToFilter}>Riemke</MenuItem>}
+                                        <StyledMenuItem name="Riemke" title="location"
+                                                        onClick={handleAddItemToFilter}>Riemke
+                                        </StyledMenuItem>}
                     </Menu>
                 : ""}
 
@@ -229,7 +287,8 @@ const StyledTabBar = styled.div`
      &active {
          color: var(--lightgrey);
       }
-    }
+    }    
+    
 `
 
 const StyledFilterCell = styled.div`
@@ -265,7 +324,7 @@ const StyledFilterBarMenuButton = styled.div`
 `
 
 const StyledActiveFilterList = styled.div`
-  font-size: 0.6em;
+  font-size: 0.7em;
   line-height: 1.0em;
   grid-column: 1 / span 3;
   display: flex;
@@ -277,12 +336,21 @@ const StyledActiveFilterList = styled.div`
   
   div {
       background: lightgrey;
-      opacity: 80%;
+      opacity: 85%;
       color: gray();
       padding: 5px 6px;
       border-radius: 8px;
       margin: 2px;
-      //border: dimgray inset 2px;
       box-shadow: 0 2px 0 gray();
-  }
+  } 
+`
+
+const StyledMenuItem = styled(MenuItem)`
+    && {
+        min-height: 20px;
+        font-size: 0.92em;
+        margin: 5px;
+        padding: 5px;
+        line-height: 1.5em;
+    }
 `

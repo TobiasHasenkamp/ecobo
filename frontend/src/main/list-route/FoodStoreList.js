@@ -4,6 +4,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import returnCertificateIcon from "../services/returnCertificateIcon";
+import translationService from "../services/translationService";
 
 export default function FoodStoreList({ecoElements}){
 
@@ -43,7 +44,7 @@ export default function FoodStoreList({ecoElements}){
                             </StyledElementHeader>
                             <StyledElementBody>
                                 <StyledCell>
-                                    {element.categorySub}
+                                    {translationService(element.categorySub)}
                                 </StyledCell>
                                 <StyledCell>
                                     {element.certificates?

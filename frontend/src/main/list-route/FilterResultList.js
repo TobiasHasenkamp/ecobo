@@ -9,6 +9,7 @@ import {
 } from "./StyledElementsForTableDesign";
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
 import returnCertificateIcon from "../services/returnCertificateIcon";
+import translationService from "../services/translationService";
 
 export default function FilterResultList({ecoElements}){
 
@@ -37,7 +38,7 @@ export default function FilterResultList({ecoElements}){
                         </StyledElementHeader>
                         <StyledElementBody>
                             <StyledCell>
-                                {element.categorySub}
+                                {translationService(element.categorySub)}
                             </StyledCell>
                             <StyledCell>
                                 {element.certificates?

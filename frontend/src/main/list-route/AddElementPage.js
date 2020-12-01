@@ -125,7 +125,6 @@ export default function AddElementPage() {
                     <option>FOODSTORE_SUPERMARKET</option>
                     <option>FOODSTORE_NORMAL</option>
                     <option>FOODSTORE_HEALTHSTORE</option>
-                    <option>FOODSTORE_ZEROWASTESHOP</option>
                     <option>FOODSTORE_FARMSHOP</option>
                     <option>RESTAURANT_SNACKBAR</option>
                     <option>RESTAURANT_CAFE</option>
@@ -133,7 +132,6 @@ export default function AddElementPage() {
                     <option>RESTAURANT_ICECREAM_CAFE</option>
                     <option>RESTAURANT_BAKERY</option>
                     <option>FAIRSHOP_NORMAL</option>
-                    <option>FAIRSHOP_TEMPORARY</option>
                 </select>
 
                 <label htmlFor="address"> Address:</label>

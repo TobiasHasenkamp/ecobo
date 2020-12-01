@@ -18,6 +18,7 @@ import {FaFacebook, FaLink} from "react-icons/fa";
 import ReviewBox from "./subComponents/ReviewBox";
 import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
 import returnCertificateIcon from "../services/returnCertificateIcon";
+import translationService from "../services/translationService";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -90,7 +91,7 @@ export default function EcoElementPage(){
                             {/*Subkategorie*/}
                             <StyledElementHeader>
                                 <StyledNameCell>
-                                    {ecoElement.categorySub}
+                                    {translationService(ecoElement.categorySub)}
                                     {hasTitle() && <><br/><sup>{ecoElement.title}</sup></>}
                                 </StyledNameCell>
                                 <StyledCell>
