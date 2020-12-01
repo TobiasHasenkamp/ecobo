@@ -86,9 +86,10 @@ export default function TabBarWithIcons({type}) {
         const filterTypeToAdd = event.target.getAttribute("title");
 
         if (filterTypeToAdd === "category"){
+            //setFilterListForCategory(filterListForCategory.push(filterToAdd));
             const newFilterList = filterListForCategory;
             newFilterList.push(filterToAdd);
-            setFilterListForCategory(newFilterList);
+            setFilterListForCategory( newFilterList);
         }
         else if (filterTypeToAdd === "certificate"){
             const newFilterList = filterListForCertificates;

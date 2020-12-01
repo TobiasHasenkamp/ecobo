@@ -11,24 +11,30 @@ export default function FilterListContextProvider({children}){
 
     //Use-effect to check if filter is active
     useEffect(() => {
-        if (filterListForCategory === [] && filterListForCertificates === [] && filterListForCertificates === []){
+        if (filterListForCategory.length === 0 && filterListForCertificates.length === 0 && filterListForCertificates.length === 0){
             setFilterIsActive(false);
-            console.log("Filter is not active")
+            //console.log("Filter is not active")
         }
         else {
-            setFilterIsActive(false);
-            console.log("Filter is active")
+            setFilterIsActive(true);
+            //console.log("Filter is active")
         }
     }, [filterListForCategory, filterListForCertificates, filterListForLocation])
 
 
 
-    function returnIfItemsGetsFiltered(){
-        if (returnFilterCategories() && returnFilterCertificates() && returnFilterLocation()){
+    function returnIfItemsGetsFiltered(element){
+        //console.log("Filterlist for category: " + filterListForCategory);
+        if (!filterIsActive){
+            //console.log("Filter is not active");
             return true;
         }
         else {
-            return false;
+            if (returnFilterCategories(element) && returnFilterCertificates(element) && returnFilterLocation(element)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -65,7 +71,7 @@ export default function FilterListContextProvider({children}){
 
 
     return (
-        <FilterListContext.Provider value={{filterIsActive, filterListForCategory, setFilterListForCategory, filterListForCertificates, setFilterListForCertificates, filterListForLocation, setFilterListForLocation}}>
+        <FilterListContext.Provider value={{returnIfItemsGetsFiltered, filterIsActive, filterListForCategory, setFilterListForCategory, filterListForCertificates, setFilterListForCertificates, filterListForLocation, setFilterListForLocation}}>
             {children}
         </FilterListContext.Provider>
     )
