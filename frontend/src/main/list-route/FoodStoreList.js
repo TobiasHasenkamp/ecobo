@@ -8,8 +8,7 @@ import FilterListContext from "../contexts/FilterListContext";
 export default function FoodStoreList({ecoElements}){
 
     const [foodStoreTableIsOpen, setFoodStoreTableIsOpen] = useState(true);
-    const {filterForCategoryIsActive, setFilterForCategoryIsActive} = useContext(FilterListContext);
-    const {filterForCategory, setFilterForCategory} = useContext(FilterListContext);
+    const {returnIfItemsGetsFiltered} = useContext(FilterListContext);
 
     function handleShowFoodStoreTable(){
         setFoodStoreTableIsOpen(!foodStoreTableIsOpen);
@@ -19,17 +18,6 @@ export default function FoodStoreList({ecoElements}){
         setFoodStoreTableIsOpen(true);
     }, [])
 
-    function filterAllowToShowFoodStores(){
-        if (!filterForCategoryIsActive){
-            return true;
-        }
-        else if (filterForCategoryIsActive && filterForCategory === "Bioladen"){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     return (
 
@@ -39,8 +27,8 @@ export default function FoodStoreList({ecoElements}){
                     {foodStoreTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>
                         : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>}
                 </StyledHeaderRow>
-                { foodStoreTableIsOpen && filterAllowToShowFoodStores() &&
-                    ecoElements?.filter(element => element.category === "FOODSTORE").map((element) => (
+                { foodStoreTableIsOpen &&
+                    ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).filter(element => element.category === "FOODSTORE").map((element) => (
                         <StyledElement key={element.id}>
                             <div/>
                             <StyledElementHeader>

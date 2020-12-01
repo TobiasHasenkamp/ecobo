@@ -30,6 +30,8 @@ export default function FilterListContextProvider({children}){
             return true;
         }
         else {
+            //console.log("Filter is active")
+            //console.log("abc: " + returnFilterCategories(element));
             if (returnFilterCategories(element) && returnFilterCertificates(element) && returnFilterLocation(element)) {
                 return true;
             } else {
@@ -39,28 +41,38 @@ export default function FilterListContextProvider({children}){
     }
 
     function returnFilterCertificates(element){
-        //return true if element contains every searched certificate
-        if (filterListForCertificates.every(certificate => element.certificates.contains(certificate))){
-            return true;
-        }
-        else {
+
+        if (filterListForCertificates.length !== 0) {
+            //return true if element contains every searched certificate
+            if (element.certificates !== null)
+            {
+                if (filterListForCertificates.every(filterElement => element.certificates.includes(filterElement))) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
             return false;
         }
+        return true;
     }
 
     function returnFilterCategories(element){
-        //return true if element belongs to searched category
-        if (filterListForCategory.some(category => element.categorySub === category)){
-            return true;
+
+        if (filterListForCategory.length !== 0) {
+            //return true if element belongs to searched category
+            if (filterListForCategory.some(filterElement => element.category === filterElement)) {
+                return true;
+            } else {
+                return false;
+            }
         }
-        else {
-            return false;
-        }
+        return true;
     }
 
     function returnFilterLocation(element){
         //return true if elements district is one of the searched districts
-        /*if (filterListLocation.some(location => element.district === location)){
+        /*if (filterListLocation.some(filterElement => element.district === filterElement)){
             return true;
         }
         else {

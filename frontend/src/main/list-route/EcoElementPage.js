@@ -166,8 +166,7 @@ export default function EcoElementPage(){
                                     Zertifikate:
                                 </StyledCell>
                                 <StyledCell>
-                                    Zertifikate ....
-                                    <br/> Zertifikate ....
+                                    {ecoElement.certificates?.map(certificate => <p key={certificate}>{certificate}</p>)}
                                 </StyledCell>
                             </StyledElementBody>
                         <div/>

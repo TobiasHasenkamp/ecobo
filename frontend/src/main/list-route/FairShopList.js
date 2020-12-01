@@ -8,8 +8,6 @@ import FilterListContext from "../contexts/FilterListContext";
 export default function FairShopList({ecoElements}){
 
     const [fairShopTableIsOpen, setFairShopTableIsOpen] = useState(true);
-    const {filterForCategoryIsActive, setFilterForCategoryIsActive} = useContext(FilterListContext);
-    const {filterForCategory, setFilterForCategory} = useContext(FilterListContext);
     const {returnIfItemsGetsFiltered} = useContext(FilterListContext);
 
     function handleShowFairShopTable(){
@@ -20,17 +18,6 @@ export default function FairShopList({ecoElements}){
         setFairShopTableIsOpen(true);
     }, [])
 
-    function filterAllowToShowFairShops(){
-        if (!filterForCategoryIsActive){
-            return true;
-        }
-        else if (filterForCategoryIsActive && filterForCategory === "Weltladen"){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     return (
 
@@ -42,8 +29,8 @@ export default function FairShopList({ecoElements}){
 
             </StyledHeaderRow>
             {
-                fairShopTableIsOpen && filterAllowToShowFairShops() && 1 === 2 &&
-                ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).map((element) => (
+                fairShopTableIsOpen &&
+                ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).filter(element => element.category === "FAIRSHOP").map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>

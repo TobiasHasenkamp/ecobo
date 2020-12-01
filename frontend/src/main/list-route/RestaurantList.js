@@ -8,8 +8,7 @@ import FilterListContext from "../contexts/FilterListContext";
 export default function RestaurantList({ecoElements}){
 
     const [restaurantTableIsOpen, setRestaurantTableIsOpen] = useState(true);
-    const {filterForCategoryIsActive, setFilterForCategoryIsActive} = useContext(FilterListContext);
-    const {filterForCategory, setFilterForCategory} = useContext(FilterListContext);
+    const {returnIfItemsGetsFiltered} = useContext(FilterListContext);
 
     function handleShowRestaurantTable(){
         setRestaurantTableIsOpen(!restaurantTableIsOpen);
@@ -20,18 +19,6 @@ export default function RestaurantList({ecoElements}){
     }, [])
 
 
-    function filterAllowToShowRestaurants(){
-        if (!filterForCategoryIsActive){
-            return true;
-        }
-        else if (filterForCategoryIsActive && filterForCategory === "Restaurant"){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     return (
 
         <StyledWrapperTable name="Restaurants">
@@ -41,8 +28,8 @@ export default function RestaurantList({ecoElements}){
                     : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>}
             </StyledHeaderRow>
             {
-                restaurantTableIsOpen && filterAllowToShowRestaurants() &&
-                ecoElements?.filter(element => element.category === "RESTAURANT").map((element) => (
+                restaurantTableIsOpen &&
+                ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).filter(element => element.category === "RESTAURANT").map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>

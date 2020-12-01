@@ -86,22 +86,17 @@ export default function TabBarWithIcons({type}) {
         const filterTypeToAdd = event.target.getAttribute("title");
 
         if (filterTypeToAdd === "category"){
-            //setFilterListForCategory(filterListForCategory.push(filterToAdd));
-            const newFilterList = filterListForCategory;
-            newFilterList.push(filterToAdd);
-            setFilterListForCategory( newFilterList);
+            const newFilterList = filterListForCategory.concat([filterToAdd]);
+            setFilterListForCategory(newFilterList);
         }
         else if (filterTypeToAdd === "certificate"){
-            const newFilterList = filterListForCertificates;
-            newFilterList.push(filterToAdd);
+            const newFilterList = filterListForCertificates.concat([filterToAdd]);
             setFilterListForCertificates(newFilterList);
         }
         else if (filterTypeToAdd === "location"){
-            const newFilterList = filterListForLocation;
-            newFilterList.push(filterToAdd);
+            const newFilterList = filterListForLocation.concat([filterToAdd]);
             setFilterListForLocation(newFilterList);
         }
-
         setCategoryMenuStatusAndAnchor(null);
         setCertificatesMenuStatusAndAnchor(null);
         setLocationMenuStatusAndAnchor(null);
@@ -109,17 +104,19 @@ export default function TabBarWithIcons({type}) {
 
     function returnActiveFilter(){
 
-        const filterList = filterListForCategory.concat(filterListForLocation, filterListForCertificates);
+        const filterList = filterListForCategory.concat(filterListForCertificates, filterListForLocation);
         //console.log("categoryfilterlist: " + filterListForCategory);
         //console.log("certificatefilterlist: " + filterListForCertificates);
         //console.log("locationfilterlist: " + filterListForLocation);
 
-        return(
-            filterList.map((filter) => (
-                <div key={filter} name={filter} onClick={handleRemoveFilter}>{filter}</div>
-            ))
+        if (filterList.length !== 0) {
+            return(
+                filterList.map(filterElement => (
+                    <div key={filterElement} name={filterElement} onClick={handleRemoveFilter}>{filterElement}</div>
+                ))
 
-        )
+            )
+        }
     }
 
 
@@ -159,9 +156,9 @@ export default function TabBarWithIcons({type}) {
                         open={Boolean(categoryMenuStatusAndAnchor)}
                         onClose={handleCloseCategoryFilterMenu}
                     >
-                        {!filterListForCategory.includes("Bioladen") && <MenuItem name="Bioladen" title="category" onClick={handleAddItemToFilter}>Bioladen</MenuItem>}
-                        {!filterListForCategory.includes("Restaurant") && <MenuItem name="Restaurant" title="category" onClick={handleAddItemToFilter}>Restaurant</MenuItem>}
-                        {!filterListForCategory.includes("Weltladen") && <MenuItem name="Weltladen" title="category" onClick={handleAddItemToFilter}>Weltladen</MenuItem>}
+                        {!filterListForCategory.includes("Bioladen") && <MenuItem name="FOODSTORE" title="category" onClick={handleAddItemToFilter}>Bioladen</MenuItem>}
+                        {!filterListForCategory.includes("Restaurant") && <MenuItem name="RESTAURANT" title="category" onClick={handleAddItemToFilter}>Restaurant</MenuItem>}
+                        {!filterListForCategory.includes("Weltladen") && <MenuItem name="FAIRSHOP" title="category" onClick={handleAddItemToFilter}>Weltladen</MenuItem>}
                     </Menu>
                 : ""}
 
