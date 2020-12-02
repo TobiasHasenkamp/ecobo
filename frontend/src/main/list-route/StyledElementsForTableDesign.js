@@ -100,7 +100,7 @@ export const StyledElement = styled.div`
 
 export const StyledElementBody = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 45% 55%;
 `
 
 export const StyledElementHeader = styled.div`

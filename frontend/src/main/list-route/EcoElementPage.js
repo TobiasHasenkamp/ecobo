@@ -177,8 +177,9 @@ export default function EcoElementPage(){
                                                                    onClick={handleShowCertificateLegend}/>}
                                 </StyledCell>
                                 <StyledCell>
-                                    {mapCertificates(ecoElement, "large")}
-                                    {certificateLegendIsOpen && mapCertificates(ecoElement, "withText")}
+                                    {certificateLegendIsOpen ?
+                                        <StyledLegendDiv> <div className="heading">Legende:</div> {mapCertificates(ecoElement, "withText")} </StyledLegendDiv> :
+                                        mapCertificates(ecoElement, "large")}
                                 </StyledCell>
                             </StyledElementBody>
                         <div/>
@@ -301,5 +302,16 @@ const StyledIcons = styled.div`
     :active {
       color: var(--darkgrey);
     }
+  }
+`
+
+const StyledLegendDiv = styled.div`
+  margin-top: 5px;
+  font-size: 0.9em;
+  
+  .heading {
+      margin-bottom: 5px;
+      font-size: 1.1em;
+      font-weight: bold;
   }
 `

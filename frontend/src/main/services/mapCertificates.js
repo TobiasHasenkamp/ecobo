@@ -13,7 +13,7 @@ export default function mapCertificates(element, size){
 
     else if (size === "withText"){
         return element.certificates?.map(certificate => (
-                                <StyledLegendCell>
+                                <StyledLegendCell key={certificate}>
                                     <div>{returnCertificateIcon(certificate, "medium")}</div>
                                     <div>{certificate}</div>
                                 </StyledLegendCell>
