@@ -8,8 +8,8 @@ import {
     StyledNameCell, StyledWrapperTable
 } from "./StyledElementsForTableDesign";
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
-import returnCertificateIcon from "../services/returnCertificateIcon";
 import translationService from "../services/translationService";
+import mapCertificates from "../services/mapCertificates";
 
 export default function FilterResultList({ecoElements}){
 
@@ -41,9 +41,7 @@ export default function FilterResultList({ecoElements}){
                                 {translationService(element.categorySub)}
                             </StyledCell>
                             <StyledCell>
-                                {element.certificates?
-                                    element.certificates?.map(certificate => returnCertificateIcon(certificate))
-                                    : " - "}
+                                {mapCertificates(element, "medium")}
                             </StyledCell>
                         </StyledElementBody>
                         <div/>

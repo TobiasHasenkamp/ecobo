@@ -3,8 +3,8 @@ import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
-import returnCertificateIcon from "../services/returnCertificateIcon";
 import translationService from "../services/translationService";
+import mapCertificates from "../services/mapCertificates";
 
 export default function RestaurantList({ecoElements}){
 
@@ -48,9 +48,7 @@ export default function RestaurantList({ecoElements}){
                                 {translationService(element.categorySub)}
                             </StyledCell>
                             <StyledCell>
-                                {element.certificates?
-                                    element.certificates?.map(certificate => returnCertificateIcon(certificate))
-                                    : " - "}
+                                {mapCertificates(element, "medium")}
                             </StyledCell>
                         </StyledElementBody>
                         <div/>
