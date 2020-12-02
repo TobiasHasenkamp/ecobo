@@ -14,7 +14,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
-import {FaFacebook, FaLink} from "react-icons/fa";
+import {FaFacebook, FaLink, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import ReviewBox from "./subComponents/ReviewBox";
 import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
 import translationService from "../services/translationService";
@@ -35,6 +35,7 @@ export default function EcoElementPage(){
     const {token} = useContext(LoginTokenContext);
     const [tableColor, setTableColor] = useState("lightgreen");
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
+    const [certificateLegendIsOpen, setCertificateLegendIsOpen] = useState(false);
 
     const {ecoElementIDParam} = useParams();
 
@@ -75,6 +76,9 @@ export default function EcoElementPage(){
         return ecoElement.title !== "";
     }
 
+    function handleShowCertificateLegend(){
+        setCertificateLegendIsOpen(!certificateLegendIsOpen);
+    }
 
     return (
 
@@ -166,10 +170,15 @@ export default function EcoElementPage(){
                             {/*Zertifikate*/}
                             <StyledElementBody>
                                 <StyledCell>
-                                    Zertifikate:
+                                    {"Zertifikate: "}
+                                    {certificateLegendIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                                      onClick={handleShowCertificateLegend}/>
+                                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                   onClick={handleShowCertificateLegend}/>}
                                 </StyledCell>
                                 <StyledCell>
                                     {mapCertificates(ecoElement, "large")}
+                                    {certificateLegendIsOpen && mapCertificates(ecoElement, "withText")}
                                 </StyledCell>
                             </StyledElementBody>
                         <div/>
