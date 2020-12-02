@@ -10,7 +10,7 @@ import {RiHandbagFill} from "react-icons/ri";
 import {BiHandicap} from "react-icons/bi";
 
 
-export default function returnCertificateIcon(certificate, size){
+export default function returnCertificateIcons(certificate, size){
 
     if (size === "large"){
 

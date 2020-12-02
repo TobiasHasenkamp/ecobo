@@ -1,7 +1,7 @@
 import React from "react";
-import translationService from "./translationService";
+import translationService from "../../services/translationService";
 
-export default function returnSubCategoryOptionsForAddElement(category){
+export default function SubCategoryOptionsForAddElement(category){
 
     const optionList = [];
 

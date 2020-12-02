@@ -9,8 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FilterListContext from "../contexts/FilterListContext";
 import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
 import translationService from "../services/translationService";
-import returnSubCategoryMenuItemsForFilterList from "../services/ReturnSubCategoryMenuItemsForFilterList";
-import returnCertificateMenuItemsForFilterList from "../services/ReturnCertificateMenuItemsForFilterList";
+import returnSubCategoryMenuItemsForFilterList from "./subComponents/SubCategoryMenuItemsForFilterList";
+import returnCertificateMenuItemsForFilterList from "./subComponents/CertificateMenuItemsForFilterList";
 
 
 

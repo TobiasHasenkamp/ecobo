@@ -8,8 +8,8 @@ import styled from "styled-components/macro";
 import tokenValidation from "../account-route/methods/tokenValidation";
 import EcoElementContext from "../contexts/EcoElementContext";
 import Menu from "@material-ui/core/Menu";
-import returnCertificateMenuItemsForAddElement from "../services/returnCertificateMenuItemsForAddElement";
-import returnSubCategoryOptionsForAddElement from "../services/returnSubCategoryOptionsForAddElement";
+import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuItemsForAddElement";
+import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
 import translationService from "../services/translationService";
 
 export default function AddElementPage() {
@@ -130,7 +130,7 @@ export default function AddElementPage() {
 
                 <label htmlFor="categorySub"> Typ:</label>
                 <select name="categorySub" value={categorySub} onChange={handleChange}>
-                    {returnSubCategoryOptionsForAddElement(category)}
+                    {subCategoryOptionsForAddElement(category)}
                 </select>
 
                 <label htmlFor="address"> Addresse:</label>
@@ -145,7 +145,7 @@ export default function AddElementPage() {
                     open={Boolean(certificatesMenuStatusAndAnchor)}
                     onClose={handleCloseCertificatesMenu}
                 >
-                        {returnCertificateMenuItemsForAddElement(category, certificatesToAddList,
+                        {certificateMenuItemsForAddElement(category, certificatesToAddList,
                                                                     handleAddCertificateToAddList)}
 
                     </Menu>

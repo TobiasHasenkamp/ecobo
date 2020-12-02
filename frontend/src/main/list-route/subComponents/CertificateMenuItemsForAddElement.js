@@ -2,8 +2,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";
 import styled from "styled-components/macro";
 
-export default function returnCertificateMenuItemsForAddElement(category, certificatesToAddList,
-                                                                handleAddCertificateToAddList){
+export default function CertificateMenuItemsForAddElement(category, certificatesToAddList,
+                                                          handleAddCertificateToAddList){
 
     const listOfItemsToReturn = [];
 

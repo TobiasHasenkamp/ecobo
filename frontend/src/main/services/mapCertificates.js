@@ -1,4 +1,4 @@
-import returnCertificateIcon from "./returnCertificateIcon";
+import returnCertificateIcons from "./returnCertificateIcons";
 import React from "react";
 import styled from "styled-components/macro";
 
@@ -14,7 +14,7 @@ export default function mapCertificates(element, size){
     else if (size === "withText"){
         return element.certificates?.map(certificate => (
                                 <StyledLegendCell key={certificate}>
-                                    <div>{returnCertificateIcon(certificate, "medium")}</div>
+                                    <div>{returnCertificateIcons(certificate, "medium")}</div>
                                     <div>{certificate}</div>
                                 </StyledLegendCell>
                     ));
@@ -24,7 +24,7 @@ export default function mapCertificates(element, size){
         return (
 
             <>
-                {element.certificates?.slice(0, 6).map(certificate => returnCertificateIcon(certificate, size))}
+                {element.certificates?.slice(0, 6).map(certificate => returnCertificateIcons(certificate, size))}
                 {returnPoints()}
             </>
 
@@ -33,7 +33,7 @@ export default function mapCertificates(element, size){
     }
 
     else{
-        return element.certificates?.map(certificate => returnCertificateIcon(certificate, size));
+        return element.certificates?.map(certificate => returnCertificateIcons(certificate, size));
     }
 
 }
