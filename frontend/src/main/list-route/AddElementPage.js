@@ -27,6 +27,26 @@ export default function AddElementPage() {
     const [certificatesToAddList, setCertificatesToAddList] = useState([]);
 
     useEffect(() => {
+
+        if (category === "FOODSTORE"){
+            setCategorySub("FOODSTORE_SUPERMARKET");
+        }
+        else if (category === "RESTAURANT"){
+            setCategorySub("RESTAURANT_BAKERY");
+        }
+        else if (category === "FASHIONSTORE"){
+            setCategorySub("FASHIONSTORE_ECO_FASHION_STORE");
+        }
+        else if (category === "FAIRSHOP"){
+            setCategorySub("FAIRSHOP_NORMAL");
+        }
+        else if (category === "OTHER"){
+            setCategorySub("OTHER");
+        }
+    }, [category])
+
+
+    useEffect(() => {
         let finalLat;
         let finalLon;
         let p = lonLatOfRequest[0];
@@ -89,9 +109,7 @@ export default function AddElementPage() {
 
     function handleAddCertificateToAddList(event){
         const certificateToAdd = event.target.getAttribute("name");
-        const newCertificateList = certificatesToAddList;
-        newCertificateList.push(certificateToAdd);
-        setCertificatesToAddList(newCertificateList);
+        setCertificatesToAddList(certificatesToAddList.concat(certificateToAdd));
         setCertificatesMenuStatusAndAnchor(null);
     }
 
@@ -148,7 +166,7 @@ export default function AddElementPage() {
                         {certificateMenuItemsForAddElement(category, certificatesToAddList,
                                                                     handleAddCertificateToAddList)}
 
-                    </Menu>
+                </Menu>
 
                 <StyledActiveCertificatesList>
 

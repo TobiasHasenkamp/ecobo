@@ -29,7 +29,7 @@ export default function SubCategoryOptionsForAddElement(category){
         optionList.push("OTHER");
     }
 
-    return optionList.map(item => <option key={item}>{translationService(item)}</option>)
+    return optionList.map(item => <option value={item} key={item}>{translationService(item)}</option>)
 
 
 }

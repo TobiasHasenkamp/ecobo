@@ -61,6 +61,9 @@ export default function EcoElementPage(){
             case "FASHIONSTORE":
                 setTableColor("blue");
                 break;
+            case "OTHER":
+                setTableColor("green");
+                break;
             default:
                 setTableColor("lightgrey");
         }

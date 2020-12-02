@@ -30,8 +30,8 @@ export const addEcoElement = (name, category, categorySub, address, lon, lat, ce
         .catch(console.log);
 };
 
-export const updateEcoElement = (name, id, category, categorySub, address, lon, lat, token, setEcoElement) => {
-    axios.put("/api/elements/" + id, {name, category, categorySub, address, lat, lon}, header(token))
+export const updateEcoElement = (name, id, category, categorySub, address, lon, lat, token, setEcoElement, certificates) => {
+    axios.put("/api/elements/" + id, {name, category, categorySub, lat, lon, certificates}, header(token))
         .then((response) => response.data)
         .then(setEcoElement)
         .catch(console.log);

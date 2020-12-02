@@ -78,10 +78,11 @@ export default function CertificateMenuItemsForAddElement(category, certificates
     }
 
 
-    return listOfItemsToReturn.filter(item => !certificatesToAddList.includes(item))
-        .map(item => (<StyledMenuItem name={item} key={item} onClick={handleAddCertificateToAddList}>{item}</StyledMenuItem>));
-
-
+        return listOfItemsToReturn.filter(item => !certificatesToAddList.includes(item))
+            .map(element => (
+                    <StyledMenuItem name={element} key={element} onClick={handleAddCertificateToAddList}>
+                        {element}
+                    </StyledMenuItem>));
 }
 
 
