@@ -50,16 +50,19 @@ export default function EcoElementPage(){
 
         switch(ecoElement.category){
             case "FAIRSHOP":
-                setTableColor("yellow");
+                setTableColor("purple");
                 break;
             case "FOODSTORE":
                 setTableColor("red");
                 break;
             case "RESTAURANT":
+                setTableColor("orange");
+                break;
+            case "FASHIONSTORE":
                 setTableColor("blue");
                 break;
             default:
-                setTableColor("lightgreen");
+                setTableColor("lightgrey");
         }
     }, [ecoElement]);
 

@@ -22,7 +22,7 @@ export default function FairShopList({ecoElements}){
     return (
 
         <StyledWrapperTable name="Weltläden">
-            <StyledHeaderRow className="yellow">
+            <StyledHeaderRow className="purple">
                 {"Weltläden "}
                 {fairShopTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>
                     : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>}

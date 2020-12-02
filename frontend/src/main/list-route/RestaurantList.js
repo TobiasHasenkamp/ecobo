@@ -22,7 +22,7 @@ export default function RestaurantList({ecoElements}){
     return (
 
         <StyledWrapperTable name="Restaurants">
-            <StyledHeaderRow className="blue">
+            <StyledHeaderRow className="orange">
                 {"Restaurants "}
                 {restaurantTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>
                     : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>}

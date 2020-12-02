@@ -54,7 +54,7 @@ export const StyledHeaderRow = styled.div`
     }
     
     &.orange{
-      background: #ff944d;
+      background: #eba434;
     }
     
     &.lightyellow{
@@ -62,12 +62,13 @@ export const StyledHeaderRow = styled.div`
     }
     
     &.green{
-      background: forestgreen;
+      background: var(--darkgreen);
     }
     
     &.lightgreen{
       background: #99ff99;
     }
+    
     &.lightgrey{
     background: #E0E0E0;
     color: black;

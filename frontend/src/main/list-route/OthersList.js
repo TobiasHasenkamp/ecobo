@@ -6,29 +6,29 @@ import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
 
-export default function FoodStoreList({ecoElements}){
+export default function OthersList({ecoElements}){
 
-    const [foodStoreTableIsOpen, setFoodStoreTableIsOpen] = useState(true);
+    const [othersTableIsOpen, setOthersTableIsOpen] = useState(true);
 
-    function handleShowFoodStoreTable(){
-        setFoodStoreTableIsOpen(!foodStoreTableIsOpen);
+    function handleShowOthersTable(){
+        setOthersTableIsOpen(!othersTableIsOpen);
     }
 
     useEffect(() => {
-        setFoodStoreTableIsOpen(true);
+        setOthersTableIsOpen(true);
     }, [])
 
 
     return (
 
-            <StyledWrapperTable name="Lebensmittelläden">
-                <StyledHeaderRow className="red">
-                    {"Lebensmittelläden "}
-                    {foodStoreTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>
-                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>}
+            <StyledWrapperTable name="Sonstige">
+                <StyledHeaderRow className="green">
+                    {"Sonstige "}
+                    {othersTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>
+                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>}
                 </StyledHeaderRow>
-                { foodStoreTableIsOpen &&
-                    ecoElements?.filter(element => element.category === "FOODSTORE").map((element) => (
+                { othersTableIsOpen &&
+                    ecoElements?.filter(element => element.category === "OTHER").map((element) => (
                         <StyledElement key={element.id}>
                             <div/>
                             <StyledElementHeader>
