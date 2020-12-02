@@ -7,8 +7,10 @@ import LoginTokenContext from "../contexts/LoginTokenContext";
 import styled from "styled-components/macro";
 import tokenValidation from "../account-route/methods/tokenValidation";
 import EcoElementContext from "../contexts/EcoElementContext";
-import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import returnCertificateMenuItemsForAddElement from "../services/returnCertificateMenuItemsForAddElement";
+import returnSubCategoryOptionsForAddElement from "./returnSubCategoryOptionsForAddElement";
+import translationService from "../services/translationService";
 
 export default function AddElementPage() {
 
@@ -45,6 +47,10 @@ export default function AddElementPage() {
         // this error is wrong, adding other dependencies here will completely change the data flow on this side
         // eslint-disable-next-line
     }, [lonLatOfRequest]);
+
+    useEffect(() => {
+        setCertificatesToAddList([]);
+    }, [category])
 
     function handleButtonClick(event){
         event.preventDefault();
@@ -106,50 +112,43 @@ export default function AddElementPage() {
     return (
 
         <div>
-            <PageHeader title="Add a new Element"/>
+            <PageHeader title="Ein neues Element hinzufügen"/>
 
             <StyledForm>
 
                 <label htmlFor="name"> Name: </label>
                 <input name="name" value={name} onChange={handleChange} type="text"/>
 
-                <label htmlFor="category"> Category: </label>
+                <label htmlFor="category"> Kategorie: </label>
                 <select name="category" value={category} onChange={handleChange}>
-                    <option>FOODSTORE</option>
-                    <option>RESTAURANT</option>
-                    <option>FAIRSHOP</option>
+                    <option value="FASHIONSTORE">{translationService("FASHIONSTORE")}</option>
+                    <option value="FOODSTORE">{translationService("FOODSTORE")}</option>
+                    <option value="RESTAURANT">{translationService("RESTAURANT")}</option>
+                    <option value="FAIRSHOP">{translationService("FAIRSHOP")}</option>
+                    <option value="OTHER">{translationService("OTHER")}</option>
                 </select>
 
-                <label htmlFor="categorySub"> Sub:</label>
+                <label htmlFor="categorySub"> Typ:</label>
                 <select name="categorySub" value={categorySub} onChange={handleChange}>
-                    <option>FOODSTORE_SUPERMARKET</option>
-                    <option>FOODSTORE_NORMAL</option>
-                    <option>FOODSTORE_HEALTHSTORE</option>
-                    <option>FOODSTORE_FARMSHOP</option>
-                    <option>RESTAURANT_SNACKBAR</option>
-                    <option>RESTAURANT_CAFE</option>
-                    <option>RESTAURANT_RESTAURANT</option>
-                    <option>RESTAURANT_ICECREAM_CAFE</option>
-                    <option>RESTAURANT_BAKERY</option>
-                    <option>FAIRSHOP_NORMAL</option>
+                    {returnSubCategoryOptionsForAddElement(category)}
                 </select>
 
-                <label htmlFor="address"> Address:</label>
+                <label htmlFor="address"> Addresse:</label>
                 <input name="address" value={address} onChange={handleChange} />
 
                 <button onClick={handleOpenCertificatesMenu}>Tags</button>
 
                 <Menu
-                    id="filterMenuForCertificates"
+                    id="MenuToAddCertificates"
                     anchorEl={certificatesMenuStatusAndAnchor}
                     keepMounted
                     open={Boolean(certificatesMenuStatusAndAnchor)}
                     onClose={handleCloseCertificatesMenu}
                 >
-                    {!certificatesToAddList.includes("Veganes Angebot") && <MenuItem name="Veganes Angebot" onClick={handleAddCertificateToAddList}>Veganes Angebot</MenuItem>}
-                    {!certificatesToAddList.includes("Vegetarisches Angebot") && <MenuItem name="Vegetarisches Angebot" onClick={handleAddCertificateToAddList}>Vegetarisches Angebot</MenuItem>}
-                    {!certificatesToAddList.includes("Abholservice") && <MenuItem name="Abholservice" onClick={handleAddCertificateToAddList}>Abholservice</MenuItem>}
-                </Menu>
+                        {returnCertificateMenuItemsForAddElement(category, certificatesToAddList,
+                                                                    handleAddCertificateToAddList)}
+
+                    </Menu>
 
                 <StyledActiveCertificatesList>
 
@@ -159,7 +158,7 @@ export default function AddElementPage() {
 
 
                 <div>
-                    <button onClick={handleButtonClick}>Add new Element</button>
+                    <button onClick={handleButtonClick}>Bestätigen</button>
                 </div>
 
             </StyledForm>
@@ -188,7 +187,7 @@ const StyledForm = styled.form`
 `
 
 const StyledActiveCertificatesList = styled.div`
-  font-size: 0.55em;
+  font-size: 0.7em;
   line-height: 1.0em;
   display: flex;
   justify-content: flex-start;
@@ -199,11 +198,11 @@ const StyledActiveCertificatesList = styled.div`
   
   div {
       background: lightgrey;
-      opacity: 80%;
-      color: black;
-      padding: 4px 4px;
+      opacity: 85%;
+      color: gray();
+      padding: 5px 6px;
       border-radius: 8px;
       margin: 2px;
-      border: dimgray solid 1px;
-  }
+      box-shadow: 0 2px 0 gray();
+  } 
 `

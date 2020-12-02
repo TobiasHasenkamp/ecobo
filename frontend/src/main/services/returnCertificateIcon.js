@@ -1,5 +1,13 @@
 import React from "react";
 import styled from "styled-components/macro";
+import {FaBaby} from "react-icons/fa";
+import {
+    FaBicycle, FaDog, FaFemale, FaGlobeAmericas, FaHandHoldingHeart, FaHandsHelping,
+    FaMale, FaOtter, FaRecycle, FaShoePrints, FaStore, FaTools
+} from "react-icons/fa";
+import {GiPapers, GiShinyApple} from "react-icons/gi";
+import {RiHandbagFill} from "react-icons/ri";
+import {BiHandicap} from "react-icons/bi";
 
 
 export default function returnCertificateIcon(certificate, size){
@@ -30,6 +38,58 @@ export default function returnCertificateIcon(certificate, size){
             return <StyledIconImageLarge src="/certificateIcons/restaurants_bio.png" alt="Bio"
                                     key={certificate}/>
         }
+        if (certificate === "Babykleidung"){
+            return <FaBaby key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Reuse & Second-Hand"){
+            return <FaRecycle key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Reuse & Repair"){
+            return <FaTools key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "barrierefrei"){
+            return <BiHandicap key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Fairtrade"){
+            return <FaGlobeAmericas key={certificate} size={"20px"} style={{margin:"1px 2px", marginRight:"3px", color: "#24542c"}}/>
+        }
+        if (certificate === "fahrradfreundlich"){
+            return <FaBicycle key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "hundefreundlich"){
+            return <FaDog key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Damenkleidung"){
+            return <FaFemale key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Herrenkleidung"){
+            return <FaMale key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "tierversuchsfreie Kosmetik"){
+            return <FaOtter key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "gemeinwohlzertifiziert"){
+            return <FaHandHoldingHeart key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Außerhausverkauf"){
+            return <FaStore key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Accessoires"){
+            return <RiHandbagFill key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Schuhe"){
+            return <FaShoePrints key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Unverpacktladen"){
+            return <GiShinyApple key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Ökopapier"){
+            return <GiPapers key={certificate} size={"18px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Tauschen & Schenken"){
+            return <FaHandsHelping key={certificate} size={"22px"} style={{margin:"1px 2px", marginLeft:"2px", color: "#24542c"}}/>
+        }
+
     }
 
     else if (size === "medium"){
@@ -57,6 +117,57 @@ export default function returnCertificateIcon(certificate, size){
         if (certificate === "Bio"){
             return <StyledIconImageMedium src="/certificateIcons/restaurants_bio.png" alt="Bio"
                                          key={certificate}/>
+        }
+        if (certificate === "Babykleidung"){
+            return <FaBaby key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Reuse & Second-Hand"){
+            return <FaRecycle key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Reuse & Repair"){
+            return <FaTools key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "barrierefrei"){
+            return <BiHandicap key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Fairtrade"){
+            return <FaGlobeAmericas key={certificate} size={"16px"} style={{margin:"1px 2px", marginRight:"2px", color: "#24542c"}}/>
+        }
+        if (certificate === "fahrradfreundlich"){
+            return <FaBicycle key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "hundefreundlich"){
+            return <FaDog key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Damenkleidung"){
+            return <FaFemale key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Herrenkleidung"){
+            return <FaMale key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "tierversuchsfreie Kosmetik"){
+            return <FaOtter key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "gemeinwohlzertifiziert"){
+            return <FaHandHoldingHeart key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Außerhausverkauf"){
+            return <FaStore key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Accessoires"){
+            return <RiHandbagFill key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Schuhe"){
+            return <FaShoePrints key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Unverpacktladen"){
+            return <GiShinyApple key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Ökopapier"){
+            return <GiPapers key={certificate} size={"15px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+        }
+        if (certificate === "Tauschen & Schenken"){
+            return <FaHandsHelping key={certificate} size={"17px"} style={{margin:"1px 2px", marginLeft:"2px", color: "#24542c"}}/>
         }
     }
 
@@ -86,8 +197,58 @@ export default function returnCertificateIcon(certificate, size){
             return <StyledIconImageSmall src="/certificateIcons/restaurants_bio.png" alt="Bio"
                                     key={certificate}/>
         }
+        if (certificate === "Babykleidung"){
+            return <FaBaby key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Reuse & Second-Hand"){
+            return <FaRecycle key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Reuse & Repair"){
+            return <FaTools key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "barrierefrei"){
+            return <BiHandicap key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Fairtrade"){
+            return <FaGlobeAmericas key={certificate} size={"13px"} style={{margin:"1px 1px", marginRight:"2px", color: "#24542c"}}/>
+        }
+        if (certificate === "fahrradfreundlich"){
+            return <FaBicycle key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "hundefreundlich"){
+            return <FaDog key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Damenkleidung"){
+            return <FaFemale key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Herrenkleidung"){
+            return <FaMale key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "tierversuchsfreie Kosmetik"){
+            return <FaOtter key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "gemeinwohlzertifiziert"){
+            return <FaHandHoldingHeart key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Außerhausverkauf"){
+            return <FaStore key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Accessoires"){
+            return <RiHandbagFill key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Schuhe"){
+            return <FaShoePrints key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Unverpacktladen"){
+            return <GiShinyApple key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Ökopapier"){
+            return <GiPapers key={certificate} size={"12px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+        }
+        if (certificate === "Tauschen & Schenken"){
+            return <FaHandsHelping key={certificate} size={"13px"} style={{margin:"1px 1px", marginLeft:"2px", color: "#24542c"}}/>
+        }
     }
-
 
 }
 
