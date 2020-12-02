@@ -9,6 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FilterListContext from "../contexts/FilterListContext";
 import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
 import translationService from "../services/translationService";
+import returnSubCategoryMenuItemsForFilterList from "./subComponents/SubCategoryMenuItemsForFilterList";
+import returnCertificateMenuItemsForFilterList from "./subComponents/CertificateMenuItemsForFilterList";
 
 
 
@@ -157,46 +159,7 @@ export default function TabBarWithIcons({type}) {
                         open={Boolean(categoryMenuStatusAndAnchor)}
                         onClose={handleCloseCategoryFilterMenu}
                     >
-                        {!filterListForCategory.includes("FOODSTORE_SUPERMARKET") &&
-                                <StyledMenuItem name="FOODSTORE_SUPERMARKET" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("FOODSTORE_SUPERMARKET")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("FOODSTORE_NORMAL") &&
-                                <StyledMenuItem name="FOODSTORE_NORMAL" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("FOODSTORE_NORMAL")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("FOODSTORE_HEALTHSTORE") &&
-                                <StyledMenuItem name="FOODSTORE_HEALTHSTORE" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("FOODSTORE_HEALTHSTORE")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("FOODSTORE_FARMSHOP") &&
-                                <StyledMenuItem name="FOODSTORE_FARMSHOP" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("FOODSTORE_FARMSHOP")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("RESTAURANT_SNACKBAR") &&
-                                <StyledMenuItem name="RESTAURANT_SNACKBAR" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANT_SNACKBAR")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("RESTAURANT_CAFE") &&
-                                <StyledMenuItem name="RESTAURANT_CAFE" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANT_CAFE")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("RESTAURANR_RESTAURANT") &&
-                                <StyledMenuItem name="RESTAURANR_RESTAURANT" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANR_RESTAURANT")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("RESTAURANT_ICECREAM_CAFE") &&
-                                <StyledMenuItem name="RESTAURANT_ICECREAM_CAFE" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANT_ICECREAM_CAFE")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("RESTAURANT_BAKERY") &&
-                                <StyledMenuItem name="RESTAURANT_BAKERY" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("RESTAURANT_BAKERY")}
-                                </StyledMenuItem>}
-                        {!filterListForCategory.includes("FAIRSHOP_NORMAL") &&
-                                <StyledMenuItem name="FAIRSHOP_NORMAL" title="category"
-                                          onClick={handleAddItemToFilter}>{translationService("FAIRSHOP_NORMAL")}
-                                </StyledMenuItem>}
+                        {returnSubCategoryMenuItemsForFilterList(filterListForCategory, handleAddItemToFilter)}
                     </Menu>
                 : ""}
 
@@ -209,18 +172,7 @@ export default function TabBarWithIcons({type}) {
                         open={Boolean(certificatesMenuStatusAndAnchor)}
                         onClose={handleCloseCertificatesFilterMenu}
                     >
-                        {!filterListForCertificates.includes("Veganes Angebot") &&
-                                        <StyledMenuItem name="Veganes Angebot" title="certificate"
-                                                        onClick={handleAddItemToFilter}>Veganes Angebot
-                                        </StyledMenuItem>}
-                        {!filterListForCertificates.includes("Vegetarisches Angebot") &&
-                                        <StyledMenuItem name="Vegetarisches Angebot" title="certificate"
-                                                        onClick={handleAddItemToFilter}>Vegetarisches Angebot
-                                        </StyledMenuItem>}
-                        {!filterListForCertificates.includes("Lieferservice") &&
-                                        <StyledMenuItem name="Lieferservice" title="certificate"
-                                                        onClick={handleAddItemToFilter}>Abholservice
-                                        </StyledMenuItem>}
+                        {returnCertificateMenuItemsForFilterList(filterListForCertificates, handleAddItemToFilter)}
                     </Menu>
                 : ""}
 

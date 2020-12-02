@@ -11,6 +11,8 @@ import LoginTokenContext from "./contexts/LoginTokenContext";
 import TabBarWithIcons from "./list-route/TabBarWithIcons";
 import FilterResultList from "./list-route/FilterResultList";
 import FilterListContext from "./contexts/FilterListContext";
+import FashionStoreList from "./list-route/FashionStoreList";
+import OthersList from "./list-route/OthersList";
 
 export default function ListPage() {
 
@@ -32,8 +34,10 @@ export default function ListPage() {
 
             <StyledWrapperDiv>
                 {!filterIsActive && <FoodStoreList ecoElements={ecoElements}/>}
+                {!filterIsActive && <FashionStoreList ecoElements={ecoElements}/>}
                 {!filterIsActive && <RestaurantList ecoElements={ecoElements}/>}
                 {!filterIsActive && <FairShopList ecoElements={ecoElements}/>}
+                {!filterIsActive && <OthersList ecoElements={ecoElements}/>}
                 {filterIsActive && <FilterResultList ecoElements={ecoElements}/>}
 
                 {/* the brs are necessary at the moment to keep the full list visible when scrolling */}

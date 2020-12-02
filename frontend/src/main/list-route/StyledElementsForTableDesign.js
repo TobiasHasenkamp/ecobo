@@ -54,7 +54,7 @@ export const StyledHeaderRow = styled.div`
     }
     
     &.orange{
-      background: #ff944d;
+      background: #eba434;
     }
     
     &.lightyellow{
@@ -62,12 +62,13 @@ export const StyledHeaderRow = styled.div`
     }
     
     &.green{
-      background: forestgreen;
+      background: var(--darkgreen);
     }
     
     &.lightgreen{
       background: #99ff99;
     }
+    
     &.lightgrey{
     background: #E0E0E0;
     color: black;
@@ -100,7 +101,7 @@ export const StyledElement = styled.div`
 
 export const StyledElementBody = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 45% 55%;
 `
 
 export const StyledElementHeader = styled.div`

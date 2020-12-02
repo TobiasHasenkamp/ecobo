@@ -14,11 +14,11 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
-import {FaFacebook, FaLink} from "react-icons/fa";
+import {FaFacebook, FaLink, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import ReviewBox from "./subComponents/ReviewBox";
 import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
-import returnCertificateIcon from "../services/returnCertificateIcon";
 import translationService from "../services/translationService";
+import mapCertificates from "../services/mapCertificates";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -35,6 +35,7 @@ export default function EcoElementPage(){
     const {token} = useContext(LoginTokenContext);
     const [tableColor, setTableColor] = useState("lightgreen");
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
+    const [certificateLegendIsOpen, setCertificateLegendIsOpen] = useState(false);
 
     const {ecoElementIDParam} = useParams();
 
@@ -49,16 +50,22 @@ export default function EcoElementPage(){
 
         switch(ecoElement.category){
             case "FAIRSHOP":
-                setTableColor("yellow");
+                setTableColor("purple");
                 break;
             case "FOODSTORE":
                 setTableColor("red");
                 break;
             case "RESTAURANT":
+                setTableColor("orange");
+                break;
+            case "FASHIONSTORE":
                 setTableColor("blue");
                 break;
+            case "OTHER":
+                setTableColor("green");
+                break;
             default:
-                setTableColor("lightgreen");
+                setTableColor("lightgrey");
         }
     }, [ecoElement]);
 
@@ -75,6 +82,9 @@ export default function EcoElementPage(){
         return ecoElement.title !== "";
     }
 
+    function handleShowCertificateLegend(){
+        setCertificateLegendIsOpen(!certificateLegendIsOpen);
+    }
 
     return (
 
@@ -166,12 +176,16 @@ export default function EcoElementPage(){
                             {/*Zertifikate*/}
                             <StyledElementBody>
                                 <StyledCell>
-                                    Zertifikate:
+                                    {"Zertifikate: "}
+                                    {certificateLegendIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                                      onClick={handleShowCertificateLegend}/>
+                                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                   onClick={handleShowCertificateLegend}/>}
                                 </StyledCell>
                                 <StyledCell>
-                                    {ecoElement.certificates?
-                                        ecoElement.certificates?.map(certificate => returnCertificateIcon(certificate))
-                                        : " - "}
+                                    {certificateLegendIsOpen ?
+                                        <StyledLegendDiv> <div className="heading">Legende:</div> {mapCertificates(ecoElement, "withText")} </StyledLegendDiv> :
+                                        mapCertificates(ecoElement, "large")}
                                 </StyledCell>
                             </StyledElementBody>
                         <div/>
@@ -294,5 +308,16 @@ const StyledIcons = styled.div`
     :active {
       color: var(--darkgrey);
     }
+  }
+`
+
+const StyledLegendDiv = styled.div`
+  margin-top: 5px;
+  font-size: 0.9em;
+  
+  .heading {
+      margin-bottom: 5px;
+      font-size: 1.1em;
+      font-weight: bold;
   }
 `

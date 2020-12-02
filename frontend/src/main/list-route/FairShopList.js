@@ -3,8 +3,8 @@ import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
-import returnCertificateIcon from "../services/returnCertificateIcon";
 import translationService from "../services/translationService";
+import mapCertificates from "../services/mapCertificates";
 
 export default function FairShopList({ecoElements}){
 
@@ -22,7 +22,7 @@ export default function FairShopList({ecoElements}){
     return (
 
         <StyledWrapperTable name="Weltläden">
-            <StyledHeaderRow className="yellow">
+            <StyledHeaderRow className="purple">
                 {"Weltläden "}
                 {fairShopTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>
                     : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>}
@@ -49,9 +49,7 @@ export default function FairShopList({ecoElements}){
                                 {translationService(element.categorySub)}
                             </StyledCell>
                             <StyledCell>
-                                {element.certificates?
-                                    element.certificates?.map(certificate => returnCertificateIcon(certificate))
-                                    : " - "}
+                                {mapCertificates(element, "medium")}
                             </StyledCell>
                         </StyledElementBody>
                         <div/>
