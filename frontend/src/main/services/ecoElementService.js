@@ -23,8 +23,8 @@ export const getEcoElementById = (ecoElementIdFromParam, token, setEcoElement) =
         .catch(console.log);
 };
 
-export const addEcoElement = (name, category, categorySub, address, lon, lat, token, setEcoElement) => {
-    axios.post("/api/elements/", {name, category, categorySub, address, lat, lon}, header(token))
+export const addEcoElement = (name, category, categorySub, address, lon, lat, certificates, token, setEcoElement) => {
+    axios.post("/api/elements/", {name, category, categorySub, address, lat, lon, certificates}, header(token))
         .then((response) => response.data)
         .then(setEcoElement)
         .catch(console.log);

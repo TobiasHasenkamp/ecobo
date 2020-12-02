@@ -2,7 +2,7 @@ import PageHeader from "../PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom";
-import {LoginRequest, RegistrationRequest} from "../services/LoginService";
+import {LoginRequest, RegistrationRequest} from "../services/loginService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
 

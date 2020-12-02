@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -126,8 +127,8 @@ class EcoElementServiceTest {
         Instant inputDateAsInstant = Instant.parse(inputDate);
 
         EcoElementDto incomingEcoElementDto = new EcoElementDto("Bioladen", Category.FOODSTORE, CategorySub.FOODSTORE_NORMAL,
-                "", "", "", "", "", "", "", true,
-                false, false, 1.0, 1.0, "Testperson");
+                "", "", "", "", "", "", "",
+                true, List.of("Veganes Angebot"), 1.0, 1.0, "Testperson");
 
         EcoElement expectedEcoElement = EcoElement.builder()
                 .id("123")
@@ -143,8 +144,7 @@ class EcoElementServiceTest {
                 .creator("Tobias")
                 .urlFacebook("")
                 .isInBochum(true)
-                .certificate1(false)
-                .certificate2(false)
+                .certificates(List.of("Veganes Angebot"))
                 .lon(1.0)
                 .lat(1.0)
                 .dateCreatedInternal(inputDateAsInstant)

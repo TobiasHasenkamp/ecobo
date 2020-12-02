@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,8 +24,7 @@ public class EcoElementDto {
     String url;
     String urlFacebook;
     Boolean isInBochum;
-    Boolean certificate1;
-    Boolean certificate2;
+    List<String> certificates;
     Double lon;
     Double lat;
     String creator;

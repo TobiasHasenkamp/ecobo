@@ -8,7 +8,7 @@ import {useHistory, useParams} from "react-router-dom";
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
 import DeleteIconButtonMedium from "../designElements/buttons/DeleteIconButtonMedium";
 import LoginTokenContext from "../contexts/LoginTokenContext";
-import {getUserData} from "../services/UserDataService";
+import {getUserData} from "../services/userDataService";
 
 export default function AccountPage() {
     const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);

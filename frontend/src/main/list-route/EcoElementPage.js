@@ -4,7 +4,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
 import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/EcoElementContext";
 import LoginTokenContext from "../contexts/LoginTokenContext";
-import {getEcoElementById} from "../services/EcoElementService";
+import {getEcoElementById} from "../services/ecoElementService";
 import DeleteIconButtonSmall from "../designElements/buttons/DeleteIconButtonSmall";
 import styled from "styled-components/macro";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
@@ -17,6 +17,8 @@ import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium
 import {FaFacebook, FaLink} from "react-icons/fa";
 import ReviewBox from "./subComponents/ReviewBox";
 import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
+import returnCertificateIcon from "../services/returnCertificateIcon";
+import translationService from "../services/translationService";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -73,6 +75,7 @@ export default function EcoElementPage(){
         return ecoElement.title !== "";
     }
 
+
     return (
 
         ecoElement &&
@@ -88,7 +91,7 @@ export default function EcoElementPage(){
                             {/*Subkategorie*/}
                             <StyledElementHeader>
                                 <StyledNameCell>
-                                    {ecoElement.categorySub}
+                                    {translationService(ecoElement.categorySub)}
                                     {hasTitle() && <><br/><sup>{ecoElement.title}</sup></>}
                                 </StyledNameCell>
                                 <StyledCell>
@@ -166,8 +169,9 @@ export default function EcoElementPage(){
                                     Zertifikate:
                                 </StyledCell>
                                 <StyledCell>
-                                    Zertifikate ....
-                                    <br/> Zertifikate ....
+                                    {ecoElement.certificates?
+                                        ecoElement.certificates?.map(certificate => returnCertificateIcon(certificate))
+                                        : " - "}
                                 </StyledCell>
                             </StyledElementBody>
                         <div/>

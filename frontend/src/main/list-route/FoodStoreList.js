@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
+import returnCertificateIcon from "../services/returnCertificateIcon";
+import translationService from "../services/translationService";
 
 export default function FoodStoreList({ecoElements}){
 
@@ -15,6 +17,7 @@ export default function FoodStoreList({ecoElements}){
     useEffect(() => {
         setFoodStoreTableIsOpen(true);
     }, [])
+
 
     return (
 
@@ -41,10 +44,12 @@ export default function FoodStoreList({ecoElements}){
                             </StyledElementHeader>
                             <StyledElementBody>
                                 <StyledCell>
-                                    {element.categorySub}
+                                    {translationService(element.categorySub)}
                                 </StyledCell>
                                 <StyledCell>
-                                    Symbole...
+                                    {element.certificates?
+                                        element.certificates?.map(certificate => returnCertificateIcon(certificate))
+                                        : " - "}
                                 </StyledCell>
                             </StyledElementBody>
                             <div/>

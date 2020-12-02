@@ -2,26 +2,26 @@ import PageHeader from "./PageHeader";
 import React, {useEffect, useContext} from "react";
 import styled from "styled-components/macro";
 import EcoElementContext from "./contexts/EcoElementContext";
-import {getEcoElements} from "./services/EcoElementService";
+import {getEcoElements} from "./services/ecoElementService";
 import FoodStoreList from "./list-route/FoodStoreList";
 import RestaurantList from "./list-route/RestaurantList";
 import FairShopList from "./list-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import LoginTokenContext from "./contexts/LoginTokenContext";
-import TabBarWithIcons from "./designElements/TabBarWithIcons";
+import TabBarWithIcons from "./list-route/TabBarWithIcons";
+import FilterResultList from "./list-route/FilterResultList";
+import FilterListContext from "./contexts/FilterListContext";
 
 export default function ListPage() {
 
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const {token} = useContext(LoginTokenContext);
+    const {filterIsActive} = useContext(FilterListContext);
 
     useEffect(() => {
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
 
-    useEffect(() => {
-        console.log(ecoElements)
-    }, [ecoElements])
 
     return(
 
@@ -31,9 +31,10 @@ export default function ListPage() {
             <TabBarWithIcons type="list"/>
 
             <StyledWrapperDiv>
-                <FoodStoreList ecoElements={ecoElements}/>
-                <RestaurantList ecoElements={ecoElements}/>
-                <FairShopList ecoElements={ecoElements}/>
+                {!filterIsActive && <FoodStoreList ecoElements={ecoElements}/>}
+                {!filterIsActive && <RestaurantList ecoElements={ecoElements}/>}
+                {!filterIsActive && <FairShopList ecoElements={ecoElements}/>}
+                {filterIsActive && <FilterResultList ecoElements={ecoElements}/>}
 
                 {/* the brs are necessary at the moment to keep the full list visible when scrolling */}
                 <br/>

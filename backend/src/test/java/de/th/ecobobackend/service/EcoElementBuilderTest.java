@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
+import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -25,7 +26,7 @@ class EcoElementBuilderTest {
 
     EcoElementDto incomingEcoElementDto = new EcoElementDto("Bioladen", Category.FOODSTORE, CategorySub.FOODSTORE_NORMAL,
             "", "", "", "", "", "", "", true,
-            false, false, 1.0, 1.0, "Testperson");
+            List.of("Veganes Angebot"), 1.0, 1.0, "Tobias");
 
     EcoElement expectedEcoElement = EcoElement.builder()
             .id("123")
@@ -41,8 +42,7 @@ class EcoElementBuilderTest {
             .creator("Tobias")
             .urlFacebook("")
             .isInBochum(true)
-            .certificate1(false)
-            .certificate2(false)
+            .certificates(List.of("Veganes Angebot"))
             .lon(1.0)
             .lat(1.0)
             .dateCreatedInternal(Instant.ofEpochSecond(Instant.now().getEpochSecond()))
@@ -63,7 +63,7 @@ class EcoElementBuilderTest {
         assertThat(receivedEcoElement.getIsInBochum(), is(expectedEcoElement.getIsInBochum()));
         assertThat(receivedEcoElement.getLon(), is(expectedEcoElement.getLon()));
         assertThat(receivedEcoElement.getLat(), is(expectedEcoElement.getLat()));
-        assertThat(receivedEcoElement.getId().length(), is(36));
+        assertThat(receivedEcoElement.getId(), is("123"));
         assertThat(receivedEcoElement.getDateCreatedInternal(), is(inputDateAsInstant));
     }
 

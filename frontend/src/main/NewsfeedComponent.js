@@ -2,12 +2,12 @@ import {FaCheck, FaQuestion, FaWarehouse} from "react-icons/fa";
 import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
 import NewsfeedContext from "./contexts/NewsfeedContext";
-import {getNewsfeed5} from "./services/NewsfeedService";
+import {getNewsfeed5} from "./services/newsfeedService";
 import LoginTokenContext from "./contexts/LoginTokenContext";
 import {Link} from "react-router-dom";
 import {BiMessageAltDetail, FiDelete, GrUpdate, GrUserAdd} from "react-icons/all";
 import EcoElementContext from "./contexts/EcoElementContext";
-import {getEcoElements} from "./services/EcoElementService";
+import {getEcoElements} from "./services/ecoElementService";
 import {FaRegArrowAltCircleDown} from "react-icons/fa";
 
 export default function NewsfeedComponent(){
