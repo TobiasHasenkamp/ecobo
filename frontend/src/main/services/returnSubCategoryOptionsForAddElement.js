@@ -1,5 +1,5 @@
 import React from "react";
-import translationService from "../services/translationService";
+import translationService from "./translationService";
 
 export default function returnSubCategoryOptionsForAddElement(category){
 
@@ -22,8 +22,8 @@ export default function returnSubCategoryOptionsForAddElement(category){
         optionList.push("FAIRSHOP_NORMAL");
     }
     else if (category === "FASHIONSTORE"){
-        optionList.push("ECO_FASHION_STORE");
-        optionList.push("SECOND_HAND_STORE");
+        optionList.push("FASHIONSTORE_ECO_FASHION_STORE");
+        optionList.push("FASHIONSTORE_SECOND_HAND_STORE");
     }
     else if (category === "OTHER"){
         optionList.push("OTHER");

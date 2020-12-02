@@ -8,7 +8,7 @@ export default function returnCertificateMenuItemsForAddElement(category, certif
     const listOfItemsToReturn = [];
 
     //for all restaurants
-    if (category === "RESTAURANTS"){
+    if (category === "RESTAURANT"){
         listOfItemsToReturn.push("Außerhausverkauf");
         listOfItemsToReturn.push("barrierefrei");
         listOfItemsToReturn.push("Bio");
@@ -55,7 +55,7 @@ export default function returnCertificateMenuItemsForAddElement(category, certif
     }
 
     //for all eco-fashion-stores
-    else if (category === "ECOFASHIONSTORE"){
+    else if (category === "FASHIONSTORE"){
         listOfItemsToReturn.push("Accessoires");
         listOfItemsToReturn.push("Babykleidung");
         listOfItemsToReturn.push("Damenkleidung");

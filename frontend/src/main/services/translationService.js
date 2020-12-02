@@ -15,9 +15,9 @@ export default function translationService(word){
         //subcategories
         case "NONE":
             return "Sonstiges";
-        case "ECO_FASHION_STORE":
+        case "FASHIONSTORE_ECO_FASHION_STORE":
             return "Eco-Fashion-Store";
-        case "SECOND_HAND_STORE":
+        case "FASHIONSTORE_SECOND_HAND_STORE":
             return "Second-Hand-Laden";
         case "FOODSTORE_SUPERMARKET":
             return "Bio-Supermarkt";

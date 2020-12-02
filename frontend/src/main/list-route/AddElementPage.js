@@ -9,7 +9,7 @@ import tokenValidation from "../account-route/methods/tokenValidation";
 import EcoElementContext from "../contexts/EcoElementContext";
 import Menu from "@material-ui/core/Menu";
 import returnCertificateMenuItemsForAddElement from "../services/returnCertificateMenuItemsForAddElement";
-import returnSubCategoryOptionsForAddElement from "./returnSubCategoryOptionsForAddElement";
+import returnSubCategoryOptionsForAddElement from "../services/returnSubCategoryOptionsForAddElement";
 import translationService from "../services/translationService";
 
 export default function AddElementPage() {

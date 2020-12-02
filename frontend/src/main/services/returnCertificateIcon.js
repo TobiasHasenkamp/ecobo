@@ -48,7 +48,7 @@ export default function returnCertificateIcon(certificate, size){
             return <FaTools key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
         }
         if (certificate === "barrierefrei"){
-            return <BiHandicap key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+            return <BiHandicap key={certificate} size={"22px"} style={{margin:"0 0", color: "#24542c"}}/>
         }
         if (certificate === "Fairtrade"){
             return <FaGlobeAmericas key={certificate} size={"20px"} style={{margin:"1px 2px", marginRight:"3px", color: "#24542c"}}/>
@@ -128,7 +128,7 @@ export default function returnCertificateIcon(certificate, size){
             return <FaTools key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
         }
         if (certificate === "barrierefrei"){
-            return <BiHandicap key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
+            return <BiHandicap key={certificate} size={"17px"} style={{margin:"0 0", color: "#24542c"}}/>
         }
         if (certificate === "Fairtrade"){
             return <FaGlobeAmericas key={certificate} size={"16px"} style={{margin:"1px 2px", marginRight:"2px", color: "#24542c"}}/>
@@ -207,7 +207,7 @@ export default function returnCertificateIcon(certificate, size){
             return <FaTools key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
         }
         if (certificate === "barrierefrei"){
-            return <BiHandicap key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>
+            return <BiHandicap key={certificate} size={"14px"} style={{margin:"0 0", color: "#24542c"}}/>
         }
         if (certificate === "Fairtrade"){
             return <FaGlobeAmericas key={certificate} size={"13px"} style={{margin:"1px 1px", marginRight:"2px", color: "#24542c"}}/>
