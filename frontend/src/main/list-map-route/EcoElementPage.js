@@ -20,6 +20,7 @@ import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
 import returnMarkerIcon from "../services/returnMarkerIcon";
+import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -92,165 +93,171 @@ export default function EcoElementPage(){
         ecoElement &&
 
         <>
-            <StyledWrapperTable>
-                <StyledHeaderRow className={tableColor}>
-                    {ecoElement.name}
-                </StyledHeaderRow>
-                        <StyledElement>
+            <ScrollDiv>
+
+                <StyledWrapperTable>
+                    <StyledHeaderRow className={tableColor}>
+                        {ecoElement.name}
+                    </StyledHeaderRow>
+                            <StyledElement>
+                                <div/>
+
+                                {/*Subkategorie*/}
+                                <StyledElementHeader>
+                                    <StyledNameCell>
+                                        {translationService(ecoElement.categorySub)}
+                                        {hasTitle() && <><br/><sup>{ecoElement.title}</sup></>}
+                                    </StyledNameCell>
+                                    <StyledCell>
+                                        <div/>
+                                    </StyledCell>
+                                    <StyledIconDiv>
+                                        <EditIconButtonMedium handle={handleEdit}/>
+                                        <DeleteIconButtonSmall handle={handleDelete}/>
+                                    </StyledIconDiv>
+                                </StyledElementHeader>
+
+                                {/*Adresse*/}
+                                <StyledElementBody>
+                                    <StyledCell>
+                                        {ecoElement.address}
+                                    </StyledCell>
+                                    <StyledCell>
+                                    </StyledCell>
+                                </StyledElementBody>
+
+                                {/*Stadtteil + Stadt*/}
+                                <StyledElementBody>
+                                    <StyledCell>
+                                        Weitmar, Bochum
+                                    </StyledCell>
+                                    <StyledCell>
+                                    </StyledCell>
+                                </StyledElementBody>
+
+                                {/*Öffnungszeiten*/}
+                                <StyledElementBody>
+                                    <StyledCell>
+                                        Öffnungszeiten:
+                                    </StyledCell>
+                                    <StyledCell>
+                                        Mo-Sa 11-14 Uhr<br/>
+                                        So 12-13 Uhr
+                                    </StyledCell>
+                                </StyledElementBody>
+
+                                {/*Telefonnummer*/}
+                                <StyledElementBody>
+                                    <StyledCell>
+                                        Telefonnummer:
+                                    </StyledCell>
+                                    <StyledCell>
+                                        0123456789
+                                    </StyledCell>
+                                </StyledElementBody>
+
+                                {/*Website/Facebook*/}
+                                <StyledElementBody>
+                                    <StyledCell>
+                                        Links:
+                                    </StyledCell>
+                                    <StyledCell>
+                                        <StyledIcons>
+                                            <a href="http://www.spiegel.de"> <FaLink/> </a>
+                                            <a href="http://www.facebook.de"> <FaFacebook/> </a>
+                                        </StyledIcons>
+                                    </StyledCell>
+                                </StyledElementBody>
+
+                                {/*empty line*/}
+                                <StyledElementBody>
+                                    <StyledCell>
+                                    </StyledCell>
+                                    <StyledCell>
+                                    </StyledCell>
+                                </StyledElementBody>
+
+                                {/*Zertifikate*/}
+                                <StyledElementBody>
+                                    <StyledCell>
+                                        {"Zertifikate: "}
+                                        {certificateLegendIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                                          onClick={handleShowCertificateLegend}/>
+                                            : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                       onClick={handleShowCertificateLegend}/>}
+                                    </StyledCell>
+                                    <StyledCell>
+                                        {certificateLegendIsOpen ?
+                                            <StyledLegendDiv> <div className="heading">Legende:</div> {mapCertificates(ecoElement, "withText")} </StyledLegendDiv> :
+                                            mapCertificates(ecoElement, "large")}
+                                    </StyledCell>
+                                </StyledElementBody>
                             <div/>
+                        </StyledElement>
+                </StyledWrapperTable>
 
-                            {/*Subkategorie*/}
-                            <StyledElementHeader>
-                                <StyledNameCell>
-                                    {translationService(ecoElement.categorySub)}
-                                    {hasTitle() && <><br/><sup>{ecoElement.title}</sup></>}
-                                </StyledNameCell>
-                                <StyledCell>
-                                    <div/>
-                                </StyledCell>
-                                <StyledIconDiv>
-                                    <EditIconButtonMedium handle={handleEdit}/>
-                                    <DeleteIconButtonSmall handle={handleDelete}/>
-                                </StyledIconDiv>
-                            </StyledElementHeader>
+                <ReviewBox/>
 
-                            {/*Adresse*/}
-                            <StyledElementBody>
-                                <StyledCell>
-                                    {ecoElement.address}
-                                </StyledCell>
-                                <StyledCell>
-                                </StyledCell>
-                            </StyledElementBody>
+                <RecentlyReviewedBox/>
 
-                            {/*Stadtteil + Stadt*/}
-                            <StyledElementBody>
-                                <StyledCell>
-                                    Weitmar, Bochum
-                                </StyledCell>
-                                <StyledCell>
-                                </StyledCell>
-                            </StyledElementBody>
+                <StyledDiv>
 
-                            {/*Öffnungszeiten*/}
-                            <StyledElementBody>
-                                <StyledCell>
-                                    Öffnungszeiten:
-                                </StyledCell>
-                                <StyledCell>
-                                    Mo-Sa 11-14 Uhr<br/>
-                                    So 12-13 Uhr
-                                </StyledCell>
-                            </StyledElementBody>
+                    <StyledElementPhoto src="/profilePics/placeholder.webp"/>
 
-                            {/*Telefonnummer*/}
-                            <StyledElementBody>
-                                <StyledCell>
-                                    Telefonnummer:
-                                </StyledCell>
-                                <StyledCell>
-                                    0123456789
-                                </StyledCell>
-                            </StyledElementBody>
+                    <StyledDivForMap>
 
-                            {/*Website/Facebook*/}
-                            <StyledElementBody>
-                                <StyledCell>
-                                    Links:
-                                </StyledCell>
-                                <StyledCell>
-                                    <StyledIcons>
-                                        <a href="http://www.spiegel.de"> <FaLink/> </a>
-                                        <a href="http://www.facebook.de"> <FaFacebook/> </a>
-                                    </StyledIcons>
-                                </StyledCell>
-                            </StyledElementBody>
+                        {ecoElement.lat && ecoElement.lon &&
+                        <MapContainer
+                            key={randomKeyToForceRerender}
+                            center={[ecoElement.lon, ecoElement.lat]}
+                            zoom={16}
+                            minZoom={12}
+                            //topleft, bottomleft, bottomright, topright
+                            maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
+                            scrollWheelZoom={"center"}
+                            wheelDebounceTime={15}
+                            dragging={false}
+                            className={"map"}
+                        >
+                            <TileLayer
+                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
 
-                            {/*empty line*/}
-                            <StyledElementBody>
-                                <StyledCell>
-                                </StyledCell>
-                                <StyledCell>
-                                </StyledCell>
-                            </StyledElementBody>
+                            { ecoElement.lat && ecoElement.lat &&
 
-                            {/*Zertifikate*/}
-                            <StyledElementBody>
-                                <StyledCell>
-                                    {"Zertifikate: "}
-                                    {certificateLegendIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
-                                                                                      onClick={handleShowCertificateLegend}/>
-                                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
-                                                                   onClick={handleShowCertificateLegend}/>}
-                                </StyledCell>
-                                <StyledCell>
-                                    {certificateLegendIsOpen ?
-                                        <StyledLegendDiv> <div className="heading">Legende:</div> {mapCertificates(ecoElement, "withText")} </StyledLegendDiv> :
-                                        mapCertificates(ecoElement, "large")}
-                                </StyledCell>
-                            </StyledElementBody>
-                        <div/>
-                    </StyledElement>
-            </StyledWrapperTable>
-
-            <ReviewBox/>
-
-            <RecentlyReviewedBox/>
-
-            <StyledDiv>
-
-                <StyledElementPhoto src="/profilePics/placeholder.webp"/>
-
-                <StyledDivForMap>
-
-                    {ecoElement.lat && ecoElement.lon &&
-                    <MapContainer
-                        key={randomKeyToForceRerender}
-                        center={[ecoElement.lon, ecoElement.lat]}
-                        zoom={16}
-                        minZoom={12}
-                        //topleft, bottomleft, bottomright, topright
-                        maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
-                        scrollWheelZoom={"center"}
-                        wheelDebounceTime={15}
-                        dragging={false}
-                        className={"map"}
-                    >
-                        <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-
-                        { ecoElement.lat && ecoElement.lat &&
-
-                        <Marker key={ecoElement.id} position={[ecoElement.lon, ecoElement.lat]}
-                                        title={ecoElement.name} icon={returnMarkerIcon(ecoElement.category, ecoElement.categorySub)}>
-                        </Marker>}
+                            <Marker key={ecoElement.id} position={[ecoElement.lon, ecoElement.lat]}
+                                            title={ecoElement.name} icon={returnMarkerIcon(ecoElement.category, ecoElement.categorySub)}>
+                            </Marker>}
 
 
-                    </MapContainer>
-                    }
+                        </MapContainer>
+                        }
 
-                </StyledDivForMap>
+                    </StyledDivForMap>
 
-                <StyledDivForElementData>
+                    <StyledDivForElementData>
 
-                    <strong>Erstellt von:</strong>
-                    <div>{ecoElement.creator}</div>
-                    <br/>
+                        <strong>Erstellt von:</strong>
+                        <div>{ecoElement.creator}</div>
+                        <br/>
 
-                    <strong>Angelegt am:</strong>
-                    <div>{ecoElement.dateCreatedExternal}</div>
-                    <br/>
+                        <strong>Angelegt am:</strong>
+                        <div>{ecoElement.dateCreatedExternal}</div>
+                        <br/>
 
-                    <strong>Zuletzt geändert:</strong>
-                    <div>{ecoElement.dateLastUpdatedExternal}</div>
-                    <br/>
+                        <strong>Zuletzt geändert:</strong>
+                        <div>{ecoElement.dateLastUpdatedExternal}</div>
+                        <br/>
 
 
-                </StyledDivForElementData>
+                    </StyledDivForElementData>
 
-            </StyledDiv>
+                </StyledDiv>
+
+                <EmptyDivToClosePage/>
+
+            </ScrollDiv>
 
 
     </>
@@ -319,4 +326,9 @@ const StyledLegendDiv = styled.div`
       font-size: 1.1em;
       font-weight: bold;
   }
+`
+
+const ScrollDiv = styled.div`
+  overflow: scroll;
+  height: 100%;
 `

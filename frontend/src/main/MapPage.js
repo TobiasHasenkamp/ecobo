@@ -62,8 +62,6 @@ export default function MapPage() {
 
         <>
             <PageHeader title="Kartenansicht"/>
-
-
             <TabBarWithIcons type="map"/>
             <BlackLineMedium/>
 
@@ -81,7 +79,7 @@ export default function MapPage() {
                     wheelDebounceTime={15}
                     className={"map"}
                 >
-                    <LayersControl position="topright" collapsed={true} style={{width:"10px"}}>
+                    <LayersControl position="topright" collapsed={true}>
                             <LayersControl.BaseLayer checked={true} name="OpenStreetMap.Org">
                                 <TileLayer
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

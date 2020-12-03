@@ -119,6 +119,12 @@ export default App;
 const StyledPageLayout = styled.div`
   width: 100vw;
   height: 100vh;
-  overflow: scroll;
+  //overflow: scroll;
   margin-top: 61px;
+`
+
+
+export const ScrollablePageLayout = styled.div`
+  overflow: scroll;
+  height: 100%;
 `

@@ -15,7 +15,7 @@ export const getNewsfeed5 = (token, setNewsfeed5) => {
 };
 
 export const getNewsfeed50 = (token, setNewsfeed50) => {
-    axios.get("/api/newsfeed/50",
+    axios.get("/api/newsfeed/25",
         header(token))
         .then((response) => response.data)
         .then((data) => {setNewsfeed50(data)})

@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {BiMessageAltDetail, FiDelete, GrUpdate, GrUserAdd} from "react-icons/all";
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
+import EmptyDivToClosePage from "./designElements/EmptyDivToClosePage";
 
 export default function NewsfeedPage(){
 
@@ -18,7 +19,6 @@ export default function NewsfeedPage(){
     useEffect(() => {
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
-
 
     useEffect(() => {
         if (token && ecoElements){
@@ -120,7 +120,7 @@ export default function NewsfeedPage(){
     return (
 
 
-        <div>
+        <ScrollDiv>
             <StyledNewsfeedHeader>Newsfeed:</StyledNewsfeedHeader>
             <StyledNewsfeed>
                 {newsfeed50.map((newsfeedElement) => (
@@ -135,12 +135,17 @@ export default function NewsfeedPage(){
                 ))
                 }
             </StyledNewsfeed>
-        </div>
+            <EmptyDivToClosePage/>
+        </ScrollDiv>
 
 
     )
 }
 
+const ScrollDiv = styled.div`
+  overflow: scroll;
+  height: 100%;
+`
 
 const StyledNewsfeed = styled.div`
   overflow: scroll;

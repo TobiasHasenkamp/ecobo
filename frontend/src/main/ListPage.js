@@ -42,7 +42,6 @@ export default function ListPage() {
 
                 {/* the brs are necessary at the moment to keep the full list visible when scrolling */}
                 <br/>
-                <AddItemButton/>
                 <br/>
                 <br/>
                 <br/>
@@ -52,9 +51,15 @@ export default function ListPage() {
                 <br/>
                 <br/>
                 <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <StyledBottomDiv/>
 
             </StyledWrapperDiv>
-            <StyledBottomDiv/>
+            <AddItemButton/>
+
 
         </div>
 
@@ -77,7 +82,7 @@ const StyledBottomDiv = styled.div`
   right: 0;
   bottom: 0;
   min-width: 100%;
-  min-height: 65px;
+  min-height: 45px;
   z-index: 10;
 `
 

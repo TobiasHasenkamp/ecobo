@@ -15,7 +15,7 @@ export default function AddItemButton() {
     return(
 
         <StyledActionButton>
-            <Fab color="primary" aria-label="add" size="small" onClick={handleAddElementButton}>
+            <Fab color="primary" aria-label="add" size="medium" onClick={handleAddElementButton}>
                 <AddIcon />
             </Fab>
         </StyledActionButton>
