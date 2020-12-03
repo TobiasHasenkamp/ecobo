@@ -1,7 +1,7 @@
 import PageHeader from "./PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
-import {MapContainer, TileLayer} from "react-leaflet";
+import {LayersControl, MapContainer, TileLayer} from "react-leaflet";
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
 import AddItemButton from "./designElements/buttons/AddItemButton";
@@ -24,6 +24,7 @@ let DefaultIcon = L.icon({
     shadowUrl: iconShadow
 });
 L.Marker.prototype.options.icon = DefaultIcon;
+
 
 
 
@@ -80,15 +81,29 @@ export default function MapPage() {
                     wheelDebounceTime={15}
                     className={"map"}
                 >
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
+                    <LayersControl position="topright">
+                            <LayersControl.BaseLayer checked name="OpenStreetMap.de">
+                            <TileLayer
+                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
+                            />
+                            </LayersControl.BaseLayer>
+                            <LayersControl.BaseLayer name="OpenStreetMap.Org">
+                                <TileLayer
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                            </LayersControl.BaseLayer>
+                            <LayersControl.BaseLayer name="OpenStreetMap.ÖPNV-Karte">
+                                <TileLayer
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                    url="http://tile.memomaps.de/tilegen/{z}/{x}/{y}.png"
+                                />
+                            </LayersControl.BaseLayer>
 
-                        {MapMarkersForMap(ecoElements)}
+                    </LayersControl>
 
-                    }
-
+                    {MapMarkersForMap(ecoElements)}
 
                 </MapContainer>
                 }

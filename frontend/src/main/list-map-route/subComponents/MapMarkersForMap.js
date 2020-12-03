@@ -7,34 +7,42 @@ import translationService from "../../services/translationService";
 import styled from "styled-components/macro";
 import mapCertificates from "../../services/mapCertificates";
 import ShowElementIconButton from "../../designElements/buttons/ShowElementIconButton";
+import L from "leaflet";
+
+
+let TestIcon = L.divIcon({
+    html: "<img src='https://api.geoapify.com/v1/icon/?type=awesome&color=%23242f8c&size=large&icon=cloud&iconSize=small&textSize=small&apiKey=7611146e203d46b7a43e78485065f463' alt='marker'/>",
+    iconSize: [0, 0],
+    iconAnchor: [0, 0]
+})
 
 export default function MapMarkersForMap(ecoElements){
 
     const {returnIfItemsGetsFiltered} = useContext(FilterListContext);
 
-    return (
 
-        ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).map((element) => (
-                                <Marker key={element.id} position={[element.lon, element.lat]}
-                                        title={element.name}>
-                                    <StyledPopup>
-                                        <StyledPopupHeader>
-                                            {element.name}
-                                            <ShowElementIconButton elementId={element.id}/>
-                                        </StyledPopupHeader>
-                                        {translationService(element.categorySub)} <br/> {element.address} <br/>
-                                        <StyledMappedCertificates>
-                                            {mapCertificates(element, "small")}
-                                        </StyledMappedCertificates>
+        return (
+
+            ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).map((element) => (
+                <Marker key={element.id} position={[element.lon, element.lat]}
+                        title={element.name} icon={TestIcon}>
+                    <StyledPopup>
+                        <StyledPopupHeader>
+                            {element.name}
+                            <ShowElementIconButton elementId={element.id}/>
+                        </StyledPopupHeader>
+                        {translationService(element.categorySub)} <br/> {element.address} <br/>
+                        <StyledMappedCertificates>
+                            {mapCertificates(element, "small")}
+                        </StyledMappedCertificates>
 
 
 
-                                    </StyledPopup>
-                                </Marker>
-                ))
-    )
+                    </StyledPopup>
+                </Marker>
+            ))
+        )
 }
-
 
 
 const StyledPopup = styled(Popup)`
