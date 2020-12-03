@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    font-family: "Helvetica";
+    font-family: Helvetica;
     margin: 0;
     height: 100%;
     

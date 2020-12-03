@@ -1,9 +1,9 @@
 import L from "leaflet";
 
-export default function returnMarkerIcon(category, categorySub){
 
+export default function returnMarkerIcon(category, categorySub){
     //later change the apikey into a env-variable, but how?
-    const apikey = "7611146e203d46b7a43e78485065f463";
+    let apikey = process.env["REACT_APP_GEOAPIFY_KEY"];
     let color;
     let icon;
 
@@ -76,7 +76,9 @@ export default function returnMarkerIcon(category, categorySub){
         color + "&size=large&icon=" + icon + "&iconSize=small&textSize=small&apiKey=" + apikey + "' alt='marker'/>";
 
 
+
     return L.divIcon({
+
         html: iconHtml,
         iconSize: [0, 0],
         iconAnchor: [0, 0]
