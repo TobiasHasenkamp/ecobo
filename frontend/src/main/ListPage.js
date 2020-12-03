@@ -3,16 +3,16 @@ import React, {useEffect, useContext} from "react";
 import styled from "styled-components/macro";
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
-import FoodStoreList from "./list-route/FoodStoreList";
-import RestaurantList from "./list-route/RestaurantList";
-import FairShopList from "./list-route/FairShopList";
+import FoodStoreList from "./list-map-route/FoodStoreList";
+import RestaurantList from "./list-map-route/RestaurantList";
+import FairShopList from "./list-map-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import LoginTokenContext from "./contexts/LoginTokenContext";
-import TabBarWithIcons from "./list-route/TabBarWithIcons";
-import FilterResultList from "./list-route/FilterResultList";
+import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
+import FilterResultList from "./list-map-route/FilterResultList";
 import FilterListContext from "./contexts/FilterListContext";
-import FashionStoreList from "./list-route/FashionStoreList";
-import OthersList from "./list-route/OthersList";
+import FashionStoreList from "./list-map-route/FashionStoreList";
+import OthersList from "./list-map-route/OthersList";
 
 export default function ListPage() {
 

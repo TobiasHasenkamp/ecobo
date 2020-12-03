@@ -1,7 +1,7 @@
 import PageHeader from "./PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
-import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
+import {MapContainer, TileLayer} from "react-leaflet";
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
 import AddItemButton from "./designElements/buttons/AddItemButton";
@@ -12,9 +12,10 @@ import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import TabBarWithIcons from "./list-route/TabBarWithIcons";
+import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
 import BlackLineMedium from "./designElements/BlackLineMedium";
 import {useLocation} from "react-router-dom";
+import MapMarkersForMap from "./list-map-route/subComponents/MapMarkersForMap";
 
 
 //to fix the "image not found"-bugs that occur when reloading the page
@@ -84,17 +85,8 @@ export default function MapPage() {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
-                    {
+                        {MapMarkersForMap(ecoElements)}
 
-                        ecoElements?.map((element) => (
-
-                            <Marker key={element.id} position={[element.lon, element.lat]}
-                                    title={element.name}>
-                                <Popup>
-                                    {element.name} <br/> {element.category} / {element.categorySub} / {element.address}
-                                </Popup>
-                            </Marker>
-                        ))
                     }
 
 
