@@ -22,7 +22,7 @@ const StyledTitle = styled.p`
     color: var(--darkgrey);
     text-decoration: none;
     margin: 6px;
+    font-weight: bold;
     font-size: 1.3em;
     text-align: center;
-    text-shadow: 0.8px 0.6px 0.3px var(--grey);
 `
