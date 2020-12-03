@@ -29,7 +29,7 @@ export default function ListPage() {
 
         <div>
 
-            <PageHeader title="EcoMap"/>
+            <PageHeader title="Listenansicht"/>
             <TabBarWithIcons type="list"/>
 
             <StyledWrapperDiv>

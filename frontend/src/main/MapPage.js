@@ -60,7 +60,7 @@ export default function MapPage() {
     return(
 
         <>
-            <PageHeader title="EcoMap"/>
+            <PageHeader title="Kartenansicht"/>
 
 
             <TabBarWithIcons type="map"/>

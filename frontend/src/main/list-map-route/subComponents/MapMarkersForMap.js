@@ -26,6 +26,9 @@ export default function MapMarkersForMap(ecoElements){
                                         <StyledMappedCertificates>
                                             {mapCertificates(element, "small")}
                                         </StyledMappedCertificates>
+
+
+
                                     </StyledPopup>
                                 </Marker>
                 ))
