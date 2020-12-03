@@ -7,7 +7,7 @@ import LoginTokenContext from "../contexts/LoginTokenContext";
 import {getEcoElementById} from "../services/ecoElementService";
 import DeleteIconButtonSmall from "../designElements/buttons/DeleteIconButtonSmall";
 import styled from "styled-components/macro";
-import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
+import {MapContainer, Marker, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
@@ -19,6 +19,7 @@ import ReviewBox from "./subComponents/ReviewBox";
 import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
+import returnMarkerIcon from "../services/returnMarkerIcon";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -221,13 +222,11 @@ export default function EcoElementPage(){
                         />
 
                         { ecoElement.lat && ecoElement.lat &&
-                            <Marker key={ecoElement.id} position={[ecoElement.lon, ecoElement.lat]}
-                                        title={ecoElement.name}>
-                            <Popup>
-                                        {ecoElement.name} <br/> {ecoElement.category} / {ecoElement.categorySub} / {ecoElement.address}
-                            </Popup>
-                        </Marker>
-                        }
+
+                        <Marker key={ecoElement.id} position={[ecoElement.lon, ecoElement.lat]}
+                                        title={ecoElement.name} icon={returnMarkerIcon(ecoElement.category, ecoElement.categorySub)}>
+                        </Marker>}
+
 
                     </MapContainer>
                     }

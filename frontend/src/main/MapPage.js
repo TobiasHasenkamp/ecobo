@@ -81,18 +81,18 @@ export default function MapPage() {
                     wheelDebounceTime={15}
                     className={"map"}
                 >
-                    <LayersControl position="topright">
-                            <LayersControl.BaseLayer checked name="OpenStreetMap.de">
-                            <TileLayer
-                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
-                            />
-                            </LayersControl.BaseLayer>
-                            <LayersControl.BaseLayer name="OpenStreetMap.Org">
+                    <LayersControl position="topright" collapsed={true} style={{width:"10px"}}>
+                            <LayersControl.BaseLayer checked={true} name="OpenStreetMap.Org">
                                 <TileLayer
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 />
+                            </LayersControl.BaseLayer>
+                            <LayersControl.BaseLayer name="OpenStreetMap.de">
+                            <TileLayer
+                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
+                            />
                             </LayersControl.BaseLayer>
                             <LayersControl.BaseLayer name="OpenStreetMap.ÖPNV-Karte">
                                 <TileLayer
@@ -100,6 +100,12 @@ export default function MapPage() {
                                     url="http://tile.memomaps.de/tilegen/{z}/{x}/{y}.png"
                                 />
                             </LayersControl.BaseLayer>
+                        <LayersControl.BaseLayer name="OpenStreetMap. Humanitarian style">
+                            <TileLayer
+                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url="http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+                            />
+                        </LayersControl.BaseLayer>
 
                     </LayersControl>
 
@@ -109,8 +115,6 @@ export default function MapPage() {
                 }
 
                 <GreenBoxWithGradientBorderlineUntilSiteEnds/>
-
-
 
             </StyledContentDiv>
 
