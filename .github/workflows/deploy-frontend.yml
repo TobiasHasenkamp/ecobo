@@ -2,7 +2,7 @@ name: frontend deployment to AWS S3
 
 on:
   push:
-    branches: [ main, main-pre, main-pre2, main-pre3, main-pre4, main-pre5, main-pre6 ]
+    branches: [ main ]
 
 jobs:
   deploy:
