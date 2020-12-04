@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 14.x
@@ -21,8 +22,8 @@ jobs:
         run: |
           cd frontend
           npm run build
-      - uses: actions/checkout@master
-      - uses: jakejarvis/s3-sync-action@master
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@master
         with:
             args: --acl public-read --follow-symlinks --delete
         env:
