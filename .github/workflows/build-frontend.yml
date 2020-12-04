@@ -1,4 +1,4 @@
-name: Do frontend build
+name: frontend build
 
 on:
   push:
