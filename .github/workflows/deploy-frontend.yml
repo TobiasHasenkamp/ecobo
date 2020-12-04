@@ -1,0 +1,45 @@
+name: Do frontend build and then deploy to Amazon Bucket ecobo-bucket
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: npm install frontend
+        run: |
+          cd frontend
+          npm install
+      - name: run build
+        run: |
+          cd frontend
+          npm run build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: frontend-build
+          path: frontend/build/
+
+  deploy:
+    name: deploy to AWS S3 bucket ecobo-bucket
+    runs-on: ubuntu-latest
+    needs: build-frontend
+    steps:
+      - uses: actions/checkout@master
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          source_dir: frontend/build/
+          destination_dir: ''
