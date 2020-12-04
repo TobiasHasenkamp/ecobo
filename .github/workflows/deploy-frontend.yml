@@ -3,11 +3,9 @@ name: frontend deployment to AWS S3
 on:
   push:
     branches: [ main, main-pre, main-pre2, main-pre3, main-pre4, main-pre5, main-pre6 ]
-  pull_request:
-    branches: [ main, main-pre, main-pre2, main-pre3, main-pre4, main-pre5, main-pre6 ]
 
 jobs:
-  deploy-frontend-to-aws:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,9 +25,9 @@ jobs:
       - uses: jakejarvis/s3-sync-action@master
         with:
             args: --acl public-read --follow-symlinks --delete
-            env:
-                AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
-                AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-                AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
-                SOURCE_DIR: frontend/build
-                AWS_REGION: 'eu-central-1'
+        env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
+            SOURCE_DIR: frontend/build
+            AWS_REGION: 'eu-central-1'
