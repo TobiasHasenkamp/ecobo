@@ -4,6 +4,7 @@ import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
+import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.service.utils.EcoElementSeeder;
 import de.th.ecobobackend.utils.IDUtils;
@@ -124,6 +125,7 @@ class EcoElementServiceTest {
         //Given
 
         String inputDate = "2020-11-17T10:51:00Z";
+        String inputDateReadable = "17.11.2020";
         Instant inputDateAsInstant = Instant.parse(inputDate);
 
         EcoElementDto incomingEcoElementDto = new EcoElementDto("Bioladen", Category.FOODSTORE, CategorySub.FOODSTORE_NORMAL,
@@ -144,10 +146,13 @@ class EcoElementServiceTest {
                 .creator("Tobias")
                 .urlFacebook("")
                 .isInBochum(true)
+                .isReviewed(true)
                 .certificates(List.of("Veganes Angebot"))
+                .reviews(List.of())
                 .lon(1.0)
                 .lat(1.0)
                 .dateCreatedInternal(inputDateAsInstant)
+                .dateCreatedExternal(inputDateReadable)
                 .build();
 
         //When
@@ -155,6 +160,7 @@ class EcoElementServiceTest {
                 .thenReturn(expectedEcoElement);
         when(ecoElementMongoDB.save(expectedEcoElement))
                 .thenReturn(expectedEcoElement);
+        when(idUtils.generateID()).thenReturn("123");
         EcoElement receivedEcoElement = ecoElementService.addEcoElement(incomingEcoElementDto);
 
         //Then
