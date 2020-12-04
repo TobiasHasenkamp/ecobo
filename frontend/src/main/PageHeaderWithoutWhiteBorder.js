@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components/macro";
-import GradientBorderlineBottom from "./designElements/GradientBorderlineBottom";
 import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
 import GreenBoxMedium from "./designElements/GreenBoxMedium";
 
-export default function PageHeader({title}) {
+export default function PageHeaderWithoutWhiteBorder({title}) {
 
     return (
 
@@ -12,7 +11,6 @@ export default function PageHeader({title}) {
             <StyledTitle>{title}</StyledTitle>
             <GradientBorderlineTop/>
             <GreenBoxMedium/>
-            <GradientBorderlineBottom/>
         </>
 
     );

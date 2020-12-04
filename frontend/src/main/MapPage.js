@@ -1,7 +1,7 @@
 import PageHeader from "./PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
-import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
+import {LayersControl, MapContainer, TileLayer} from "react-leaflet";
 import EcoElementContext from "./contexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
 import AddItemButton from "./designElements/buttons/AddItemButton";
@@ -12,9 +12,10 @@ import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import TabBarWithIcons from "./list-route/TabBarWithIcons";
+import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
 import BlackLineMedium from "./designElements/BlackLineMedium";
 import {useLocation} from "react-router-dom";
+import MapMarkersForMap from "./list-map-route/subComponents/MapMarkersForMap";
 
 
 //to fix the "image not found"-bugs that occur when reloading the page
@@ -23,6 +24,7 @@ let DefaultIcon = L.icon({
     shadowUrl: iconShadow
 });
 L.Marker.prototype.options.icon = DefaultIcon;
+
 
 
 
@@ -59,9 +61,7 @@ export default function MapPage() {
     return(
 
         <>
-            <PageHeader title="EcoMap"/>
-
-
+            <PageHeader title="Kartenansicht"/>
             <TabBarWithIcons type="map"/>
             <BlackLineMedium/>
 
@@ -79,31 +79,40 @@ export default function MapPage() {
                     wheelDebounceTime={15}
                     className={"map"}
                 >
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
+                    <LayersControl position="topright" collapsed={true}>
+                            <LayersControl.BaseLayer checked={true} name="OpenStreetMap.Org">
+                                <TileLayer
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                            </LayersControl.BaseLayer>
+                            <LayersControl.BaseLayer name="OpenStreetMap.de">
+                            <TileLayer
+                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
+                            />
+                            </LayersControl.BaseLayer>
+                            <LayersControl.BaseLayer name="OpenStreetMap.ÖPNV-Karte">
+                                <TileLayer
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                    url="http://tile.memomaps.de/tilegen/{z}/{x}/{y}.png"
+                                />
+                            </LayersControl.BaseLayer>
+                        <LayersControl.BaseLayer name="OpenStreetMap. Humanitarian style">
+                            <TileLayer
+                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url="http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+                            />
+                        </LayersControl.BaseLayer>
 
-                    {
+                    </LayersControl>
 
-                        ecoElements?.map((element) => (
-
-                            <Marker key={element.id} position={[element.lon, element.lat]}
-                                    title={element.name}>
-                                <Popup>
-                                    {element.name} <br/> {element.category} / {element.categorySub} / {element.address}
-                                </Popup>
-                            </Marker>
-                        ))
-                    }
-
+                    {MapMarkersForMap(ecoElements)}
 
                 </MapContainer>
                 }
 
                 <GreenBoxWithGradientBorderlineUntilSiteEnds/>
-
-
 
             </StyledContentDiv>
 

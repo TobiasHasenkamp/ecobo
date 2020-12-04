@@ -4,26 +4,30 @@ import {Link} from "react-router-dom";
 import GreenBoxLargeWithGradientBorderline from "./designElements/GreenBoxLargeWithGradientBorderline";
 
 import NewsfeedComponent from "./NewsfeedComponent";
+import EmptyDivToClosePage from "./designElements/EmptyDivToClosePage";
 
 export default function HomePage() {
 
     return(
 
         <>
+            <ScrollDiv>
+                <FlexDiv>
+                    <StyledHomeImage src="homePhoto1.jpg"/>
+                </FlexDiv>
+                <GreenBoxLargeWithGradientBorderline/>
 
-            <FlexDiv>
-                <StyledHomeImage src="homePhoto1.jpg"/>
-            </FlexDiv>
-            <GreenBoxLargeWithGradientBorderline/>
+                <StyledHomePageMenu>
+                    <p><Link to="/bo/map">Eco Map</Link></p>
+                    {/*<p><Link to="/features">Features</Link></p>
+                    <p><Link to="/infos">Hintergrundinfos</Link></p>*/}
+                </StyledHomePageMenu>
 
-            <StyledHomePageMenu>
-                <p><Link to="/bo/map">Eco Map</Link></p>
-                {/*<p><Link to="/features">Features</Link></p>
-                <p><Link to="/infos">Hintergrundinfos</Link></p>*/}
-            </StyledHomePageMenu>
+                <NewsfeedComponent/>
 
-            <NewsfeedComponent/>
+                <EmptyDivToClosePage/>
 
+            </ScrollDiv>
 
 
         </>
@@ -70,5 +74,10 @@ const FlexDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+const ScrollDiv = styled.div`
+  overflow: scroll;
+  height: 100%;
 `
 
