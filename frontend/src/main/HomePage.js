@@ -18,7 +18,7 @@ export default function HomePage() {
                 <GreenBoxLargeWithGradientBorderline/>
 
                 <StyledHomePageMenu>
-                    <p><Link to="/bo/map">Eco Map</Link></p>
+                    <p><Link to="/bo/map">Eco Map Test!</Link></p>
                     {/*<p><Link to="/features">Features</Link></p>
                     <p><Link to="/infos">Hintergrundinfos</Link></p>*/}
                 </StyledHomePageMenu>
