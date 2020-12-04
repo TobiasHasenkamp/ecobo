@@ -1,6 +1,4 @@
 spring:
   data:
     mongodb:
-      database: ecoBo
-      host: localhost
-      port: 27017
+      uri:  mongodb+srv://testUser:MongoDBPassword@cluster0.zatly.mongodb.net/Cluster0?retryWrites=true&w=majority
