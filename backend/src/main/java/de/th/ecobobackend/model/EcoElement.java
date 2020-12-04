@@ -39,8 +39,7 @@ public class EcoElement {
     Boolean isShownOnMap;
     Boolean isInBochum;
 
-    Boolean certificate1;
-    Boolean certificate2;
+    List<String> certificates;
 
     String creator;
 

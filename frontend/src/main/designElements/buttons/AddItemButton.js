@@ -15,7 +15,7 @@ export default function AddItemButton() {
     return(
 
         <StyledActionButton>
-            <Fab color="primary" aria-label="add" size="small" onClick={handleAddElementButton}>
+            <Fab color="primary" aria-label="add" size="medium" onClick={handleAddElementButton}>
                 <AddIcon />
             </Fab>
         </StyledActionButton>
@@ -35,5 +35,5 @@ const StyledActionButton = styled.div`
   position: fixed;
   right: 25px;
   bottom: 15px;
-  z-index: 100;
+  z-index: 1000;
 `

@@ -1,4 +1,3 @@
-import PageHeader from "../PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import GradientBorderlineBottom from "../designElements/GradientBorderlineBottom";
@@ -8,10 +7,15 @@ import {useHistory, useParams} from "react-router-dom";
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
 import DeleteIconButtonMedium from "../designElements/buttons/DeleteIconButtonMedium";
 import LoginTokenContext from "../contexts/LoginTokenContext";
-import {getUserData} from "../services/UserDataService";
+import {getUserData} from "../services/userDataService";
+import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
+import EcoElementContext from "../contexts/EcoElementContext";
+import {getEcoElements} from "../services/ecoElementService";
+import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
 
 export default function AccountPage() {
     const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
+    const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const history = useHistory();
     const {userNameParam} = useParams();
     const [userData, setUserData] = useState({});
@@ -20,6 +24,10 @@ export default function AccountPage() {
     useEffect(() => {
         getUserData(userNameParam, token, setUserData);
     }, [userNameParam, token])
+
+    useEffect(() => {
+        getEcoElements(token, setEcoElements);
+    }, [token, setEcoElements]);
 
 
     function handleEditButton() {
@@ -42,74 +50,83 @@ export default function AccountPage() {
 
     return(
 
-        <div>
-            <PageHeader title="Konto"/>
+        <>
+            <PageHeaderWithoutWhiteBorder title="Konto"/>
 
-            <StyledUserSection>
+            <ScrollDiv>
 
-                <StyledLeftBar>
-                    <div/>
-                        <StyledPhotoSection>
-                            <StyledUserPhoto src="/profilePics/placeholder.webp"/>
-                            <StyledEditPictureButton>Edit Picture</StyledEditPictureButton>
-                        </StyledPhotoSection>
-                        <StyledLeftBarText>
-                            <h3>Angemeldet:</h3>
-                            <div> {userData.registrationDateExternal} </div><br/>
-                            <h3>Rolle:</h3>
-                            <div>Administrator</div><br/>
-                        </StyledLeftBarText>
-                    <div/>
-                </StyledLeftBar>
+                <StyledUserSection>
 
-                <StyledRightBar>
+                    <StyledLeftBar>
+                        <div/>
+                            <StyledPhotoSection>
+                                <StyledUserPhoto src="/profilePics/placeholder.webp"/>
+                                <StyledEditPictureButton>Edit Picture</StyledEditPictureButton>
+                            </StyledPhotoSection>
+                            <StyledLeftBarText>
+                                <h3>Angemeldet:</h3>
+                                <div> {userData.registrationDateExternal} </div><br/>
+                                <h3>Rolle:</h3>
+                                <div>User</div><br/>
+                            </StyledLeftBarText>
+                        <div/>
+                    </StyledLeftBar>
 
-
-
-                    <StyledGrid>
-
-                    <div>
-                        <h3>Username:</h3>
-                        <div> {userData.username} </div><br/>
-                    </div>
-
-                    <StyledButtonBar>
-                        <EditIconButtonMedium handle={handleEditButton}/>
-                        {/*<FaCheck/>*/}
-                        <DeleteIconButtonMedium handle={handleDeleteButton}/>
-                    </StyledButtonBar>
-
-                    </StyledGrid>
-
-                    <h3>E-Mail:</h3>
-                    <div><h4>beispiel@e-mail.de</h4></div><br/>
-                    <h3>Geburtsdatum:</h3>
-                    <div>xx.xx.19xx</div><br/><br/><br/>
-
-                </StyledRightBar>
-
-            </StyledUserSection>
-            <GradientBorderlineTop/>
-            <GreenBoxMedium/>
-            <GradientBorderlineBottom/>
-
-            <StyledSiteSection>
-
-                <h3>Verwaltete Seiten:</h3>
-                none<br/><br/>
-
-                <h3>Angelegte Seiten:</h3>
-                none
-
-                <StyledLogoutButton onClick={() => handleLogoutButton()}>Logout</StyledLogoutButton>
+                    <StyledRightBar>
 
 
-            </StyledSiteSection>
-        </div>
+
+                        <StyledGrid>
+
+                        <div>
+                            <h3>Username:</h3>
+                            <div> {userData.username} </div><br/>
+                        </div>
+
+                        <StyledButtonBar>
+                            <EditIconButtonMedium handle={handleEditButton}/>
+                            {/*<FaCheck/>*/}
+                            <DeleteIconButtonMedium handle={handleDeleteButton}/>
+                        </StyledButtonBar>
+
+                            <StyledLogoutButton onClick={() => handleLogoutButton()}>Logout</StyledLogoutButton>
+
+                        </StyledGrid>
+
+                    </StyledRightBar>
+
+                </StyledUserSection>
+                <GradientBorderlineTop/>
+                <GreenBoxMedium/>
+                <GradientBorderlineBottom/>
+
+                <StyledSiteSection>
+
+                    <h3>Verwaltete Seiten:</h3>
+                    none<br/><br/>
+
+                    <h3>Angelegte Seiten:</h3>
+
+                    <ul>
+                        {ecoElements?.filter(element => (element.creator === userData.username)).map(element => (
+                            <li key={element.id}>{element.name} ({element.dateCreatedExternal})</li>
+                        ))}
+                    </ul>
+
+                </StyledSiteSection>
+                <EmptyDivToClosePage/>
+                <EmptyDivToClosePage/>
+            </ScrollDiv>
+
+        </>
 
     );
 }
 
+const ScrollDiv = styled.div`
+  overflow: scroll;
+  height: 100%;
+`
 
 const StyledUserSection = styled.div`
   display: grid;
@@ -119,33 +136,34 @@ const StyledUserSection = styled.div`
 
 const StyledLeftBar = styled.div`
   display: grid;
-  padding: 15px 0;
   grid-template-rows: 5% 40% 50% 5%;
   background-color: var(--darkgreen);
-  margin-top: -10px;
-  margin-bottoM: -10px;
+  margin-bottom: -10px;
+  padding-top: 25px;
+  width: 100%;
 `
 
 const StyledUserPhoto = styled.img`
   margin: auto;
   display: block;
-  max-width: 60%;
-  max-height: 60%;
+  width: 65%;
   border-radius: 50%;
   border: white solid 2px;
 `
 const StyledPhotoSection = styled.div`
-  width: 95%;
+  width: auto;
   overflow: hidden;
   align-self: center;
   background-color: var(--darkgreen);
-  margin-top: -30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
 `
 
 const StyledLeftBarText = styled.div`
-  margin-left: 6px;
+  margin-left: 20px;
+  margin-right: 8px;
   color: white;
-  padding: 0 12px;
   font-size: 0.65em;
   line-height: 0.75em;
   h3{
@@ -165,7 +183,7 @@ const StyledRightBar = styled.div`
     
   h3{
       color: black;
-      font-size: 0.8em;
+      font-size: 0.9em;
   }
   h3 + div {
     line-height: 0.7em;
@@ -187,40 +205,47 @@ const StyledEditPictureButton = styled.div`
 `
 
 const StyledLogoutButton = styled.button`
-  position: fixed;
-  bottom: 5vh;
-  right: 5vh;
-  min-width: 30%;
+  justify-self: right;
+  width: min-content;
   background-color: var(--grey);
   border: none;
   border-radius: 8%;
   color: var(--darkgrey);
-  padding: 7px 10px;
-  text-align: center;
+  padding: 8px 15px;
   text-decoration: none;
   font-size: 1.1em;
-  font-weight: bolder;
+  font-weight: bold;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  margin-right: 8px;
+  margin-right: 20px;
+  grid-column: 1 / span2;
 `
 
 const StyledSiteSection = styled.div`
+  display: grid;
+  grid-template-rows: auto auto auto;
   margin: 25px 35px;
   font-size: 0.85em;
   
   h3 {
     font-size: 1.15em;
   }
+  
+  ul {
+    font-size: 0.95em;
+    margin: 3px 10px;
+    padding: 0 22px;
+  }
 `
 
 const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: 75% 25%;
+  grid-gap: 30px 5px;
+
 `
 
 const StyledButtonBar = styled.div`
   margin: 13px 5px 0 10px;
   display: flex;
   justify-content: space-between;
-  ;
 `

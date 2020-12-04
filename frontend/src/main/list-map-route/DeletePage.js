@@ -1,10 +1,11 @@
 import PageHeader from "../PageHeader";
 import React, {useContext, useEffect} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {deleteEcoElement, getEcoElementById} from "../services/EcoElementService";
+import {deleteEcoElement, getEcoElementById} from "../services/ecoElementService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import EcoElementContext from "../contexts/EcoElementContext";
 import styled from "styled-components/macro";
+import translationService from "../services/translationService";
 
 export default function DeletePage() {
 
@@ -29,17 +30,17 @@ export default function DeletePage() {
     return(
 
         <div>
-            <PageHeader title={`Delete ${ecoElement.name}`}/>
+            <PageHeader title={`Lösche ${ecoElement.name}`}/>
             <StyledForm>
-                <p>Do you really want to delete this item?</p> <br/>
+                <p>Möchtest Du dieses Element wirklich löschen?</p> <br/>
                 <div>
                     <p>Name: {ecoElement.name}</p>
                     <p>ID: {ecoElement.id}</p>
-                    <p>Creator: {ecoElement.creator}</p>
-                    <p>Category: {ecoElement.category}</p>
-                    <p>Subcategory: {ecoElement.categorySub}</p>
-                    <p>Address: {ecoElement.address}</p>
-                    <p>Date created: {ecoElement.dateCreatedExternal}</p>
+                    <p>Kategorie: {translationService(ecoElement.category)}</p>
+                    <p>Typ: {translationService(ecoElement.categorySub)}</p>
+                    <p>Addresse: {ecoElement.address}</p>
+                    <p>erstellt von: {ecoElement.creator}</p>
+                    <p>Erstelldatum: {ecoElement.dateCreatedExternal}</p>
                 </div> <br/>
 
                 <div>

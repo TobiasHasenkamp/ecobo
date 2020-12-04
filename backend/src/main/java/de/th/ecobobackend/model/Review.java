@@ -21,7 +21,7 @@ public class Review {
     Instant dateReviewedInternal;
     String reviewComment;
 
-    //Lombok/Spring doesnt update its setter correctly...
+    //Lombok/Spring doesnt update its setter correctly?...
     public boolean getPositive(){
         return positive;
     }

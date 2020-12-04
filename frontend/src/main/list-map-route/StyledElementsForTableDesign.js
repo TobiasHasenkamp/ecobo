@@ -9,12 +9,15 @@ export const StyledWrapperTable = styled.div`
   grid-template-columns: auto;
   border: black solid 1px;
   margin: 25px;
+  width: auto;
+  overflow: hidden;
 `
 
 export const StyledHeaderRow = styled.div`
     font-weight: bold;
     color: #ffffff;
-    font-size: 1.05em;
+    font-size: 4.5vw;
+    //font-size: 1.05em;
     padding: 6px 12px;
     display: table-cell;
     
@@ -51,7 +54,7 @@ export const StyledHeaderRow = styled.div`
     }
     
     &.orange{
-      background: #ff944d;
+      background: #eba434;
     }
     
     &.lightyellow{
@@ -59,12 +62,13 @@ export const StyledHeaderRow = styled.div`
     }
     
     &.green{
-      background: forestgreen;
+      background: var(--darkgreen);
     }
     
     &.lightgreen{
       background: #99ff99;
     }
+    
     &.lightgrey{
     background: #E0E0E0;
     color: black;
@@ -74,13 +78,15 @@ export const StyledHeaderRow = styled.div`
 export const StyledCell = styled.div`
   padding: 6px 12px;
   display: table-cell;
-    font-size: 0.8em;
+  //font-size: 0.8em;
+  font-size: 3.60vw;
 `
 
 export const StyledNameCell = styled.div`
   padding: 6px 12px;
   display: table-cell;
-  font-size: 0.9em;
+  //font-size: 0.9em;
+  font-size: 3.8vw;
   font-weight: bold;
 `
 
@@ -95,12 +101,14 @@ export const StyledElement = styled.div`
 
 export const StyledElementBody = styled.div`
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: minmax(40%, auto) auto;
+  justify-content: left;
 `
 
 export const StyledElementHeader = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr 0.12fr;
+  grid-template-columns: auto minmax(3px, auto) min-content;
+  font-size: 4.0vw;
 `
 
 export const StyledIconDiv = styled.div`

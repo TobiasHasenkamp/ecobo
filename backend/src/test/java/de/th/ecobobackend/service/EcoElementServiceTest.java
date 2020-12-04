@@ -7,6 +7,7 @@ import de.th.ecobobackend.model.enums.CategorySub;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.service.utils.EcoElementSeeder;
 import de.th.ecobobackend.utils.IDUtils;
+import de.th.ecobobackend.utils.TimestampUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -28,8 +30,9 @@ class EcoElementServiceTest {
     final EcoElementBuilder ecoElementBuilder = mock(EcoElementBuilder.class);
     final NewsfeedService newsfeedService = mock(NewsfeedService.class);
     final IDUtils idUtils = mock(IDUtils.class);
+    final TimestampUtils timestampUtils = mock(TimestampUtils.class);
     final EcoElementService ecoElementService = new EcoElementService(ecoElementMongoDB, ecoElementBuilder,
-                                                                        newsfeedService, idUtils);
+                                                                        newsfeedService, idUtils, timestampUtils);
     final EcoElementSeeder ecoElementSeeder = new EcoElementSeeder();
 
     @Test
@@ -124,8 +127,8 @@ class EcoElementServiceTest {
         Instant inputDateAsInstant = Instant.parse(inputDate);
 
         EcoElementDto incomingEcoElementDto = new EcoElementDto("Bioladen", Category.FOODSTORE, CategorySub.FOODSTORE_NORMAL,
-                "", "", "", "", "", "", "", true,
-                false, false, 1.0, 1.0, "Testperson");
+                "", "", "", "", "", "", "",
+                true, List.of("Veganes Angebot"), 1.0, 1.0, "Testperson");
 
         EcoElement expectedEcoElement = EcoElement.builder()
                 .id("123")
@@ -141,8 +144,7 @@ class EcoElementServiceTest {
                 .creator("Tobias")
                 .urlFacebook("")
                 .isInBochum(true)
-                .certificate1(false)
-                .certificate2(false)
+                .certificates(List.of("Veganes Angebot"))
                 .lon(1.0)
                 .lat(1.0)
                 .dateCreatedInternal(inputDateAsInstant)

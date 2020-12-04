@@ -1,18 +1,34 @@
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
+import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
+import translationService from "../services/translationService";
+import mapCertificates from "../services/mapCertificates";
 
-export default function FoodStoreList({ecoElements}){
+export default function OthersList({ecoElements}){
+
+    const [othersTableIsOpen, setOthersTableIsOpen] = useState(true);
+
+    function handleShowOthersTable(){
+        setOthersTableIsOpen(!othersTableIsOpen);
+    }
+
+    useEffect(() => {
+        setOthersTableIsOpen(true);
+    }, [])
+
 
     return (
 
-            <StyledWrapperTable name="Bioläden">
-                <StyledHeaderRow className="red">
-                    Bioläden
+            <StyledWrapperTable name="Sonstige">
+                <StyledHeaderRow className="green">
+                    {"Sonstige "}
+                    {othersTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>
+                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>}
                 </StyledHeaderRow>
-                {
-                    ecoElements?.filter(element => element.category === "FOODSTORE").map((element) => (
+                { othersTableIsOpen &&
+                    ecoElements?.filter(element => element.category === "OTHER").map((element) => (
                         <StyledElement key={element.id}>
                             <div/>
                             <StyledElementHeader>
@@ -28,10 +44,10 @@ export default function FoodStoreList({ecoElements}){
                             </StyledElementHeader>
                             <StyledElementBody>
                                 <StyledCell>
-                                    {element.categorySub}
+                                    {translationService(element.categorySub)}
                                 </StyledCell>
                                 <StyledCell>
-                                    Symbole...
+                                    {mapCertificates(element, "medium")}
                                 </StyledCell>
                             </StyledElementBody>
                             <div/>

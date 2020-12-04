@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EcoElementBuilder {
@@ -53,8 +54,7 @@ public class EcoElementBuilder {
                 .isReviewed(false)
                 .isShownOnMap(true)
                 .isInBochum(true)
-                //.certificate1(ecoElementDto.getCertificate1())
-                //.certificate2(ecoElementDto.getCertificate2())
+                .certificates(ecoElementDto.getCertificates())
                 .creator(ecoElementDto.getCreator())
                 .dateCreatedInternal(timestampUtils.generateTimeStamp())
                 .dateLastUpdatedInternal(timestampUtils.generateTimeStamp())
@@ -87,8 +87,7 @@ public class EcoElementBuilder {
                 .isReviewed(true)
                 .isShownOnMap(true)
                 .isInBochum(true)
-                .certificate1(true)
-                .certificate2(true)
+                .certificates(List.of("Veganes Angebot", "Abholservice"))
                 .creator("Tobias")
                 .dateCreatedInternal(timestampUtils.generateTimeStamp())
                 .dateLastUpdatedInternal(timestampUtils.generateTimeStamp())
@@ -132,12 +131,10 @@ public class EcoElementBuilder {
                 .isReviewed(existingEcoElement.getIsReviewed())
                 .isShownOnMap(true)
                 .isInBochum(true)
-                //.certificate1(ecoElementDto.getCertificate1())
-                //.certificate2(ecoElementDto.getCertificate2())
+                .certificates(ecoElementDto.getCertificates())
                 .creator(existingEcoElement.getCreator())
                 .dateCreatedInternal(existingEcoElement.getDateCreatedInternal())
                 .dateLastUpdatedInternal(timestampUtils.generateTimeStamp())
-                .dateReviewedInternal(null)
                 .dateCreatedExternal(existingEcoElement.getDateCreatedExternal())
                 .dateLastUpdatedExternal(timestampUtils.generateReadableDateStamp())
                 .dateReviewedExternal(existingEcoElement.getDateReviewedExternal())
@@ -150,7 +147,7 @@ public class EcoElementBuilder {
     }
 
     public EcoElement buildUpdatedEcoElementWithReview(ReviewDto reviewDto, EcoElement existingEcoElement,
-                                                       String ecoElementId, Principal principal) {
+                                                       String ecoElementId, Principal principal, Boolean deleteOldReview) {
         System.out.println(reviewDto.isPositive());
 
         Review newReview = Review.builder()
@@ -163,6 +160,11 @@ public class EcoElementBuilder {
                 .build();
 
         List<Review> newReviewList = existingEcoElement.getReviews();
+
+        if (deleteOldReview){
+            newReviewList = newReviewList.stream().filter((review) -> (!review.getAuthor()
+                                    .equals(principal.getName()))).collect(Collectors.toList());
+        }
         newReviewList.add(newReview);
 
         return EcoElement.builder()
@@ -182,8 +184,7 @@ public class EcoElementBuilder {
                 .isReviewed(existingEcoElement.getIsReviewed())
                 .isShownOnMap(existingEcoElement.getIsShownOnMap())
                 .isInBochum(existingEcoElement.getIsInBochum())
-                //.certificate1(ecoElementDto.getCertificate1())
-                //.certificate2(ecoElementDto.getCertificate2())
+                .certificates(existingEcoElement.getCertificates())
                 .creator(existingEcoElement.getCreator())
                 .dateCreatedInternal(existingEcoElement.getDateCreatedInternal())
                 .dateLastUpdatedInternal(timestampUtils.generateTimeStamp())

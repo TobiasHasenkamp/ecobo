@@ -5,7 +5,7 @@ import AccountPage from "./main/account-route/AccountPage";
 import BackgroundInfoPage from "./main/BackgroundInfoPage";
 import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
-import AddElementPage from "./main/list-route/AddElementPage";
+import AddElementPage from "./main/list-map-route/AddElementPage";
 import MapPage from "./main/MapPage";
 import NavBar from "./main/NavBar";
 import LoginPage from "./main/account-route/LoginPage";
@@ -15,11 +15,13 @@ import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider
 import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider";
 import styled from "styled-components/macro";
 import LoadingPage from "./main/LoadingPage";
-import EcoElementPage from "./main/list-route/EcoElementPage";
-import EditElementPage from "./main/list-route/EditElementPage";
-import DeletePage from "./main/list-route/DeletePage";
+import EcoElementPage from "./main/list-map-route/EcoElementPage";
+import EditElementPage from "./main/list-map-route/EditElementPage";
+import DeletePage from "./main/list-map-route/DeletePage";
 import NewsfeedContextProvider from "./main/contexts/NewsfeedContextProvider";
 import NewsfeedPage from "./main/NewsfeedPage";
+import FilterListContextProvider from "./main/contexts/FilterListContextProvider";
+import FrontendInputContextProvider from "./main/contexts/FrontendInputContextProvider";
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
   return (
 
       <LoginTokenContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider>
+          <FilterListContextProvider> <FrontendInputContextProvider>
 
           <StyledPageLayout>
               <Switch>
@@ -103,7 +106,8 @@ function App() {
 
         </StyledPageLayout>
 
-      </NewsfeedContextProvider> </EcoElementContextProvider> </LoginTokenContextProvider>
+          </FrontendInputContextProvider> </FilterListContextProvider> </NewsfeedContextProvider>
+      </EcoElementContextProvider> </LoginTokenContextProvider>
 
   );
 }
@@ -115,4 +119,12 @@ export default App;
 const StyledPageLayout = styled.div`
   width: 100vw;
   height: 100vh;
+  //overflow: scroll;
+  margin-top: 61px;
+`
+
+
+export const ScrollablePageLayout = styled.div`
+  overflow: scroll;
+  height: 100%;
 `
