@@ -20,6 +20,7 @@ public class JwtUtils {
     private String key;
 
     public String createToken(String username, Map<String,Object> claims){
+        System.out.println(("key is:" + key));
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)

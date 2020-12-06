@@ -30,6 +30,9 @@ public class LoginController {
     @PostMapping
     public String login(@RequestBody UserLoginDto loginDto){
 
+        System.out.println("Something has reached the loginController");
+        System.out.println(loginDto.getUsername());
+
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
