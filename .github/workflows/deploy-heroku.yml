@@ -61,13 +61,13 @@ jobs:
           path: backend/target
       - name: login to heroku container
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }} #corresponds to the github repo secrets
         run: heroku container:login
       - name: push docker container to heroku
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push web -a ecobo
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }} #corresponds to the github repo secrets
+        run: heroku container:push web -a ecobo-neuefische #this name corresponds to the app name on heroku.com
       - name: deploy/release docker container to heroku
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release web -a ecobo
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }} #corresponds to the github repo secrets
+        run: heroku container:release web -a ecobo-neuefische #this name corresponds to the app name on heroku.com
