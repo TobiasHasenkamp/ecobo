@@ -66,8 +66,8 @@ jobs:
       - name: push docker container to heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push web -a ecoBo
+        run: heroku container:push web -a ecobo
       - name: deploy/release docker container to heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release web -a ecoBo
+        run: heroku container:release web -a ecobo
