@@ -104,6 +104,11 @@ public class EcoElementBuilder {
 
     public EcoElement buildUpdatedEcoElement(EcoElementDto ecoElementDto, EcoElement existingEcoElement, String ecoElementId) {
 
+        String address = existingEcoElement.getAddress();
+        if (ecoElementDto.getAddress() != null){
+            address = ecoElementDto.getAddress();
+        }
+
         if (ecoElementDto.getCategorySub() == null){
             ecoElementDto.setCategorySub(CategorySub.NONE);
         }
@@ -122,7 +127,7 @@ public class EcoElementBuilder {
                 //the other attributes will be used later
                 //.subtitle(ecoElementDto.getSubtitle())
                 //.district(ecoElementDto.getDistrict())
-                .address(ecoElementDto.getAddress())
+                .address(address)
                 //.openingTimes(ecoElementDto.getOpeningTimes())
                 //.adminNote(ecoElementDto.getAdminNote())
                 //.url(ecoElementDto.getUrl())

@@ -14,17 +14,11 @@ import java.time.Instant;
 @Builder
 public class Review {
     @Id
-    String author;
-    boolean positive;
-    boolean fromAdmin;
-    String dateReviewedExternal;
-    Instant dateReviewedInternal;
-    String reviewComment;
-
-    //Lombok/Spring doesnt update its setter correctly?...
-    public boolean getPositive(){
-        return positive;
-    }
-
+    private String author;
+    private boolean positive;
+    private boolean fromAdmin;
+    private String dateReviewedExternal;
+    private Instant dateReviewedInternal;
+    private String reviewComment;
 
 }
