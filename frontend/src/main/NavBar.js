@@ -68,7 +68,7 @@ export default function NavBar() {
                     <MenuItem onClick={handleClickGallery}>Galerie</MenuItem>
                 </Menu>
 
-                <p>   </p>
+                <div/>
 
                 {
                     isLoggedIn ?
