@@ -21,9 +21,7 @@ export default function NewsfeedPage(){
     }, [token, setEcoElements]);
 
     useEffect(() => {
-        if (token && ecoElements){
-            getNewsfeed50(token, setNewsfeed50);
-        }
+        getNewsfeed50(token, setNewsfeed50);
     }, [setNewsfeed50, ecoElements, token])
 
 
