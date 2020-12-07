@@ -23,7 +23,7 @@ jobs:
           cd frontend
           npm run build
         env:
-          REACT_APP_GEOAPIFY_KEY: 7611146e203d46b7a43e78485065f463
+          REACT_APP_GEOAPIFY_KEY: $REACT_APP_GEOAPIFY_KEY
       - uses: actions/upload-artifact@v2
         with:
           name: frontend-build
