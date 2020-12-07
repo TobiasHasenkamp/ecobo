@@ -1,4 +1,3 @@
-import PageHeader from "./PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
 import {LayersControl, MapContainer, TileLayer} from "react-leaflet";
@@ -61,7 +60,6 @@ export default function MapPage() {
     return(
 
         <>
-            <PageHeader title="Kartenansicht"/>
             <TabBarWithIcons type="map"/>
             <BlackLineMedium/>
 
@@ -116,7 +114,7 @@ export default function MapPage() {
 
             </StyledContentDiv>
 
-            <AddItemButton/>
+            <AddItemButton bottomDistance="large"/>
         </>
 
     );

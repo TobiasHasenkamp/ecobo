@@ -1,4 +1,3 @@
-import PageHeader from "./PageHeader";
 import React, {useEffect, useContext} from "react";
 import styled from "styled-components/macro";
 import EcoElementContext from "./contexts/EcoElementContext";
@@ -29,7 +28,6 @@ export default function ListPage() {
 
         <div>
 
-            <PageHeader title="Listenansicht"/>
             <TabBarWithIcons type="list"/>
 
             <StyledWrapperDiv>
@@ -58,8 +56,7 @@ export default function ListPage() {
                 <StyledBottomDiv/>
 
             </StyledWrapperDiv>
-            <AddItemButton/>
-
+            <AddItemButton bottomDistance="normal"/>
 
         </div>
 
@@ -82,7 +79,7 @@ const StyledBottomDiv = styled.div`
   right: 0;
   bottom: 0;
   min-width: 100%;
-  min-height: 45px;
+  min-height: 72px;
   z-index: 10;
 `
 
