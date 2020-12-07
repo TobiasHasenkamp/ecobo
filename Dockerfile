@@ -1,7 +1,7 @@
 FROM openjdk:15-oracle
-#ENV ENVIRONMENT=prod
 MAINTAINER Tobias Hasenkamp <tobias.hasenkamp@gmail.com>
 ADD backend/target/ecoBo.jar app.jar
-#EXPOSE 5000
+ARG REACT_APP_GEOAPIFY_KEY
+ENV REACT_APP_GEOAPIFY_KEY=$REACT_APP_GEOAPIFY_KEY
 
-CMD ["sh" , "-c", "java -jar -Dserver.port=$PORT -Djwt.secretkey=$JWT_SECRETKEY -Dspring.data.mongodb.uri=$MONGO_DB_URI -DREACT_APP_GEOAPIFY_KEY=$REACT_APP_GEOAPIFY_KEY app.jar"]
+CMD ["sh" , "-c", "java -jar -Dserver.port=$PORT -Djwt.secretkey=$JWT_SECRETKEY -Dspring.data.mongodb.uri=$MONGO_DB_URI app.jar"]
