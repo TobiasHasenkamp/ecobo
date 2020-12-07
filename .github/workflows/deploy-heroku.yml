@@ -2,7 +2,7 @@ name: Deploy EcoBo to Heroku
 
 on:
   push:
-    branches: [ main, main-pre, main-pre2, main-pre3, main-pre4, main-pre5, main-pre6 ]
+    branches: [ main ]
 
 jobs:
   build-frontend:
@@ -23,7 +23,7 @@ jobs:
           cd frontend
           npm run build
         env:
-          REACT_APP_GEOAPIFY_KEY: $REACT_APP_GEOAPIFY_KEY
+          REACT_APP_GEOAPIFY_KEY: ${{ secrets.REACT_APP_GEOAPIFY_KEY }}
       - uses: actions/upload-artifact@v2
         with:
           name: frontend-build
