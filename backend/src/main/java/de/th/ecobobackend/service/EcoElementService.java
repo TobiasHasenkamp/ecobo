@@ -163,7 +163,7 @@ public class EcoElementService {
             }
 
             //if the EcoElement reaches the review threshold with this new review
-            List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.getPositive()).collect(Collectors.toList());
+            List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.isPositive()).collect(Collectors.toList());
 
             double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * positiveReviews.size();
             int numberOfPositiveReviews = positiveReviews.size();

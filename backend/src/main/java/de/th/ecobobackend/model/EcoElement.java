@@ -20,37 +20,37 @@ import java.util.List;
 public class EcoElement {
 
     @Id
-    String id;
-    String name;
-    Category category;
-    CategorySub categorySub;
-    String subtitle;
-    String district;
-    String address;
-    String openingTimes;
-    String adminNote;
-    String url;
-    String urlFacebook;
-    Double lon;
-    Double lat;
+    private String id;
+    private String name;
+    private Category category;
+    private CategorySub categorySub;
+    private String subtitle;
+    private String district;
+    private String address;
+    private String openingTimes;
+    private String adminNote;
+    private String url;
+    private String urlFacebook;
+    private Double lon;
+    private Double lat;
 
-    Boolean isVisible;
-    Boolean isReviewed;
-    Boolean isShownOnMap;
-    Boolean isInBochum;
+    private Boolean isVisible;
+    private Boolean isReviewed;
+    private Boolean isShownOnMap;
+    private Boolean isInBochum;
 
-    List<String> certificates;
+    private List<String> certificates;
 
-    String creator;
+    private String creator;
 
-    String dateCreatedExternal;
-    String dateLastUpdatedExternal;
-    String dateReviewedExternal;
+    private String dateCreatedExternal;
+    private String dateLastUpdatedExternal;
+    private String dateReviewedExternal;
 
-    Instant dateCreatedInternal;
-    Instant dateLastUpdatedInternal;
-    Instant dateReviewedInternal;
+    private Instant dateCreatedInternal;
+    private Instant dateLastUpdatedInternal;
+    private Instant dateReviewedInternal;
 
-    List<Review> reviews;
+    private List<Review> reviews;
 
 }

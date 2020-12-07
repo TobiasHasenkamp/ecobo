@@ -4,7 +4,6 @@ import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
-import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.service.utils.EcoElementSeeder;
 import de.th.ecobobackend.utils.IDUtils;
@@ -31,7 +30,7 @@ class EcoElementServiceTest {
     final EcoElementBuilder ecoElementBuilder = mock(EcoElementBuilder.class);
     final NewsfeedService newsfeedService = mock(NewsfeedService.class);
     final IDUtils idUtils = mock(IDUtils.class);
-    final TimestampUtils timestampUtils = mock(TimestampUtils.class);
+    final TimestampUtils timestampUtils = new TimestampUtils();
     final EcoElementService ecoElementService = new EcoElementService(ecoElementMongoDB, ecoElementBuilder,
                                                                         newsfeedService, idUtils, timestampUtils);
     final EcoElementSeeder ecoElementSeeder = new EcoElementSeeder();
