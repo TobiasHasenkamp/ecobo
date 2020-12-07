@@ -105,7 +105,7 @@ public class EcoElementBuilder {
     public EcoElement buildUpdatedEcoElement(EcoElementDto ecoElementDto, EcoElement existingEcoElement, String ecoElementId) {
 
         String address = existingEcoElement.getAddress();
-        if (ecoElementDto.getAddress() != null){
+        if (ecoElementDto.getAddress() != null && !ecoElementDto.getAddress().equals("")){
             address = ecoElementDto.getAddress();
         }
 
