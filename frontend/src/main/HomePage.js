@@ -1,9 +1,9 @@
 import styled from "styled-components/macro";
 import React from "react";
 import NewsfeedComponent from "./NewsfeedComponent";
-import EmptyDivToClosePage from "./designElements/EmptyDivToClosePage";
 import GreenBoxSmall from "./designElements/GreenBoxSmall";
 import {Link} from "react-router-dom";
+import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
 
 export default function HomePage() {
 
@@ -14,6 +14,7 @@ export default function HomePage() {
                 <FlexDiv>
                     <StyledHomeImage src="homePhoto1.jpg"/>
                 </FlexDiv>
+                <GradientBorderlineTop/>
 
                 <GreenBoxSmall/>
 
@@ -36,10 +37,7 @@ export default function HomePage() {
 
                 <NewsfeedComponent/>
 
-                <EmptyDivToClosePage/>
-
             </ScrollDiv>
-
 
         </>
 
@@ -59,7 +57,8 @@ const StyledHomeImage = styled.img`
 
 const StyledHomePageMenu = styled.div`
   display: grid;
-  grid-template-columns: 15px 1fr 15px 1fr 15px; 
+  grid-template-columns: 15px 1fr 15px 1fr 15px;
+  background-color: var(--darkgreen);
   margin: 0;
   padding: 0;
 `
@@ -77,11 +76,13 @@ const ScrollDiv = styled.div`
 
 const StyledMapElement = styled.div`
   height: 115px;
-  margin: 8px 8px 8px 8px;
+  //margin: 8px 8px 8px 8px;
+  border: white solid 8px;
+  border-radius: 4%;
   overflow: hidden;
   text-align: center;
   position: relative;
-  background-image: linear-gradient(to right, white , darkgray);;
+  background-color: white;
   
   div {
       color: var(--darkgrey);
