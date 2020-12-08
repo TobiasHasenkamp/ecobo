@@ -310,7 +310,6 @@ class EcoElementControllerTest {
 
 
         //When
-        when(idUtils.generateID()).thenReturn("12345");
         when(timestampUtils.generateTimeStamp()).thenReturn(Instant.parse("2020-12-05T10:00:00.00Z"));
         when(timestampUtils.generateReadableDateStamp()).thenReturn("05.12.2020");
 
@@ -359,7 +358,6 @@ class EcoElementControllerTest {
 
 
         //When
-        when(idUtils.generateID()).thenReturn("12345");
         when(timestampUtils.generateTimeStamp()).thenReturn(Instant.parse("2020-12-05T10:00:00.00Z"));
         when(timestampUtils.generateReadableDateStamp()).thenReturn("05.12.2020");
 
@@ -373,6 +371,84 @@ class EcoElementControllerTest {
         assertThat(response.getBody(), is(newEcoElement));
     }
 
+    @Test
+    public void testUpdateEcoElementShouldThrowWithBadLogin() {
 
+        //Given
+        EcoElement existingEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 10").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of()).adminNote("")
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
+                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(true)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
+
+        ecoElementMongoDB.save(existingEcoElement);
+
+        EcoElementDto newEcoElementDto = new EcoElementDto("Testrestaurant", Category.RESTAURANT,
+                CategorySub.RESTAURANT_RESTAURANT, "", "Riemke", "Verkehrsstrasse 17",
+                "", "", "", "", true,
+                List.of(), 5.0, 5.0, "Tobias");
+
+        //When
+        when(timestampUtils.generateTimeStamp()).thenReturn(Instant.parse("2020-12-05T10:00:00.00Z"));
+        when(timestampUtils.generateReadableDateStamp()).thenReturn("05.12.2020");
+
+        HttpEntity<EcoElementDto> entity = getInvalidAuthorizationEntity(newEcoElementDto);
+        ResponseEntity<EcoElement> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/12345", HttpMethod.PUT,
+                        entity, EcoElement.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
+    }
+
+    @Test
+    public void testUpdateEcoElementShouldThrowWithBadID() {
+
+        //Given
+        EcoElement existingEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 10").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of()).adminNote("")
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
+                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(true)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
+
+        ecoElementMongoDB.save(existingEcoElement);
+
+        EcoElementDto newEcoElementDto = new EcoElementDto("Testrestaurant", Category.RESTAURANT,
+                CategorySub.RESTAURANT_RESTAURANT, "", "Riemke", "Verkehrsstrasse 17",
+                "", "", "", "", true,
+                List.of(), 5.0, 5.0, "Tobias");
+
+        //When
+        when(timestampUtils.generateTimeStamp()).thenReturn(Instant.parse("2020-12-05T10:00:00.00Z"));
+        when(timestampUtils.generateReadableDateStamp()).thenReturn("05.12.2020");
+
+        HttpEntity<EcoElementDto> entity = getValidAuthorizationEntity(newEcoElementDto);
+        ResponseEntity<EcoElement> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/12345678", HttpMethod.PUT,
+                        entity, EcoElement.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    //Test for successful add Review
+
+    //Test for successful add Review that overwrites existing ones
+
+    //Test for add Review with bad Login
+
+    //Test for successful Delete
+
+    //Test for wrong Delete cause wrong ID
+
+    //Test for wrong Delete cause wrong user
 
 }
