@@ -21,6 +21,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class EcoElementBuilderTest {
 
@@ -297,7 +298,7 @@ class EcoElementBuilderTest {
     @DisplayName("The build method should add a positive review to an existing EcoElement")
     void buildUpdatedEcoElementWithReviewShouldOnlyAddAPositiveNewReview(){
         //When
-        Mockito.when(mockedPrincipal.getName()).thenReturn("Max Mustermann");
+        when(mockedPrincipal.getName()).thenReturn("Max Mustermann");
         EcoElement receivedEcoElement = ecoElementBuilder.buildUpdatedEcoElementWithReview(incomingPositiveReviewDto,
                 exampleEcoElementWithEmptyReviews, "123", mockedPrincipal, false);
 
@@ -320,7 +321,7 @@ class EcoElementBuilderTest {
     @DisplayName("The build method should add a negative review to an existing EcoElement")
     void buildUpdatedEcoElementWithReviewShouldOnlyAddANegativeNewReview(){
         //When
-        Mockito.when(mockedPrincipal.getName()).thenReturn("Max Mustermann");
+        when(mockedPrincipal.getName()).thenReturn("Max Mustermann");
         EcoElement receivedEcoElement = ecoElementBuilder.buildUpdatedEcoElementWithReview(incomingNegativeReviewDto,
                 exampleEcoElementWithEmptyReviews, "123", mockedPrincipal, false);
 
@@ -343,7 +344,7 @@ class EcoElementBuilderTest {
     @DisplayName("The build method should add a negative review to an existing EcoElement with two existing reviews")
     void buildUpdatedEcoElementWithReviewShouldAddAReviewToExistingReviewList(){
         //When
-        Mockito.when(mockedPrincipal.getName()).thenReturn("Max Mustermann");
+        when(mockedPrincipal.getName()).thenReturn("Max Mustermann");
         EcoElement receivedEcoElement = ecoElementBuilder.buildUpdatedEcoElementWithReview(incomingNegativeReviewDto,
                 exampleEcoElementWithFilledReviews, "123", mockedPrincipal, false);
 
@@ -368,7 +369,7 @@ class EcoElementBuilderTest {
             "and overwrite an existing Review of the same user.")
     void buildUpdatedEcoElementWithReviewShouldAddAReviewToExistingReviewListAndOverwriteExistingReview(){
         //When
-        Mockito.when(mockedPrincipal.getName()).thenReturn("Max Mustermann");
+        when(mockedPrincipal.getName()).thenReturn("Max Mustermann");
         EcoElement receivedEcoElement = ecoElementBuilder.buildUpdatedEcoElementWithReview(incomingPositiveReviewDto,
                 exampleEcoElementWithFilledAndDuplicateReviews, "123", mockedPrincipal, true);
 
