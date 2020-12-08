@@ -1,10 +1,9 @@
 import styled from "styled-components/macro";
 import React from "react";
-import {Link} from "react-router-dom";
-import GreenBoxLargeWithGradientBorderline from "./designElements/GreenBoxLargeWithGradientBorderline";
-
 import NewsfeedComponent from "./NewsfeedComponent";
-import EmptyDivToClosePage from "./designElements/EmptyDivToClosePage";
+import GreenBoxSmall from "./designElements/GreenBoxSmall";
+import {Link} from "react-router-dom";
+import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
 
 export default function HomePage() {
 
@@ -15,20 +14,30 @@ export default function HomePage() {
                 <FlexDiv>
                     <StyledHomeImage src="homePhoto1.jpg"/>
                 </FlexDiv>
-                <GreenBoxLargeWithGradientBorderline/>
+                <GradientBorderlineTop/>
+
+                <GreenBoxSmall/>
 
                 <StyledHomePageMenu>
-                    <p><Link to="/bo/map">Eco Map</Link></p>
-                    {/*<p><Link to="/features">Features</Link></p>
-                    <p><Link to="/infos">Hintergrundinfos</Link></p>*/}
+                    <StyledGreenColumn/>
+                    <StyledMapElement>
+                        <StyledImage src="/mapPicture.png" alt="Map picture" />
+                        <div><Link to="/bo/map">Zur Karte</Link></div>
+                    </StyledMapElement>
+                    <StyledGreenColumn/>
+                    <StyledMapElement>
+                        <StyledImage src="/listImage.png" alt="Map picture" />
+                        <div><Link to="/bo/list">Zur Liste</Link></div>
+                    </StyledMapElement>
+                    <StyledGreenColumn/>
+
                 </StyledHomePageMenu>
+
+                <GreenBoxSmall/>
 
                 <NewsfeedComponent/>
 
-                <EmptyDivToClosePage/>
-
             </ScrollDiv>
-
 
         </>
 
@@ -43,31 +52,15 @@ const StyledHomeImage = styled.img`
   border-top: ghostwhite solid 4px;
   max-height: 250px;
   max-width: 450px;
+  grid-gap: 0;
 `
 
 const StyledHomePageMenu = styled.div`
-  display: block;
-  text-align: center;
-  margin: 35px;
-  
-  p {
-    color: black;
-    margin: 14px;
-    font-size: 1.5em;
-    text-align: center;
-    text-shadow: 0.6px 0.6px 0.3px var(--grey);
-  }
-  
-  a {
-     color: var(--darkgrey);
-     text-decoration: none;
-     :hover {
-         color: var(--darkgrey2);
-      }
-     :active {
-         color: var(--lightgrey);
-      }
-    }
+  display: grid;
+  grid-template-columns: 15px 1fr 15px 1fr 15px;
+  background-color: var(--darkgreen);
+  margin: 0;
+  padding: 0;
 `
 
 const FlexDiv = styled.div`
@@ -81,3 +74,49 @@ const ScrollDiv = styled.div`
   height: 100%;
 `
 
+const StyledMapElement = styled.div`
+  height: 115px;
+  //margin: 8px 8px 8px 8px;
+  border: white solid 8px;
+  border-radius: 4%;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  background-color: white;
+  
+  div {
+      color: var(--darkgrey);
+      font-size: 1.5em;
+      font-weight: bold;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  
+  a {
+      color: var(--darkgrey);
+      text-decoration: none;
+      
+      :hover {
+          color: var(--darkgrey);
+      }
+      
+      :active {
+          color: var(--darkgrey);
+      }
+      
+    }
+`
+
+const StyledGreenColumn = styled.div`
+  background-color: var(--darkgreen);
+  height: 131px;
+`
+
+const StyledImage = styled.img`
+    height: 110%;
+    width: 110%;
+    opacity: 65%;
+    overflow: hidden;
+`

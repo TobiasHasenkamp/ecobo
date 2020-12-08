@@ -6,6 +6,9 @@ import LoginTokenContext from "./contexts/LoginTokenContext";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {useHistory} from "react-router-dom";
+import {GiHamburgerMenu} from "react-icons/gi";
+import {FiUser} from "react-icons/fi";
+import {CgLogIn} from "react-icons/cg";
 
 export default function NavBar() {
 
@@ -48,7 +51,9 @@ export default function NavBar() {
         <>
             <StyledNavBar>
 
-                <p onClick={handleClick}>Menü </p>
+                <StyledNavBarButton onClick={handleClick}><GiHamburgerMenu/>
+                    <StyledNavBarText>Menü</StyledNavBarText>
+                </StyledNavBarButton>
 
                 <Menu
                     id="mainMenu"
@@ -63,12 +68,20 @@ export default function NavBar() {
                     <MenuItem onClick={handleClickGallery}>Galerie</MenuItem>
                 </Menu>
 
-                <p>   </p>
+                <div/>
 
                 {
                     isLoggedIn ?
-                        <Link to={linkToAccountPage}> <p>Konto</p> </Link> :
-                        <Link to="/login"> <p>Login</p> </Link>
+                        <Link to={linkToAccountPage} style={{margin:"auto"}}>
+                            <StyledNavBarButton><FiUser/>
+                                <StyledNavBarText style={{marginLeft: "6px"}}>Konto</StyledNavBarText>
+                            </StyledNavBarButton>
+                        </Link> :
+                        <Link to="/login" style={{margin:"auto"}}>
+                            <StyledNavBarButton><CgLogIn/>
+                                <StyledNavBarText style={{marginLeft: "7px"}}>Login</StyledNavBarText>
+                            </StyledNavBarButton>
+                        </Link>
                 }
 
 
@@ -103,4 +116,17 @@ const StyledNavBar = styled.div`
         color: black;
       }
   }
+`
+
+const StyledNavBarButton = styled.div`
+  font-size: 1.4em;
+  display: grid;
+  grid-template-columns: auto auto;
+  margin: auto;
+`
+
+const StyledNavBarText = styled.div`
+  font-size: 0.78em;
+  margin-left: 10px;
+  margin-top: 3px;
 `

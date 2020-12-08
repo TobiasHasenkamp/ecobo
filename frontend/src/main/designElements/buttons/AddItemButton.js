@@ -1,10 +1,9 @@
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
 import React from "react";
 import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom";
+import {BsPlus} from "react-icons/bs";
 
-export default function AddItemButton() {
+export default function AddItemButton({bottomDistance}) {
 
     const history = useHistory();
 
@@ -12,28 +11,38 @@ export default function AddItemButton() {
         history.push("/bo/addElement");
     }
 
-    return(
+    if (bottomDistance === "normal"){
+        return(
 
-        <StyledActionButton>
-            <Fab color="primary" aria-label="add" size="medium" onClick={handleAddElementButton}>
-                <AddIcon />
-            </Fab>
-        </StyledActionButton>
-    )
+            <StyledActionButton>
+                    <BsPlus onClick={handleAddElementButton}/>
+            </StyledActionButton>
+        )
+    }
 
+    else if (bottomDistance === "large"){
+        return(
+
+            <StyledActionButton style={{bottom: "40px"}}>
+                <BsPlus onClick={handleAddElementButton}/>
+            </StyledActionButton>
+        )
+    }
 }
 
 
 const StyledActionButton = styled.div`
-  margin: 0;
-  padding: 0;
+  padding: 10px 10px 5px 10px;
+  border-radius: 50%;
   align-self: flex-start;
-  background: transparent;
+  background: var(--darkgreen);
+  opacity: 85%;
   border: none;
   font: inherit;
-  color: inherit;
   position: fixed;
   right: 25px;
-  bottom: 15px;
+  bottom: 12px;
   z-index: 1000;
+  font-size: 1.8em;
+  color: white;
 `
