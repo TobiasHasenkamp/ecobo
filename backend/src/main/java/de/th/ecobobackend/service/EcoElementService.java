@@ -95,11 +95,11 @@ public class EcoElementService {
             }
             else{
                 //have name, category, subcategory, address or certificates changed? then reset any review process or restart one
-                if (existingEcoElement.getCategory().equals(ecoElementDto.getCategory()) ||
-                        existingEcoElement.getCategorySub().equals(ecoElementDto.getCategorySub()) ||
-                        existingEcoElement.getName().equals(ecoElementDto.getName()) ||
-                        existingEcoElement.getAddress().equals(ecoElementDto.getAddress()) ||
-                        existingEcoElement.getCertificates().equals(ecoElementDto.getCertificates())) {
+                if (!existingEcoElement.getCategory().equals(ecoElementDto.getCategory()) ||
+                        !existingEcoElement.getCategorySub().equals(ecoElementDto.getCategorySub()) ||
+                        !existingEcoElement.getName().equals(ecoElementDto.getName()) ||
+                        !existingEcoElement.getAddress().equals(ecoElementDto.getAddress()) ||
+                        !existingEcoElement.getCertificates().equals(ecoElementDto.getCertificates())) {
 
                         existingEcoElement.setIsReviewed(false);
                         existingEcoElement.setReviews(List.of());
