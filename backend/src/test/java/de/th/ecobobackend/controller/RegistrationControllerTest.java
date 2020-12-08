@@ -1,12 +1,9 @@
 package de.th.ecobobackend.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 import de.th.ecobobackend.model.UserProfile;
 import de.th.ecobobackend.model.dto.UserLoginDto;
 import de.th.ecobobackend.mongoDB.UserProfileMongoDB;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.Instant;
-import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
@@ -43,7 +38,7 @@ class RegistrationControllerTest {
     private final String secretKey = "12345678910";
 
     @BeforeEach
-    public void setupUser() {
+    public void setupUsers() {
         userProfileMongoDB.deleteAll();
     }
 

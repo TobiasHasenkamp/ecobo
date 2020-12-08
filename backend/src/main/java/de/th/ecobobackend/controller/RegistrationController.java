@@ -23,8 +23,6 @@ public class RegistrationController {
     @PostMapping
     public String registration(@RequestBody UserLoginDto loginDto) {
 
-        System.out.println(loginDto.getUsername());
-
         String usernameToRegister = loginDto.getUsername();
         String passwordToRegister = loginDto.getPassword();
 

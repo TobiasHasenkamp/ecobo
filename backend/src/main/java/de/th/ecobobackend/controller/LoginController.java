@@ -30,16 +30,13 @@ public class LoginController {
     @PostMapping
     public String login(@RequestBody UserLoginDto loginDto){
 
-        System.out.println("Something has reached the loginController");
-        System.out.println(loginDto.getUsername());
-
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
         try {
             authenticationManager.authenticate(authenticationToken);
         } catch (AuthenticationException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Username or Password");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Wrong Username or Password");
         }
 
         return jwtUtils.createToken(loginDto.getUsername(), new HashMap<>());
