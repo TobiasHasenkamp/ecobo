@@ -129,8 +129,4 @@ class NewsfeedControllerTest {
 
     }
 
-
-
-
-
 }
