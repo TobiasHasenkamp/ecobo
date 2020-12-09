@@ -20,13 +20,10 @@ export default function GreenBoxWithGradientBorderlineUntilSiteEnds () {
 const StyledDarkGreenBox = styled.div`
   width: 100%;
   background-color: var(--darkgreen);
-  min-height: 270px;
-  max-height: 270px;
+  height: 138px;
 `
 
 const StyledDiv = styled.div`
   width: 100%;
   background-color: var(--darkgreen);
-  min-height: 250px;
-  max-height: 350px;
 `

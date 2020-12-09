@@ -31,7 +31,7 @@ public class RegistrationController {
 
         //check if the passwords is safe enough
         //first general tests
-        if (passwordToRegister.length() < 2 || passwordToRegister.isBlank()) {
+        if (passwordToRegister.length() < 3 || passwordToRegister.isBlank()) {
             return "Password is unsafe. It needs at least 3 characters";
         }
         //second test whether password has at least one digit

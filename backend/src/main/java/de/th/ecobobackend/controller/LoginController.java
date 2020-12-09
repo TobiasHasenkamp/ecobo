@@ -36,7 +36,7 @@ public class LoginController {
         try {
             authenticationManager.authenticate(authenticationToken);
         } catch (AuthenticationException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Username or Password");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Wrong Username or Password");
         }
 
         return jwtUtils.createToken(loginDto.getUsername(), new HashMap<>());

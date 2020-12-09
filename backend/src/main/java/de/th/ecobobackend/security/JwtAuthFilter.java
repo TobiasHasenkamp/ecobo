@@ -23,23 +23,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        //later rewrite this section so that it only is active on certain requests and else returns true
-        //is this really the way this works btw? should the JwtAuthFilter really block requests that are not allowed, should this filter not just forward to the main filter?
-
-        if (request.getServletPath().matches("/auth/login")){
-            return true;
-        }
-        if (request.getServletPath().contains("/acc/userdata")){
-            return true;
-        }
-        if (request.getServletPath().contains("/api/newsfeed")){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
@@ -65,10 +48,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 System.out.println("Login was successful.");
             }
         } catch (Exception e){
-            System.out.println(e);
+            System.out.println("User is not logged in.");
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);
 
     }
+
 }

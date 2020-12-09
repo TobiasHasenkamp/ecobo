@@ -3,6 +3,7 @@ package de.th.ecobobackend.controller;
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.dto.ReviewDto;
+import de.th.ecobobackend.security.MongoDBUserDetailsService;
 import de.th.ecobobackend.service.EcoElementService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,12 @@ import java.util.Optional;
 public class EcoElementController {
 
     private final EcoElementService ecoElementService;
+    private final MongoDBUserDetailsService mongoDBUserDetailsService;
 
     @Autowired
-    public EcoElementController(EcoElementService ecoElementService){
+    public EcoElementController(EcoElementService ecoElementService, MongoDBUserDetailsService mongoDBUserDetailsService){
         this.ecoElementService = ecoElementService;
+        this. mongoDBUserDetailsService = mongoDBUserDetailsService;
     }
 
 
@@ -38,23 +41,33 @@ public class EcoElementController {
     @GetMapping("{ecoElementId}")
     public EcoElement getEcoElementById(@PathVariable @NonNull Optional<String> ecoElementId){
         if (ecoElementId.isPresent()){
-            System.out.println("test");
             return ecoElementService.findById(ecoElementId.get());
         }
-        System.out.println("test2");
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
+    @PostMapping("/protected")
     public EcoElement postEcoElement(@RequestBody EcoElementDto ecoElementDto, Principal principal) {
+
+        if (principal == null ||
+                !mongoDBUserDetailsService.loadUserByUsername(principal.getName()).getUsername().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         ecoElementDto.setCreator(principal.getName());
         return ecoElementService.addEcoElement(ecoElementDto);
     }
 
-    @PutMapping("{ecoElementId}")
+    @PutMapping("/protected/{ecoElementId}")
     public EcoElement updateEcoElement(@RequestBody EcoElementDto ecoElementDto,
                                        @PathVariable @NonNull Optional<String> ecoElementId,
                                        Principal principal) {
+
+        //additional security check (should not be necessary, as the filter already blocks this request)
+        if (principal == null ||
+                !mongoDBUserDetailsService.loadUserByUsername(principal.getName()).getUsername().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 
         if (ecoElementId.isPresent()){
             return ecoElementService.updateEcoElement(ecoElementDto, ecoElementId.get(), principal);
@@ -62,10 +75,16 @@ public class EcoElementController {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping("/review/{ecoElementId}")
+    @PutMapping("/protected/review/{ecoElementId}")
     public EcoElement addReviewToEcoElement(@RequestBody ReviewDto reviewDto,
                                             @PathVariable @NonNull Optional<String> ecoElementId,
                                             Principal principal) {
+
+        //additional security check (should not be necessary, as the filter already blocks this request)
+        if (principal == null ||
+                !mongoDBUserDetailsService.loadUserByUsername(principal.getName()).getUsername().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 
         if (ecoElementId.isPresent()) {
             return ecoElementService.addReviewToEcoElement(ecoElementId.get(), reviewDto, principal);
@@ -73,15 +92,29 @@ public class EcoElementController {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("{ecoElementId}")
+    @DeleteMapping("protected/{ecoElementId}")
     public void deleteEcoElement(@PathVariable @NonNull Optional<String> ecoElementId, Principal principal){
+
+        //additional security check (should not be necessary, as the filter already blocks this request)
+        if (principal == null ||
+                !mongoDBUserDetailsService.loadUserByUsername(principal.getName()).getUsername().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         if (ecoElementId.isPresent()) {
             ecoElementService.deleteEcoElement(ecoElementId.get(), principal);
         }
     }
 
-    @PostMapping("/random")
-    public EcoElement postRandomEcoElement() {
+    @PostMapping("protected//random")
+    public EcoElement postRandomEcoElement(Principal principal) {
+
+        //additional security check (should not be necessary, as the filter already blocks this request)
+        if (principal == null ||
+                !mongoDBUserDetailsService.loadUserByUsername(principal.getName()).getUsername().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         return ecoElementService.addRandomEcoElement();
     }
 

@@ -47,7 +47,7 @@ public class UserProfileService {
             user.get().setPassword("");
             return user.get();
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
 
     public UserProfile registerNewUser(UserLoginDto userLoginDto, String encryptedPassword){

@@ -8,7 +8,7 @@ export const StyledWrapperTable = styled.div`
   display: grid;
   grid-template-columns: auto;
   border: black solid 1px;
-  margin: 25px;
+  margin: 20px 25px;
   width: auto;
   overflow: hidden;
 `

@@ -18,11 +18,11 @@ import java.time.Instant;
 public class NewsfeedElement {
 
     @Id
-    String id;
-    NewsfeedType type;
-    String message;
-    long number;
-    String dateExternal;
-    Instant dateInternal;
-    String linkedElement;
+    private String id;
+    private NewsfeedType type;
+    private String message;
+    private long number;
+    private String dateExternal;
+    private Instant dateInternal;
+    private String linkedElement;
 }

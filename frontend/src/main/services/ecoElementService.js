@@ -24,27 +24,27 @@ export const getEcoElementById = (ecoElementIdFromParam, token, setEcoElement) =
 };
 
 export const addEcoElement = (name, category, categorySub, address, lon, lat, certificates, token, setEcoElement) => {
-    axios.post("/api/elements/", {name, category, categorySub, address, lat, lon, certificates}, header(token))
+    axios.post("/api/elements/protected/", {name, category, categorySub, address, lat, lon, certificates}, header(token))
         .then((response) => response.data)
         .then(setEcoElement)
         .catch(console.log);
 };
 
 export const updateEcoElement = (name, id, category, categorySub, address, lon, lat, token, setEcoElement, certificates) => {
-    axios.put("/api/elements/" + id, {name, category, categorySub, lat, lon, certificates}, header(token))
+    axios.put("/api/elements/protected/" + id, {name, category, categorySub, lat, lon, certificates, address}, header(token))
         .then((response) => response.data)
         .then(setEcoElement)
         .catch(console.log);
 };
 
 export const addReviewToEcoElement = (ecoElementId, positive, reviewComment, token, setEcoElement) => {
-    axios.put("/api/elements/review/" + ecoElementId, {positive, reviewComment}, header(token))
+    axios.put("/api/elements/protected/review/" + ecoElementId, {positive, reviewComment}, header(token))
         .then((response) => response.data)
         .then(setEcoElement)
         .catch(console.log);
 }
 
 export const deleteEcoElement = (id, token) => {
-    axios.delete("/api/elements/" + id, header(token)).then()
+    axios.delete("/api/elements/protected/" + id, header(token)).then()
         .catch(console.log);
 };

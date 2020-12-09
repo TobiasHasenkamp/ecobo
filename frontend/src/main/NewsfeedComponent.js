@@ -22,9 +22,7 @@ export default function NewsfeedComponent(){
 
 
     useEffect(() => {
-        if (token && ecoElements){
-            getNewsfeed5(token, setNewsfeed5);
-        }
+        getNewsfeed5(token, setNewsfeed5);
     }, [setNewsfeed5, ecoElements, token])
 
 
