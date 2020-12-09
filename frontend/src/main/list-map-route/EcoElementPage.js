@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
-import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
-    StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
+import {
+    StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
+    StyledCell, StyledIconDiv, StyledElementBody, StyledDoubleCell, StyledElementBodyOneCell
+} from "./StyledElementsForTableDesign";
 import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/EcoElementContext";
 import LoginTokenContext from "../contexts/LoginTokenContext";
@@ -118,24 +120,20 @@ export default function EcoElementPage(){
                                 </StyledElementHeader>
 
                                 {/*Adresse*/}
-                                <StyledElementBody>
+                                <StyledElementBodyOneCell>
                                     <StyledCell>
                                         {ecoElement.address}
                                     </StyledCell>
-                                    <StyledCell>
-                                    </StyledCell>
-                                </StyledElementBody>
+                                </StyledElementBodyOneCell>
 
                                 {/*Stadtteil + Stadt*/}
-                                <StyledElementBody>
+                                <StyledElementBodyOneCell>
                                     <StyledCell>
                                         {ecoElement.district?
                                             ecoElement.district + ", Bochum"
                                             : "Bochum"}
                                     </StyledCell>
-                                    <StyledCell>
-                                    </StyledCell>
-                                </StyledElementBody>
+                                </StyledElementBodyOneCell>
 
                                 {/*Öffnungszeiten*/}
                                 <StyledElementBody>

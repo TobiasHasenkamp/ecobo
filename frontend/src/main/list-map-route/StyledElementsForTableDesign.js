@@ -80,6 +80,7 @@ export const StyledCell = styled.div`
   display: table-cell;
   //font-size: 0.8em;
   font-size: 3.60vw;
+  
 `
 
 export const StyledNameCell = styled.div`
@@ -101,7 +102,13 @@ export const StyledElement = styled.div`
 
 export const StyledElementBody = styled.div`
   display: grid;
-  grid-template-columns: minmax(40%, auto) auto;
+  grid-template-columns: 47% 53%;
+  justify-content: left;
+`
+
+export const StyledElementBodyOneCell = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
   justify-content: left;
 `
 
