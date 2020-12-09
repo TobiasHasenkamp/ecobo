@@ -35,7 +35,12 @@ public class UserDataController {
         }
 
         if (username.isPresent()){
-            return userProfileService.getUserDataByUsername(username.get());
+            if (username.get().equals(principal.getName())){
+                return userProfileService.getUserDataByUsername(username.get());
+            }
+            else {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
