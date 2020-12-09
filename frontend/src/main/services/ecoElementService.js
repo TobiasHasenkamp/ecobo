@@ -48,3 +48,11 @@ export const deleteEcoElement = (id, token) => {
     axios.delete("/api/elements/protected/" + id, header(token)).then()
         .catch(console.log);
 };
+
+export const getDistrictList = (token, setDistrictList) => {
+    axios.get("/api/elements/districtlist/",
+        header(token))
+        .then((response) => response.data)
+        .then((data) => {setDistrictList(data)})
+        .catch(console.log);
+};

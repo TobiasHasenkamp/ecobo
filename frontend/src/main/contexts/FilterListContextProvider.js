@@ -12,7 +12,7 @@ export default function FilterListContextProvider({children}){
 
     //Use-effect to check if filter is active
     useEffect(() => {
-        if (filterListForCategory.length === 0 && filterListForCertificates.length === 0 && filterListForCertificates.length === 0){
+        if (filterListForCategory.length === 0 && filterListForCertificates.length === 0 && filterListForLocation.length === 0){
             setFilterIsActive(false);
             //console.log("Filter is not active")
         }
@@ -68,13 +68,15 @@ export default function FilterListContextProvider({children}){
     }
 
     function returnFilterLocation(element){
-        //return true if elements district is one of the searched districts
-        /*if (filterListLocation.some(filterElement => element.district === filterElement)){
-            return true;
+
+        if (filterListForLocation.length !== 0) {
+            //return true if element belongs to searched category
+            if (filterListForLocation.some(filterElement => element.district === filterElement)) {
+                return true;
+            } else {
+                return false;
+            }
         }
-        else {
-            return false;
-        }*/
         return true;
     }
 
