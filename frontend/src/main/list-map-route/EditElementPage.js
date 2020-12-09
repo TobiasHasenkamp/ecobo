@@ -11,6 +11,7 @@ import translationService from "../services/translationService";
 import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
 import Menu from "@material-ui/core/Menu";
 import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuItemsForAddElement";
+import FilterListContext from "../contexts/FilterListContext";
 
 export default function EditElementPage() {
 
@@ -26,6 +27,7 @@ export default function EditElementPage() {
     const {ecoElementIDParam} = useParams();
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [certificatesToAddList, setCertificatesToAddList] = useState([]);
+    const {setShowNonReviewedItems} = useContext(FilterListContext);
 
     useEffect(() => {
 
@@ -101,6 +103,7 @@ export default function EditElementPage() {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
             updateEcoElement(name, ecoElement.id, category, categorySub, district, address, finalLat, finalLon, token, setEcoElement, certificatesToAddList);
+            setShowNonReviewedItems(true);
             history.push("/loading/map");
         }
 
@@ -134,6 +137,7 @@ export default function EditElementPage() {
             setButtonHasBeenClicked(false);
             const district = ecoElement.district;
             updateEcoElement(name, ecoElement.id, category, categorySub, district, address, ecoElement.lon, ecoElement.lat, token, setEcoElement, certificatesToAddList);
+            setShowNonReviewedItems(true);
             history.push("/loading/map");
         }
         else {
