@@ -44,7 +44,7 @@ public class EcoElementBuilder {
                 .categorySub(ecoElementDto.getCategorySub())
                 //the other attributes will be used later
                 //.subtitle(ecoElementDto.getSubtitle())
-                //.district(ecoElementDto.getDistrict())
+                .district(ecoElementDto.getDistrict())
                 .address(ecoElementDto.getAddress())
                 //.openingTimes(ecoElementDto.getOpeningTimes())
                 //.adminNote(ecoElementDto.getAdminNote())
@@ -124,9 +124,8 @@ public class EcoElementBuilder {
                 .name(ecoElementDto.getName())
                 .category(ecoElementDto.getCategory())
                 .categorySub(ecoElementDto.getCategorySub())
-                //the other attributes will be used later
                 //.subtitle(ecoElementDto.getSubtitle())
-                //.district(ecoElementDto.getDistrict())
+                .district(ecoElementDto.getDistrict())
                 .address(address)
                 //.openingTimes(ecoElementDto.getOpeningTimes())
                 //.adminNote(ecoElementDto.getAdminNote())
@@ -179,7 +178,7 @@ public class EcoElementBuilder {
                 .categorySub(existingEcoElement.getCategorySub())
                 //the other attributes will be used later
                 //.subtitle(ecoElementDto.getSubtitle())
-                //.district(ecoElementDto.getDistrict())
+                .district(existingEcoElement.getDistrict())
                 .address(existingEcoElement.getAddress())
                 //.openingTimes(ecoElementDto.getOpeningTimes())
                 //.adminNote(ecoElementDto.getAdminNote())

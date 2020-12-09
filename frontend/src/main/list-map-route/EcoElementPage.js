@@ -129,7 +129,9 @@ export default function EcoElementPage(){
                                 {/*Stadtteil + Stadt*/}
                                 <StyledElementBody>
                                     <StyledCell>
-                                        Weitmar, Bochum
+                                        {ecoElement.district?
+                                            ecoElement.district + ", Bochum"
+                                            : "Bochum"}
                                     </StyledCell>
                                     <StyledCell>
                                     </StyledCell>

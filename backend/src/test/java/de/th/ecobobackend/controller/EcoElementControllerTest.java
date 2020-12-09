@@ -152,27 +152,23 @@ class EcoElementControllerTest {
     }
 
     EcoElement returnEcoElement111(){
-        EcoElement ecoElement1 = EcoElement.builder().name("Bioladen").category(Category.FOODSTORE)
+        return EcoElement.builder().name("Bioladen").category(Category.FOODSTORE)
                 .categorySub(CategorySub.FOODSTORE_NORMAL).address("Verkehrsstrasse 49").creator("Tobias")
                 .certificates(List.of()).id("111").lat(5.0).lon(5.0).reviews(List.of()).adminNote(null)
                 .dateCreatedExternal(null).dateLastUpdatedExternal(null).dateCreatedInternal(null)
                 .dateLastUpdatedInternal(null).dateReviewedExternal(null).dateReviewedInternal(null).district(null)
                 .isInBochum(true).isReviewed(true).isShownOnMap(true).isVisible(true).openingTimes(null)
                 .subtitle(null).url("").urlFacebook("").build();
-
-        return ecoElement1;
     }
 
     EcoElement returnEcoElement222(){
-        EcoElement ecoElement2 = EcoElement.builder().name("Biosupermarkt").category(Category.FOODSTORE)
+        return EcoElement.builder().name("Biosupermarkt").category(Category.FOODSTORE)
                 .categorySub(CategorySub.FOODSTORE_SUPERMARKET).address("Verkehrsstrasse 47").creator("Angela Merkel")
                 .certificates(List.of()).id("222").lat(5.0).lon(5.0).reviews(List.of()).adminNote(null)
                 .dateCreatedExternal(null).dateLastUpdatedExternal(null).dateCreatedInternal(null)
                 .dateLastUpdatedInternal(null).dateReviewedExternal(null).dateReviewedInternal(null).district(null)
                 .isInBochum(true).isReviewed(true).isShownOnMap(true).isVisible(true).openingTimes(null)
                 .subtitle(null).url("").urlFacebook("").build();
-
-        return ecoElement2;
     }
 
     @Test
@@ -229,7 +225,7 @@ class EcoElementControllerTest {
                 .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
                 .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
                 .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
-                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .dateReviewedInternal(null).district("Riemke").isInBochum(true).isReviewed(false)
                 .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
                 .urlFacebook(null).build();
 
@@ -299,7 +295,7 @@ class EcoElementControllerTest {
                 .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
                 .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
                 .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
-                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .dateReviewedInternal(null).district("Riemke").isInBochum(true).isReviewed(false)
                 .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
                 .urlFacebook(null).build();
 
@@ -347,7 +343,7 @@ class EcoElementControllerTest {
                 .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
                 .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
                 .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal(null)
-                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .dateReviewedInternal(null).district("Riemke").isInBochum(true).isReviewed(false)
                 .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
                 .urlFacebook(null).build();
 

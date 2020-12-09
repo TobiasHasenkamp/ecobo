@@ -49,18 +49,37 @@ export default function AddElementPage() {
     useEffect(() => {
         let finalLat;
         let finalLon;
+        let displayInfo;
+        let finalDistrict;
         let p = lonLatOfRequest[0];
+
         for (let key in p) {
             if (p.hasOwnProperty(key) && key === "lat") {
                 finalLat = p[key];
             } else if (p.hasOwnProperty(key) && key === "lon") {
                 finalLon = p[key];
+            } else if (p.hasOwnProperty(key) && key === "display_name"){
+                displayInfo = p[key];
             }
         }
+
+        if (displayInfo !== undefined){
+            let valueArray = displayInfo.split(", ");
+            if (valueArray.length === 9){
+                finalDistrict = valueArray[3];
+            }
+            else if (valueArray.length === 7){
+                finalDistrict = valueArray[1];
+            }
+            else {
+                finalDistrict = valueArray[2];
+            }
+        }
+
         if (finalLon !== undefined && buttonHasBeenClicked) {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
-            addEcoElement(name, category, categorySub, address, finalLat, finalLon, certificatesToAddList, token, setEcoElement);
+            addEcoElement(name, category, categorySub, finalDistrict, address, finalLat, finalLon, certificatesToAddList, token, setEcoElement);
             history.push("/loading/map");
         }
 
