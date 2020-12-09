@@ -10,6 +10,7 @@ import {
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
 
 export default function FilterResultList({ecoElements}){
 
@@ -22,7 +23,9 @@ export default function FilterResultList({ecoElements}){
                 {"Ergebnisse "}
             </StyledHeaderRow>
             {
-                ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).map((element) => (
+                ecoElements?.filter(element => (returnIfItemsGetsFiltered(element)))
+                    .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
+                    .map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>
@@ -49,7 +52,8 @@ export default function FilterResultList({ecoElements}){
                 ))
             }
             {
-                (ecoElements.filter(element => (returnIfItemsGetsFiltered(element))).length === 0) && <p style={{margin: "15px"}}>Keine Ergebnisse gefunden.</p>
+                (ecoElements.filter(element => (returnIfItemsGetsFiltered(element)))
+                    .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element)).length === 0) && <p style={{margin: "15px"}}>Keine Ergebnisse gefunden.</p>
             }
 
         </StyledWrapperTable>
