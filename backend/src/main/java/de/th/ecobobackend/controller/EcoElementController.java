@@ -4,6 +4,7 @@ import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.dto.EcoElementDto;
 import de.th.ecobobackend.model.dto.ReviewDto;
 import de.th.ecobobackend.security.MongoDBUserDetailsService;
+import de.th.ecobobackend.service.ActiveDistrictService;
 import de.th.ecobobackend.service.EcoElementService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,15 @@ public class EcoElementController {
 
     private final EcoElementService ecoElementService;
     private final MongoDBUserDetailsService mongoDBUserDetailsService;
+    private final ActiveDistrictService activeDistrictService;
 
     @Autowired
-    public EcoElementController(EcoElementService ecoElementService, MongoDBUserDetailsService mongoDBUserDetailsService){
+    public EcoElementController(EcoElementService ecoElementService,
+                                MongoDBUserDetailsService mongoDBUserDetailsService,
+                                ActiveDistrictService activeDistrictService){
         this.ecoElementService = ecoElementService;
-        this. mongoDBUserDetailsService = mongoDBUserDetailsService;
+        this.mongoDBUserDetailsService = mongoDBUserDetailsService;
+        this.activeDistrictService = activeDistrictService;
     }
 
 
@@ -44,6 +49,11 @@ public class EcoElementController {
             return ecoElementService.findById(ecoElementId.get());
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/districtlist")
+    public List<String> getListOfActiveDistricts(){
+        return activeDistrictService.getListOfActiveDistricts();
     }
 
     @PostMapping("/protected")
