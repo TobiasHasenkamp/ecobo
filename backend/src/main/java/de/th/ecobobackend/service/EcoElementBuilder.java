@@ -37,6 +37,7 @@ public class EcoElementBuilder {
             ecoElementDto.setLon(0.0);
         }
 
+        //ToDo: auskommentierte sachen ans ende setzen
         return EcoElement.builder()
                 .id(newID)
                 .name(ecoElementDto.getName())

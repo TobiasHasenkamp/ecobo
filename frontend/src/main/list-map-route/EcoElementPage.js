@@ -165,6 +165,7 @@ export default function EcoElementPage(){
                                     </StyledCell>
                                     <StyledCell>
                                         <StyledIcons>
+                                            {/*Todo: urls unbedingt ändern*/}
                                             <a href="http://www.spiegel.de"> <FaLink/> </a>
                                             <a href="http://www.facebook.de"> <FaFacebook/> </a>
                                         </StyledIcons>

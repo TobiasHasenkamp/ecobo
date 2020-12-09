@@ -13,19 +13,19 @@ import java.util.List;
 @NoArgsConstructor
 public class EcoElementDto {
 
-    String name;
-    Category category;
-    CategorySub categorySub;
-    String subtitle;
-    String district;
-    String address;
-    String openingTimes;
-    String adminNote;
-    String url;
-    String urlFacebook;
-    Boolean isInBochum;
-    List<String> certificates;
-    Double lon;
-    Double lat;
-    String creator;
+    private String name;
+    private Category category;
+    private CategorySub categorySub;
+    private String subtitle;
+    private String district;
+    private String address;
+    private String openingTimes;
+    private String adminNote;
+    private String url;
+    private String urlFacebook;
+    private Boolean isInBochum;
+    private List<String> certificates;
+    private Double lon;
+    private Double lat;
+    private String creator;
 }
