@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {
     StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
-    StyledCell, StyledIconDiv, StyledElementBody, StyledDoubleCell, StyledElementBodyOneCell
+    StyledCell, StyledIconDiv, StyledElementBody, StyledElementBodyOneCell
 } from "./StyledElementsForTableDesign";
 import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/EcoElementContext";
@@ -23,6 +23,7 @@ import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
 import returnMarkerIcon from "../services/returnMarkerIcon";
 import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
+import ReturnIfUserIsAllowedToGetRender from "./subComponents/ReturnIfUserIsAllowedToGetRender";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -114,8 +115,12 @@ export default function EcoElementPage(){
                                         <div/>
                                     </StyledCell>
                                     <StyledIconDiv>
-                                        <EditIconButtonMedium handle={handleEdit}/>
-                                        <DeleteIconButtonSmall handle={handleDelete}/>
+                                        {ReturnIfUserIsAllowedToGetRender(ecoElement.creator) &&
+                                        <>
+                                            <EditIconButtonMedium handle={handleEdit}/>
+                                            <DeleteIconButtonSmall handle={handleDelete}/>
+                                        </>
+                                        }
                                     </StyledIconDiv>
                                 </StyledElementHeader>
 
