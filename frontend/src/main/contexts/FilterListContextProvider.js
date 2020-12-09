@@ -6,6 +6,7 @@ export default function FilterListContextProvider({children}){
     const [filterListForCategory, setFilterListForCategory] = useState([]);
     const [filterListForCertificates, setFilterListForCertificates] = useState([]);
     const [filterListForLocation, setFilterListForLocation] = useState([]);
+    const [showNonReviewedItems, setShowNonReviewedItems] = useState(false);
     const [filterIsActive, setFilterIsActive] = useState(false);
 
 
@@ -79,7 +80,9 @@ export default function FilterListContextProvider({children}){
 
 
     return (
-        <FilterListContext.Provider value={{returnIfItemsGetsFiltered, filterIsActive, filterListForCategory, setFilterListForCategory, filterListForCertificates, setFilterListForCertificates, filterListForLocation, setFilterListForLocation}}>
+        <FilterListContext.Provider value={{returnIfItemsGetsFiltered, filterIsActive, filterListForCategory,
+            setFilterListForCategory, filterListForCertificates, setFilterListForCertificates, filterListForLocation,
+            setFilterListForLocation, showNonReviewedItems, setShowNonReviewedItems}}>
             {children}
         </FilterListContext.Provider>
     )

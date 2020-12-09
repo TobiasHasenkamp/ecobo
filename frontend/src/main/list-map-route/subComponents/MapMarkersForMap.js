@@ -8,6 +8,7 @@ import styled from "styled-components/macro";
 import mapCertificates from "../../services/mapCertificates";
 import ShowElementIconButton from "../../designElements/buttons/ShowElementIconButton";
 import returnMarkerIcon from "../../services/returnMarkerIcon";
+import ReturnIfElementGetsFilteredForReviewStatus from "./ReturnIfElementGetsFilteredForReviewStatus";
 
 
 
@@ -18,20 +19,22 @@ export default function MapMarkersForMap(ecoElements) {
 
         return (
 
-            ecoElements?.filter(element => (returnIfItemsGetsFiltered(element))).map((element) => (
-                <Marker key={element.id} position={[element.lon, element.lat]}
-                        title={element.name} icon={returnMarkerIcon(element.category, element.categorySub)}>
-                    <StyledPopup>
-                        <StyledPopupHeader>
-                            {element.name}
-                            <ShowElementIconButton elementId={element.id}/>
-                        </StyledPopupHeader>
-                        {translationService(element.categorySub)} <br/> {element.address} <br/>
-                        <StyledMappedCertificates>
-                            {mapCertificates(element, "small")}
-                        </StyledMappedCertificates>
-                    </StyledPopup>
-                </Marker>
+            ecoElements?.filter(element => (returnIfItemsGetsFiltered(element)))
+                .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
+                .map((element) => (
+                    <Marker key={element.id} position={[element.lon, element.lat]}
+                            title={element.name} icon={returnMarkerIcon(element.category, element.categorySub)}>
+                        <StyledPopup>
+                            <StyledPopupHeader>
+                                {element.name}
+                                <ShowElementIconButton elementId={element.id}/>
+                            </StyledPopupHeader>
+                            {translationService(element.categorySub)} <br/> {element.address} <br/>
+                            <StyledMappedCertificates>
+                                {mapCertificates(element, "small")}
+                            </StyledMappedCertificates>
+                        </StyledPopup>
+                    </Marker>
             ))
         )
 }

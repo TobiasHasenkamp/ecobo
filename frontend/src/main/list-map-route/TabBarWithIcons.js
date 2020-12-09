@@ -11,6 +11,7 @@ import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa"
 import translationService from "../services/translationService";
 import returnSubCategoryMenuItemsForFilterList from "./subComponents/SubCategoryMenuItemsForFilterList";
 import returnCertificateMenuItemsForFilterList from "./subComponents/CertificateMenuItemsForFilterList";
+import ShowReviewedItemsCheckbox from "./subComponents/ShowReviewedItemsCheckbox";
 
 
 
@@ -148,7 +149,7 @@ export default function TabBarWithIcons({type}) {
                     <StyledFilterBarMenuButton onClick={handleOpenCertificatesFilterMenu}>Tags</StyledFilterBarMenuButton>
                     <StyledFilterBarMenuButton onClick={handleOpenLocationFilterMenu}>Ort</StyledFilterBarMenuButton>
                 </StyledFilterBar>
-                : <div/>}
+                : <ShowReviewedItemsCheckbox/>}
 
                 {filterListForCategory?
                     <Menu

@@ -5,6 +5,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
 
 export default function FoodStoreList({ecoElements}){
 
@@ -28,7 +29,9 @@ export default function FoodStoreList({ecoElements}){
                         : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>}
                 </StyledHeaderRow>
                 { foodStoreTableIsOpen &&
-                    ecoElements?.filter(element => element.category === "FOODSTORE").map((element) => (
+                    ecoElements?.filter(element => element.category === "FOODSTORE")
+                        .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
+                        .map((element) => (
                         <StyledElement key={element.id}>
                             <div/>
                             <StyledElementHeader>

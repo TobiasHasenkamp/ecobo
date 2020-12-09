@@ -5,6 +5,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
 
 export default function FairShopList({ecoElements}){
 
@@ -30,7 +31,9 @@ export default function FairShopList({ecoElements}){
             </StyledHeaderRow>
             {
                 fairShopTableIsOpen &&
-                ecoElements?.filter(element => element.category === "FAIRSHOP").map((element) => (
+                ecoElements?.filter(element => element.category === "FAIRSHOP")
+                    .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
+                    .map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>
