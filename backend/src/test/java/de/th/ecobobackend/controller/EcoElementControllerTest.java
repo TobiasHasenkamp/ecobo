@@ -1,6 +1,5 @@
 package de.th.ecobobackend.controller;
 import de.th.ecobobackend.model.EcoElement;
-import de.th.ecobobackend.model.NewsfeedElement;
 import de.th.ecobobackend.model.Review;
 import de.th.ecobobackend.model.UserProfile;
 import de.th.ecobobackend.model.dto.EcoElementDto;
@@ -8,15 +7,12 @@ import de.th.ecobobackend.model.dto.ReviewDto;
 import de.th.ecobobackend.model.dto.UserLoginDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
-import de.th.ecobobackend.model.enums.NewsfeedType;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
-import de.th.ecobobackend.mongoDB.NewsfeedMongoDB;
 import de.th.ecobobackend.mongoDB.UserProfileMongoDB;
 import de.th.ecobobackend.utils.IDUtils;
 import de.th.ecobobackend.utils.TimestampUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,10 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -654,12 +647,92 @@ class EcoElementControllerTest {
         assertThat(response.getBody(), is(newEcoElement));
     }
 
-    //Test for add Review with bad Login
+    @Test
+    public void testAddReviewShouldThrowWithBadID() {
 
-    //Test for successful Delete
+        //Given
+        EcoElement existingEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 17").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of()).adminNote("")
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
+                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
 
-    //Test for wrong Delete cause wrong ID
+        ecoElementMongoDB.save(existingEcoElement);
 
-    //Test for wrong Delete cause wrong user
+        ReviewDto newReviewDto = new ReviewDto(true, "Good shop!");
+
+        //When
+        when(timestampUtils.generateTimeStamp()).thenReturn(Instant.parse("2020-12-05T10:00:00.00Z"));
+        when(timestampUtils.generateReadableDateStamp()).thenReturn("05.12.2020");
+
+        HttpEntity<ReviewDto> entity = getInvalidAuthorizationEntity(newReviewDto);
+        ResponseEntity<EcoElement> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/12345678", HttpMethod.PUT,
+                        entity, EcoElement.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
+    }
+
+    @Test
+    public void testDeleteEcoElementWithValidLogin() {
+
+        //pre-method assertion that element does exist
+        boolean ecoElementDoesInitiallyExist = ecoElementMongoDB.existsById("111");
+
+        //When
+        HttpEntity<Void> entity = getValidAuthorizationEntity(null);
+        ResponseEntity<Void> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/111", HttpMethod.DELETE,
+                        entity, Void.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        boolean ecoElementStillPresent = ecoElementMongoDB.existsById("111");
+        assertThat(ecoElementDoesInitiallyExist, is(true));
+        assertThat(ecoElementStillPresent, is(false));
+    }
+
+    @Test
+    public void testDeleteEcoElementWithInvalidLogin() {
+
+        //pre-method assertion that element does exist
+        boolean ecoElementDoesInitiallyExist = ecoElementMongoDB.existsById("111");
+
+        //When
+        HttpEntity<Void> entity = getInvalidAuthorizationEntity(null);
+        ResponseEntity<Void> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/111", HttpMethod.DELETE,
+                        entity, Void.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
+        boolean ecoElementStillPresent = ecoElementMongoDB.existsById("111");
+        assertThat(ecoElementDoesInitiallyExist, is(true));
+        assertThat(ecoElementStillPresent, is(true));
+    }
+
+    @Test
+    public void testDeleteEcoElementWithValidLoginButPrincipalIsNotCreator() {
+
+        //pre-method assertion that element does exist
+        boolean ecoElementDoesInitiallyExist = ecoElementMongoDB.existsById("222");
+
+        //When
+        HttpEntity<Void> entity = getValidAuthorizationEntity(null);
+        ResponseEntity<Void> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/111", HttpMethod.DELETE,
+                        entity, Void.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        boolean ecoElementStillPresent = ecoElementMongoDB.existsById("222");
+        assertThat(ecoElementDoesInitiallyExist, is(true));
+        assertThat(ecoElementStillPresent, is(true));
+    }
 
 }
