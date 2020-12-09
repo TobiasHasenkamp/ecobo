@@ -1,6 +1,5 @@
 package de.th.ecobobackend.controller;
 
-
 import de.th.ecobobackend.model.UserProfile;
 import de.th.ecobobackend.model.dto.UserLoginDto;
 import de.th.ecobobackend.mongoDB.UserProfileMongoDB;
