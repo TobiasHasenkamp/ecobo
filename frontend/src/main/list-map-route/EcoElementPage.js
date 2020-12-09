@@ -24,6 +24,7 @@ import mapCertificates from "../services/mapCertificates";
 import returnMarkerIcon from "../services/returnMarkerIcon";
 import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
 import ReturnIfUserIsAllowedToGetRender from "./subComponents/ReturnIfUserIsAllowedToGetRender";
+import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -101,6 +102,7 @@ export default function EcoElementPage(){
                 <StyledWrapperTable>
                     <StyledHeaderRow className={tableColor}>
                         {ecoElement.name}
+                        {!ecoElement.isReviewed && <InReviewProcessIcon/>}
                     </StyledHeaderRow>
                             <StyledElement>
                                 <div/>
