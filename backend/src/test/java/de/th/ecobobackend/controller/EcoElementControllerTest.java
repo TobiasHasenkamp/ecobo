@@ -1,8 +1,10 @@
 package de.th.ecobobackend.controller;
 import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.NewsfeedElement;
+import de.th.ecobobackend.model.Review;
 import de.th.ecobobackend.model.UserProfile;
 import de.th.ecobobackend.model.dto.EcoElementDto;
+import de.th.ecobobackend.model.dto.ReviewDto;
 import de.th.ecobobackend.model.dto.UserLoginDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
@@ -439,9 +441,218 @@ class EcoElementControllerTest {
         assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    //Test for successful add Review
+    @Test
+    public void testAddReviewWithValidLogin() {
 
-    //Test for successful add Review that overwrites existing ones
+        //Given
+        EcoElement existingEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 17").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of()).adminNote("")
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
+                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
+
+        ecoElementMongoDB.save(existingEcoElement);
+
+        ReviewDto newReviewDto = new ReviewDto(true, "Good shop!");
+
+        Review newReview = Review.builder()
+                .positive(true)
+                .author("Tobias")
+                .reviewComment("Good shop!")
+                .dateReviewedExternal("05.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .build();
+
+        EcoElement newEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 17").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of(newReview)).adminNote(null)
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
+                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
+
+
+        //When
+        when(timestampUtils.generateTimeStamp()).thenReturn(Instant.parse("2020-12-05T10:00:00.00Z"));
+        when(timestampUtils.generateReadableDateStamp()).thenReturn("05.12.2020");
+
+        HttpEntity<ReviewDto> entity = getValidAuthorizationEntity(newReviewDto);
+        ResponseEntity<EcoElement> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/review/12345", HttpMethod.PUT,
+                        entity, EcoElement.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), is(newEcoElement));
+    }
+
+    @Test
+    public void testAddReviewWithValidLoginThatOverwritesExistingOne() {
+
+        //Given
+        Review oldReview1 = Review.builder()
+                .positive(true)
+                .author("Tobias")
+                .reviewComment("Good shop, but bad location!")
+                .dateReviewedExternal("03.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-03T10:00:00.00Z"))
+                .build();
+
+        Review oldReview2 = Review.builder()
+                .positive(false)
+                .author("Angela Merkel")
+                .reviewComment("Good shop!")
+                .dateReviewedExternal("02.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-02T10:00:00.00Z"))
+                .build();
+
+        Review newReview = Review.builder()
+                .positive(true)
+                .author("Tobias")
+                .reviewComment("Good shop!")
+                .dateReviewedExternal("05.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .build();
+
+        EcoElement existingEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 17").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of(oldReview1, oldReview2)).adminNote("")
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
+                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
+
+        ecoElementMongoDB.save(existingEcoElement);
+
+        ReviewDto newReviewDto = new ReviewDto(true, "Good shop!");
+
+        EcoElement newEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 17").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of(oldReview2, newReview)).adminNote(null)
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
+                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
+
+
+        //When
+        when(timestampUtils.generateTimeStamp()).thenReturn(Instant.parse("2020-12-05T10:00:00.00Z"));
+        when(timestampUtils.generateReadableDateStamp()).thenReturn("05.12.2020");
+
+        HttpEntity<ReviewDto> entity = getValidAuthorizationEntity(newReviewDto);
+        ResponseEntity<EcoElement> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/review/12345", HttpMethod.PUT,
+                        entity, EcoElement.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody().getReviews().size(), is(2));
+        assertThat(response.getBody(), is(newEcoElement));
+    }
+
+    @Test
+    public void testAddReviewWithValidLoginThatOverwritesExistingOneAndReachesReviewThreshold() {
+
+        //Given
+        Review oldReview1 = Review.builder()
+                .positive(false)
+                .author("Tobias")
+                .reviewComment("Bad shop and bad location!")
+                .dateReviewedExternal("03.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-03T10:00:00.00Z"))
+                .build();
+
+        Review oldReview2 = Review.builder()
+                .positive(true)
+                .author("Angela Merkel")
+                .reviewComment("Good shop!")
+                .dateReviewedExternal("02.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-02T10:00:00.00Z"))
+                .build();
+
+        Review oldReview3 = Review.builder()
+                .positive(true)
+                .author("Donald Trump")
+                .reviewComment("Good shop!")
+                .dateReviewedExternal("01.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-01T10:00:00.00Z"))
+                .build();
+
+        Review oldReview4 = Review.builder()
+                .positive(true)
+                .author("Wladimir Putin")
+                .reviewComment("Good shop!")
+                .dateReviewedExternal("01.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-01T10:00:00.00Z"))
+                .build();
+
+        Review oldReview5 = Review.builder()
+                .positive(false)
+                .author("Pope Franziskus")
+                .reviewComment("Bad shop!")
+                .dateReviewedExternal("01.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-01T10:00:00.00Z"))
+                .build();
+
+        Review newReview = Review.builder()
+                .positive(true)
+                .author("Tobias")
+                .reviewComment("Good shop!")
+                .dateReviewedExternal("05.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .build();
+
+        EcoElement existingEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 17").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of(oldReview1, oldReview2,
+                        oldReview3, oldReview4, oldReview5)).adminNote("")
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
+                .dateReviewedInternal(null).district(null).isInBochum(true).isReviewed(false)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
+
+        ecoElementMongoDB.save(existingEcoElement);
+
+        ReviewDto newReviewDto = new ReviewDto(true, "Good shop!");
+
+        EcoElement newEcoElement = EcoElement.builder().name("Testrestaurant").category(Category.RESTAURANT)
+                .categorySub(CategorySub.RESTAURANT_RESTAURANT).address("Verkehrsstrasse 17").creator("Tobias")
+                .certificates(List.of()).id("12345").lat(10.0).lon(10.0).reviews(List.of(oldReview2, oldReview3,
+                        oldReview4, oldReview5, newReview)).adminNote(null)
+                .dateCreatedExternal("05.12.2020").dateLastUpdatedExternal("05.12.2020")
+                .dateCreatedInternal(Instant.parse("2020-12-05T10:00:00.00Z"))
+                .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("05.12.2020")
+                .dateReviewedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).district(null).isInBochum(true).isReviewed(true)
+                .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
+                .urlFacebook(null).build();
+
+
+        //When
+        when(timestampUtils.generateTimeStamp()).thenReturn(Instant.parse("2020-12-05T10:00:00.00Z"));
+        when(timestampUtils.generateReadableDateStamp()).thenReturn("05.12.2020");
+
+        HttpEntity<ReviewDto> entity = getValidAuthorizationEntity(newReviewDto);
+        ResponseEntity<EcoElement> response =
+                restTemplate.exchange("http://localhost:" + port + "/api/elements/protected/review/12345", HttpMethod.PUT,
+                        entity, EcoElement.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody().getReviews().size(), is(5));
+        assertThat(response.getBody(), is(newEcoElement));
+    }
 
     //Test for add Review with bad Login
 

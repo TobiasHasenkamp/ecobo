@@ -142,6 +142,8 @@ public class EcoElementService {
     public EcoElement addReviewToEcoElement(String ecoElementId, ReviewDto reviewDto, Principal principal) {
 
         EcoElement existingEcoElement = ecoElementMongoDB.findById(ecoElementId).get();
+        boolean reviewGotUpdatedAndChangedValue = false;
+        int additionalReviews = 0;
 
         if (ecoElementMongoDB.findById(ecoElementId).isPresent()){
 
@@ -156,6 +158,10 @@ public class EcoElementService {
             if (existingReviewsBySameAuthor.size() != 0){
                 updatedEcoElement = ecoElementBuilder
                         .buildUpdatedEcoElementWithReview(reviewDto, existingEcoElement, ecoElementId, principal, true);
+
+                        if (reviewDto.isPositive() != existingReviewsBySameAuthor.get(0).isPositive()){
+                            reviewGotUpdatedAndChangedValue = true;
+                        }
             }
             else {
                 updatedEcoElement = ecoElementBuilder
@@ -165,7 +171,19 @@ public class EcoElementService {
             //if the EcoElement reaches the review threshold with this new review
             List<Review> positiveReviews = existingEcoElement.getReviews().stream().filter(review -> review.isPositive()).collect(Collectors.toList());
 
-            double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * positiveReviews.size();
+
+
+            if (reviewGotUpdatedAndChangedValue){
+                if (reviewDto.isPositive()){
+                    additionalReviews = 1;
+                }
+                else {
+                    additionalReviews = -1;
+                }
+            }
+
+            double positiveReviewPercentage = 100.0 / existingEcoElement.getReviews().size() * (positiveReviews.size() + additionalReviews);
+
             int numberOfPositiveReviews = positiveReviews.size();
 
             System.out.println(positiveReviewPercentage);
