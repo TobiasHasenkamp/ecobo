@@ -25,7 +25,9 @@ import java.time.Instant;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
-        "jwt.secretkey=12345678910"
+        "jwt.secretkey=12345678910",
+        "aws.accesskey=12345678910",
+        "aws.secretkey=12345678910"
 })
 class LoginControllerTest {
 
