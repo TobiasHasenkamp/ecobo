@@ -53,4 +53,6 @@ public class EcoElement {
 
     private List<Review> reviews;
 
+    private String pictureUrl;
+
 }

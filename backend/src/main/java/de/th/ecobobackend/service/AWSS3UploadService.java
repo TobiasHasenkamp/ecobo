@@ -8,7 +8,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.UserProfile;
+import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
 import de.th.ecobobackend.mongoDB.UserProfileMongoDB;
 import de.th.ecobobackend.utils.IDUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,15 +36,21 @@ public class AWSS3UploadService {
 
     private final IDUtils idUtils;
     private final UserProfileMongoDB userProfileMongoDB;
+    private final EcoElementMongoDB ecoElementMongoDB;
+    private final EcoElementBuilder ecoElementBuilder;
 
-    public AWSS3UploadService(IDUtils idUtils, UserProfileMongoDB userProfileMongoDB) {
+    public AWSS3UploadService(IDUtils idUtils, UserProfileMongoDB userProfileMongoDB,
+                              EcoElementMongoDB ecoElementMongoDB, EcoElementBuilder ecoElementBuilder) {
         this.idUtils = idUtils;
         this.userProfileMongoDB = userProfileMongoDB;
+        this.ecoElementMongoDB = ecoElementMongoDB;
+        this.ecoElementBuilder = ecoElementBuilder;
     }
 
-    public String uploadImgToAWSS3(MultipartFile multipartFile, Principal principal) throws IOException {
-        Regions clientRegion = Regions.EU_CENTRAL_1;
-        String bucketName = "ecobo-bucket";
+    Regions clientRegion = Regions.EU_CENTRAL_1;
+    String bucketName = "ecobo-bucket";
+
+    public String uploadUserImgToAWSS3(MultipartFile multipartFile, Principal principal) throws IOException {
 
         if (!multipartFile.getContentType().contains("image") || multipartFile.getContentType().isBlank()
                 || multipartFile.isEmpty()){
@@ -82,6 +90,9 @@ public class AWSS3UploadService {
 
                 userProfileMongoDB.save(updatedUser);
             }
+            else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
 
             return "http://ecobo-bucket.s3-website.eu-central-1.amazonaws.com/" + fileObjKeyName.trim();
         } catch (AmazonS3Exception e){
@@ -92,4 +103,57 @@ public class AWSS3UploadService {
 
         return "";
     }
+
+    public String uploadEcoElementImgToAWSS3(MultipartFile multipartFile, Optional<String> ecoElementId, Principal principal) throws IOException {
+
+
+        if (!multipartFile.getContentType().contains("image") || multipartFile.getContentType().isBlank()
+                || multipartFile.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong file type.");
+        }
+
+        if (multipartFile.getSize() > 4000000){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Uploaded file is too large. Maximum filesize is 4 MB.");
+        }
+
+        Optional<String> fileExtension = Optional.ofNullable(multipartFile.getOriginalFilename())
+                .filter(name -> name.contains("."))
+                .map(name -> name.substring(multipartFile.getOriginalFilename().lastIndexOf(".") +1));
+
+        String fileObjKeyName = "ecoElementPics/img_ecoElementPic_" + idUtils.generateID() + "." + fileExtension.get();
+
+        try {
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(clientRegion).withCredentials(new AWSStaticCredentialsProvider(
+                            new BasicAWSCredentials(aws_access_key, aws_secret_key))).build();
+
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentLength(multipartFile.getSize());
+            s3Client.putObject(bucketName, fileObjKeyName, multipartFile.getInputStream(), objectMetadata);
+
+            Optional<EcoElement> existingEcoElement = ecoElementMongoDB.findById(ecoElementId.get());
+            if (!existingEcoElement.isPresent()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+            else {
+                if (!existingEcoElement.get().getCreator().equals(principal.getName())){
+                    throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+                }
+            }
+
+            EcoElement updatedEcoElement = ecoElementBuilder.buildEcoElementWithNewPicture(
+                    existingEcoElement.get(), ecoElementId.get(), "http://ecobo-bucket.s3-website.eu-central-1.amazonaws.com/" + fileObjKeyName.trim());
+
+            ecoElementMongoDB.save(updatedEcoElement);
+
+            return "http://ecobo-bucket.s3-website.eu-central-1.amazonaws.com/" + fileObjKeyName.trim();
+        } catch (AmazonS3Exception e){
+            e.printStackTrace();
+        } catch (SdkClientException e){
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
 }

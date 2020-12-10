@@ -1,12 +1,14 @@
 package de.th.ecobobackend.controller;
 
 import de.th.ecobobackend.service.AWSS3UploadService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/elements/protected/uploadImg")
@@ -20,7 +22,14 @@ public class ImgUploadController {
     }
 
     @PostMapping
-    public String receiveUploadedImg(@RequestParam("file") MultipartFile multipartFile, Principal principal) throws IOException {
-        return awss3UploadService.uploadImgToAWSS3(multipartFile, principal);
+    public String receiveUploadedImgForUser(@RequestParam("file") MultipartFile multipartFile, Principal principal) throws IOException {
+        return awss3UploadService.uploadUserImgToAWSS3(multipartFile, principal);
+    }
+
+    @PostMapping("/{ecoElementId}")
+    public String receiveUploadedImgForEcoElement(@RequestParam("file") MultipartFile multipartFile,
+                                                  @PathVariable @NonNull Optional<String> ecoElementId,
+                                                  Principal principal) throws IOException {
+        return awss3UploadService.uploadEcoElementImgToAWSS3(multipartFile, ecoElementId, principal);
     }
 }

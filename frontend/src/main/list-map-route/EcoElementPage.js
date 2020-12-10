@@ -25,6 +25,7 @@ import returnMarkerIcon from "../services/returnMarkerIcon";
 import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
 import ReturnIfUserIsAllowedToGetRender from "./subComponents/ReturnIfUserIsAllowedToGetRender";
 import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
+import ImgUpload from "../services/ImgUpload";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -210,7 +211,12 @@ export default function EcoElementPage(){
 
                 <StyledDiv>
 
-                    <StyledElementPhoto src="/profilePics/placeholder.webp"/>
+                    <div>
+                        {ecoElement.pictureUrl? <StyledElementPhoto src={ecoElement.pictureUrl}/>
+                            : <StyledElementPhoto src="/profilePics/placeholder.webp"/>
+                        }
+                        <ImgUpload type="elementImmediate" dark="true" ecoElementId={ecoElement.id}/>
+                    </div>
 
                     <StyledDivForMap>
 
@@ -286,7 +292,7 @@ const StyledDiv = styled.div`
 
 const StyledElementPhoto = styled.img`
   display: block;
-  width: 98%;
+  width: 100%;
   border: var(--darkgrey) solid 1.5px;
 `
 

@@ -8,7 +8,9 @@ import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
 import de.th.ecobobackend.utils.IDUtils;
 import de.th.ecobobackend.utils.TimestampUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -68,6 +70,7 @@ public class EcoElementBuilder {
                 .lon(ecoElementDto.getLon())
                 .lat(ecoElementDto.getLat())
                 .adminNote("")
+                .pictureUrl("")
                 .build();
     }
 
@@ -96,6 +99,7 @@ public class EcoElementBuilder {
                 .dateCreatedExternal(timestampUtils.generateReadableDateStamp())
                 .dateReviewedExternal(timestampUtils.generateReadableDateStamp())
                 .dateReviewedExternal("")
+                .pictureUrl("")
                 .reviews(List.of())
                 .lon(51.47030285)
                 .lat(7.21021848113432)
@@ -148,6 +152,45 @@ public class EcoElementBuilder {
                 .lon(ecoElementDto.getLon())
                 .lat(ecoElementDto.getLat())
                 .adminNote(existingEcoElement.getAdminNote())
+                .pictureUrl(existingEcoElement.getPictureUrl())
+                .build();
+    }
+
+    public EcoElement buildEcoElementWithNewPicture(EcoElement existingEcoElement, String ecoElementId, String pictureUrl) {
+
+        if (pictureUrl == null || pictureUrl.equals("")){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        return EcoElement.builder()
+                .id(ecoElementId)
+                .name(existingEcoElement.getName())
+                .category(existingEcoElement.getCategory())
+                .categorySub(existingEcoElement.getCategorySub())
+                //.subtitle(ecoElementDto.getSubtitle())
+                .district(existingEcoElement.getDistrict())
+                .address(existingEcoElement.getAddress())
+                //.openingTimes(ecoElementDto.getOpeningTimes())
+                //.adminNote(ecoElementDto.getAdminNote())
+                //.url(ecoElementDto.getUrl())
+                //.urlFacebook(ecoElementDto.getUrlFacebook())
+                .isVisible(existingEcoElement.getIsVisible())
+                .isReviewed(existingEcoElement.getIsReviewed())
+                .isShownOnMap(existingEcoElement.getIsShownOnMap())
+                .isInBochum(existingEcoElement.getIsInBochum())
+                .certificates(existingEcoElement.getCertificates())
+                .creator(existingEcoElement.getCreator())
+                .dateCreatedInternal(existingEcoElement.getDateCreatedInternal())
+                .dateLastUpdatedInternal(timestampUtils.generateTimeStamp())
+                .dateCreatedExternal(existingEcoElement.getDateCreatedExternal())
+                .dateLastUpdatedExternal(timestampUtils.generateReadableDateStamp())
+                .dateReviewedExternal(existingEcoElement.getDateReviewedExternal())
+                .dateReviewedInternal(existingEcoElement.getDateReviewedInternal())
+                .reviews(existingEcoElement.getReviews())
+                .lon(existingEcoElement.getLon())
+                .lat(existingEcoElement.getLat())
+                .adminNote(existingEcoElement.getAdminNote())
+                .pictureUrl(pictureUrl)
                 .build();
     }
 
@@ -200,6 +243,7 @@ public class EcoElementBuilder {
                 .reviews(newReviewList)
                 .lon(existingEcoElement.getLon())
                 .lat(existingEcoElement.getLat())
+                .pictureUrl(existingEcoElement.getPictureUrl())
                 .build();
 
 

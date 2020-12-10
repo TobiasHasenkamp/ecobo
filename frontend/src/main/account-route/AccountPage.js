@@ -62,7 +62,7 @@ export default function AccountPage() {
                                 {userData.profilePic? <StyledUserPhoto src={userData.profilePic}/>
                                 : <StyledUserPhoto src="/profilePics/placeholder.webp"/>
                                 }
-                                <ImgUpload type="immediate"/>
+                                <ImgUpload type="userImmediate"/>
                             </StyledPhotoSection>
                             <StyledLeftBarText>
                                 <h3>Angemeldet:</h3>
