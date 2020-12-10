@@ -309,11 +309,11 @@ const StyledDivForMap = styled.div`
 
 const StyledDivForElementData = styled.div`
   display: grid;
-  grid-template-rows: min-content min-content min-content auto;
+  grid-template-rows: min-content min-content min-content min-content min-content min-content min-content min-content;
   width: 100%;
   grid-gap: 3px;
   font-size: 0.75em;
-  line-height: 0.9em;
+  line-height: 1.0em;
 `
 
 const StyledIcons = styled.div`
