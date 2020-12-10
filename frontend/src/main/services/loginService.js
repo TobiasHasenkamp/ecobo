@@ -12,16 +12,3 @@ export const RegistrationRequest = (registrationUsername, registrationPassword) 
 }
 
 
-export const ImageUploadRequest = (formData, token) => {
-
-    axios
-        .post('/api/image', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .then((response) => response.data);
-}
-
-

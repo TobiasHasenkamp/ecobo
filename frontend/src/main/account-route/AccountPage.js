@@ -12,7 +12,7 @@ import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
 import EcoElementContext from "../contexts/EcoElementContext";
 import {getEcoElements} from "../services/ecoElementService";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
-import {ImageUploadRequest} from "../services/loginService";
+import ImgUpload from "../services/ImgUpload";
 
 export default function AccountPage() {
     const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
@@ -20,7 +20,6 @@ export default function AccountPage() {
     const history = useHistory();
     const {userNameParam} = useParams();
     const [userData, setUserData] = useState({});
-    const [profileImageUrl, setProfileImageUrl] = useState("");
 
 
     useEffect(() => {
@@ -49,16 +48,6 @@ export default function AccountPage() {
         history.push("/home");
     }
 
-    function handlePictureUpload(event) {
-
-        const imageFile = event.target.files[0];
-        setProfileImageUrl(URL.createObjectURL(imageFile));
-        const formData = new FormData();
-        formData.append('file', imageFile);
-
-        ImageUploadRequest(formData, token);
-    }
-
 
     return(
 
@@ -73,8 +62,8 @@ export default function AccountPage() {
                         <div/>
                             <StyledPhotoSection>
                                 <StyledUserPhoto src="/profilePics/placeholder.webp"/>
-                                <input type="file" accept="image/*" onChange={handlePictureUpload}/>
-                                <StyledEditPictureButton>Edit Picture</StyledEditPictureButton>
+                                <ImgUpload type="immediate"/>
+                                {/*<StyledEditPictureButton>Edit Picture</StyledEditPictureButton>*/}
                             </StyledPhotoSection>
                             <StyledLeftBarText>
                                 <h3>Angemeldet:</h3>
