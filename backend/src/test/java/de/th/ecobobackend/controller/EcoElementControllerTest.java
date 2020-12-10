@@ -31,7 +31,9 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
-        "jwt.secretkey=12345678910"
+        "jwt.secretkey=12345678910",
+        "aws.accesskey=12345678910",
+        "aws.secretkey=12345678910"
 })
 class EcoElementControllerTest {
 
@@ -87,11 +89,11 @@ class EcoElementControllerTest {
         String password = new BCryptPasswordEncoder().encode("Abc123");
 
         userProfileMongoDB.save(new UserProfile("Tobias", password,
-                Instant.now(), "20.10.2020"));
+                Instant.now(), "20.10.2020", ""));
         userProfileMongoDB.save(new UserProfile("Donald Trump", password,
-                Instant.now(), "20.10.2020"));
+                Instant.now(), "20.10.2020", ""));
         userProfileMongoDB.save(new UserProfile("Angela Merkel", password,
-                Instant.now(), "20.10.2020"));
+                Instant.now(), "20.10.2020", ""));
     }
 
     private String login(){
@@ -227,7 +229,7 @@ class EcoElementControllerTest {
                 .dateLastUpdatedInternal(Instant.parse("2020-12-05T10:00:00.00Z")).dateReviewedExternal("")
                 .dateReviewedInternal(null).district("Riemke").isInBochum(true).isReviewed(false)
                 .isShownOnMap(true).isVisible(true).openingTimes(null).subtitle(null).url(null)
-                .urlFacebook(null).build();
+                .urlFacebook(null).pictureUrl("").build();
 
 
         //When

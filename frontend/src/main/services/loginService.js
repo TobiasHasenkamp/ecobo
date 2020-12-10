@@ -11,3 +11,4 @@ export const RegistrationRequest = (registrationUsername, registrationPassword) 
     return axios.post("/auth/registration", registrationData).then((response) => response.data);
 }
 
+

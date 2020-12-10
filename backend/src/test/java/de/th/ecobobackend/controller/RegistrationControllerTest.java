@@ -21,7 +21,9 @@ import static org.hamcrest.Matchers.is;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
-        "jwt.secretkey=12345678910"
+        "jwt.secretkey=12345678910",
+        "aws.accesskey=12345678910",
+        "aws.secretkey=12345678910"
 })
 class RegistrationControllerTest {
 
@@ -72,7 +74,7 @@ class RegistrationControllerTest {
         );
 
         String password = new BCryptPasswordEncoder().encode("Abc123");
-        userProfileMongoDB.save(new UserProfile("Tobias", password, Instant.now(), "20.10.1990"));
+        userProfileMongoDB.save(new UserProfile("Tobias", password, Instant.now(), "20.10.1990", ""));
 
         //WHEN
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:" + port + "/auth/registration",

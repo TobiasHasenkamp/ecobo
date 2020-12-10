@@ -26,7 +26,9 @@ import static org.hamcrest.Matchers.is;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
-        "jwt.secretkey=12345678910"
+        "jwt.secretkey=12345678910",
+        "aws.accesskey=12345678910",
+        "aws.secretkey=12345678910"
 })
 class NewsfeedControllerTest {
 
@@ -59,11 +61,11 @@ class NewsfeedControllerTest {
         String password = new BCryptPasswordEncoder().encode("Abc123");
 
         userProfileMongoDB.save(new UserProfile("Tobias", password,
-                Instant.now(), "20.10.2020"));
+                Instant.now(), "20.10.2020", ""));
         userProfileMongoDB.save(new UserProfile("Donald Trump", password,
-                Instant.now(), "20.10.2020"));
+                Instant.now(), "20.10.2020", ""));
         userProfileMongoDB.save(new UserProfile("Angela Merkel", password,
-                Instant.now(), "20.10.2020"));
+                Instant.now(), "20.10.2020", ""));
 
     }
 
