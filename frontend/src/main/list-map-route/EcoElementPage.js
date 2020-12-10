@@ -238,7 +238,7 @@ export default function EcoElementPage(){
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
 
-                            { ecoElement.lat && ecoElement.lat &&
+                            { ecoElement.lat && ecoElement.lon &&
 
                             <Marker key={ecoElement.id} position={[ecoElement.lon, ecoElement.lat]}
                                             title={ecoElement.name} icon={returnMarkerIcon(ecoElement.category, ecoElement.categorySub)}>

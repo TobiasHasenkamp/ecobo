@@ -126,7 +126,7 @@ export default function MapPage() {
 const StyledContentDiv = styled.div`
   display: grid;
   width: 100%;
-  height: 100%;
+  height: 97%;
   grid-template-rows: 1fr auto;
   grid-gap: 3px;
   

@@ -22,6 +22,7 @@ import NewsfeedContextProvider from "./main/contexts/NewsfeedContextProvider";
 import NewsfeedPage from "./main/NewsfeedPage";
 import FilterListContextProvider from "./main/contexts/FilterListContextProvider";
 import FrontendInputContextProvider from "./main/contexts/FrontendInputContextProvider";
+import ConfirmLocationPage from "./main/list-map-route/ConfirmLocationPage";
 
 
 function App() {
@@ -45,6 +46,10 @@ function App() {
                   <Route path="/bo/list">
                       <NavBar/>
                       <ListPage/>
+                  </Route>
+                  <Route exact path="/bo/addElement/confirmLocation">
+                      <NavBar/>
+                      <ConfirmLocationPage/>
                   </Route>
                   <Route path="/bo/addElement">
                       <NavBar/>
@@ -91,6 +96,10 @@ function App() {
                       <LoadingPage/>
                   </Route>
                   <Route path="/loading/map">
+                      <NavBar/>
+                      <LoadingPage/>
+                  </Route>
+                  <Route path="/loading/addElement">
                       <NavBar/>
                       <LoadingPage/>
                   </Route>
