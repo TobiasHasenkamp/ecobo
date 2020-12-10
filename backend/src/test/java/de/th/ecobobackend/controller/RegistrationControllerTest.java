@@ -72,7 +72,7 @@ class RegistrationControllerTest {
         );
 
         String password = new BCryptPasswordEncoder().encode("Abc123");
-        userProfileMongoDB.save(new UserProfile("Tobias", password, Instant.now(), "20.10.1990"));
+        userProfileMongoDB.save(new UserProfile("Tobias", password, Instant.now(), "20.10.1990", ""));
 
         //WHEN
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:" + port + "/auth/registration",

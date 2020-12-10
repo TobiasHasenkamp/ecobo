@@ -21,4 +21,5 @@ public class UserProfile {
     private String password;
     private Instant registrationDateInternal;
     private String registrationDateExternal;
+    private String profilePic;
 }

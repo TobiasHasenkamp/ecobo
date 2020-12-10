@@ -11,6 +11,7 @@ export default function LoginTokenContextProvider({children}){
     const [username, setUsername] = useState(getUsernameFromTokenFromLocalStorage);
     const [password, setPassword] = useState(getPasswordFromTokenFromLocalStorage);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userData, setUserData] = useState({});
 
     useEffect(() => {
         console.log("is logged in: " + isLoggedIn);
@@ -36,7 +37,8 @@ export default function LoginTokenContextProvider({children}){
 
     return (
 
-        <LoginTokenContext.Provider value={{token, setToken, username, setUsername, password, setPassword, isLoggedIn, setIsLoggedIn}}>
+        <LoginTokenContext.Provider value={{token, setToken, username, setUsername, password, setPassword, isLoggedIn,
+            setIsLoggedIn, userData, setUserData}}>
             {children}
         </LoginTokenContext.Provider>
 

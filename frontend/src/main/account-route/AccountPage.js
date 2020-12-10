@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
 import GradientBorderlineBottom from "../designElements/GradientBorderlineBottom";
 import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
@@ -12,18 +12,18 @@ import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
 import EcoElementContext from "../contexts/EcoElementContext";
 import {getEcoElements} from "../services/ecoElementService";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
+import ImgUpload from "../services/ImgUpload";
 
 export default function AccountPage() {
     const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const history = useHistory();
     const {userNameParam} = useParams();
-    const [userData, setUserData] = useState({});
-
+    const {userData, setUserData} = useContext(LoginTokenContext);
 
     useEffect(() => {
         getUserData(userNameParam, token, setUserData);
-    }, [userNameParam, token])
+    }, [userNameParam, token, setUserData])
 
     useEffect(() => {
         getEcoElements(token, setEcoElements);
@@ -47,7 +47,6 @@ export default function AccountPage() {
         history.push("/home");
     }
 
-
     return(
 
         <>
@@ -60,8 +59,10 @@ export default function AccountPage() {
                     <StyledLeftBar>
                         <div/>
                             <StyledPhotoSection>
-                                <StyledUserPhoto src="/profilePics/placeholder.webp"/>
-                                <StyledEditPictureButton>Edit Picture</StyledEditPictureButton>
+                                {userData.profilePic? <StyledUserPhoto src={userData.profilePic}/>
+                                : <StyledUserPhoto src="/profilePics/placeholder.webp"/>
+                                }
+                                <ImgUpload type="userImmediate"/>
                             </StyledPhotoSection>
                             <StyledLeftBarText>
                                 <h3>Angemeldet:</h3>
@@ -195,13 +196,6 @@ const StyledRightBar = styled.div`
     font-weight: normal;
     margin: 0;
   }
-`
-
-const StyledEditPictureButton = styled.div`
-  color: white;
-  padding-top: 7px;
-  font-size: 0.7em;
-  text-align: center;
 `
 
 const StyledLogoutButton = styled.button`
