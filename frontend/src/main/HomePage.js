@@ -4,6 +4,7 @@ import NewsfeedComponent from "./NewsfeedComponent";
 import GreenBoxSmall from "./designElements/GreenBoxSmall";
 import {Link} from "react-router-dom";
 import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
+import EmptyDivToClosePage from "./designElements/EmptyDivToClosePage";
 
 export default function HomePage() {
 
@@ -36,6 +37,10 @@ export default function HomePage() {
                 <GreenBoxSmall/>
 
                 <NewsfeedComponent/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
 
             </ScrollDiv>
 

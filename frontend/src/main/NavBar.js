@@ -104,7 +104,7 @@ const StyledNavBar = styled.div`
   font-size: 1.2em;
   width: 100%;
   height: 61px;
-  max-width: 475px;
+  max-width: 450px;
   
   .menuItem{
       color: black;
