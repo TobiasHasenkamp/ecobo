@@ -11,6 +11,7 @@ import ShowElementIconButton from "../designElements/buttons/ShowElementIconButt
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
 import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
+import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
 
 export default function FilterResultList({ecoElements}){
 
@@ -30,7 +31,7 @@ export default function FilterResultList({ecoElements}){
                         <div/>
                         <StyledElementHeader>
                             <StyledNameCell>
-                                {element.name}
+                                <div>{element.name}{!element.isReviewed && <InReviewProcessIcon/>}</div>
                             </StyledNameCell>
                             <StyledCell>
                                 {element.title}
