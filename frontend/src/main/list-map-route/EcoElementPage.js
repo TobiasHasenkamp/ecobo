@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
-import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
-    StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
+import {
+    StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
+    StyledCell, StyledIconDiv, StyledElementBody, StyledElementBodyOneCell
+} from "./StyledElementsForTableDesign";
 import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/EcoElementContext";
 import LoginTokenContext from "../contexts/LoginTokenContext";
@@ -21,6 +23,8 @@ import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
 import returnMarkerIcon from "../services/returnMarkerIcon";
 import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
+import ReturnIfUserIsAllowedToGetRender from "./subComponents/ReturnIfUserIsAllowedToGetRender";
+import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
 
 //to fix the "image not found"-bugs that occur when reloading the page
 let DefaultIcon = L.icon({
@@ -98,6 +102,7 @@ export default function EcoElementPage(){
                 <StyledWrapperTable>
                     <StyledHeaderRow className={tableColor}>
                         {ecoElement.name}
+                        {!ecoElement.isReviewed && <InReviewProcessIcon/>}
                     </StyledHeaderRow>
                             <StyledElement>
                                 <div/>
@@ -112,28 +117,30 @@ export default function EcoElementPage(){
                                         <div/>
                                     </StyledCell>
                                     <StyledIconDiv>
-                                        <EditIconButtonMedium handle={handleEdit}/>
-                                        <DeleteIconButtonSmall handle={handleDelete}/>
+                                        {ReturnIfUserIsAllowedToGetRender(ecoElement.creator) &&
+                                        <>
+                                            <EditIconButtonMedium handle={handleEdit}/>
+                                            <DeleteIconButtonSmall handle={handleDelete}/>
+                                        </>
+                                        }
                                     </StyledIconDiv>
                                 </StyledElementHeader>
 
                                 {/*Adresse*/}
-                                <StyledElementBody>
+                                <StyledElementBodyOneCell>
                                     <StyledCell>
                                         {ecoElement.address}
                                     </StyledCell>
-                                    <StyledCell>
-                                    </StyledCell>
-                                </StyledElementBody>
+                                </StyledElementBodyOneCell>
 
                                 {/*Stadtteil + Stadt*/}
-                                <StyledElementBody>
+                                <StyledElementBodyOneCell>
                                     <StyledCell>
-                                        Weitmar, Bochum
+                                        {ecoElement.district?
+                                            ecoElement.district + ", Bochum"
+                                            : "Bochum"}
                                     </StyledCell>
-                                    <StyledCell>
-                                    </StyledCell>
-                                </StyledElementBody>
+                                </StyledElementBodyOneCell>
 
                                 {/*Öffnungszeiten*/}
                                 <StyledElementBody>
@@ -163,6 +170,7 @@ export default function EcoElementPage(){
                                     </StyledCell>
                                     <StyledCell>
                                         <StyledIcons>
+                                            {/*Todo: urls unbedingt ändern*/}
                                             <a href="http://www.spiegel.de"> <FaLink/> </a>
                                             <a href="http://www.facebook.de"> <FaFacebook/> </a>
                                         </StyledIcons>

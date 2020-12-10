@@ -12,6 +12,7 @@ import FilterResultList from "./list-map-route/FilterResultList";
 import FilterListContext from "./contexts/FilterListContext";
 import FashionStoreList from "./list-map-route/FashionStoreList";
 import OthersList from "./list-map-route/OthersList";
+import ReturnIfUserIsAllowedToGetRender from "./list-map-route/subComponents/ReturnIfUserIsAllowedToGetRender";
 
 export default function ListPage() {
 
@@ -56,7 +57,8 @@ export default function ListPage() {
                 <StyledBottomDiv/>
 
             </StyledWrapperDiv>
-            <AddItemButton bottomDistance="normal"/>
+
+            {ReturnIfUserIsAllowedToGetRender("anyUser") && <AddItemButton bottomDistance="normal"/>}
 
         </div>
 

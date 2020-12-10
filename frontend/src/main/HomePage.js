@@ -36,6 +36,10 @@ export default function HomePage() {
                 <GreenBoxSmall/>
 
                 <NewsfeedComponent/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
 
             </ScrollDiv>
 

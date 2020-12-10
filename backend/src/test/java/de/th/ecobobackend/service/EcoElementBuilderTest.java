@@ -11,7 +11,6 @@ import de.th.ecobobackend.utils.TimestampUtils;
 import org.apache.commons.compress.utils.Lists;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.security.Principal;
 import java.time.Instant;

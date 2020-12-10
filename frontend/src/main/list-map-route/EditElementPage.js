@@ -11,6 +11,7 @@ import translationService from "../services/translationService";
 import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
 import Menu from "@material-ui/core/Menu";
 import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuItemsForAddElement";
+import FilterListContext from "../contexts/FilterListContext";
 
 export default function EditElementPage() {
 
@@ -26,6 +27,7 @@ export default function EditElementPage() {
     const {ecoElementIDParam} = useParams();
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [certificatesToAddList, setCertificatesToAddList] = useState([]);
+    const {setShowNonReviewedItems} = useContext(FilterListContext);
 
     useEffect(() => {
 
@@ -70,18 +72,38 @@ export default function EditElementPage() {
     useEffect(() => {
         let finalLat;
         let finalLon;
+        let displayInfo;
+        let district;
+
         let p = lonLatOfRequest[0];
         for (let key in p) {
             if (p.hasOwnProperty(key) && key === "lat") {
                 finalLat = p[key];
             } else if (p.hasOwnProperty(key) && key === "lon") {
                 finalLon = p[key];
+            } else if (p.hasOwnProperty(key) && key === "display_name") {
+                displayInfo = p[key];
             }
         }
+
+        if (displayInfo !== undefined){
+            let valueArray = displayInfo.split(", ");
+            if (valueArray.length === 9){
+                district = valueArray[3];
+            }
+            else if (valueArray.length === 7){
+                district = valueArray[1];
+            }
+            else {
+                district = valueArray[2];
+            }
+        }
+
         if (finalLon !== undefined && buttonHasBeenClicked) {
             console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
-            updateEcoElement(name, ecoElement.id, category, categorySub, address, finalLat, finalLon, token, setEcoElement, certificatesToAddList);
+            updateEcoElement(name, ecoElement.id, category, categorySub, district, address, finalLat, finalLon, token, setEcoElement, certificatesToAddList);
+            setShowNonReviewedItems(true);
             history.push("/loading/map");
         }
 
@@ -113,7 +135,9 @@ export default function EditElementPage() {
         }
         else if (tokenValidation()){
             setButtonHasBeenClicked(false);
-            updateEcoElement(name, ecoElement.id, category, categorySub, address, ecoElement.lon, ecoElement.lat, token, setEcoElement, certificatesToAddList);
+            const district = ecoElement.district;
+            updateEcoElement(name, ecoElement.id, category, categorySub, district, address, ecoElement.lon, ecoElement.lat, token, setEcoElement, certificatesToAddList);
+            setShowNonReviewedItems(true);
             history.push("/loading/map");
         }
         else {

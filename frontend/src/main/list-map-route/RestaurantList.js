@@ -5,6 +5,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
 
 export default function RestaurantList({ecoElements}){
 
@@ -29,7 +30,9 @@ export default function RestaurantList({ecoElements}){
             </StyledHeaderRow>
             {
                 restaurantTableIsOpen &&
-                ecoElements?.filter(element => element.category === "RESTAURANT").map((element) => (
+                ecoElements?.filter(element => element.category === "RESTAURANT")
+                    .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
+                    .map((element) => (
                     <StyledElement key={element.id}>
                         <div/>
                         <StyledElementHeader>

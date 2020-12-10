@@ -9,7 +9,7 @@ export default function getLonAndLatForAddress(address, lonLatOfRequest, setLonL
         method: 'GET',
         url: 'https://forward-reverse-geocoding.p.rapidapi.com/v1/search',
         params: {
-            format: 'jsonv2',
+            format: 'json',
             q: "Bochum, " + address,
             polygon_threshold: '0.0',
             'accept-language': 'en'

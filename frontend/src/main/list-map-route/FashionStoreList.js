@@ -5,10 +5,12 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
 
 export default function FashionStoreList({ecoElements}){
 
     const [fashionStoreTableIsOpen, setFashionStoreTableIsOpen] = useState(true);
+
 
     function handleShowFashionStoreTable(){
         setFashionStoreTableIsOpen(!fashionStoreTableIsOpen);
@@ -28,7 +30,9 @@ export default function FashionStoreList({ecoElements}){
                     : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFashionStoreTable}/>}
             </StyledHeaderRow>
             { fashionStoreTableIsOpen &&
-            ecoElements?.filter(element => element.category === "FASHIONSTORE").map((element) => (
+            ecoElements?.filter(element => element.category === "FASHIONSTORE")
+                .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
+                .map((element) => (
                 <StyledElement key={element.id}>
                     <div/>
                     <StyledElementHeader>

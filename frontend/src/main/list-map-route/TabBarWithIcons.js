@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import ShowsAsListIconButton from "../designElements/buttons/ShowsAsListIconButton";
 import ShowAsMapIconButton from "../designElements/buttons/ShowAsMapIconButton";
 import ShowAsCardsIconButton from "../designElements/buttons/ShowAsCardsIconButton"
@@ -11,7 +11,9 @@ import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa"
 import translationService from "../services/translationService";
 import returnSubCategoryMenuItemsForFilterList from "./subComponents/SubCategoryMenuItemsForFilterList";
 import returnCertificateMenuItemsForFilterList from "./subComponents/CertificateMenuItemsForFilterList";
-
+import ShowReviewedItemsCheckbox from "./subComponents/ShowReviewedItemsCheckbox";
+import {getDistrictList} from "../services/ecoElementService";
+import LoginTokenContext from "../contexts/LoginTokenContext";
 
 
 export default function TabBarWithIcons({type}) {
@@ -24,7 +26,12 @@ export default function TabBarWithIcons({type}) {
     const {filterListForCategory, setFilterListForCategory} = useContext(FilterListContext);
     const {filterListForCertificates, setFilterListForCertificates} = useContext(FilterListContext);
     const {filterListForLocation, setFilterListForLocation} = useContext(FilterListContext);
+    const [districtList, setDistrictList] = useState([]);
+    const {token} = useContext(LoginTokenContext);
 
+    useEffect(() => {
+        getDistrictList(token, setDistrictList);
+    }, [token, setDistrictList]);
 
     function handleLinkToMap() {
             history.push("/bo/map");
@@ -148,7 +155,7 @@ export default function TabBarWithIcons({type}) {
                     <StyledFilterBarMenuButton onClick={handleOpenCertificatesFilterMenu}>Tags</StyledFilterBarMenuButton>
                     <StyledFilterBarMenuButton onClick={handleOpenLocationFilterMenu}>Ort</StyledFilterBarMenuButton>
                 </StyledFilterBar>
-                : <div/>}
+                : <ShowReviewedItemsCheckbox/>}
 
                 {filterListForCategory?
                     <Menu
@@ -185,18 +192,19 @@ export default function TabBarWithIcons({type}) {
                         open={Boolean(locationMenuStatusAndAnchor)}
                         onClose={handleCloseLocationFilterMenu}
                     >
-                        {!filterListForLocation.includes("Innenstadt") &&
-                                        <StyledMenuItem name="Innenstadt" title="location"
-                                                        onClick={handleAddItemToFilter}>Innenstadt
-                                        </StyledMenuItem>}
-                        {!filterListForLocation.includes("Weitmar") &&
-                                        <StyledMenuItem name="Weitmar" title="location"
-                                                        onClick={handleAddItemToFilter}>Weitmar
-                                        </StyledMenuItem>}
-                        {!filterListForLocation.includes("Riemke") &&
-                                        <StyledMenuItem name="Riemke" title="location"
-                                                        onClick={handleAddItemToFilter}>Riemke
-                                        </StyledMenuItem>}
+
+                        {districtList.map(district => (
+
+                            <div key={district}>
+                                {!filterListForLocation.includes(district) &&
+                                <StyledMenuItem name={district} title="location"
+                                onClick={handleAddItemToFilter}>{district}
+                                </StyledMenuItem>}
+                            </div>
+                            )
+
+                        )}
+
                     </Menu>
                 : ""}
 

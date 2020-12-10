@@ -5,6 +5,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
 
 export default function OthersList({ecoElements}){
 
@@ -28,7 +29,9 @@ export default function OthersList({ecoElements}){
                         : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>}
                 </StyledHeaderRow>
                 { othersTableIsOpen &&
-                    ecoElements?.filter(element => element.category === "OTHER").map((element) => (
+                    ecoElements?.filter(element => element.category === "OTHER")
+                        .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
+                        .map((element) => (
                         <StyledElement key={element.id}>
                             <div/>
                             <StyledElementHeader>
