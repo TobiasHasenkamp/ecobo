@@ -149,7 +149,6 @@ const StyledNewsfeed = styled.div`
   overflow: scroll;
   width: auto;
   margin: 0 15px 15px 15px;
-  font-size: 0.8em;
   font-size: 3.1vmin;
   border-left: 5px solid var(--darkgreen);
   padding: 10px 14px 6px 14px;
@@ -157,6 +156,8 @@ const StyledNewsfeed = styled.div`
   grid-template-rows: min-content min-content min-content min-content min-content;
   grid-gap: 4px;
   background-color: lightgray;
+  
+  @media (min-width:475px) { font-size: 1.25em }
   
   a{
       color: var(--darkgrey);

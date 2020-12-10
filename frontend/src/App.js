@@ -119,8 +119,13 @@ export default App;
 const StyledPageLayout = styled.div`
   width: 100vw;
   height: 100vh;
+  max-width: 475px;
   //overflow: scroll;
   margin-top: 61px;
+  
+  @media (min-width:475px) {
+    margin: 61px auto 0 0;
+  }
 `
 
 
