@@ -115,7 +115,6 @@ export default function LoginPage() {
                     <input type="password" name="passwordNew1" value={registrationPassword1} onChange={handlePasswordChange1Registration}/>
                     <label htmlFor="passwordNew2">Passwort wiederholen</label>
                     <input type="password" name="passwordNew2" value={registrationPassword2} onChange={handlePasswordChange2Registration}/>
-
                     <div>
                         <button>Registration</button>
                     </div>
