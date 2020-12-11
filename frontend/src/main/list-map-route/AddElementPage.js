@@ -64,7 +64,6 @@ export default function AddElementPage() {
                 displayInfo = p[key];
             }
         }
-
         if (displayInfo !== undefined){
             let valueArray = displayInfo.split(", ");
             if (valueArray.length === 9){
@@ -77,13 +76,11 @@ export default function AddElementPage() {
                 finalDistrict = valueArray[2];
             }
         }
-
         if (finalLon !== undefined && buttonHasBeenClicked) {
-            console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
             addEcoElement(name, category, categorySub, finalDistrict, address, finalLat, finalLon, certificatesToAddList, token, setEcoElement);
             setShowNonReviewedItems(true);
-            history.push("/loading/map");
+            history.push("/loading/addElement");
         }
 
         // this error is wrong, adding other dependencies here will completely change the data flow on this side

@@ -23,7 +23,10 @@ export default function LoadingPage() {
 
         if (percentCompleted > 100){
 
-            if (location.pathname === "/loading/map"){
+            if (location.pathname === "/loading/addElement"){
+                history.push("/bo/addElement/confirmLocation")
+            }
+            else if (location.pathname === "/loading/map"){
                 history.push("/bo/map/centered")
             }
             else {

@@ -76,12 +76,16 @@ export default function returnMarkerIcon(category, categorySub){
         color + "&size=large&icon=" + icon + "&iconSize=small&textSize=small&apiKey=" + apikey + "' alt='marker'/>";
 
 
-
     return L.divIcon({
-
         html: iconHtml,
-        iconSize: [0, 0],
-        iconAnchor: [0, 0]
+        iconSize: [37, 47],
+        iconAnchor: [18, 24],
+        shadowSize: [0, 0],
+        className: "StyledMapMarker",
     })
 
 }
+
+
+
+
