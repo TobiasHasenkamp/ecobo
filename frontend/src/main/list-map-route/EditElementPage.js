@@ -100,11 +100,10 @@ export default function EditElementPage() {
         }
 
         if (finalLon !== undefined && buttonHasBeenClicked) {
-            console.log(finalLat, finalLon);
             setButtonHasBeenClicked(false);
             updateEcoElement(name, ecoElement.id, category, categorySub, district, address, finalLat, finalLon, token, setEcoElement, certificatesToAddList);
             setShowNonReviewedItems(true);
-            history.push("/loading/map");
+            history.push("/loading/addElement");
         }
 
         // this error is wrong, adding other dependencies here will completely change the data flow on this side

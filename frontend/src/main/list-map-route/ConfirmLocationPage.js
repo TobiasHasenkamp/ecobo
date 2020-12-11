@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useMemo, useRef, useState} from "react";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 import styled from "styled-components/macro";
 import 'leaflet/dist/leaflet.css';
@@ -89,7 +89,7 @@ export default function ConfirmLocationPage() {
                     maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
                     scrollWheelZoom={"center"}
                     wheelDebounceTime={15}
-                    dragging={false}
+                    dragging={true}
                     className={"map"}
                 >
                     <TileLayer
