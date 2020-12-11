@@ -1,8 +1,7 @@
 import L from "leaflet";
 
 
-export default function returnMarkerIcon(category, categorySub){
-    //later change the apikey into a env-variable, but how?
+export default function markerIcon(category, categorySub){
     let apikey = process.env.REACT_APP_GEOAPIFY_KEY;
     let color;
     let icon;
@@ -62,7 +61,7 @@ export default function returnMarkerIcon(category, categorySub){
             icon = "tshirt"
             break;
         case "FASHIONSTORE_SECOND_HAND_STORE":
-            icon = "mitten" //originally was vest, but this seems not to work
+            icon = "mitten" //originally was "vest", but it seems not to work at the moment
             break;
         case "OTHER":
             icon = "bookmark"
@@ -70,7 +69,6 @@ export default function returnMarkerIcon(category, categorySub){
         default:
             icon = "bookmark"
     }
-
 
     const iconHtml = "<img src='https://api.geoapify.com/v1/icon/?type=awesome&color=%" +
         color + "&size=large&icon=" + icon + "&iconSize=small&textSize=small&apiKey=" + apikey + "' alt='marker'/>";
@@ -83,7 +81,6 @@ export default function returnMarkerIcon(category, categorySub){
         shadowSize: [0, 0],
         className: "StyledMapMarker",
     })
-
 }
 
 

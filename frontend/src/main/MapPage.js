@@ -14,8 +14,8 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
 import BlackLine from "./designComponents/otherDesignObjects/BlackLine";
 import {useLocation} from "react-router-dom";
-import MapMarkersForMap from "./list-map-route/subComponents/MapMarkersForMap";
-import ReturnIfUserIsAllowedToGetRender from "./list-map-route/subComponents/ReturnIfUserIsAllowedToGetRender";
+import MapMarkersForMap from "./designComponents/mapElements/MapMarkersForMap";
+import ReturnIfUserIsAllowedToGetRender from "./services/ReturnIfUserIsAllowedToGetRender";
 
 
 //to fix the "image not found"-bugs that occur when reloading the page

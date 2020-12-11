@@ -17,13 +17,13 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import EditIconButton from "../designComponents/buttons/EditIconButton";
 import {FaFacebook, FaLink, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
-import ReviewBox from "./subComponents/ReviewBox";
-import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
+import ReviewSection from "./subComponents/ReviewSection";
+import RecentlyReviewedItemMessage from "./subComponents/RecentlyReviewedItemMessage";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
-import returnMarkerIcon from "../services/returnMarkerIcon";
+import markerIcon from "../designComponents/mapElements/MarkerIcon";
 import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDivToClosePage";
-import ReturnIfUserIsAllowedToGetRender from "./subComponents/ReturnIfUserIsAllowedToGetRender";
+import ReturnIfUserIsAllowedToGetRender from "../services/ReturnIfUserIsAllowedToGetRender";
 import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
 import ImgUpload from "../services/ImgUpload";
 
@@ -205,9 +205,9 @@ export default function EcoElementPage(){
                         </StyledElement>
                 </StyledWrapperTable>
 
-                <ReviewBox/>
+                <ReviewSection/>
 
-                <RecentlyReviewedBox/>
+                <RecentlyReviewedItemMessage/>
 
                 <StyledDiv>
 
@@ -215,7 +215,8 @@ export default function EcoElementPage(){
                         {ecoElement.pictureUrl? <StyledElementPhoto src={ecoElement.pictureUrl}/>
                             : <StyledElementPhoto src="/profilePics/placeholder.webp"/>
                         }
-                        <ImgUpload type="elementImmediate" dark="true" ecoElementId={ecoElement.id}/>
+                        {ReturnIfUserIsAllowedToGetRender(ecoElement.creator) &&
+                        <ImgUpload type="elementImmediate" dark="true" ecoElementId={ecoElement.id}/>}
                     </div>
 
                     <StyledDivForMap>
@@ -241,13 +242,11 @@ export default function EcoElementPage(){
                             { ecoElement.lat && ecoElement.lon &&
 
                             <Marker key={ecoElement.id} position={[ecoElement.lon, ecoElement.lat]}
-                                            title={ecoElement.name} icon={returnMarkerIcon(ecoElement.category, ecoElement.categorySub)}>
+                                            title={ecoElement.name} icon={markerIcon(ecoElement.category, ecoElement.categorySub)}>
                             </Marker>}
-
 
                         </MapContainer>
                         }
-
                     </StyledDivForMap>
 
                     <StyledDivForElementData>
@@ -264,11 +263,9 @@ export default function EcoElementPage(){
                         <div>{ecoElement.dateLastUpdatedExternal}</div>
                         <br/>
 
-
                     </StyledDivForElementData>
 
                 </StyledDiv>
-
                 <EmptyDivToClosePage/>
 
             </ScrollDiv>

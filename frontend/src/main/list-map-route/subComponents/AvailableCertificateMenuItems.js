@@ -2,8 +2,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";
 import styled from "styled-components/macro";
 
-export default function CertificateMenuItemsForAddElement(category, certificatesToAddList,
-                                                          handleAddCertificateToAddList){
+//this returns which certificates can be added to an EcoElement in dependency to the chosen category
+export default function AvailableCertificateMenuItems(category, certificatesToAddList,
+                                                      handleAddCertificateToAddList){
 
     const listOfItemsToReturn = [];
 

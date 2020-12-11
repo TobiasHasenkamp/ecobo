@@ -8,9 +8,9 @@ import styled from "styled-components/macro";
 import tokenValidation from "../services/tokenValidation";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import translationService from "../services/translationService";
-import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
+import subCategoryOptionsForAddElement from "./subComponents/AvailableSubcategoryMenuItems";
 import Menu from "@material-ui/core/Menu";
-import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuItemsForAddElement";
+import certificateMenuItemsForAddElement from "./subComponents/AvailableCertificateMenuItems";
 import FilterContext from "../contexts/createContexts/FilterContext";
 
 export default function EditElementPage() {

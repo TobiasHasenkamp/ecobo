@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import LoginContext from "../../contexts/createContexts/LoginContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 
 
 export default function ReturnIfUserIsAllowedToGetRender(usernameToTest) {
@@ -13,11 +13,6 @@ export default function ReturnIfUserIsAllowedToGetRender(usernameToTest) {
         return true;
     }
     //this only allows the render for the admin, the real request is still blocked in the backend
-    else if (username === "admin"){
-        return true;
-    }
-    else {
-        return false;
-    }
-
+    else if (username === "admin") return true;
+    else return false;
 }

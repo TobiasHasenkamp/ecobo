@@ -9,9 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FilterContext from "../contexts/createContexts/FilterContext";
 import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
 import translationService from "../services/translationService";
-import returnSubCategoryMenuItemsForFilterList from "./subComponents/SubCategoryMenuItemsForFilterList";
-import returnCertificateMenuItemsForFilterList from "./subComponents/CertificateMenuItemsForFilterList";
-import ShowReviewedItemsCheckbox from "./subComponents/ShowReviewedItemsCheckbox";
+import returnSubCategoryMenuItemsForFilterList from "./subComponents/AvailableSubcategoryMenuItemsForFilter";
+import returnCertificateMenuItemsForFilterList from "./subComponents/AvailableCertificateMenuItemsForFilter";
+import CheckboxToShowNonReviewedItems from "./subComponents/CheckboxToShowNonReviewedItems";
 import {getDistrictList} from "../services/ecoElementService";
 import LoginContext from "../contexts/createContexts/LoginContext";
 import {StandardButtonDark} from "../designComponents/buttons/StandardButtonDark";
@@ -156,7 +156,7 @@ export default function TabBarWithIcons({type}) {
                     <StandardButtonDark onClick={handleOpenCertificatesFilterMenu}>Tags</StandardButtonDark>
                     <StandardButtonDark onClick={handleOpenLocationFilterMenu}>Ort</StandardButtonDark>
                 </StyledFilterBar>
-                : <ShowReviewedItemsCheckbox/>}
+                : <CheckboxToShowNonReviewedItems/>}
 
                 {filterListForCategory?
                     <Menu

@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import FilterContext from "../../contexts/createContexts/FilterContext";
+import FilterContext from "../contexts/createContexts/FilterContext";
 
 export default function ReturnFilterReviewFunction(element){
 

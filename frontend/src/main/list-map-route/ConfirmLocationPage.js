@@ -7,7 +7,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import BlackLine from "../designComponents/otherDesignObjects/BlackLine";
-import returnMarkerIcon from "../services/returnMarkerIcon";
+import markerIcon from "../designComponents/mapElements/MarkerIcon";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
 import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
@@ -100,7 +100,7 @@ export default function ConfirmLocationPage() {
                     { ecoElement.lat && ecoElement.lat && stageOfThePage === 1 &&
 
                     <Marker key={ecoElement.id} draggable={false} position={[ecoElement.lon, ecoElement.lat]}
-                            title={ecoElement.name} icon={returnMarkerIcon(ecoElement.category, ecoElement.categorySub)}>
+                            title={ecoElement.name} icon={markerIcon(ecoElement.category, ecoElement.categorySub)}>
 
                         <StyledPopup>
                             <StyledPopupHeader>
@@ -117,7 +117,7 @@ export default function ConfirmLocationPage() {
                     { stageOfThePage === 2 &&
                     <Marker key={ecoElement.id} draggable={true} eventHandlers={eventHandlers}
                               position={position} ref={markerRef}
-                              title={ecoElement.name} icon={returnMarkerIcon(ecoElement.category, ecoElement.categorySub)}>
+                              title={ecoElement.name} icon={markerIcon(ecoElement.category, ecoElement.categorySub)}>
 
                         <StyledPopup>
                             <StyledPopupHeader>

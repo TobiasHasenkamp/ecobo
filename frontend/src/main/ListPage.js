@@ -12,7 +12,7 @@ import FilterResultList from "./list-map-route/FilterResultList";
 import FilterContext from "./contexts/createContexts/FilterContext";
 import FashionStoreList from "./list-map-route/FashionStoreList";
 import OthersList from "./list-map-route/OthersList";
-import ReturnIfUserIsAllowedToGetRender from "./list-map-route/subComponents/ReturnIfUserIsAllowedToGetRender";
+import ReturnIfUserIsAllowedToGetRender from "./services/ReturnIfUserIsAllowedToGetRender";
 
 export default function ListPage() {
 

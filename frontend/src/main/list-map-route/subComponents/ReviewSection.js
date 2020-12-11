@@ -6,7 +6,7 @@ import {addReviewToEcoElement} from "../../services/ecoElementService";
 import EcoElementContext from "../../contexts/createContexts/EcoElementContext";
 import LoginContext from "../../contexts/createContexts/LoginContext";
 
-export default function ReviewBox(){
+export default function ReviewSection(){
 
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
     const {token, username} = useContext(LoginContext);
@@ -15,75 +15,63 @@ export default function ReviewBox(){
     const [reviewComment, setReviewComment] = useState("");
     const [reviewTableIsOpen, setReviewTableIsOpen] = useState(true);
 
-
     useEffect(() => {
         setCommentSectionIsOpen(false);
         setAddReviewSectionIsOpen(false);
         setReviewTableIsOpen(true);
     }, [])
 
-    function handleShowAddReviewSection(){
+    function handleShowReviewSection(){
+        setReviewTableIsOpen(!reviewTableIsOpen);
+    }
+    function handleShowAddNewReviewSection(){
         setAddReviewSectionIsOpen(!addReviewSectionIsOpen);
     }
-
     function handleShowCommentsSection(){
         if (ecoElement.reviews.filter((review) => (review.reviewComment !== "")).length > 0){
             setCommentSectionIsOpen(!commentSectionIsOpen);
         }
     }
 
-    function handleShowReviewSection(){
-        setReviewTableIsOpen(!reviewTableIsOpen);
-    }
-
-    function returnWordForCommentaries(){
+    function returnPluralOrSingularForCommentary(){
         if (ecoElement.reviews.filter((review) => (review.reviewComment !== "")).length === 1){
             return " Kommentar ";
-        }
-        else{
+        } else{
             return " Kommentare ";
         }
     }
 
-    function handleAddReview(event){
-        //function seems to have problems, cause not every time the event is transported, maybe this is only a problem in the browser?
+    function handleAddNewReview(event){
         if (event.target.getAttribute("name") === "positiveAddReviewButton"){
             addReviewToEcoElement(ecoElement.id, true, reviewComment, token, setEcoElement);
             setAddReviewSectionIsOpen(false);
-        }
-        else if (event.target.getAttribute("name") === "negativeAddReviewButton"){
+        } else if (event.target.getAttribute("name") === "negativeAddReviewButton"){
             addReviewToEcoElement(ecoElement.id, false, reviewComment, token, setEcoElement);
             setAddReviewSectionIsOpen(false);
         }
     }
-
-    function handleAddReviewCommentChange(event){
+    function handleAddNewReviewCommentChange(event){
         setReviewComment(event.target.value);
     }
 
     function returnPercentageOfPositiveReviews(element) {
-
         if (element.reviews.length > 0 && element.reviews.length !== undefined) {
             const positivePercentage = Math.round(100 / element.reviews.length * element.reviews.filter(
                 (review) => (review.positive)).length);
-
             if (positivePercentage === undefined || positivePercentage === Infinity || positivePercentage < 0){
                 return " (0% positiv)";
             }
-
             return " (" + positivePercentage + "% positiv)";
-        }
-        else {
+        } else {
             return "-";
         }
     }
 
-    function returnHeadlineForAddingAReview(element){
-
+    //returns the Headline for the Add new Review section in dependency of whether the user has already reviewed or not
+    function returnCorrectHeadlineForAddingANewReview(element){
         if (element.reviews.filter((review) => (review.author === username)).length !== 0){
             return "Dein bestehendes Review überschreiben "
-        }
-        else {
+        } else {
             return "Eigenes Review hinzufügen ";
         }
     }
@@ -98,8 +86,8 @@ export default function ReviewBox(){
                     : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowReviewSection}/>}
                 </StyledHeaderRow>
 
-                {/*review message if item was reset*/}
-                {(reviewTableIsOpen && ecoElement.adminNote === "Review has been resetted because of an element edit." &&
+                {/*review message if item was reseted*/}
+                {(reviewTableIsOpen && ecoElement.adminNote === "Reviews wurden zurückgesetzt, weil das Item substantiell geändert wurde." &&
                     ecoElement.reviews.length < 2) &&
                     <StyledElementBody>
                         <StyledCell style={{ gridColumn: "1 / span 2" }}>
@@ -107,7 +95,7 @@ export default function ReviewBox(){
                         </StyledCell>
                     </StyledElementBody>}
 
-                {/*Review status*/}
+                {/*Review status section*/}
                 {reviewTableIsOpen &&
                     <StyledElementBody>
                         <StyledCell style={{gridColumn: "1 / span 2"}}>
@@ -125,7 +113,7 @@ export default function ReviewBox(){
                     </StyledElementBody>
                 }
 
-                {/*review system description*/}
+                {/*review system description section*/}
                 {reviewTableIsOpen &&
                     <StyledElementBody>
                         <StyledCell style={{gridColumn: "1 / span 2"}}>
@@ -134,12 +122,12 @@ export default function ReviewBox(){
                     </StyledElementBody>
                 }
 
-                {/*Show comments*/}
+                {/*Show comments section*/}
                 {reviewTableIsOpen &&
                     <StyledElementBody>
                         <StyledCell style={{gridColumn: "1 / span 2"}}>
                             {ecoElement.reviews.filter((review) => (review.reviewComment !== "")).length}
-                            {returnWordForCommentaries()}
+                            {returnPluralOrSingularForCommentary()}
                             {commentSectionIsOpen ? <FaRegArrowAltCircleUp onClick={handleShowCommentsSection}/>
                                 : <FaRegArrowAltCircleDown onClick={handleShowCommentsSection}/>}
                         </StyledCell>
@@ -155,24 +143,23 @@ export default function ReviewBox(){
                     </StyledElementBody>
                 }
 
-
-                {/*Add your own review*/}
+                {/*Add your own review section*/}
                 {reviewTableIsOpen &&
                     <StyledElementBody>
                         <StyledCell style={{gridColumn: "1 / span 2"}}>
-                            {returnHeadlineForAddingAReview(ecoElement)} {addReviewSectionIsOpen ?
-                            <FaRegArrowAltCircleUp onClick={handleShowAddReviewSection}/>
-                            : <FaRegArrowAltCircleDown onClick={handleShowAddReviewSection}/>}
+                            {returnCorrectHeadlineForAddingANewReview(ecoElement)} {addReviewSectionIsOpen ?
+                            <FaRegArrowAltCircleUp onClick={handleShowAddNewReviewSection}/>
+                            : <FaRegArrowAltCircleDown onClick={handleShowAddNewReviewSection}/>}
                         </StyledCell>
                         {addReviewSectionIsOpen &&
                         <StyledCell style={{gridColumn: "1 / span 2"}}>
 
                             <label style={{verticalAlign: "top"}} htmlFor="reviewComment">Comment (optional):</label> {" "}
                             <StyledTextboxForComments rows={3} maxLength={200} name="reviewComment" value={reviewComment}
-                                                      onChange={handleAddReviewCommentChange} type="text"/>
+                                                      onChange={handleAddNewReviewCommentChange} type="text"/>
                             <StyledDivForAddingANewReview>Ihre Bewertung:
-                                <FaCheck name="positiveAddReviewButton" className="positive" onClick={handleAddReview}/>
-                                <FaTimes name="negativeAddReviewButton" className="negative" onClick={handleAddReview}/>
+                                <FaCheck name="positiveAddReviewButton" className="positive" onClick={handleAddNewReview}/>
+                                <FaTimes name="negativeAddReviewButton" className="negative" onClick={handleAddNewReview}/>
                             </StyledDivForAddingANewReview>
 
                         </StyledCell>
@@ -183,20 +170,15 @@ export default function ReviewBox(){
                 }
 
             </StyledWrapperTable>
-
     )
 }
 
 
-
-
 const StyledDivForCheckMarkersForEveryReview = styled.div`
-  
   .negative{
     color: red;
     margin: -2px 2px;
   }
-  
   .positive{
     color: green;
     margin: -2px 2px;
@@ -214,12 +196,10 @@ const StyledDivForAddingANewReview = styled.div`
       padding: 6px 0;
       margin: 0;
       font-size: 1.15em;
-      
     .negative{
         color: red;
         margin: -2px 5px;
     }
-  
     .positive{
       color: green;
       margin: -2px 5px;

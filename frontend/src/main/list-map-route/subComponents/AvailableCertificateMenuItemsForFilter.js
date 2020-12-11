@@ -3,7 +3,8 @@ import styled from "styled-components/macro";
 import MenuItem from "@material-ui/core/MenuItem";
 import FrontendInputContext from "../../contexts/createContexts/FrontendInputContext";
 
-export default function CertificateMenuItemsForFilterList(filterListForCertificates, handleAddItemToFilter){
+//this returns which certificates can be added to the Filter in dependency to the certificates already added to the filter list
+export default function AvailableCertificateMenuItemsForFilter(filterListForCertificates, handleAddItemToFilter){
 
     const {certificateList} = useContext(FrontendInputContext);
 
@@ -15,8 +16,6 @@ export default function CertificateMenuItemsForFilterList(filterListForCertifica
         </StyledMenuItem>
     ))
 }
-
-
 
 const StyledMenuItem = styled(MenuItem)`
     && {

@@ -6,24 +6,20 @@ import FilterContext from "../../contexts/createContexts/FilterContext";
 import translationService from "../../services/translationService";
 import styled from "styled-components/macro";
 import mapCertificates from "../../services/mapCertificates";
-import ShowElementIconButton from "../../designComponents/buttons/ShowElementIconButton";
-import returnMarkerIcon from "../../services/returnMarkerIcon";
-import ReturnIfElementGetsFilteredForReviewStatus from "./ReturnIfElementGetsFilteredForReviewStatus";
-
-
+import ShowElementIconButton from "../buttons/ShowElementIconButton";
+import markerIcon from "./MarkerIcon";
+import ReturnIfElementGetsFilteredForReviewStatus from "../../services/ReturnIfElementGetsFilteredForReviewStatus";
 
 export default function MapMarkersForMap(ecoElements) {
 
     const {returnIfItemGetsFiltered} = useContext(FilterContext);
 
-
         return (
-
             ecoElements?.filter(element => (returnIfItemGetsFiltered(element)))
                 .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
                 .map((element) => (
                     <Marker key={element.id} position={[element.lon, element.lat]}
-                            title={element.name} icon={returnMarkerIcon(element.category, element.categorySub)}>
+                            title={element.name} icon={markerIcon(element.category, element.categorySub)}>
                         <StyledPopup>
                             <StyledPopupHeader>
                                 {element.name}

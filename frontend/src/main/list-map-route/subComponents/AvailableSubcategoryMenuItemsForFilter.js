@@ -4,7 +4,8 @@ import styled from "styled-components/macro";
 import MenuItem from "@material-ui/core/MenuItem";
 import FrontendInputContext from "../../contexts/createContexts/FrontendInputContext";
 
-export default function SubCategoryMenuItemsForFilterList(filterListForCategory, handleAddItemToFilter){
+//this returns which subcategories can be added to the Filter in dependency to the subcategories already added to the filter list
+export default function AvailableSubcategoryMenuItemsForFilter(filterListForCategory, handleAddItemToFilter){
 
     const {subCategoryList} = useContext(FrontendInputContext);
 
@@ -16,8 +17,6 @@ export default function SubCategoryMenuItemsForFilterList(filterListForCategory,
                                             </StyledMenuItem>
                                     ))
 }
-
-
 
 const StyledMenuItem = styled(MenuItem)`
     && {

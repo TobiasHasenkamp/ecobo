@@ -3,7 +3,7 @@ import React, {useContext} from "react";
 import FilterContext from "../../contexts/createContexts/FilterContext";
 import Checkbox from "@material-ui/core/Checkbox";
 
-export default function ShowReviewedItemsCheckbox(){
+export default function CheckboxToShowNonReviewedItems(){
 
     const {showNonReviewedItems, setShowNonReviewedItems} = useContext(FilterContext);
 
@@ -12,15 +12,14 @@ export default function ShowReviewedItemsCheckbox(){
     }
 
     return (
-
-        <StyledLabel>Unreviewed
+        <StyledLabel>
+            Unreviewed
             <Checkbox onChange={handleCheckboxChange}
                       checked={showNonReviewedItems}
                       inputProps={{ 'aria-label': 'uncontrolled-checkbox' }}
                       size="small"
                       style={{color: "var(--darkgrey)", marginLeft: "3px", padding: "0"}}/>
         </StyledLabel>
-
     )
 }
 
