@@ -13,6 +13,7 @@ import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsF
 import translationService from "../services/translationService";
 import FilterListContext from "../contexts/FilterListContext";
 import {StandardButton} from "../designElements/buttons/StandardButton";
+import {StandardButtonDark} from "../designElements/buttons/StandardButtonDark";
 
 export default function AddElementPage() {
 
@@ -171,7 +172,7 @@ export default function AddElementPage() {
                 <label htmlFor="address"> Addresse:</label>
                 <input name="address" value={address} onChange={handleChange} />
 
-                <StandardButton onClick={handleOpenCertificatesMenu}>Tags</StandardButton>
+                <StandardButtonDark onClick={handleOpenCertificatesMenu}>Tags</StandardButtonDark>
 
                 <Menu
                     id="MenuToAddCertificates"

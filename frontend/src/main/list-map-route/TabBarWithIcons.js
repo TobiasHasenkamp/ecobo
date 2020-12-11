@@ -14,6 +14,7 @@ import returnCertificateMenuItemsForFilterList from "./subComponents/Certificate
 import ShowReviewedItemsCheckbox from "./subComponents/ShowReviewedItemsCheckbox";
 import {getDistrictList} from "../services/ecoElementService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
+import {StandardButtonDark} from "../designElements/buttons/StandardButtonDark";
 
 
 export default function TabBarWithIcons({type}) {
@@ -151,9 +152,9 @@ export default function TabBarWithIcons({type}) {
 
                 {filterBarIsOpen?
                 <StyledFilterBar>
-                    <StyledFilterBarMenuButton onClick={handleOpenCategoryFilterMenu}>Typ</StyledFilterBarMenuButton>
-                    <StyledFilterBarMenuButton onClick={handleOpenCertificatesFilterMenu}>Tags</StyledFilterBarMenuButton>
-                    <StyledFilterBarMenuButton onClick={handleOpenLocationFilterMenu}>Ort</StyledFilterBarMenuButton>
+                    <StandardButtonDark onClick={handleOpenCategoryFilterMenu}>Typ</StandardButtonDark>
+                    <StandardButtonDark onClick={handleOpenCertificatesFilterMenu}>Tags</StandardButtonDark>
+                    <StandardButtonDark onClick={handleOpenLocationFilterMenu}>Ort</StandardButtonDark>
                 </StyledFilterBar>
                 : <ShowReviewedItemsCheckbox/>}
 
@@ -270,17 +271,6 @@ const StyledFilterBar = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 1px 25px 4px 10px;
-`
-
-const StyledFilterBarMenuButton = styled.div`
-  font-size: 0.8em;
-  background: dimgray;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 8px;
-  margin-top: -3px;
-  opacity: 85%;
-  box-shadow: 0 2px 0 gray();
 `
 
 const StyledActiveFilterList = styled.div`
