@@ -29,6 +29,7 @@ export default function AddElementPage() {
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [certificatesToAddList, setCertificatesToAddList] = useState([]);
     const {setShowNonReviewedItems} = useContext(FilterListContext);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
 
@@ -78,7 +79,10 @@ export default function AddElementPage() {
                 finalDistrict = valueArray[2];
             }
         }
-        if (finalLon !== undefined && buttonHasBeenClicked) {
+        if ((finalLon === undefined || finalLon === null) && buttonHasBeenClicked){
+            setErrorMessage("Die eingegebene Adresse konnte nicht verarbeitet werden.")
+        }
+        else if (buttonHasBeenClicked) {
             setButtonHasBeenClicked(false);
             addEcoElement(name, category, categorySub, finalDistrict, address, finalLat, finalLon, certificatesToAddList, token, setEcoElement);
             setShowNonReviewedItems(true);
@@ -195,9 +199,14 @@ export default function AddElementPage() {
 
                 <div>
                     <StandardButton onClick={handleButtonClick}>Bestätigen</StandardButton>
+                    <br/> <br/> {errorMessage && errorMessage}
                 </div>
 
             </StyledForm>
+
+            <br/>
+
+
         </div>
 
     )
