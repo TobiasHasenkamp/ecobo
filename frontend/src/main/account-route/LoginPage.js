@@ -4,9 +4,9 @@ import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom";
 import {LoginRequest, RegistrationRequest} from "../services/loginService";
 import LoginContext from "../contexts/createContexts/LoginContext";
-import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
-import {StandardButton} from "../designElements/buttons/StandardButton";
-import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
+import SmallHeaderBar from "../designComponents/otherDesignObjects/SmallHeaderBar";
+import {StandardButton} from "../designComponents/buttons/StandardButton";
+import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDivToClosePage";
 
 export default function LoginPage() {
 
@@ -96,7 +96,7 @@ export default function LoginPage() {
 
                 <br/>
 
-                <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map" type="bold"/>
+                <SmallHeaderBar text="Noch keinen Account?"/>
 
                 <SectionLayout>
                     <LoginAndRegistrationForm onSubmit={handleRegistration}>

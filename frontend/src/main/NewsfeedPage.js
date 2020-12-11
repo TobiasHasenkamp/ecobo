@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import {BiMessageAltDetail, FiDelete, GrUpdate, GrUserAdd} from "react-icons/all";
 import EcoElementContext from "./contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
-import EmptyDivToClosePage from "./designElements/EmptyDivToClosePage";
+import EmptyDivToClosePage from "./designComponents/otherDesignObjects/EmptyDivToClosePage";
 
 export default function NewsfeedPage(){
 

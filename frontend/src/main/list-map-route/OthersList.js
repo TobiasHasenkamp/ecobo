@@ -1,4 +1,4 @@
-import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
+import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
@@ -6,7 +6,7 @@ import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
 import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
-import InReviewProcessIcon from "../designElements/icons/ItemIsInReviewProcessIcon";
+import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
 
 export default function OthersList({ecoElements}){
 

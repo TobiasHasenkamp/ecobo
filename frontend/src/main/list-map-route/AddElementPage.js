@@ -12,8 +12,8 @@ import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuIt
 import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
 import translationService from "../services/translationService";
 import FilterContext from "../contexts/createContexts/FilterContext";
-import {StandardButton} from "../designElements/buttons/StandardButton";
-import {StandardButtonDark} from "../designElements/buttons/StandardButtonDark";
+import {StandardButton} from "../designComponents/buttons/StandardButton";
+import {StandardButtonDark} from "../designComponents/buttons/StandardButtonDark";
 
 export default function AddElementPage() {
 

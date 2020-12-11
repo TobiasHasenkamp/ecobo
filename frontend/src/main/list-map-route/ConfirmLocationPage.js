@@ -6,14 +6,14 @@ import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import BlackLineMedium from "../designElements/BlackLineMedium";
+import BlackLine from "../designComponents/otherDesignObjects/BlackLine";
 import returnMarkerIcon from "../services/returnMarkerIcon";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
-import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
+import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
-import GreenBoxSmall from "../designElements/GreenBoxSmall";
+import GreenBoxSmall from "../designComponents/otherDesignObjects/GreenBoxSmall";
 import {useHistory} from "react-router-dom";
 import FilterContext from "../contexts/createContexts/FilterContext";
 import {updateEcoElement} from "../services/ecoElementService";
@@ -76,7 +76,7 @@ export default function ConfirmLocationPage() {
 
         <>
             <PageHeaderWithoutWhiteBorder title="Bestätige die Adresse"/>
-            <BlackLineMedium/>
+            <BlackLine/>
 
             <StyledContentDiv>
 

@@ -5,7 +5,7 @@ import {getEcoElements} from "./services/ecoElementService";
 import FoodStoreList from "./list-map-route/FoodStoreList";
 import RestaurantList from "./list-map-route/RestaurantList";
 import FairShopList from "./list-map-route/FairShopList";
-import AddItemButton from "./designElements/buttons/AddItemButton";
+import AddItemButton from "./designComponents/buttons/AddItemButton";
 import LoginContext from "./contexts/createContexts/LoginContext";
 import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
 import FilterResultList from "./list-map-route/FilterResultList";

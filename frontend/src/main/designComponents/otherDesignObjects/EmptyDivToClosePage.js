@@ -15,6 +15,4 @@ export default function EmptyDivToClosePage(type){
         return <div style={{height:"125px"}}/>;
     }
 
-
-
 }

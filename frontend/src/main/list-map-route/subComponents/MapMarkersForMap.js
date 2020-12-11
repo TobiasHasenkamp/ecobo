@@ -6,7 +6,7 @@ import FilterContext from "../../contexts/createContexts/FilterContext";
 import translationService from "../../services/translationService";
 import styled from "styled-components/macro";
 import mapCertificates from "../../services/mapCertificates";
-import ShowElementIconButton from "../../designElements/buttons/ShowElementIconButton";
+import ShowElementIconButton from "../../designComponents/buttons/ShowElementIconButton";
 import returnMarkerIcon from "../../services/returnMarkerIcon";
 import ReturnIfElementGetsFilteredForReviewStatus from "./ReturnIfElementGetsFilteredForReviewStatus";
 

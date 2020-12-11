@@ -1,19 +1,13 @@
 import styled from "styled-components/macro";
 import React from "react";
 
-export default function BlackLineMedium() {
-
+export default function BlackLine() {
     return (
-
-        <>
-            <StyledDarkGreenBox/>
-        </>
-
+            <StyledBlackLine/>
     );
-
 }
 
-const StyledDarkGreenBox = styled.div`
+const StyledBlackLine = styled.div`
   display: block;
   width: 100%;
   background-color: var(--darkgrey);

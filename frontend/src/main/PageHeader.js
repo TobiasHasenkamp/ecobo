@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/macro";
-import GradientBorderlineBottom from "./designElements/GradientBorderlineBottom";
-import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
-import GreenBoxMedium from "./designElements/GreenBoxMedium";
+import GradientBorderlineBottom from "./designComponents/otherDesignObjects/GradientBorderlineBottom";
+import GradientBorderlineTop from "./designComponents/otherDesignObjects/GradientBorderlineTop";
+import GreenBoxMedium from "./designComponents/otherDesignObjects/GreenBoxMedium";
 
 export default function PageHeader({title}) {
 

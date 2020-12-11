@@ -1,19 +1,19 @@
 import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
-import GradientBorderlineBottom from "../designElements/GradientBorderlineBottom";
-import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
-import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
+import GradientBorderlineBottom from "../designComponents/otherDesignObjects/GradientBorderlineBottom";
+import GreenBoxMedium from "../designComponents/otherDesignObjects/GreenBoxMedium.js";
+import GradientBorderlineTop from "../designComponents/otherDesignObjects/GradientBorderlineTop";
 import {useHistory, useParams} from "react-router-dom";
-import EditIconButton from "../designElements/buttons/EditIconButton";
-import DeleteIconButton from "../designElements/buttons/DeleteIconButton";
+import EditIconButton from "../designComponents/buttons/EditIconButton";
+import DeleteIconButton from "../designComponents/buttons/DeleteIconButton";
 import LoginContext from "../contexts/createContexts/LoginContext";
 import {getUserData} from "../services/userDataService";
-import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
+import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDivToClosePage";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "../services/ecoElementService";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
 import ImgUploadFunctionality from "../services/ImgUpload";
-import {StandardButton} from "../designElements/buttons/StandardButton";
+import {StandardButton} from "../designComponents/buttons/StandardButton";
 
 export default function AccountPage() {
     const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginContext);

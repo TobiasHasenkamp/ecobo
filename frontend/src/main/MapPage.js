@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
-import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
+import GreenBoxUntilSiteEnds from "./designComponents/otherDesignObjects/GreenBoxUntilSiteEnds";
 import {LayersControl, MapContainer, TileLayer} from "react-leaflet";
 import EcoElementContext from "./contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
-import AddItemButton from "./designElements/buttons/AddItemButton";
+import AddItemButton from "./designComponents/buttons/AddItemButton";
 import styled from "styled-components/macro";
 import LoginContext from "./contexts/createContexts/LoginContext";
 import 'leaflet/dist/leaflet.css';
@@ -12,7 +12,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
-import BlackLineMedium from "./designElements/BlackLineMedium";
+import BlackLine from "./designComponents/otherDesignObjects/BlackLine";
 import {useLocation} from "react-router-dom";
 import MapMarkersForMap from "./list-map-route/subComponents/MapMarkersForMap";
 import ReturnIfUserIsAllowedToGetRender from "./list-map-route/subComponents/ReturnIfUserIsAllowedToGetRender";
@@ -62,7 +62,7 @@ export default function MapPage() {
 
         <>
             <TabBarWithIcons type="map"/>
-            <BlackLineMedium/>
+            <BlackLine/>
 
             <StyledContentDiv>
 
@@ -112,7 +112,7 @@ export default function MapPage() {
                 </MapContainer>
                 }
 
-                <GreenBoxWithGradientBorderlineUntilSiteEnds/>
+                <GreenBoxUntilSiteEnds/>
 
             </StyledContentDiv>
 

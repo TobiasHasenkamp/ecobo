@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 
-
 export default function ProgressBar({percentCompleted}) {
-
 
     //seems like variables don't work inside styled components
     const completedPercentWidth = {
@@ -14,7 +12,6 @@ export default function ProgressBar({percentCompleted}) {
         <StyledProgressBar>
             <StyledCompletedPercentBar style={completedPercentWidth}>
             </StyledCompletedPercentBar>
-
         </StyledProgressBar>
     )
 }

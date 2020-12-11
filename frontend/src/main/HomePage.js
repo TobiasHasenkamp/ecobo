@@ -1,9 +1,9 @@
 import styled from "styled-components/macro";
 import React from "react";
 import NewsfeedComponent from "./NewsfeedComponent";
-import GreenBoxSmall from "./designElements/GreenBoxSmall";
+import GreenBoxSmall from "./designComponents/otherDesignObjects/GreenBoxSmall";
 import {Link} from "react-router-dom";
-import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
+import GradientBorderlineTop from "./designComponents/otherDesignObjects/GradientBorderlineTop";
 
 export default function HomePage() {
 

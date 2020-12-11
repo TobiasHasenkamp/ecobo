@@ -1,8 +1,8 @@
 import styled from "styled-components/macro";
 import React, {useContext, useEffect, useState} from "react";
-import ShowsAsListIconButton from "../designElements/buttons/ShowsAsListIconButton";
-import ShowAsMapIconButton from "../designElements/buttons/ShowAsMapIconButton";
-import ShowAsCardsIconButton from "../designElements/buttons/ShowAsCardsIconButton"
+import ShowsAsListIconButton from "../designComponents/buttons/ShowsAsListIconButton";
+import ShowAsMapIconButton from "../designComponents/buttons/ShowAsMapIconButton";
+import ShowAsCardsIconButton from "../designComponents/buttons/ShowAsCardsIconButton"
 import {useHistory} from "react-router-dom"
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,7 +14,7 @@ import returnCertificateMenuItemsForFilterList from "./subComponents/Certificate
 import ShowReviewedItemsCheckbox from "./subComponents/ShowReviewedItemsCheckbox";
 import {getDistrictList} from "../services/ecoElementService";
 import LoginContext from "../contexts/createContexts/LoginContext";
-import {StandardButtonDark} from "../designElements/buttons/StandardButtonDark";
+import {StandardButtonDark} from "../designComponents/buttons/StandardButtonDark";
 
 
 export default function TabBarWithIcons({type}) {

@@ -4,10 +4,8 @@ import React from "react";
 export default function GradientBorderlineTop() {
 
     return(
-
         <StyledDarkGradientLineBottom/>
     );
-
 }
 
 

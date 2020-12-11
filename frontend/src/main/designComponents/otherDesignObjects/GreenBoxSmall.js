@@ -1,21 +1,16 @@
 import styled from "styled-components/macro";
 import React from "react";
 
-export default function GreenBoxLarge() {
+export default function GreenBoxSmall() {
 
     return (
-
-        <>
-            <StyledDarkGreenBox/>
-        </>
-
+            <StyledGreenBox/>
     );
-
 }
 
-const StyledDarkGreenBox = styled.div`
+const StyledGreenBox = styled.div`
   display: block;
   width: 100%;
   background-color: var(--darkgreen);
-  height: 35px;
+  height: 19px;
 `

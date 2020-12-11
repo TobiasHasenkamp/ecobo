@@ -7,11 +7,11 @@ import {
     StyledHeaderRow, StyledIconDiv,
     StyledNameCell, StyledWrapperTable
 } from "./StyledElementsForTableDesign";
-import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
+import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
 import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
-import InReviewProcessIcon from "../designElements/icons/ItemIsInReviewProcessIcon";
+import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
 
 export default function FilterResultList({ecoElements}){
 
