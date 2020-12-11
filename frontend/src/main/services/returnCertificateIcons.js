@@ -54,7 +54,7 @@ export default function returnCertificateIcons(certificate, size){
             return <FaGlobeAmericas key={certificate} size={"20px"} style={{margin:"1px 2px", marginRight:"3px", color: "#24542c"}}/>
         }
         if (certificate === "fahrradfreundlich"){
-            return <FaBicycle key={certificate} size={"23px"} style={{margin:"0 2px -1px 2px", color: "#24542c"}}/>
+            return <FaBicycle key={certificate} size={"23px"} style={{margin:"0 3px -3px 2px", color: "#24542c"}}/>
         }
         if (certificate === "hundefreundlich"){
             return <FaDog key={certificate} size={"20px"} style={{margin:"1px 2px", color: "#24542c"}}/>
@@ -134,7 +134,7 @@ export default function returnCertificateIcons(certificate, size){
             return <FaGlobeAmericas key={certificate} size={"16px"} style={{margin:"1px 2px", marginRight:"2px", color: "#24542c"}}/>
         }
         if (certificate === "fahrradfreundlich"){
-            return <FaBicycle key={certificate} size={"18px"} style={{margin:"0 2px -1px 2px", color: "#24542c"}}/>
+            return <FaBicycle key={certificate} size={"18px"} style={{margin:"0 2px -3px 2px", color: "#24542c"}}/>
         }
         if (certificate === "hundefreundlich"){
             return <FaDog key={certificate} size={"16px"} style={{margin:"1px 2px", color: "#24542c"}}/>
@@ -213,7 +213,7 @@ export default function returnCertificateIcons(certificate, size){
             return <FaGlobeAmericas key={certificate} size={"13px"} style={{margin:"1px 1px", marginRight:"2px", color: "#24542c"}}/>
         }
         if (certificate === "fahrradfreundlich"){
-            return <FaBicycle key={certificate} size={"16px"} style={{margin:"0 1px -1px 1px", color: "#24542c"}}/>
+            return <FaBicycle key={certificate} size={"16px"} style={{margin:"0 1px -3px 1px", color: "#24542c"}}/>
         }
         if (certificate === "hundefreundlich"){
             return <FaDog key={certificate} size={"13px"} style={{margin:"1px 1px", color: "#24542c"}}/>

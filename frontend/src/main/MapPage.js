@@ -75,6 +75,7 @@ export default function MapPage() {
                     //topleft, bottomleft, bottomright, topright
                     maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
                     scrollWheelZoom={true}
+                    doubleClickZoom={false}
                     wheelDebounceTime={15}
                     className={"map"}
                 >

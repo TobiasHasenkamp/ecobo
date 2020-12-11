@@ -62,7 +62,7 @@ export default function returnMarkerIcon(category, categorySub){
             icon = "tshirt"
             break;
         case "FASHIONSTORE_SECOND_HAND_STORE":
-            icon = "vest"
+            icon = "mitten" //originally was vest, but this seems not to work
             break;
         case "OTHER":
             icon = "bookmark"
