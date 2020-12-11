@@ -23,7 +23,7 @@ export default function AddItemButton({bottomDistance}) {
     else if (bottomDistance === "large"){
         return(
 
-            <StyledActionButton style={{bottom: "40px"}}>
+            <StyledActionButton style={{bottom: "60px"}}>
                 <BsPlus onClick={handleAddElementButton}/>
             </StyledActionButton>
         )
@@ -45,4 +45,10 @@ const StyledActionButton = styled.div`
   z-index: 1000;
   font-size: 1.8em;
   color: white;
+  
+  @media (min-width:450px) {
+    left: 385px;
+    right: auto;
+  }
+  
 `

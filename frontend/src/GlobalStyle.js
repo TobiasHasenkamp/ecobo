@@ -6,6 +6,11 @@ html {
   height: 100%;
 }
 
+
+#StyledMapMarker {
+  background: none;
+}
+
 body {
     font-family: Helvetica;
     margin: 0;
