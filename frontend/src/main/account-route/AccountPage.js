@@ -130,7 +130,6 @@ export default function AccountPage() {
 const ScrollSection = styled.section`
   overflow: scroll;
 
-
   @media (max-height:650px) {
       height: 72%;
   }
