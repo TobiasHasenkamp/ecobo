@@ -13,7 +13,6 @@ export default function AddItemButton({bottomDistance}) {
 
     if (bottomDistance === "normal"){
         return(
-
             <StyledActionButton>
                     <BsPlus onClick={handleAddElementButton}/>
             </StyledActionButton>
@@ -22,7 +21,6 @@ export default function AddItemButton({bottomDistance}) {
 
     else if (bottomDistance === "large"){
         return(
-
             <StyledActionButton style={{bottom: "60px"}}>
                 <BsPlus onClick={handleAddElementButton}/>
             </StyledActionButton>

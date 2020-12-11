@@ -12,18 +12,13 @@ export default function ShowElementIconButton({elementId}) {
     }
 
     return (
-
-        <>
-            <StyledShowIconButton onClick={() => handleShowElement()}>
-                <FaRegListAlt/>
-            </StyledShowIconButton>
-        </>
-
+        <ShowElementIcon onClick={() => handleShowElement()}>
+            <FaRegListAlt/>
+        </ShowElementIcon>
     );
-
 }
 
-const StyledShowIconButton = styled.button`
+const ShowElementIcon = styled.button`
   margin: 0;
   padding: 0;
   align-self: flex-start;

@@ -5,18 +5,13 @@ import React from "react";
 export default function ShowsAsListIconButton({handle}) {
 
     return (
-
-        <>
-            <StyledShowIconButton onClick={() => handle()}>
-                <FaListUl/>
-            </StyledShowIconButton>
-        </>
-
+        <ShowAsListIcon onClick={() => handle()}>
+            <FaListUl/>
+        </ShowAsListIcon>
     );
-
 }
 
-const StyledShowIconButton = styled.button`
+const ShowAsListIcon = styled.button`
   margin: 3px 10px;
   padding: 0;
   align-self: flex-start;

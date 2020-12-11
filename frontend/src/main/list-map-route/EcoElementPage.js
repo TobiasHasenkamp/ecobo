@@ -7,7 +7,7 @@ import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import LoginContext from "../contexts/createContexts/LoginContext";
 import {getEcoElementById} from "../services/ecoElementService";
-import DeleteIconButtonSmall from "../designElements/buttons/DeleteIconButtonSmall";
+import DeleteIconButton from "../designElements/buttons/DeleteIconButton";
 import styled from "styled-components/macro";
 import {MapContainer, Marker, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
@@ -15,7 +15,7 @@ import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
+import EditIconButton from "../designElements/buttons/EditIconButton";
 import {FaFacebook, FaLink, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import ReviewBox from "./subComponents/ReviewBox";
 import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
@@ -24,7 +24,7 @@ import mapCertificates from "../services/mapCertificates";
 import returnMarkerIcon from "../services/returnMarkerIcon";
 import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
 import ReturnIfUserIsAllowedToGetRender from "./subComponents/ReturnIfUserIsAllowedToGetRender";
-import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
+import InReviewProcessIcon from "../designElements/icons/ItemIsInReviewProcessIcon";
 import ImgUpload from "../services/ImgUpload";
 
 //to fix the "image not found"-bugs that occur when reloading the page
@@ -120,8 +120,8 @@ export default function EcoElementPage(){
                                     <StyledIconDiv>
                                         {ReturnIfUserIsAllowedToGetRender(ecoElement.creator) &&
                                         <>
-                                            <EditIconButtonMedium handle={handleEdit}/>
-                                            <DeleteIconButtonSmall handle={handleDelete}/>
+                                            <EditIconButton handle={handleEdit}/>
+                                            <DeleteIconButton size="small" handle={handleDelete}/>
                                         </>
                                         }
                                     </StyledIconDiv>

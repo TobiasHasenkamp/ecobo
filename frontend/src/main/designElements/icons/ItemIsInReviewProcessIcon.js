@@ -4,22 +4,17 @@ import styled from "styled-components/macro";
 import {FaExclamationCircle} from "react-icons/fa";
 import React from "react";
 
-export default function ShowAsMapIconButton() {
+export default function ItemIsInReviewProcessIcon() {
 
     return (
-
-        <>
-            <StyledShowIconButton>
-                <FaExclamationCircle/>
-            </StyledShowIconButton>
-        </>
-
+        <IsInReviewProcessIcon>
+            <FaExclamationCircle/>
+        </IsInReviewProcessIcon>
     );
 
 }
 
-//todo: center this item and add it also to the list pages
-const StyledShowIconButton = styled.button`
+const IsInReviewProcessIcon = styled.button`
   margin: 2px 8px;
   align-self: center;
   padding: 0;

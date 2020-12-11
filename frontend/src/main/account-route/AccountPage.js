@@ -4,8 +4,8 @@ import GradientBorderlineBottom from "../designElements/GradientBorderlineBottom
 import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
 import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
 import {useHistory, useParams} from "react-router-dom";
-import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
-import DeleteIconButtonMedium from "../designElements/buttons/DeleteIconButtonMedium";
+import EditIconButton from "../designElements/buttons/EditIconButton";
+import DeleteIconButton from "../designElements/buttons/DeleteIconButton";
 import LoginContext from "../contexts/createContexts/LoginContext";
 import {getUserData} from "../services/userDataService";
 import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
@@ -91,8 +91,8 @@ export default function AccountPage() {
                             <div> {userData.username} </div><br/>
                         </div>
                         <AccountButtonBar>
-                            <EditIconButtonMedium handle={handleEditButton}/>
-                            <DeleteIconButtonMedium handle={handleDeleteButton}/>
+                            <EditIconButton handle={handleEditButton}/>
+                            <DeleteIconButton size="medium" handle={handleDeleteButton}/>
                         </AccountButtonBar>
                             <StandardButton onClick={() => handleLogoutButton()}>Logout</StandardButton>
                     </RightUserSection>

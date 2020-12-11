@@ -2,21 +2,16 @@ import styled from "styled-components/macro";
 import {FaEdit} from "react-icons/fa";
 import React from "react";
 
-export default function EditIconButtonMedium({handle}) {
+export default function EditIconButton({handle}) {
 
     return (
-
-        <>
-            <StyledEditIconButton onClick={() => handle()}>
-                <FaEdit/>
-            </StyledEditIconButton>
-        </>
-
-    );
-
+        <EditIconButtonMedium onClick={() => handle()}>
+            <FaEdit/>
+        </EditIconButtonMedium>
+    )
 }
 
-const StyledEditIconButton = styled.button`
+const EditIconButtonMedium = styled.button`
   margin: 0 5px;
   padding: 0;
   align-self: flex-start;

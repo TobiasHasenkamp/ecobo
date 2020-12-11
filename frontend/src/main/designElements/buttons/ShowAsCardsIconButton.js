@@ -5,18 +5,13 @@ import React from "react";
 export default function ShowAsCardsIconButton({handle}) {
 
     return (
-
-        <>
-            <StyledShowIconButton onClick={() => handle()}>
-                <FaBorderAll/>
-            </StyledShowIconButton>
-        </>
-
+        <ShowAsCardsIcon onClick={() => handle()}>
+            <FaBorderAll/>
+        </ShowAsCardsIcon>
     );
-
 }
 
-const StyledShowIconButton = styled.button`
+const ShowAsCardsIcon = styled.button`
   margin: 3px 10px;
   padding: 0;
   align-self: flex-start;

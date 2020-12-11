@@ -5,18 +5,13 @@ import React from "react";
 export default function ShowAsMapIconButton({handle}) {
 
     return (
-
-        <>
-            <StyledShowIconButton onClick={() => handle()}>
-                <FaMapMarkerAlt/>
-            </StyledShowIconButton>
-        </>
-
+        <ShowAsMapIcon onClick={() => handle()}>
+            <FaMapMarkerAlt/>
+        </ShowAsMapIcon>
     );
-
 }
 
-const StyledShowIconButton = styled.button`
+const ShowAsMapIcon = styled.button`
   margin: 3px 10px;
   padding: 0;
   align-self: flex-start;
