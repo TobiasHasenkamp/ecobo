@@ -1,15 +1,24 @@
 import PageHeader from "./PageHeader";
 import React from "react";
+import styled from "styled-components/macro";
 
 export default function UnderConstructionPage() {
 
     return(
 
-        <div>
+        <>
             <PageHeader title="Under construction"/>
-            <p>This page doesn't exist yet. Sorry!</p>
-        </div>
+            <StyledDiv>
+                <p>Diese Seite existiert noch nicht, sorry!</p>
+            </StyledDiv>
+
+        </>
 
     );
 
 }
+
+
+const StyledDiv = styled.div`
+    margin: 25px;
+`
