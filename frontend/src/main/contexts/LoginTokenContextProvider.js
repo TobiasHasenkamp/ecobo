@@ -1,8 +1,8 @@
 import LoginTokenContext from "./LoginTokenContext";
 import React, {useState, useEffect} from "react";
 import jwtDecode from "jwt-decode";
-import loadTokenFromLocalStorage from "../account-route/methods/loadTokenFromLocalStorage";
-import getUserdataFromTokenFromLocalStorage from "../account-route/methods/getUserdataFromTokenFromLocalStorage";
+import loadTokenFromLocalStorage from "../services/loadTokenFromLocalStorage";
+import getUserdataFromTokenFromLocalStorage from "../services/getUserdataFromTokenFromLocalStorage";
 
 export default function LoginTokenContextProvider({children}){
 

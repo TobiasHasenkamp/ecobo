@@ -5,7 +5,7 @@ import getLonAndLatForAddress from "../services/mapMarkerService";
 import {getEcoElementById, updateEcoElement} from "../services/ecoElementService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import styled from "styled-components/macro";
-import tokenValidation from "../account-route/methods/tokenValidation";
+import tokenValidation from "../services/tokenValidation";
 import EcoElementContext from "../contexts/EcoElementContext";
 import translationService from "../services/translationService";
 import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";

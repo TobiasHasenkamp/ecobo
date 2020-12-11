@@ -5,7 +5,7 @@ import getLonAndLatForAddress from "../services/mapMarkerService";
 import {addEcoElement} from "../services/ecoElementService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import styled from "styled-components/macro";
-import tokenValidation from "../account-route/methods/tokenValidation";
+import tokenValidation from "../services/tokenValidation";
 import EcoElementContext from "../contexts/EcoElementContext";
 import Menu from "@material-ui/core/Menu";
 import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuItemsForAddElement";
