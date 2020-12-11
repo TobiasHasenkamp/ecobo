@@ -2,14 +2,13 @@ import LoginTokenContext from "./LoginTokenContext";
 import React, {useState, useEffect} from "react";
 import jwtDecode from "jwt-decode";
 import loadTokenFromLocalStorage from "../account-route/methods/loadTokenFromLocalStorage";
-import getUsernameFromTokenFromLocalStorage from "../account-route/methods/getUsernameFromTokenFromLocalStorage";
-import getPasswordFromTokenFromLocalStorage from "../account-route/methods/getPasswordFromTokenFromLocalStorage";
+import getUserdataFromTokenFromLocalStorage from "../account-route/methods/getUserdataFromTokenFromLocalStorage";
 
 export default function LoginTokenContextProvider({children}){
 
     const [token, setToken] = useState(loadTokenFromLocalStorage());
-    const [username, setUsername] = useState(getUsernameFromTokenFromLocalStorage);
-    const [password, setPassword] = useState(getPasswordFromTokenFromLocalStorage);
+    const [username, setUsername] = useState(getUserdataFromTokenFromLocalStorage.username);
+    const [password, setPassword] = useState(getUserdataFromTokenFromLocalStorage.password);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userData, setUserData] = useState({});
 
