@@ -17,7 +17,7 @@ export default function EditIconButtonMedium({handle}) {
 }
 
 const StyledEditIconButton = styled.button`
-  margin: 0 4px;
+  margin: 0 5px;
   padding: 0;
   align-self: flex-start;
   background: transparent;

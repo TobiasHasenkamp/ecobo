@@ -13,6 +13,7 @@ import EcoElementContext from "../contexts/EcoElementContext";
 import {getEcoElements} from "../services/ecoElementService";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
 import ImgUpload from "../services/ImgUpload";
+import {StandardButton} from "../designElements/buttons/StandardButton";
 
 export default function AccountPage() {
     const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
@@ -86,11 +87,10 @@ export default function AccountPage() {
 
                         <StyledButtonBar>
                             <EditIconButtonMedium handle={handleEditButton}/>
-                            {/*<FaCheck/>*/}
                             <DeleteIconButtonMedium handle={handleDeleteButton}/>
                         </StyledButtonBar>
 
-                            <StyledLogoutButton onClick={() => handleLogoutButton()}>Logout</StyledLogoutButton>
+                            <StandardButton onClick={() => handleLogoutButton()}>Logout</StandardButton>
 
                         </StyledGrid>
 
@@ -196,22 +196,6 @@ const StyledRightBar = styled.div`
     font-weight: normal;
     margin: 0;
   }
-`
-
-const StyledLogoutButton = styled.button`
-  justify-self: right;
-  width: min-content;
-  background-color: var(--grey);
-  border: none;
-  border-radius: 8%;
-  color: var(--darkgrey);
-  padding: 8px 15px;
-  text-decoration: none;
-  font-size: 1.1em;
-  font-weight: bold;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  margin-right: 20px;
-  grid-column: 1 / span2;
 `
 
 const StyledSiteSection = styled.div`
