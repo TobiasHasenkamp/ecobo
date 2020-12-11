@@ -2,8 +2,8 @@ import PageHeader from "../PageHeader";
 import React, {useContext, useEffect} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {deleteEcoElement, getEcoElementById} from "../services/ecoElementService";
-import LoginTokenContext from "../contexts/LoginTokenContext";
-import EcoElementContext from "../contexts/EcoElementContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import styled from "styled-components/macro";
 import translationService from "../services/translationService";
 
@@ -11,7 +11,7 @@ export default function DeletePage() {
 
     const history = useHistory();
     const {ecoElementIDParam} = useParams();
-    const {token} = useContext(LoginTokenContext);
+    const {token} = useContext(LoginContext);
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
 
     useEffect(() => {

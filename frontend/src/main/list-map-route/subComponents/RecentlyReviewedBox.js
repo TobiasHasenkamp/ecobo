@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import EcoElementContext from "../../contexts/EcoElementContext";
+import EcoElementContext from "../../contexts/createContexts/EcoElementContext";
 import {StyledCell, StyledElementBody, StyledHeaderRow, StyledWrapperTable} from "../StyledElementsForTableDesign";
 import {FaCheck} from "react-icons/fa";
 

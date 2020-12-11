@@ -6,18 +6,18 @@ import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
 import {useHistory, useParams} from "react-router-dom";
 import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
 import DeleteIconButtonMedium from "../designElements/buttons/DeleteIconButtonMedium";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import {getUserData} from "../services/userDataService";
 import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
-import EcoElementContext from "../contexts/EcoElementContext";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "../services/ecoElementService";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
 import ImgUploadFunctionality from "../services/ImgUpload";
 import {StandardButton} from "../designElements/buttons/StandardButton";
 
 export default function AccountPage() {
-    const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
-    const {userData, setUserData} = useContext(LoginTokenContext);
+    const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginContext);
+    const {userData, setUserData} = useContext(LoginContext);
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const history = useHistory();
     const {userNameParam} = useParams();

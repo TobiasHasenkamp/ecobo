@@ -3,13 +3,13 @@ import {FaCheck, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp, FaTimes} from "
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import {addReviewToEcoElement} from "../../services/ecoElementService";
-import EcoElementContext from "../../contexts/EcoElementContext";
-import LoginTokenContext from "../../contexts/LoginTokenContext";
+import EcoElementContext from "../../contexts/createContexts/EcoElementContext";
+import LoginContext from "../../contexts/createContexts/LoginContext";
 
 export default function ReviewBox(){
 
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
-    const {token, username} = useContext(LoginTokenContext);
+    const {token, username} = useContext(LoginContext);
     const [commentSectionIsOpen, setCommentSectionIsOpen] = useState(false);
     const [addReviewSectionIsOpen, setAddReviewSectionIsOpen] = useState(false);
     const [reviewComment, setReviewComment] = useState("");

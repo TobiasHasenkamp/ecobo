@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import axios from "axios";
 import styled from "styled-components/macro";
-import EcoElementContext from "../contexts/EcoElementContext";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 
 export default function ImgUpload({type, dark, ecoElementId}){
 
-    const {token} = useContext(LoginTokenContext);
+    const {token} = useContext(LoginContext);
     const [imgFile, setImgFile] = useState();
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
-    const {setUserData} = useContext(LoginTokenContext);
+    const {setUserData} = useContext(LoginContext);
     const {setEcoElement} = useContext(EcoElementContext);
 
     function handlePictureChange(event) {

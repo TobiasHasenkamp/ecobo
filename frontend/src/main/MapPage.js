@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
 import GreenBoxWithGradientBorderlineUntilSiteEnds from "./designElements/GreenBoxWithGradientBorderlineUntilSiteEnds";
 import {LayersControl, MapContainer, TileLayer} from "react-leaflet";
-import EcoElementContext from "./contexts/EcoElementContext";
+import EcoElementContext from "./contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
 import AddItemButton from "./designElements/buttons/AddItemButton";
 import styled from "styled-components/macro";
-import LoginTokenContext from "./contexts/LoginTokenContext";
+import LoginContext from "./contexts/createContexts/LoginContext";
 import 'leaflet/dist/leaflet.css';
 import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
@@ -30,7 +30,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function MapPage() {
 
-    const {token} = useContext(LoginTokenContext);
+    const {token} = useContext(LoginContext);
     const {ecoElements, setEcoElements, ecoElement} = useContext(EcoElementContext);
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
     const [coordinatesToCenterMapLon, setCoordinatesToCenterMapLon] = useState(51.4841);

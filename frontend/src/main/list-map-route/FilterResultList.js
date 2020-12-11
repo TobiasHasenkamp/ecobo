@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import FilterListContext from "../contexts/FilterListContext";
+import FilterContext from "../contexts/createContexts/FilterContext";
 import {
     StyledCell,
     StyledElement, StyledElementBody,
@@ -15,7 +15,7 @@ import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
 
 export default function FilterResultList({ecoElements}){
 
-    const {returnIfItemsGetsFiltered} = useContext(FilterListContext);
+    const {returnIfItemGetsFiltered} = useContext(FilterContext);
 
     return(
 
@@ -24,7 +24,7 @@ export default function FilterResultList({ecoElements}){
                 {"Ergebnisse "}
             </StyledHeaderRow>
             {
-                ecoElements?.filter(element => (returnIfItemsGetsFiltered(element)))
+                ecoElements?.filter(element => (returnIfItemGetsFiltered(element)))
                     .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
                     .map((element) => (
                     <StyledElement key={element.id}>
@@ -53,7 +53,7 @@ export default function FilterResultList({ecoElements}){
                 ))
             }
             {
-                (ecoElements.filter(element => (returnIfItemsGetsFiltered(element)))
+                (ecoElements.filter(element => (returnIfItemGetsFiltered(element)))
                     .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element)).length === 0) && <p style={{margin: "15px"}}>Keine Ergebnisse gefunden.</p>
             }
 

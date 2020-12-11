@@ -12,7 +12,7 @@ import LoginPage from "./main/account-route/LoginPage";
 import "./App.css";
 import UnderConstructionPage from "./main/UnderConstructionPage";
 import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider";
-import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider";
+import LoginContextProvider from "./main/contexts/LoginContextProvider";
 import styled from "styled-components/macro";
 import LoadingPage from "./main/LoadingPage";
 import EcoElementPage from "./main/list-map-route/EcoElementPage";
@@ -20,7 +20,7 @@ import EditElementPage from "./main/list-map-route/EditElementPage";
 import DeletePage from "./main/list-map-route/DeletePage";
 import NewsfeedContextProvider from "./main/contexts/NewsfeedContextProvider";
 import NewsfeedPage from "./main/NewsfeedPage";
-import FilterListContextProvider from "./main/contexts/FilterListContextProvider";
+import FilterContextProvider from "./main/contexts/FilterContextProvider";
 import FrontendInputContextProvider from "./main/contexts/FrontendInputContextProvider";
 import ConfirmLocationPage from "./main/list-map-route/ConfirmLocationPage";
 
@@ -29,8 +29,8 @@ function App() {
 
   return (
 
-      <LoginTokenContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider>
-          <FilterListContextProvider> <FrontendInputContextProvider>
+      <LoginContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider>
+          <FilterContextProvider> <FrontendInputContextProvider>
 
           <StyledPageLayout>
               <Switch>
@@ -115,8 +115,8 @@ function App() {
 
         </StyledPageLayout>
 
-          </FrontendInputContextProvider> </FilterListContextProvider> </NewsfeedContextProvider>
-      </EcoElementContextProvider> </LoginTokenContextProvider>
+          </FrontendInputContextProvider> </FilterContextProvider> </NewsfeedContextProvider>
+      </EcoElementContextProvider> </LoginContextProvider>
 
   );
 }

@@ -2,7 +2,7 @@ import translationService from "../../services/translationService";
 import React, {useContext} from "react";
 import styled from "styled-components/macro";
 import MenuItem from "@material-ui/core/MenuItem";
-import FrontendInputContext from "../../contexts/FrontendInputContext";
+import FrontendInputContext from "../../contexts/createContexts/FrontendInputContext";
 
 export default function SubCategoryMenuItemsForFilterList(filterListForCategory, handleAddItemToFilter){
 

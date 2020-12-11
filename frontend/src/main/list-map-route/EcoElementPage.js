@@ -4,8 +4,8 @@ import {
     StyledCell, StyledIconDiv, StyledElementBody, StyledElementBodyOneCell
 } from "./StyledElementsForTableDesign";
 import {useParams, useHistory} from "react-router-dom";
-import EcoElementContext from "../contexts/EcoElementContext";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import {getEcoElementById} from "../services/ecoElementService";
 import DeleteIconButtonSmall from "../designElements/buttons/DeleteIconButtonSmall";
 import styled from "styled-components/macro";
@@ -39,7 +39,7 @@ export default function EcoElementPage(){
 
     const history = useHistory();
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
-    const {token} = useContext(LoginTokenContext);
+    const {token} = useContext(LoginContext);
     const [tableColor, setTableColor] = useState("lightgreen");
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
     const [certificateLegendIsOpen, setCertificateLegendIsOpen] = useState(false);

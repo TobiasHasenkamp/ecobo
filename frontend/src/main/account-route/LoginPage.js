@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom";
 import {LoginRequest, RegistrationRequest} from "../services/loginService";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
 import {StandardButton} from "../designElements/buttons/StandardButton";
 import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
@@ -11,7 +11,7 @@ import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
 export default function LoginPage() {
 
     const history = useHistory();
-    const {setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
+    const {setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginContext);
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [registrationUsername, setRegistrationUsername] = useState("");

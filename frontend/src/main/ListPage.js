@@ -1,15 +1,15 @@
 import React, {useEffect, useContext} from "react";
 import styled from "styled-components/macro";
-import EcoElementContext from "./contexts/EcoElementContext";
+import EcoElementContext from "./contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
 import FoodStoreList from "./list-map-route/FoodStoreList";
 import RestaurantList from "./list-map-route/RestaurantList";
 import FairShopList from "./list-map-route/FairShopList";
 import AddItemButton from "./designElements/buttons/AddItemButton";
-import LoginTokenContext from "./contexts/LoginTokenContext";
+import LoginContext from "./contexts/createContexts/LoginContext";
 import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
 import FilterResultList from "./list-map-route/FilterResultList";
-import FilterListContext from "./contexts/FilterListContext";
+import FilterContext from "./contexts/createContexts/FilterContext";
 import FashionStoreList from "./list-map-route/FashionStoreList";
 import OthersList from "./list-map-route/OthersList";
 import ReturnIfUserIsAllowedToGetRender from "./list-map-route/subComponents/ReturnIfUserIsAllowedToGetRender";
@@ -17,8 +17,8 @@ import ReturnIfUserIsAllowedToGetRender from "./list-map-route/subComponents/Ret
 export default function ListPage() {
 
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
-    const {token} = useContext(LoginTokenContext);
-    const {filterIsActive} = useContext(FilterListContext);
+    const {token} = useContext(LoginContext);
+    const {filterIsActive} = useContext(FilterContext);
 
     useEffect(() => {
         getEcoElements(token, setEcoElements);

@@ -1,9 +1,9 @@
 import {useContext} from "react";
-import FilterListContext from "../../contexts/FilterListContext";
+import FilterContext from "../../contexts/createContexts/FilterContext";
 
 export default function ReturnFilterReviewFunction(element){
 
-    const {showNonReviewedItems} = useContext(FilterListContext);
+    const {showNonReviewedItems} = useContext(FilterContext);
 
     if (showNonReviewedItems === false){
         return element.isReviewed;

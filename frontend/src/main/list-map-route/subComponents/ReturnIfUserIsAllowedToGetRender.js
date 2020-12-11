@@ -1,10 +1,10 @@
 import {useContext} from "react";
-import LoginTokenContext from "../../contexts/LoginTokenContext";
+import LoginContext from "../../contexts/createContexts/LoginContext";
 
 
 export default function ReturnIfUserIsAllowedToGetRender(usernameToTest) {
 
-    const {username} = useContext(LoginTokenContext);
+    const {username} = useContext(LoginContext);
 
     if (usernameToTest === "anyUser" && username){
         return true;

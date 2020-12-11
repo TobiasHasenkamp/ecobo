@@ -1,12 +1,12 @@
 import {FaCheck, FaQuestion, FaWarehouse} from "react-icons/fa";
 import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
-import NewsfeedContext from "./contexts/NewsfeedContext";
+import NewsfeedContext from "./contexts/createContexts/NewsfeedContext";
 import {getNewsfeed5} from "./services/newsfeedService";
-import LoginTokenContext from "./contexts/LoginTokenContext";
+import LoginContext from "./contexts/createContexts/LoginContext";
 import {Link} from "react-router-dom";
 import {BiMessageAltDetail, FiDelete, GrUpdate, GrUserAdd} from "react-icons/all";
-import EcoElementContext from "./contexts/EcoElementContext";
+import EcoElementContext from "./contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "./services/ecoElementService";
 import {FaRegArrowAltCircleDown} from "react-icons/fa";
 
@@ -14,7 +14,7 @@ export default function NewsfeedComponent(){
 
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const {newsfeed5, setNewsfeed5} = useContext(NewsfeedContext);
-    const {token} = useContext(LoginTokenContext);
+    const {token} = useContext(LoginContext);
 
     useEffect(() => {
         getEcoElements(token, setEcoElements);

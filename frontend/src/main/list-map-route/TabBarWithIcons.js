@@ -6,14 +6,14 @@ import ShowAsCardsIconButton from "../designElements/buttons/ShowAsCardsIconButt
 import {useHistory} from "react-router-dom"
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import FilterListContext from "../contexts/FilterListContext";
+import FilterContext from "../contexts/createContexts/FilterContext";
 import {FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight} from "react-icons/fa";
 import translationService from "../services/translationService";
 import returnSubCategoryMenuItemsForFilterList from "./subComponents/SubCategoryMenuItemsForFilterList";
 import returnCertificateMenuItemsForFilterList from "./subComponents/CertificateMenuItemsForFilterList";
 import ShowReviewedItemsCheckbox from "./subComponents/ShowReviewedItemsCheckbox";
 import {getDistrictList} from "../services/ecoElementService";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import {StandardButtonDark} from "../designElements/buttons/StandardButtonDark";
 
 
@@ -24,11 +24,11 @@ export default function TabBarWithIcons({type}) {
     const [categoryMenuStatusAndAnchor, setCategoryMenuStatusAndAnchor] = useState(null);
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [locationMenuStatusAndAnchor, setLocationMenuStatusAndAnchor] = useState(null);
-    const {filterListForCategory, setFilterListForCategory} = useContext(FilterListContext);
-    const {filterListForCertificates, setFilterListForCertificates} = useContext(FilterListContext);
-    const {filterListForLocation, setFilterListForLocation} = useContext(FilterListContext);
+    const {filterListForCategory, setFilterListForCategory} = useContext(FilterContext);
+    const {filterListForCertificates, setFilterListForCertificates} = useContext(FilterContext);
+    const {filterListForLocation, setFilterListForLocation} = useContext(FilterContext);
     const [districtList, setDistrictList] = useState([]);
-    const {token} = useContext(LoginTokenContext);
+    const {token} = useContext(LoginContext);
 
     useEffect(() => {
         getDistrictList(token, setDistrictList);

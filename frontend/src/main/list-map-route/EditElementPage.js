@@ -3,15 +3,15 @@ import {useHistory, useParams} from "react-router-dom";
 import PageHeader from "../PageHeader";
 import getLonAndLatForAddress from "../services/mapMarkerService";
 import {getEcoElementById, updateEcoElement} from "../services/ecoElementService";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import styled from "styled-components/macro";
 import tokenValidation from "../services/tokenValidation";
-import EcoElementContext from "../contexts/EcoElementContext";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import translationService from "../services/translationService";
 import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
 import Menu from "@material-ui/core/Menu";
 import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuItemsForAddElement";
-import FilterListContext from "../contexts/FilterListContext";
+import FilterContext from "../contexts/createContexts/FilterContext";
 
 export default function EditElementPage() {
 
@@ -22,12 +22,12 @@ export default function EditElementPage() {
     const [address, setAddress] = useState("");
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
-    const {token} = useContext(LoginTokenContext);
+    const {token} = useContext(LoginContext);
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
     const {ecoElementIDParam} = useParams();
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [certificatesToAddList, setCertificatesToAddList] = useState([]);
-    const {setShowNonReviewedItems} = useContext(FilterListContext);
+    const {setShowNonReviewedItems} = useContext(FilterContext);
 
     useEffect(() => {
 

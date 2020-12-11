@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 import React, {useContext, useState} from "react";
 import {Link} from "react-router-dom";
 import GradientBorderlineBottom from "./designElements/GradientBorderlineBottom";
-import LoginTokenContext from "./contexts/LoginTokenContext";
+import LoginContext from "./contexts/createContexts/LoginContext";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {useHistory} from "react-router-dom";
@@ -12,7 +12,7 @@ import {CgLogIn} from "react-icons/cg";
 
 export default function NavBar() {
 
-    const {username, isLoggedIn} = useContext(LoginTokenContext);
+    const {username, isLoggedIn} = useContext(LoginContext);
     const [menuStatusAndAnchor, setMenuStatusAndAnchor] = useState(null);
     const history = useHistory();
 

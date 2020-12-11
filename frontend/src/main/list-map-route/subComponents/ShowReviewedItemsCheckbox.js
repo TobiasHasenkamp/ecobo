@@ -1,11 +1,11 @@
 import styled from "styled-components/macro";
 import React, {useContext} from "react";
-import FilterListContext from "../../contexts/FilterListContext";
+import FilterContext from "../../contexts/createContexts/FilterContext";
 import Checkbox from "@material-ui/core/Checkbox";
 
 export default function ShowReviewedItemsCheckbox(){
 
-    const {showNonReviewedItems, setShowNonReviewedItems} = useContext(FilterListContext);
+    const {showNonReviewedItems, setShowNonReviewedItems} = useContext(FilterContext);
 
     function handleCheckboxChange(){
         setShowNonReviewedItems(!showNonReviewedItems);

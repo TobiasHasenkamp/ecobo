@@ -1,20 +1,17 @@
-import LoginTokenContext from "./LoginTokenContext";
+import LoginContext from "./createContexts/LoginContext";
 import React, {useState, useEffect} from "react";
 import jwtDecode from "jwt-decode";
 import loadTokenFromLocalStorage from "../services/loadTokenFromLocalStorage";
 import getUserdataFromTokenFromLocalStorage from "../services/getUserdataFromTokenFromLocalStorage";
 
-export default function LoginTokenContextProvider({children}){
+//Provides different functionalities connected to Login and Registration throughout the App.
+export default function LoginContextProvider({children}){
 
     const [token, setToken] = useState(loadTokenFromLocalStorage());
     const [username, setUsername] = useState(getUserdataFromTokenFromLocalStorage.username);
     const [password, setPassword] = useState(getUserdataFromTokenFromLocalStorage.password);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userData, setUserData] = useState({});
-
-    useEffect(() => {
-        console.log("is logged in: " + isLoggedIn);
-    }, [isLoggedIn, token])
 
     useEffect(() => {
         if (token) {
@@ -26,8 +23,8 @@ export default function LoginTokenContextProvider({children}){
                     setIsLoggedIn(true);
                     }
                 else {
-                    localStorage.clear();
-                }
+                    localStorage.removeItem("ACCESS_TOKEN");
+                    }
                 } catch(e) {
                 console.log(e);
             }
@@ -36,10 +33,12 @@ export default function LoginTokenContextProvider({children}){
 
     return (
 
-        <LoginTokenContext.Provider value={{token, setToken, username, setUsername, password, setPassword, isLoggedIn,
-            setIsLoggedIn, userData, setUserData}}>
+        <LoginContext.Provider value={{
+                token, setToken, username, setUsername, password, setPassword,
+                isLoggedIn, setIsLoggedIn, userData, setUserData
+        }}>
             {children}
-        </LoginTokenContext.Provider>
+        </LoginContext.Provider>
 
     )
 

@@ -2,7 +2,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet/dist/leaflet.js';
 import {Marker, Popup} from "react-leaflet";
 import React, {useContext} from "react";
-import FilterListContext from "../../contexts/FilterListContext";
+import FilterContext from "../../contexts/createContexts/FilterContext";
 import translationService from "../../services/translationService";
 import styled from "styled-components/macro";
 import mapCertificates from "../../services/mapCertificates";
@@ -14,12 +14,12 @@ import ReturnIfElementGetsFilteredForReviewStatus from "./ReturnIfElementGetsFil
 
 export default function MapMarkersForMap(ecoElements) {
 
-    const {returnIfItemsGetsFiltered} = useContext(FilterListContext);
+    const {returnIfItemGetsFiltered} = useContext(FilterContext);
 
 
         return (
 
-            ecoElements?.filter(element => (returnIfItemsGetsFiltered(element)))
+            ecoElements?.filter(element => (returnIfItemGetsFiltered(element)))
                 .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element))
                 .map((element) => (
                     <Marker key={element.id} position={[element.lon, element.lat]}

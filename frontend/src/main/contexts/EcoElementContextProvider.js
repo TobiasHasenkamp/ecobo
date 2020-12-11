@@ -1,6 +1,7 @@
-import EcoElementContext from "./EcoElementContext";
+import EcoElementContext from "./createContexts/EcoElementContext";
 import React, {useState} from "react";
 
+//Provides the EcoElements and the individual EcoElement loaded at this time through the whole app.
 export default function EcoElementContextProvider({children}) {
 
     const [ecoElements, setEcoElements] = useState([]);

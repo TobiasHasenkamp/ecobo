@@ -8,16 +8,16 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import BlackLineMedium from "../designElements/BlackLineMedium";
 import returnMarkerIcon from "../services/returnMarkerIcon";
-import EcoElementContext from "../contexts/EcoElementContext";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
 import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
 import GreenBoxSmall from "../designElements/GreenBoxSmall";
 import {useHistory} from "react-router-dom";
-import FilterListContext from "../contexts/FilterListContext";
+import FilterContext from "../contexts/createContexts/FilterContext";
 import {updateEcoElement} from "../services/ecoElementService";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 
 
 //to fix the "image not found"-bugs that occur when reloading the page
@@ -34,10 +34,10 @@ export default function ConfirmLocationPage() {
 
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
-    const {setShowNonReviewedItems} = useContext(FilterListContext);
+    const {setShowNonReviewedItems} = useContext(FilterContext);
     const history = useHistory();
     const [stageOfThePage, setStageOfThePage] = useState(1);
-    const {token} = useContext(LoginTokenContext);
+    const {token} = useContext(LoginContext);
     const [position, setPosition] = useState({lng: ecoElement.lat, lat: ecoElement.lon});
     const markerRef = useRef(null);
 
