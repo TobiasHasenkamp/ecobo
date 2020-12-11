@@ -32,19 +32,19 @@ public class RegistrationController {
         //check if the passwords is safe enough
         //first general tests
         if (passwordToRegister.length() < 3 || passwordToRegister.isBlank()) {
-            return "Password is unsafe. It needs at least 3 characters";
+            return "Unsicheres Passwort. Es benötigt mindestens 3 Zeichen.";
         }
         //second test whether password has at least one digit
         if (!passwordToRegister.matches("(?=.*[0-9]).*")) {
-            return "Password is unsafe. It needs at least one digit.";
+            return "Unsicheres Passwort. Es benötigt mindestens eine Ziffer.";
         }
         //third test whether password has at least one lower case letter
         if (!passwordToRegister.matches("(?=.*[a-z]).*")) {
-            return "Password is unsafe. It needs at least one lower case letter.";
+            return "Unsicheres Passwort. Es benötigt mindestens einen Kleinbuchstaben.";
         }
         //fourth test whether password has at least one upper case letter
         if (!passwordToRegister.matches("(?=.*[A-Z]).*")) {
-            return "Password is unsafe. It needs at least one upper case letter.";
+            return "Unsicheres Passwort. Es benötigt mindestens einen Großbuchstaben.";
         }
 
         //check if username is free
@@ -52,12 +52,12 @@ public class RegistrationController {
             try {
                 //add the username
                 userProfileService.registerNewUser(loginDto, passwordToRegisterEncoded);
-                return "Registration successful.";
+                return "Registrierung erfolgreich.";
             } catch (Exception e) {
-                return "Registration not possible. Please try later.";
+                return "Registration nicht möglich. Versuche es später noch einmal.";
             }
         }
-        return "Username already exists. Please choose another name.";
+        return "Username existiert bereits. Versuche es mit einem anderen Namen.";
     }
 
 }

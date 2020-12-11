@@ -12,6 +12,7 @@ import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuIt
 import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
 import translationService from "../services/translationService";
 import FilterListContext from "../contexts/FilterListContext";
+import {StandardButton} from "../designElements/buttons/StandardButton";
 
 export default function AddElementPage() {
 
@@ -170,7 +171,7 @@ export default function AddElementPage() {
                 <label htmlFor="address"> Addresse:</label>
                 <input name="address" value={address} onChange={handleChange} />
 
-                <button onClick={handleOpenCertificatesMenu}>Tags</button>
+                <StandardButton onClick={handleOpenCertificatesMenu}>Tags</StandardButton>
 
                 <Menu
                     id="MenuToAddCertificates"
@@ -192,7 +193,7 @@ export default function AddElementPage() {
 
 
                 <div>
-                    <button onClick={handleButtonClick}>Bestätigen</button>
+                    <StandardButton onClick={handleButtonClick}>Bestätigen</StandardButton>
                 </div>
 
             </StyledForm>

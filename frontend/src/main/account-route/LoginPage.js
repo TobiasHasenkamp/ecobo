@@ -5,6 +5,7 @@ import {useHistory} from "react-router-dom";
 import {LoginRequest, RegistrationRequest} from "../services/loginService";
 import LoginTokenContext from "../contexts/LoginTokenContext";
 import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
+import {StandardButton} from "../designElements/buttons/StandardButton";
 
 export default function LoginPage() {
 
@@ -20,12 +21,12 @@ export default function LoginPage() {
 
 
     useEffect(() => {
-        if (errorRegistration === "Registration successful."){
+        if (errorRegistration === "Registrierung erfolgreich."){
             LoginRequest(registrationUsername, registrationPassword1)
                 .then((data) => setToken(data))
                 .then(() => setIsLoggedIn(true))
                 .then(() => history.push("/loading"))
-                .catch(() => setErrorLogin("Unknown username or password"));
+                .catch(() => setErrorLogin("Username oder Passwort falsch"));
         }
         // this error is wrong, adding other dependencies here will completely change the data flow on this page
         // eslint-disable-next-line
@@ -42,7 +43,7 @@ export default function LoginPage() {
             .then((data) => setToken(data))
             .then(() => setIsLoggedIn(true))
             .then(() => history.push("/home"))
-            .catch(() => setErrorLogin("Unknown username or password"));
+            .catch(() => setErrorLogin("Username oder Passwort falsch"));
     }
 
 
@@ -51,11 +52,11 @@ export default function LoginPage() {
 
         //test if the entered usernames match each other
         if (registrationPassword1 !== registrationPassword2){
-            setErrorRegistration("Passwords don't match.")
+            setErrorRegistration("Passwörter passen nicht zueinander.")
         }
         else {
             RegistrationRequest(registrationUsername, registrationPassword1)
-                .then((data) => setErrorRegistration(data));
+                .then((data) => setErrorRegistration(data))
         }
     }
 
@@ -94,7 +95,7 @@ export default function LoginPage() {
                     <input type="password" name="password" value={loginPassword} onChange={handlePasswordChangeLogin}/>
 
                     <div>
-                        <button onClick={handleLogin}>Login</button>
+                        <StandardButton onClick={handleLogin}>Login</StandardButton>
                     </div>
                 </StyledForm>
 
@@ -104,7 +105,7 @@ export default function LoginPage() {
 
             <br/>
 
-            <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map"/>
+            <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map" type="bold"/>
 
             <StyledLoginPageContent>
 
@@ -116,11 +117,10 @@ export default function LoginPage() {
                     <label htmlFor="passwordNew2">Passwort wiederholen</label>
                     <input type="password" name="passwordNew2" value={registrationPassword2} onChange={handlePasswordChange2Registration}/>
                     <div>
-                        <button>Registration</button>
+                        <StandardButton>Registrierung</StandardButton>
                     </div>
                 </StyledForm>
 
-                <br/>
                 <p>{errorRegistration}</p>
 
             </StyledLoginPageContent>

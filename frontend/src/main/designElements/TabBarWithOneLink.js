@@ -4,7 +4,20 @@ import React from "react";
 import GradientBorderlineTop from "./GradientBorderlineTop";
 import GreenBoxSmall from "./GreenBoxSmall";
 
-export default function TabBarWithOneLink({text, link}) {
+export default function TabBarWithOneLink({text, link, type}) {
+
+    if (type === "bold"){
+        return(
+            <>
+                <StyledTabBar>
+                    <Link to={link}><strong>{text}</strong></Link>
+                </StyledTabBar>
+                <GradientBorderlineTop/>
+                <GreenBoxSmall/>
+            </>
+        )
+    }
+
 
     return(
         <>
