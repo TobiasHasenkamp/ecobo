@@ -248,7 +248,7 @@ const BottomSection = styled.section`
 const EcoElementPhoto = styled.img`
   display: block;
   width: 100%;
-  border: var(--darkgrey) solid 1.5px;
+  border: var(--neutral-color-darkgrey) solid 1.5px;
 `
 
 const InternalDataSection = styled.section`
@@ -262,15 +262,15 @@ const InternalDataSection = styled.section`
 
 const WebsiteIcons = styled.div`
   font-size: 1.35em;
-  color: var(--darkgrey);
+  color: var(--neutral-color-darkgrey);
   a {
-    color: var(--darkgrey);
+    color: var(--neutral-color-darkgrey);
     
     :hover{
-        color: var(--darkgrey);
+        color: var(--neutral-color-darkgrey);
     }
     :active {
-      color: var(--darkgrey);
+      color: var(--neutral-color-darkgrey);
     }
   }
 `

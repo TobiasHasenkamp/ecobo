@@ -131,7 +131,7 @@ const NewsfeedSection = styled.section`
   width: auto;
   margin: 0 15px 15px 15px;
   font-size: 3.1vmin;
-  border-left: 5px solid var(--darkgreen);
+  border-left: 5px solid var(--main-color);
   padding: 10px 14px 6px 14px;
   display: grid;
   grid-template-rows: min-content min-content min-content min-content min-content;
@@ -139,12 +139,12 @@ const NewsfeedSection = styled.section`
   background-color: lightgray;
   
   a{
-      color: var(--darkgrey);
+      color: var(--neutral-color-darkgrey);
       :active{
-        color: var(--darkgrey);
+        color: var(--neutral-color-darkgrey);
       }
       :hover{
-        color: var(--darkgrey);
+        color: var(--neutral-color-darkgrey);
       }
   }
   .row{
@@ -171,7 +171,7 @@ const NewsfeedHeader = styled.div`
   padding: 10px 14px 5px 10px;
   font-size: 0.85em;
   font-weight: bold;
-  color: var(--darkgrey);
+  color: var(--neutral-color-darkgrey);
 `
 
 const RowWithArrowButton = styled.div`

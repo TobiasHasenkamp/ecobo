@@ -97,22 +97,22 @@ const StyledNavBar = styled.div`
   justify-items: center;
   display: grid;
   grid-template-columns: auto auto auto;
-  background-color: var(--darkgreen);
-  color: var(--white);
+  background-color: var(--main-color);
+  color: var(--main-background-color);
   font-size: 1.2em;
   width: 100%;
   height: 61px;
   max-width: 450px;
   
   .menuItem{
-      color: black;
+      color: var(--neutral-color-black);
       
       :active{
-        color: black;
+        color: var(--neutral-color-black);
       }
       
       :hover{
-        color: black;
+        color: var(--neutral-color-black);
       }
   }
 `

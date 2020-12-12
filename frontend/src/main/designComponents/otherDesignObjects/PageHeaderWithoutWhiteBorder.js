@@ -15,7 +15,7 @@ export default function PageHeaderWithoutWhiteBorder({title}) {
 }
 
 const PageHeaderTitle = styled.p`
-    color: var(--darkgrey);
+    color: var(--neutral-color-darkgrey);
     text-decoration: none;
     margin: 6px;
     font-weight: bold;

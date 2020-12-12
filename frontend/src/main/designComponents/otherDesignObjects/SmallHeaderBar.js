@@ -21,18 +21,18 @@ const HeaderBar = styled.div`
   margin: 7px 5px 5px 5px;
   line-height: 0.85em;
   font-size: 0.9em;
-  color: var(--darkgrey);
+  color: var(--neutral-color-darkgrey);
   
     a {
-     color: var(--darkgrey);
+     color: var(--neutral-color-darkgrey);
      text-decoration: none;
      
         :hover {
-             color: var(--darkgrey2);
+             color: var(--neutral-color-darkgrey);
         }
           
         :active {
-             color: var(--lightgrey);
+             color: var(----neutral-color-lightgrey);
           }
     }
 `

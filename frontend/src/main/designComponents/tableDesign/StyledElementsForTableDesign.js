@@ -7,7 +7,7 @@ export const StyledWrapperTable = styled.div`
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   display: grid;
   grid-template-columns: auto;
-  border: black solid 1px;
+  border: var(--neutral-color-black) solid 1px;
   margin: 20px 25px;
   width: auto;
   overflow: hidden;
@@ -61,7 +61,7 @@ export const StyledHeaderRow = styled.div`
     }
     
     &.green{
-      background: var(--darkgreen);
+      background: #008744;
     }
     
     &.lightgreen{
@@ -70,7 +70,7 @@ export const StyledHeaderRow = styled.div`
     
     &.lightgrey{
     background: #E0E0E0;
-    color: black;
+    color: var(--neutral-color-black);
     }
    
    @media (max-width: 300px) {font-size: 4.85vw;} 
@@ -118,7 +118,7 @@ export const StyledNameCell = styled.div`
 export const StyledElement = styled.div`
   display: grid;
   grid-template-rows: 0.15fr 1fr 1fr 0.35fr;
-  background-color: lightgray;
+  background-color: var(--tag-color-grey);
   :nth-of-type(even){
     background: white;
   }

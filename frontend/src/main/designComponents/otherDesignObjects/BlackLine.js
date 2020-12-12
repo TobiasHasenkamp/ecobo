@@ -10,6 +10,6 @@ export default function BlackLine() {
 const StyledBlackLine = styled.div`
   display: block;
   width: 100%;
-  background-color: var(--darkgrey);
+  background-color: var(--neutral-color-darkgrey);
   height: 2px;
 `

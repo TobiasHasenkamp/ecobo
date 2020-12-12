@@ -116,7 +116,7 @@ const MapSection = styled.section`
     margin-right: -1px;
     height: 100%;
     width: 100%;
-    border: var(--darkgrey) solid 1.5px;
+    border: var(--neutral-color-darkgrey) solid 1.5px;
   }
   
 `
