@@ -8,7 +8,7 @@ export default function EmptyDivToClosePage({type}){
     else if (type === "large"){
         return <div style={{height:"145px"}}/>;
     }
-    else if (type === "very"){
+    else if (type === "very_large"){
         return <div style={{height:"185px"}}/>;
     }
     else {

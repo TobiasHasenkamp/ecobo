@@ -1,4 +1,4 @@
-import PageHeader from "../PageHeader";
+import PageHeader from "../designComponents/otherDesignObjects/PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom";

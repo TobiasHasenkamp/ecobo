@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.js';
 import BlackLine from "../designComponents/otherDesignObjects/BlackLine";
 import markerIcon from "../designComponents/mapElements/MarkerIcon";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
-import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
+import PageHeaderWithoutWhiteBorder from "../designComponents/otherDesignObjects/PageHeaderWithoutWhiteBorder";
 import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import translationService from "../services/translationService";
 import mapCertificates from "./subComponents/mapCertificates";

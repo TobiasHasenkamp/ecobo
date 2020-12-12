@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./main/HomePage";
 import AccountPage from "./main/account-route/AccountPage";
-import BackgroundInfoPage from "./main/BackgroundInfoPage";
-import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
 import AddElementPage from "./main/list-map-route/AddElementPage";
 import MapPage from "./main/MapPage";
@@ -70,14 +68,6 @@ function App() {
                   <Route path="/acc/:userNameParam">
                       <NavBar/>
                       <AccountPage/>
-                  </Route>
-                  <Route path="/infos">
-                      <NavBar/>
-                      <BackgroundInfoPage/>
-                  </Route>
-                  <Route path="/features">
-                      <NavBar/>
-                      <FeaturePage/>
                   </Route>
                   <Route path="/home">
                       <NavBar/>

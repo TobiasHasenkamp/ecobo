@@ -1,24 +1,22 @@
 import React from "react";
 import styled from "styled-components/macro";
-import GradientBorderlineBottom from "./designComponents/otherDesignObjects/GradientBorderlineBottom";
-import GradientBorderlineTop from "./designComponents/otherDesignObjects/GradientBorderlineTop";
-import GreenBoxMedium from "./designComponents/otherDesignObjects/GreenBoxMedium";
+import GradientBorderlineBottom from "./GradientBorderlineBottom";
+import GradientBorderlineTop from "./GradientBorderlineTop";
+import GreenBoxMedium from "./GreenBoxMedium";
 
 export default function PageHeader({title}) {
 
     return (
-
         <>
-            <StyledTitle>{title}</StyledTitle>
+            <PageHeaderTitle>{title}</PageHeaderTitle>
             <GradientBorderlineTop/>
             <GreenBoxMedium/>
             <GradientBorderlineBottom/>
         </>
-
     );
 }
 
-const StyledTitle = styled.p`
+const PageHeaderTitle = styled.p`
     color: var(--darkgrey);
     text-decoration: none;
     margin: 6px;

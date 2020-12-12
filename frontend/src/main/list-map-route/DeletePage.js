@@ -1,4 +1,4 @@
-import PageHeader from "../PageHeader";
+import PageHeader from "../designComponents/otherDesignObjects/PageHeader";
 import React, {useContext, useEffect} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {deleteEcoElement, getEcoElementById} from "../services/ecoElementService";

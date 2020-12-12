@@ -13,6 +13,7 @@ import FilterContext from "./contexts/createContexts/FilterContext";
 import FashionStoreList from "./list-map-route/FashionStoreList";
 import OthersList from "./list-map-route/OthersList";
 import ReturnIfUserIsAllowedToGetRender from "./services/ReturnIfUserIsAllowedToGetRender";
+import EmptyDivToClosePage from "./designComponents/otherDesignObjects/EmptyDivToClosePage";
 
 export default function ListPage() {
 
@@ -20,6 +21,7 @@ export default function ListPage() {
     const {token} = useContext(LoginContext);
     const {filterIsActive} = useContext(FilterContext);
 
+    //useEffect to load the ecoElements at page load
     useEffect(() => {
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
@@ -27,47 +29,27 @@ export default function ListPage() {
 
     return(
 
-        <div>
-
+        <>
             <FilterAndSwitchViewBar type="list"/>
 
-            <StyledWrapperDiv>
+            <ListSection>
                 {!filterIsActive && <FoodStoreList ecoElements={ecoElements}/>}
                 {!filterIsActive && <FashionStoreList ecoElements={ecoElements}/>}
                 {!filterIsActive && <RestaurantList ecoElements={ecoElements}/>}
                 {!filterIsActive && <FairShopList ecoElements={ecoElements}/>}
                 {!filterIsActive && <OthersList ecoElements={ecoElements}/>}
                 {filterIsActive && <FilterResultList ecoElements={ecoElements}/>}
-
-                {/* the brs are necessary at the moment to keep the full list visible when scrolling */}
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <StyledBottomDiv/>
-
-            </StyledWrapperDiv>
+                <EmptyDivToClosePage type="medium"/>
+                <WhiteSpaceAtTheBottom/>
+            </ListSection>
 
             {ReturnIfUserIsAllowedToGetRender("anyUser") && <AddItemButton bottomDistance="normal"/>}
-
-        </div>
-
+        </>
     );
-
 }
 
 
-const StyledWrapperDiv = styled.div`
+const ListSection = styled.section`
   display: block;
   width: auto;
   height: 90vh;
@@ -75,7 +57,7 @@ const StyledWrapperDiv = styled.div`
   z-index: 5;
 `
 
-const StyledBottomDiv = styled.div`
+const WhiteSpaceAtTheBottom = styled.div`
   background: white;
   position: fixed;
   right: 0;

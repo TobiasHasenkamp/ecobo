@@ -11,27 +11,26 @@ import {getEcoElements} from "./services/ecoElementService";
 import {FaRegArrowAltCircleDown} from "react-icons/fa";
 
 export default function NewsfeedComponent(){
-
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const {newsfeed5, setNewsfeed5} = useContext(NewsfeedContext);
     const {token} = useContext(LoginContext);
 
+    //useEffect to load the ecoElements at page load
     useEffect(() => {
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
 
-
+    //useEffect to load 5 newsfeedElements at page load
     useEffect(() => {
         getNewsfeed5(token, setNewsfeed5);
     }, [setNewsfeed5, ecoElements, token])
 
 
+    //function to get the Link for the corresponding newsfeed Element in the newsfeed component
     function getLink(newsfeedElementForLink){
 
         if (ecoElements !== undefined && newsfeedElementForLink !== undefined) {
-
             const newsfeedType = newsfeedElementForLink.type;
-
             if (newsfeedType === "USER_REGISTRATION") {
                 return "/home";
             } else if (newsfeedType === "ADMIN_MESSAGE") {
@@ -46,107 +45,81 @@ export default function NewsfeedComponent(){
         }
     }
 
-    function getDateDifference(dateInternal){
-
+    //function to get the time difference between today and the newsfeed event
+    function getTimeDifference(dateInternal){
         const today = new Date();
         const date = new Date(dateInternal);
         const daysPassed = (today - date) / (1000 * 60 * 60 *24);
 
-
         if (daysPassed < 0.04){
             if (Math.round(daysPassed * 24 * 60) < 2){
                 return "jetzt";
-            }
-            else {
-                return "vor " + (Math.round(daysPassed * 24 * 60)) + "min";
-            }
+            } else return "vor " + (Math.round(daysPassed * 24 * 60)) + "min";
         }
         else if (daysPassed < 0.9){
             return "vor " + (Math.round(daysPassed * 24)) + "h";
-        }
-        else if (daysPassed < 25){
+        } else if (daysPassed < 25){
             if (Math.round(daysPassed) === 1){
                 return "vor " + (Math.round(daysPassed)) + " Tag";
-            }
-            else {
-                return "vor " + (Math.round(daysPassed)) + " Tagen";
-            }
+            } else return "vor " + (Math.round(daysPassed)) + " Tagen";
         }
         else if (daysPassed < 340){
             if (Math.round(daysPassed/30) === 1){
                 return "vor " + (Math.round(daysPassed/30)) + " Monat";
-            }
-            else {
-                return "vor " + (Math.round(daysPassed/30)) + " Monaten";
-            }
+            } else return "vor " + (Math.round(daysPassed/30)) + " Monaten";
         }
         else {
             if (Math.round(daysPassed/365) === 1){
                 return "vor " + (Math.round(daysPassed/365)) + " Jahr";
-            }
-            else {
-                return "vor " + (Math.round(daysPassed/365)) + " Jahren";
-            }
+            } else return "vor " + (Math.round(daysPassed/365)) + " Jahren";
         }
     }
 
-    function returnIcon(newsfeedType){
-
+    function returnNewsfeedIcon(newsfeedType){
         if (newsfeedType === "ECOELEMENT_ADDED"){
             return <FaWarehouse/>
-        }
-        else if (newsfeedType === "ECOELEMENT_UPDATED"){
+        } else if (newsfeedType === "ECOELEMENT_UPDATED"){
             return <GrUpdate/>
-        }
-        else if (newsfeedType === "ECOELEMENT_DELETED"){
+        } else if (newsfeedType === "ECOELEMENT_DELETED"){
             return <FiDelete/>
-        }
-        else if (newsfeedType === "ECOELEMENT_REVIEWED"){
+        } else if (newsfeedType === "ECOELEMENT_REVIEWED"){
             return <FaCheck/>
-        }
-        else if (newsfeedType === "ECOELEMENT_IN_DELETE_PROCESS"){
+        } else if (newsfeedType === "ECOELEMENT_IN_DELETE_PROCESS"){
             return <FaQuestion/>
-        }
-        else if (newsfeedType === "USER_REGISTRATION"){
+        } else if (newsfeedType === "USER_REGISTRATION"){
             return <GrUserAdd/>
-        }
-        else if (newsfeedType === "ADMIN_MESSAGE"){
+        } else if (newsfeedType === "ADMIN_MESSAGE"){
             return <BiMessageAltDetail/>
-        }
-        else {
+        } else {
             return <BiMessageAltDetail/>
         }
     }
 
     return (
 
-
         <div>
-            <StyledNewsfeedHeader>Newsfeed:</StyledNewsfeedHeader>
-            <StyledNewsfeed>
+            <NewsfeedHeader>Newsfeed:</NewsfeedHeader>
+            <NewsfeedSection>
                 {newsfeed5.map((newsfeedElement) => (
                     <Link key={newsfeedElement.id} to={getLink(newsfeedElement)}>
                         <div className="row">
-                            {returnIcon(newsfeedElement.type)}
-                            <div>{getDateDifference(newsfeedElement.dateInternal)}</div>
+                            {returnNewsfeedIcon(newsfeedElement.type)}
+                            <div>{getTimeDifference(newsfeedElement.dateInternal)}</div>
                             <div>{newsfeedElement.message.slice(0, 40)}</div>
                         </div>
                     </Link>
-
                     ))
                 }
                 <RowWithArrowButton>
                     <Link to="/newsfeed"><FaRegArrowAltCircleDown/></Link>
                 </RowWithArrowButton>
-            </StyledNewsfeed>
+            </NewsfeedSection>
         </div>
-
-
         )
 }
 
 
-const StyledNewsfeed = styled.div`
+const NewsfeedSection = styled.section`
   width: auto;
   margin: 0 15px 15px 15px;
   font-size: 3.1vmin;
@@ -166,7 +139,6 @@ const StyledNewsfeed = styled.div`
         color: var(--darkgrey);
       }
   }
-
   .row{
         display: grid;
         grid-template-columns: min-content minmax(min-content, 22%) minmax(min-content, 78%);
@@ -185,7 +157,7 @@ const StyledNewsfeed = styled.div`
    @media (min-width: 2000px) {font-size: 0.72vw;}
 `
 
-const StyledNewsfeedHeader = styled.div`
+const NewsfeedHeader = styled.div`
   width: auto;
   margin: 15px 15px 0 15px;
   padding: 10px 14px 5px 10px;

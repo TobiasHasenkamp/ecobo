@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import PageHeader from "../PageHeader";
+import PageHeader from "../designComponents/otherDesignObjects/PageHeader";
 import getLonAndLatForAddress from "../services/mapMarkerService";
 import {getEcoElementById, updateEcoElement} from "../services/ecoElementService";
 import LoginContext from "../contexts/createContexts/LoginContext";

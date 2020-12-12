@@ -11,7 +11,7 @@ import {getUserData} from "../services/userDataService";
 import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDivToClosePage";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "../services/ecoElementService";
-import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
+import PageHeaderWithoutWhiteBorder from "../designComponents/otherDesignObjects/PageHeaderWithoutWhiteBorder";
 import ImgUploadFunctionality from "../services/ImgUploadComponent";
 import {StandardButton} from "../designComponents/buttons/StandardButton";
 
