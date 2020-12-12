@@ -1,15 +1,17 @@
-import PageHeader from "../PageHeader";
+import PageHeader from "../designComponents/otherDesignObjects/PageHeader";
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import {useHistory} from "react-router-dom";
 import {LoginRequest, RegistrationRequest} from "../services/loginService";
-import LoginTokenContext from "../contexts/LoginTokenContext";
-import TabBarWithOneLink from "../designElements/TabBarWithOneLink";
+import LoginContext from "../contexts/createContexts/LoginContext";
+import SmallHeaderBar from "../designComponents/otherDesignObjects/SmallHeaderBar";
+import {StandardButton} from "../designComponents/buttons/StandardButton";
+import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDivToClosePage";
 
 export default function LoginPage() {
 
     const history = useHistory();
-    const {setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
+    const {setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginContext);
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [registrationUsername, setRegistrationUsername] = useState("");
@@ -20,16 +22,18 @@ export default function LoginPage() {
 
 
     useEffect(() => {
-        if (errorRegistration === "Registration successful."){
+        if (errorRegistration === "Registrierung erfolgreich."){
             LoginRequest(registrationUsername, registrationPassword1)
                 .then((data) => setToken(data))
                 .then(() => setIsLoggedIn(true))
                 .then(() => history.push("/loading"))
-                .catch(() => setErrorLogin("Unknown username or password"));
+                .catch(() => setErrorLogin("Username oder Passwort falsch"));
         }
-        // this error is wrong, adding other dependencies here will completely change the data flow on this page
+        // React wants me to add registrationPassword1, registrationUsername, history, setIsLoggedIn and setToken as dependencies.
+        // But this error is wrong, adding other dependencies here will completely change the data flow on this page.
+        //This useEffect should only fire, when the registration request gets answered.
         // eslint-disable-next-line
-    }, [errorRegistration, history])
+    }, [errorRegistration])
 
 
     function handleLogin(event){
@@ -42,105 +46,99 @@ export default function LoginPage() {
             .then((data) => setToken(data))
             .then(() => setIsLoggedIn(true))
             .then(() => history.push("/home"))
-            .catch(() => setErrorLogin("Unknown username or password"));
+            .catch(() => setErrorLogin("Username oder Passwort falsch"));
     }
-
 
     function handleRegistration(event){
         event.preventDefault();
-
-        //test if the entered usernames match each other
         if (registrationPassword1 !== registrationPassword2){
-            setErrorRegistration("Passwords don't match.")
-        }
-        else {
+            setErrorRegistration("Passwörter passen nicht zueinander.")
+        } else {
             RegistrationRequest(registrationUsername, registrationPassword1)
-                .then((data) => setErrorRegistration(data));
+                .then((data) => setErrorRegistration(data))
         }
     }
-
 
     function handleUsernameChangeLogin(event) {
         setLoginUsername(event.target.value)
     }
-
     function handlePasswordChangeLogin(event) {
         setLoginPassword(event.target.value)
     }
-
     function handleUsernameChangeRegistration(event) {
         setRegistrationUsername(event.target.value)
     }
-
     function handlePasswordChange1Registration(event) {
         setRegistrationPassword1(event.target.value)
     }
-
     function handlePasswordChange2Registration(event) {
         setRegistrationPassword2(event.target.value)
     }
 
     return(
 
-        <div>
+        <>
             <PageHeader title="Login"/>
 
-            <StyledLoginPageContent>
-
-                <StyledForm onSubmit={handleLogin}>
-                    <label htmlFor="username">Username </label>
-                    <input type="text" name="username" value={loginUsername} onChange={handleUsernameChangeLogin}/>
-                    <label htmlFor="password">Passwort </label>
-                    <input type="password" name="password" value={loginPassword} onChange={handlePasswordChangeLogin}/>
-
-                    <div>
-                        <button onClick={handleLogin}>Login</button>
-                    </div>
-                </StyledForm>
-
-                <p>{errorLogin}</p>
-
-            </StyledLoginPageContent>
-
-            <br/>
-
-            <TabBarWithOneLink text="Noch keinen Account?" link="/bo/map"/>
-
-            <StyledLoginPageContent>
-
-                <StyledForm onSubmit={handleRegistration}>
-                    <label htmlFor="usernameNew">Username </label>
-                    <input type="text" name="usernameNew" value={registrationUsername} onChange={handleUsernameChangeRegistration}/>
-                    <label htmlFor="passwordNew1">Passwort </label>
-                    <input type="password" name="passwordNew1" value={registrationPassword1} onChange={handlePasswordChange1Registration}/>
-                    <label htmlFor="passwordNew2">Passwort wiederholen</label>
-                    <input type="password" name="passwordNew2" value={registrationPassword2} onChange={handlePasswordChange2Registration}/>
-                    <div>
-                        <button>Registration</button>
-                    </div>
-                </StyledForm>
+            <ScrollSection>
+                <SectionLayout>
+                    <LoginAndRegistrationForm onSubmit={handleLogin}>
+                        <label htmlFor="username">Username </label>
+                        <input type="text" name="username" value={loginUsername} onChange={handleUsernameChangeLogin}/>
+                        <label htmlFor="password">Passwort </label>
+                        <input type="password" name="password" value={loginPassword} onChange={handlePasswordChangeLogin}/>
+                        <div>
+                            <StandardButton onClick={handleLogin}>Login</StandardButton>
+                        </div>
+                    </LoginAndRegistrationForm>
+                    <p>{errorLogin}</p>
+                </SectionLayout>
 
                 <br/>
-                <p>{errorRegistration}</p>
 
-            </StyledLoginPageContent>
+                <SmallHeaderBar text="Noch keinen Account?"/>
 
-        </div>
+                <SectionLayout>
+                    <LoginAndRegistrationForm onSubmit={handleRegistration}>
+                        <label htmlFor="usernameNew">Username </label>
+                        <input type="text" name="usernameNew" value={registrationUsername} onChange={handleUsernameChangeRegistration}/>
+                        <label htmlFor="passwordNew1">Passwort </label>
+                        <input type="password" name="passwordNew1" value={registrationPassword1} onChange={handlePasswordChange1Registration}/>
+                        <label htmlFor="passwordNew2">Passwort wiederholen</label>
+                        <input type="password" name="passwordNew2" value={registrationPassword2} onChange={handlePasswordChange2Registration}/>
+                        <div>
+                            <StandardButton>Registrierung</StandardButton>
+                        </div>
+                    </LoginAndRegistrationForm>
+                    <p>{errorRegistration}</p>
+                    <EmptyDivToClosePage type="small"/>
 
+                </SectionLayout>
+
+            </ScrollSection>
+        </>
     );
 }
 
+const ScrollSection = styled.section`
+  overflow: scroll;
+  height: 100%;
+`
 
-const StyledLoginPageContent = styled.div`
+const SectionLayout = styled.section`
   margin: 8px;
 `
 
-const StyledForm = styled.form`
+const LoginAndRegistrationForm = styled.form`
   margin: 15px;
   display: grid;
-  grid-template-rows: min-content min-content  min-content;
+  grid-template-rows: min-content min-content min-content;
   grid-template-columns: min-content auto;
-  grid-gap: 20px 5px;
+  grid-gap: 20px 6px;
+  
+  @media (max-width:315px) {
+      grid-template-columns: 45% 55%;
+  }
   
   label{
     font-weight: bold;

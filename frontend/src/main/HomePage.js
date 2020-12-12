@@ -1,9 +1,10 @@
 import styled from "styled-components/macro";
 import React from "react";
 import NewsfeedComponent from "./NewsfeedComponent";
-import GreenBoxSmall from "./designElements/GreenBoxSmall";
+import GreenBoxSmall from "./designComponents/otherDesignObjects/GreenBoxSmall";
 import {Link} from "react-router-dom";
-import GradientBorderlineTop from "./designElements/GradientBorderlineTop";
+import GradientBorderlineTop from "./designComponents/otherDesignObjects/GradientBorderlineTop";
+import EmptyDivToClosePage from "./designComponents/otherDesignObjects/EmptyDivToClosePage";
 
 export default function HomePage() {
 
@@ -12,45 +13,37 @@ export default function HomePage() {
         <>
             <ScrollDiv>
                 <FlexDiv>
-                    <StyledHomeImage src="homePhoto1.jpg"/>
+                    <HomeImage src="homePhoto1.jpg"/>
                 </FlexDiv>
                 <GradientBorderlineTop/>
 
                 <GreenBoxSmall/>
 
-                <StyledHomePageMenu>
+                <HomePageMenu>
                     <StyledGreenColumn/>
-                    <StyledMapElement>
+                    <HomePageMenuSubElement>
                         <StyledImage src="/mapPicture.png" alt="Map picture" />
                         <div><Link to="/bo/map">Zur Karte</Link></div>
-                    </StyledMapElement>
+                    </HomePageMenuSubElement>
                     <StyledGreenColumn/>
-                    <StyledMapElement>
+                    <HomePageMenuSubElement>
                         <StyledImage src="/listImage.png" alt="Map picture" />
                         <div><Link to="/bo/list">Zur Liste</Link></div>
-                    </StyledMapElement>
+                    </HomePageMenuSubElement>
                     <StyledGreenColumn/>
-
-                </StyledHomePageMenu>
+                </HomePageMenu>
 
                 <GreenBoxSmall/>
-
                 <NewsfeedComponent/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+                <EmptyDivToClosePage type="small"/>
 
             </ScrollDiv>
-
         </>
-
     );
-
 }
 
 
-const StyledHomeImage = styled.img`
+const HomeImage = styled.img`
   width: 100%;
   border-bottom: ghostwhite solid 4px;
   border-top: ghostwhite solid 4px;
@@ -59,7 +52,7 @@ const StyledHomeImage = styled.img`
   grid-gap: 0;
 `
 
-const StyledHomePageMenu = styled.div`
+const HomePageMenu = styled.div`
   display: grid;
   grid-template-columns: 15px 1fr 15px 1fr 15px;
   background-color: var(--darkgreen);
@@ -67,18 +60,7 @@ const StyledHomePageMenu = styled.div`
   padding: 0;
 `
 
-const FlexDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const ScrollDiv = styled.div`
-  overflow: scroll;
-  height: 100%;
-`
-
-const StyledMapElement = styled.div`
+const HomePageMenuSubElement = styled.div`
   height: 115px;
   //margin: 8px 8px 8px 8px;
   border: white solid 8px;
@@ -111,6 +93,17 @@ const StyledMapElement = styled.div`
       }
       
     }
+`
+
+const FlexDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const ScrollDiv = styled.div`
+  overflow: scroll;
+  height: 100%;
 `
 
 const StyledGreenColumn = styled.div`

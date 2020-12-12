@@ -1,12 +1,12 @@
-import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
+import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
-    StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
+    StyledCell, StyledIconDiv, StyledElementBody} from "../designComponents/tableDesign/StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
-import mapCertificates from "../services/mapCertificates";
-import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
-import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
+import mapCertificates from "./subComponents/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "../services/ReturnIfElementGetsFilteredForReviewStatus";
+import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
 
 export default function RestaurantList({ecoElements}){
 
@@ -16,6 +16,7 @@ export default function RestaurantList({ecoElements}){
         setRestaurantTableIsOpen(!restaurantTableIsOpen);
     }
 
+    //useEffect to set the Table as open everytime the page reloads
     useEffect(() => {
         setRestaurantTableIsOpen(true);
     }, [])
@@ -26,8 +27,10 @@ export default function RestaurantList({ecoElements}){
         <StyledWrapperTable name="Restaurants">
             <StyledHeaderRow className="orange">
                 {"Restaurants "}
-                {restaurantTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>
-                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>}
+                {restaurantTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                onClick={handleShowRestaurantTable}/>
+                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                               onClick={handleShowRestaurantTable}/>}
             </StyledHeaderRow>
             {
                 restaurantTableIsOpen &&
@@ -59,8 +62,6 @@ export default function RestaurantList({ecoElements}){
                     </StyledElement>
                 ))
             }
-
         </StyledWrapperTable>
-
     )
 }

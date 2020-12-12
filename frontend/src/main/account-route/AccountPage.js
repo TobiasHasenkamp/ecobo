@@ -1,25 +1,29 @@
 import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
-import GradientBorderlineBottom from "../designElements/GradientBorderlineBottom";
-import GreenBoxMedium from "../designElements/GreenBoxMedium.js";
-import GradientBorderlineTop from "../designElements/GradientBorderlineTop";
+import GradientBorderlineBottom from "../designComponents/otherDesignObjects/GradientBorderlineBottom";
+import GreenBoxMedium from "../designComponents/otherDesignObjects/GreenBoxMedium.js";
+import GradientBorderlineTop from "../designComponents/otherDesignObjects/GradientBorderlineTop";
 import {useHistory, useParams} from "react-router-dom";
-import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
-import DeleteIconButtonMedium from "../designElements/buttons/DeleteIconButtonMedium";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import EditIconButton from "../designComponents/buttons/EditIconButton";
+import DeleteIconButton from "../designComponents/buttons/DeleteIconButton";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import {getUserData} from "../services/userDataService";
-import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
-import EcoElementContext from "../contexts/EcoElementContext";
+import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDivToClosePage";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "../services/ecoElementService";
-import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
-import ImgUpload from "../services/ImgUpload";
+import PageHeaderWithoutWhiteBorder from "../designComponents/otherDesignObjects/PageHeaderWithoutWhiteBorder";
+import ImgUploadFunctionality from "../services/ImgUploadComponent";
+import {StandardButton} from "../designComponents/buttons/StandardButton";
 
 export default function AccountPage() {
-    const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginTokenContext);
+    const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginContext);
+    const {userData, setUserData} = useContext(LoginContext);
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const history = useHistory();
     const {userNameParam} = useParams();
-    const {userData, setUserData} = useContext(LoginTokenContext);
+
+
+    //useEffects
 
     useEffect(() => {
         getUserData(userNameParam, token, setUserData);
@@ -30,112 +34,126 @@ export default function AccountPage() {
     }, [token, setEcoElements]);
 
 
-    function handleEditButton() {
-        history.push("/404");
-    }
-
-    function handleDeleteButton() {
-        history.push("/404");
-    }
+    //handles
 
     function handleLogoutButton() {
         setToken("");
         setUsername("");
         setPassword("");
-        localStorage.clear();
+        localStorage.removeItem("ACCESS_TOKEN");
         setIsLoggedIn(false);
         history.push("/home");
     }
+
+    function handleEditButton() {
+        history.push("/404");
+        //not working yet
+    }
+
+    function handleDeleteButton() {
+        history.push("/404");
+        //not working yet
+    }
+
+
+    //return
 
     return(
 
         <>
             <PageHeaderWithoutWhiteBorder title="Konto"/>
 
-            <ScrollDiv>
+            <ScrollSection>
 
-                <StyledUserSection>
+                <TopUserSection>
 
-                    <StyledLeftBar>
+                    <LeftSideBar>
                         <div/>
-                            <StyledPhotoSection>
-                                {userData.profilePic? <StyledUserPhoto src={userData.profilePic}/>
-                                : <StyledUserPhoto src="/profilePics/placeholder.webp"/>
+                            <PhotoSection>
+                                {userData.profilePic? <UserPhoto src={userData.profilePic}/>
+                                : <UserPhoto src="/profilePics/placeholder.webp"/>
                                 }
-                                <ImgUpload type="userImmediate"/>
-                            </StyledPhotoSection>
-                            <StyledLeftBarText>
+                                <ImgUploadFunctionality type="userImmediate"/>
+                            </PhotoSection>
+                            <UserDataSection>
                                 <h3>Angemeldet:</h3>
                                 <div> {userData.registrationDateExternal} </div><br/>
                                 <h3>Rolle:</h3>
                                 <div>User</div><br/>
-                            </StyledLeftBarText>
+                            </UserDataSection>
                         <div/>
-                    </StyledLeftBar>
-
-                    <StyledRightBar>
+                    </LeftSideBar>
 
 
-
-                        <StyledGrid>
-
+                    <RightUserSection>
                         <div>
                             <h3>Username:</h3>
                             <div> {userData.username} </div><br/>
                         </div>
+                        <AccountButtonBar>
+                            <EditIconButton handle={handleEditButton}/>
+                            <DeleteIconButton size="medium" handle={handleDeleteButton}/>
+                        </AccountButtonBar>
+                            <StandardButton onClick={() => handleLogoutButton()}>Logout</StandardButton>
+                    </RightUserSection>
 
-                        <StyledButtonBar>
-                            <EditIconButtonMedium handle={handleEditButton}/>
-                            {/*<FaCheck/>*/}
-                            <DeleteIconButtonMedium handle={handleDeleteButton}/>
-                        </StyledButtonBar>
+                </TopUserSection>
 
-                            <StyledLogoutButton onClick={() => handleLogoutButton()}>Logout</StyledLogoutButton>
 
-                        </StyledGrid>
-
-                    </StyledRightBar>
-
-                </StyledUserSection>
                 <GradientBorderlineTop/>
                 <GreenBoxMedium/>
                 <GradientBorderlineBottom/>
 
-                <StyledSiteSection>
-
-                    <h3>Verwaltete Seiten:</h3>
-                    none<br/><br/>
-
+                <BottomSection>
+                    {/*<h3>Verwaltete Seiten:</h3>
+                    none<br/><br/>*/}
                     <h3>Angelegte Seiten:</h3>
-
                     <ul>
                         {ecoElements?.filter(element => (element.creator === userData.username)).map(element => (
                             <li key={element.id}>{element.name} ({element.dateCreatedExternal})</li>
                         ))}
                     </ul>
 
-                </StyledSiteSection>
-                <EmptyDivToClosePage/>
-                <EmptyDivToClosePage/>
-            </ScrollDiv>
+                </BottomSection>
+
+                <EmptyDivToClosePage/><br/><br/>
+
+            </ScrollSection>
+            <br/>
 
         </>
 
     );
 }
 
-const ScrollDiv = styled.div`
+
+const ScrollSection = styled.section`
   overflow: scroll;
-  height: 100%;
+
+  @media (max-height:650px) {
+      height: 72%;
+  }
+  
+  @media (min-height:651px) {
+      height: 77%;
+  }
+  
+  @media (min-height:775px) {
+      height: 80%;
+  }
+  
+  @media (min-height:900px) {
+      height: 90%;
+  }
 `
 
-const StyledUserSection = styled.div`
+const TopUserSection = styled.section`
   display: grid;
   grid-template-columns: 30% 70%;
   height: auto;
 `
 
-const StyledLeftBar = styled.div`
+const LeftSideBar = styled.section`
   display: grid;
   grid-template-rows: 5% 40% 50% 5%;
   background-color: var(--darkgreen);
@@ -144,14 +162,7 @@ const StyledLeftBar = styled.div`
   width: 100%;
 `
 
-const StyledUserPhoto = styled.img`
-  margin: auto;
-  display: block;
-  width: 65%;
-  border-radius: 50%;
-  border: white solid 2px;
-`
-const StyledPhotoSection = styled.div`
+const PhotoSection = styled.section`
   width: auto;
   overflow: hidden;
   align-self: center;
@@ -161,7 +172,15 @@ const StyledPhotoSection = styled.div`
   margin-bottom: 20px;
 `
 
-const StyledLeftBarText = styled.div`
+const UserPhoto = styled.img`
+  margin: auto;
+  display: block;
+  width: 65%;
+  border-radius: 50%;
+  border: white solid 2px;
+`
+
+const UserDataSection = styled.section`
   margin-left: 20px;
   margin-right: 8px;
   color: white;
@@ -176,11 +195,14 @@ const StyledLeftBarText = styled.div`
   }
 `
 
-const StyledRightBar = styled.div`
+const RightUserSection = styled.section`
     margin: 7% 10%;
     line-height: 0.85em;
     font-size: 1.0em;
     color: var(--darkgrey);
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-gap: 30px 5px;
     
   h3{
       color: black;
@@ -198,23 +220,7 @@ const StyledRightBar = styled.div`
   }
 `
 
-const StyledLogoutButton = styled.button`
-  justify-self: right;
-  width: min-content;
-  background-color: var(--grey);
-  border: none;
-  border-radius: 8%;
-  color: var(--darkgrey);
-  padding: 8px 15px;
-  text-decoration: none;
-  font-size: 1.1em;
-  font-weight: bold;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  margin-right: 20px;
-  grid-column: 1 / span2;
-`
-
-const StyledSiteSection = styled.div`
+const BottomSection = styled.section`
   display: grid;
   grid-template-rows: auto auto auto;
   margin: 25px 35px;
@@ -223,7 +229,6 @@ const StyledSiteSection = styled.div`
   h3 {
     font-size: 1.15em;
   }
-  
   ul {
     font-size: 0.95em;
     margin: 3px 10px;
@@ -231,14 +236,7 @@ const StyledSiteSection = styled.div`
   }
 `
 
-const StyledGrid = styled.div`
-  display: grid;
-  grid-template-columns: 75% 25%;
-  grid-gap: 30px 5px;
-
-`
-
-const StyledButtonBar = styled.div`
+const AccountButtonBar = styled.section`
   margin: 13px 5px 0 10px;
   display: flex;
   justify-content: space-between;

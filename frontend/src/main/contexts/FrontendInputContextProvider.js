@@ -1,6 +1,7 @@
 import React from "react";
-import FrontendInputContext from "./FrontendInputContext";
+import FrontendInputContext from "./createContexts/FrontendInputContext";
 
+//Provides input Strings throughout the App.
 export default function FrontendInputContextProvider({children}){
 
     const categoryList = [
@@ -10,7 +11,6 @@ export default function FrontendInputContextProvider({children}){
         "FAIRSHOP",
         "OTHER"
     ]
-
 
     const subCategoryList = [
         "RESTAURANT_BAKERY",
@@ -54,11 +54,9 @@ export default function FrontendInputContextProvider({children}){
         "Vegetarisches Angebot"
     ]
 
-
     return (
         <FrontendInputContext.Provider value={{categoryList, subCategoryList, certificateList}}>
             {children}
         </FrontendInputContext.Provider>
     )
-
 }

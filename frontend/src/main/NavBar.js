@@ -1,8 +1,8 @@
 import styled from "styled-components/macro";
 import React, {useContext, useState} from "react";
 import {Link} from "react-router-dom";
-import GradientBorderlineBottom from "./designElements/GradientBorderlineBottom";
-import LoginTokenContext from "./contexts/LoginTokenContext";
+import GradientBorderlineBottom from "./designComponents/otherDesignObjects/GradientBorderlineBottom";
+import LoginContext from "./contexts/createContexts/LoginContext";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {useHistory} from "react-router-dom";
@@ -11,50 +11,46 @@ import {FiUser} from "react-icons/fi";
 import {CgLogIn} from "react-icons/cg";
 
 export default function NavBar() {
-
-    const {username, isLoggedIn} = useContext(LoginTokenContext);
     const [menuStatusAndAnchor, setMenuStatusAndAnchor] = useState(null);
     const history = useHistory();
-
+    const {username, isLoggedIn} = useContext(LoginContext);
     const linkToAccountPage = "/acc/" + username;
 
     const handleClick = (event) => {
         setMenuStatusAndAnchor(event.currentTarget);
     };
-
     const handleClose = () => {
         setMenuStatusAndAnchor(null);
     };
-
     function handleClickHome(){
         setMenuStatusAndAnchor(null);
         history.push("/home");
     }
-
     function handleClickMap(){
         setMenuStatusAndAnchor(null);
         history.push("/bo/map");
     }
-
     function handleClickList(){
         setMenuStatusAndAnchor(null);
         history.push("/bo/list");
     }
-
     function handleClickGallery(){
         setMenuStatusAndAnchor(null);
         history.push("/404");
     }
+
 
     return (
 
         <>
             <StyledNavBar>
 
+                {/* Menu button */}
                 <StyledNavBarButton onClick={handleClick}><GiHamburgerMenu/>
                     <StyledNavBarText>Menü</StyledNavBarText>
                 </StyledNavBarButton>
 
+                {/* menu of the menu button with different options */}
                 <Menu
                     id="mainMenu"
                     anchorEl={menuStatusAndAnchor}
@@ -68,8 +64,10 @@ export default function NavBar() {
                     <MenuItem onClick={handleClickGallery}>Galerie</MenuItem>
                 </Menu>
 
+                {/* empty div placeholder - maybe add a logo here later */}
                 <div/>
 
+                {/* Konto/login button */}
                 {
                     isLoggedIn ?
                         <Link to={linkToAccountPage} style={{margin:"auto"}}>

@@ -1,12 +1,12 @@
-import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
+import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
-    StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
+    StyledCell, StyledIconDiv, StyledElementBody} from "../designComponents/tableDesign/StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
-import mapCertificates from "../services/mapCertificates";
-import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
-import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
+import mapCertificates from "./subComponents/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "../services/ReturnIfElementGetsFilteredForReviewStatus";
+import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
 
 export default function OthersList({ecoElements}){
 
@@ -16,18 +16,20 @@ export default function OthersList({ecoElements}){
         setOthersTableIsOpen(!othersTableIsOpen);
     }
 
+    //useEffect to set the Table as open everytime the page reloads
     useEffect(() => {
         setOthersTableIsOpen(true);
     }, [])
 
 
     return (
-
             <StyledWrapperTable name="Sonstige">
                 <StyledHeaderRow className="green">
                     {"Sonstige "}
-                    {othersTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>
-                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>}
+                    {othersTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                onClick={handleShowOthersTable}/>
+                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                   onClick={handleShowOthersTable}/>}
                 </StyledHeaderRow>
                 { othersTableIsOpen &&
                     ecoElements?.filter(element => element.category === "OTHER")
@@ -58,8 +60,6 @@ export default function OthersList({ecoElements}){
                         </StyledElement>
                     ))
                 }
-
             </StyledWrapperTable>
-
     )
 }

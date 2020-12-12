@@ -1,6 +1,7 @@
-import NewsfeedContext from "./NewsfeedContext";
+import NewsfeedContext from "./createContexts/NewsfeedContext";
 import React, {useState} from "react";
 
+//Provides the two lists of newsfeed items throughout the App.
 export default function NewsfeedContextProvider({children}){
 
     const [newsfeed5, setNewsfeed5] = useState([]);

@@ -1,20 +1,21 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import PageHeader from "../PageHeader";
+import PageHeader from "../designComponents/otherDesignObjects/PageHeader";
 import getLonAndLatForAddress from "../services/mapMarkerService";
 import {getEcoElementById, updateEcoElement} from "../services/ecoElementService";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import styled from "styled-components/macro";
-import tokenValidation from "../account-route/methods/tokenValidation";
-import EcoElementContext from "../contexts/EcoElementContext";
+import tokenValidation from "../services/tokenValidation";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import translationService from "../services/translationService";
-import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
+import subCategoryOptionsForAddElement from "./subComponents/AvailableSubcategoryMenuItems";
 import Menu from "@material-ui/core/Menu";
-import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuItemsForAddElement";
-import FilterListContext from "../contexts/FilterListContext";
+import certificateMenuItemsForAddElement from "./subComponents/AvailableCertificateMenuItems";
+import FilterContext from "../contexts/createContexts/FilterContext";
 
 export default function EditElementPage() {
 
+    const {ecoElementIDParam} = useParams();
     const history = useHistory();
     const [name, setName] = useState("");
     const [category, setCategory] = useState("FOODSTORE");
@@ -22,45 +23,22 @@ export default function EditElementPage() {
     const [address, setAddress] = useState("");
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
-    const {token} = useContext(LoginTokenContext);
-    const {ecoElement, setEcoElement} = useContext(EcoElementContext);
-    const {ecoElementIDParam} = useParams();
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [certificatesToAddList, setCertificatesToAddList] = useState([]);
-    const {setShowNonReviewedItems} = useContext(FilterListContext);
-
-    useEffect(() => {
-
-        if (category === "FOODSTORE"){
-            setCategorySub("FOODSTORE_SUPERMARKET");
-        }
-        else if (category === "RESTAURANT"){
-            setCategorySub("RESTAURANT_BAKERY");
-        }
-        else if (category === "FASHIONSTORE"){
-            setCategorySub("FASHIONSTORE_ECO_FASHION_STORE");
-        }
-        else if (category === "FAIRSHOP"){
-            setCategorySub("FAIRSHOP_NORMAL");
-        }
-        else if (category === "OTHER"){
-            setCategorySub("OTHER");
-        }
-    }, [category])
-
-    useEffect(() => {
-        if (ecoElement.certificates !== null && ecoElement.certificates !== undefined){
-            setCertificatesToAddList(ecoElement.certificates);
-        }
-    }, [ecoElement])
+    const [errorMessage, setErrorMessage] = useState("");
+    const {token} = useContext(LoginContext);
+    const {ecoElement, setEcoElement} = useContext(EcoElementContext);
+    const {setShowNonReviewedItems} = useContext(FilterContext);
 
 
+    //useEffect to load the EcoElement once the page loads
     useEffect(() => {
         getEcoElementById(ecoElementIDParam, token, setEcoElement);
     }, [ecoElementIDParam, setEcoElement, token]);
 
-    useEffect(() => {
 
+    //useEffect to set the additional states once the EcoElement has loaded
+    useEffect(() => {
         if (ecoElement.name !== "" && ecoElement.name !== undefined){
             setName(ecoElement.name);
             setCategory(ecoElement.category);
@@ -69,6 +47,31 @@ export default function EditElementPage() {
         }
     }, [ecoElement])
 
+    //useEffect to set a standard subcategory once the category changes
+    //the same useEffect exists at the AddElementPage but outsourcing may hurt understandability
+    useEffect(() => {
+        if (category === "FOODSTORE"){
+            setCategorySub("FOODSTORE_SUPERMARKET");
+        } else if (category === "RESTAURANT"){
+            setCategorySub("RESTAURANT_BAKERY");
+        } else if (category === "FASHIONSTORE"){
+            setCategorySub("FASHIONSTORE_ECO_FASHION_STORE");
+        } else if (category === "FAIRSHOP"){
+            setCategorySub("FAIRSHOP_NORMAL");
+        } else if (category === "OTHER"){
+            setCategorySub("OTHER");
+        }
+    }, [category])
+
+    //useEffect to add the already existing certificates once the ecoElement is loaded
+    useEffect(() => {
+        if (ecoElement.certificates !== null && ecoElement.certificates !== undefined){
+            setCertificatesToAddList(ecoElement.certificates);
+        }
+    }, [ecoElement])
+
+    //useEffect to process the EditElement functionality once the API has returned the Data for an address
+    //the same (or very similar) useEffect exists at the AddElementPage but outsourcing may hurt understandability
     useEffect(() => {
         let finalLat;
         let finalLon;
@@ -85,28 +88,28 @@ export default function EditElementPage() {
                 displayInfo = p[key];
             }
         }
-
         if (displayInfo !== undefined){
             let valueArray = displayInfo.split(", ");
             if (valueArray.length === 9){
                 district = valueArray[3];
-            }
-            else if (valueArray.length === 7){
+            } else if (valueArray.length === 7){
                 district = valueArray[1];
-            }
-            else {
+            } else {
                 district = valueArray[2];
             }
         }
-
-        if (finalLon !== undefined && buttonHasBeenClicked) {
+        if ((finalLon === undefined || finalLon === null) && buttonHasBeenClicked) {
+            setErrorMessage("Die eingegebene Adresse konnte nicht verarbeitet werden.");
+        } else if (buttonHasBeenClicked) {
             setButtonHasBeenClicked(false);
             updateEcoElement(name, ecoElement.id, category, categorySub, district, address, finalLat, finalLon, token, setEcoElement, certificatesToAddList);
             setShowNonReviewedItems(true);
             history.push("/loading/addElement");
         }
 
-        // this error is wrong, adding other dependencies here will completely change the data flow on this side
+        // React wants me to add additional dependencies: address, buttonHasBeenClicked, category, categorySub, certificatesToAddList,
+        // history, name, setEcoElement, setShowNonReviewedItems and token.
+        // this error is wrong, adding these dependencies here will completely change the data flow on this page.
         // eslint-disable-next-line
     }, [lonLatOfRequest]);
 
@@ -114,14 +117,11 @@ export default function EditElementPage() {
     function handleChange(event){
         if (event.target.name === "name"){
             setName(event.target.value);
-        }
-        else if (event.target.name === "category"){
+        } else if (event.target.name === "category"){
             setCategory(event.target.value);
-        }
-        else if (event.target.name === "categorySub"){
+        } else if (event.target.name === "categorySub"){
             setCategorySub(event.target.value);
-        }
-        else if (event.target.name === "address"){
+        } else if (event.target.name === "address"){
             setAddress(event.target.value);
         }
     }
@@ -131,16 +131,13 @@ export default function EditElementPage() {
         if (tokenValidation() && address !== ecoElement.address){
             setButtonHasBeenClicked(true);
             getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest);
-        }
-        else if (tokenValidation()){
+        } else if (tokenValidation()){
             setButtonHasBeenClicked(false);
             const district = ecoElement.district;
-            updateEcoElement(name, ecoElement.id, category, categorySub, district, address, ecoElement.lon, ecoElement.lat, token, setEcoElement, certificatesToAddList);
+            updateEcoElement(name, ecoElement.id, category, categorySub, district, address, ecoElement.lon, ecoElement.lat,
+                token, setEcoElement, certificatesToAddList);
             setShowNonReviewedItems(true);
             history.push("/loading/map");
-        }
-        else {
-            console.log("Please login.")
         }
     }
 
@@ -153,7 +150,6 @@ export default function EditElementPage() {
         setCertificatesMenuStatusAndAnchor(event.currentTarget);
         event.preventDefault();
     }
-
     function handleCloseCertificatesMenu(){
         setCertificatesMenuStatusAndAnchor(null);
     }
@@ -163,7 +159,6 @@ export default function EditElementPage() {
         setCertificatesToAddList(certificatesToAddList.concat(certificateToAdd));
         setCertificatesMenuStatusAndAnchor(null);
     }
-
     function handleRemoveCertificates(event){
         const certificateToRemove = event.target.getAttribute("name");
         const newCertificateList = certificatesToAddList.filter(value => value !== certificateToRemove);
@@ -183,14 +178,13 @@ export default function EditElementPage() {
         <div>
             <PageHeader title={`Bearbeite ${ecoElement.name}`}/>
 
-            <StyledForm>
+            <EditEcoElementForm>
 
                 <label htmlFor="name"> Name: </label>
                 {(ecoElement.name === name) ?
                     <input name="name" value={name} onChange={handleChange} type="text"/> :
                     <input name="name" value={name} onChange={handleChange} type="text" className="hasChanged"/>
                 }
-
 
                 <label htmlFor="category"> Kategorie: </label>
                 {(ecoElement.category === category) ?
@@ -220,7 +214,7 @@ export default function EditElementPage() {
                     </select>
                 }
 
-                <label htmlFor="address"> Addresse:</label>
+                <label htmlFor="address"> Adresse:</label>
                 {(ecoElement.address === address) ?
                     <input name="address" value={address} onChange={handleChange} /> :
                     <input name="address" value={address} onChange={handleChange} className="hasChanged"/> }
@@ -239,27 +233,22 @@ export default function EditElementPage() {
                 </Menu>
 
                 <StyledActiveCertificatesList>
-
                     {returnActiveCertificates()}
-
                 </StyledActiveCertificatesList>
-
-
 
                 <div>
                     <button onClick={handleEditButtonClick}>Bestätige Änderungen</button>
                     <button onClick={handleCancelButtonClick}>Abbrechen</button>
+                    <br/> <br/> {errorMessage && errorMessage}
                 </div>
 
-            </StyledForm>
+            </EditEcoElementForm>
         </div>
-
     )
-
 }
 
 
-const StyledForm = styled.div`
+const EditEcoElementForm = styled.div`
   margin: 24px;
   display: grid;
   grid-template-rows: min-content min-content min-content min-content min-content;

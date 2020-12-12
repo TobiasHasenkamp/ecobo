@@ -61,7 +61,7 @@ class RegistrationControllerTest {
 
         String resultingString = response.getBody();
 
-        assertThat(resultingString, is("Registration successful."));
+        assertThat(resultingString, is("Registrierung erfolgreich."));
     }
 
     @Test
@@ -85,7 +85,7 @@ class RegistrationControllerTest {
 
         String resultingString = response.getBody();
 
-        assertThat(resultingString, is("Username already exists. Please choose another name."));
+        assertThat(resultingString, is("Username existiert bereits. Versuche es mit einem anderen Namen."));
     }
 
     @Test
@@ -106,7 +106,7 @@ class RegistrationControllerTest {
 
         String resultingString = response.getBody();
 
-        assertThat(resultingString, is("Password is unsafe. It needs at least one lower case letter."));
+        assertThat(resultingString, is("Unsicheres Passwort. Es benötigt mindestens einen Kleinbuchstaben."));
     }
 
     @Test
@@ -127,7 +127,7 @@ class RegistrationControllerTest {
 
         String resultingString = response.getBody();
 
-        assertThat(resultingString, is("Password is unsafe. It needs at least 3 characters"));
+        assertThat(resultingString, is("Unsicheres Passwort. Es benötigt mindestens 3 Zeichen."));
     }
 
 }

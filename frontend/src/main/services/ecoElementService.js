@@ -24,21 +24,25 @@ export const getEcoElementById = (ecoElementIdFromParam, token, setEcoElement) =
 };
 
 export const addEcoElement = (name, category, categorySub, district, address, lon, lat, certificates, token, setEcoElement) => {
-    axios.post("/api/elements/protected/", {name, category, categorySub, address, district, lat, lon, certificates}, header(token))
+    axios.post("/api/elements/protected/", {name, category, categorySub, address, district, lat, lon, certificates},
+        header(token))
         .then((response) => response.data)
         .then(setEcoElement)
         .catch(console.log);
 };
 
-export const updateEcoElement = (name, id, category, categorySub, district, address, lon, lat, token, setEcoElement, certificates) => {
-    axios.put("/api/elements/protected/" + id, {name, category, categorySub, lat, lon, certificates, address, district}, header(token))
+export const updateEcoElement = (name, id, category, categorySub, district, address, lon, lat, token, setEcoElement,
+                                 certificates) => {
+    axios.put("/api/elements/protected/" + id, {name, category, categorySub, lat, lon, certificates, address, district},
+        header(token))
         .then((response) => response.data)
         .then(setEcoElement)
         .catch(console.log);
 };
 
 export const addReviewToEcoElement = (ecoElementId, positive, reviewComment, token, setEcoElement) => {
-    axios.put("/api/elements/protected/review/" + ecoElementId, {positive, reviewComment}, header(token))
+    axios.put("/api/elements/protected/review/" + ecoElementId, {positive, reviewComment},
+        header(token))
         .then((response) => response.data)
         .then(setEcoElement)
         .catch(console.log);

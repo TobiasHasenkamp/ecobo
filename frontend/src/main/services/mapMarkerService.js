@@ -2,9 +2,6 @@ import axios from "axios";
 
 
 export default function getLonAndLatForAddress(address, lonLatOfRequest, setLonLatOfRequest){
-
-    console.log(address);
-
     const options = {
         method: 'GET',
         url: 'https://forward-reverse-geocoding.p.rapidapi.com/v1/search',
@@ -19,7 +16,6 @@ export default function getLonAndLatForAddress(address, lonLatOfRequest, setLonL
             'x-rapidapi-host': 'forward-reverse-geocoding.p.rapidapi.com'
         }
     };
-
     axios.request(options).then(response => response.data).then((data) => setLonLatOfRequest(data));
 }
 
