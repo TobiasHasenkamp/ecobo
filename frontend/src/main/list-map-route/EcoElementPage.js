@@ -16,11 +16,11 @@ import {FaFacebook, FaLink, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from
 import ReviewSection from "./subComponents/ReviewSection";
 import RecentlyReviewedItemMessage from "./subComponents/RecentlyReviewedItemMessage";
 import translationService from "../services/translationService";
-import mapCertificates from "../services/mapCertificates";
+import mapCertificates from "./subComponents/mapCertificates";
 import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDivToClosePage";
 import ReturnIfUserIsAllowedToGetRender from "../services/ReturnIfUserIsAllowedToGetRender";
 import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
-import ImgUpload from "../services/ImgUpload";
+import ImgUploadComponent from "../services/ImgUploadComponent";
 import SmallMap from "./subComponents/SmallMap";
 
 
@@ -208,7 +208,7 @@ export default function EcoElementPage(){
                             : <EcoElementPhoto src="/profilePics/placeholder.webp"/>
                         }
                         {ReturnIfUserIsAllowedToGetRender(ecoElement.creator) &&
-                        <ImgUpload type="elementImmediate" dark="true" ecoElementId={ecoElement.id}/>}
+                        <ImgUploadComponent type="elementImmediate" dark="true" ecoElementId={ecoElement.id}/>}
                     </section>
 
                     {/*Small map*/}

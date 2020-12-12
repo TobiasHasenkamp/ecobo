@@ -5,7 +5,7 @@ import React, {useContext} from "react";
 import FilterContext from "../../contexts/createContexts/FilterContext";
 import translationService from "../../services/translationService";
 import styled from "styled-components/macro";
-import mapCertificates from "../../services/mapCertificates";
+import mapCertificates from "../../list-map-route/subComponents/mapCertificates";
 import ShowElementIconButton from "../buttons/ShowElementIconButton";
 import markerIcon from "./MarkerIcon";
 import ReturnIfElementGetsFilteredForReviewStatus from "../../services/ReturnIfElementGetsFilteredForReviewStatus";

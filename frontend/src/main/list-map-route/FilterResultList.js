@@ -9,7 +9,7 @@ import {
 } from "../designComponents/tableDesign/StyledElementsForTableDesign";
 import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import translationService from "../services/translationService";
-import mapCertificates from "../services/mapCertificates";
+import mapCertificates from "./subComponents/mapCertificates";
 import ReturnIfElementGetsFilteredForReviewStatus from "../services/ReturnIfElementGetsFilteredForReviewStatus";
 import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
 

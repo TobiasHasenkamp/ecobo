@@ -44,8 +44,4 @@ export default function translationService(word){
         default:
             return word;
     }
-
-
-
-
 }

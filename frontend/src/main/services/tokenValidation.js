@@ -14,14 +14,10 @@ export default function tokenValidation(token, setToken, username, setUsername, 
                 setToken("");
                 setUsername("");
                 setPassword("");
-                localStorage.clear();
+                localStorage.removeItem("ACCESS_TOKEN");
                 return false;
             }
-
             return true;
-
         }
-
         return true;
-
 }

@@ -149,7 +149,6 @@ export default function NewsfeedComponent(){
 const StyledNewsfeed = styled.div`
   width: auto;
   margin: 0 15px 15px 15px;
-  font-size: 0.8em;
   font-size: 3.1vmin;
   border-left: 5px solid var(--darkgreen);
   padding: 10px 14px 6px 14px;
@@ -174,7 +173,16 @@ const StyledNewsfeed = styled.div`
         grid-gap: 13px;
         justify-content: left;
         padding: 2px 0;
-  } 
+  }
+  
+   @media (max-width: 300px) {font-size: 3.45vw;}
+   @media (min-width: 500px) {font-size: 2.75vw;}
+   @media (min-width: 600px) {font-size: 2.45vw;}
+   @media (min-width: 700px) {font-size: 2.0vw;}
+   @media (min-width: 850px) {font-size: 1.75vw;}  
+   @media (min-width: 1200px) {font-size: 1.35vw;}  
+   @media (min-width: 1600px) {font-size: 0.95vw;}
+   @media (min-width: 2000px) {font-size: 0.72vw;}
 `
 
 const StyledNewsfeedHeader = styled.div`

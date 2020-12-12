@@ -4,7 +4,7 @@ import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader,
     StyledCell, StyledIconDiv, StyledElementBody} from "../designComponents/tableDesign/StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
-import mapCertificates from "../services/mapCertificates";
+import mapCertificates from "./subComponents/mapCertificates";
 import ReturnIfElementGetsFilteredForReviewStatus from "../services/ReturnIfElementGetsFilteredForReviewStatus";
 import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
 

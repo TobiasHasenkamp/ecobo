@@ -9,7 +9,7 @@ import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
 import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import translationService from "../services/translationService";
-import mapCertificates from "../services/mapCertificates";
+import mapCertificates from "./subComponents/mapCertificates";
 import GreenBoxSmall from "../designComponents/otherDesignObjects/GreenBoxSmall";
 import {useHistory} from "react-router-dom";
 import FilterContext from "../contexts/createContexts/FilterContext";

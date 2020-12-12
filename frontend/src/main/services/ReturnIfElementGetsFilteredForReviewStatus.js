@@ -1,14 +1,10 @@
 import {useContext} from "react";
 import FilterContext from "../contexts/createContexts/FilterContext";
 
-export default function ReturnFilterReviewFunction(element){
-
+export default function ReturnIfElementGetsFilteredForReviewStatus(element){
     const {showNonReviewedItems} = useContext(FilterContext);
 
     if (showNonReviewedItems === false){
         return element.isReviewed;
-    }
-    else {
-        return true;
-    }
+    } else return true;
 }

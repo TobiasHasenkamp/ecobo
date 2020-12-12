@@ -12,7 +12,7 @@ import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDiv
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import {getEcoElements} from "../services/ecoElementService";
 import PageHeaderWithoutWhiteBorder from "../PageHeaderWithoutWhiteBorder";
-import ImgUploadFunctionality from "../services/ImgUpload";
+import ImgUploadFunctionality from "../services/ImgUploadComponent";
 import {StandardButton} from "../designComponents/buttons/StandardButton";
 
 export default function AccountPage() {

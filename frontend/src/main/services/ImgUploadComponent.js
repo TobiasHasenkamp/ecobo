@@ -4,11 +4,11 @@ import axios from "axios";
 import styled from "styled-components/macro";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 
-export default function ImgUpload({type, dark, ecoElementId}){
+export default function ImgUploadComponent({type, dark, ecoElementId}){
 
-    const {token} = useContext(LoginContext);
     const [imgFile, setImgFile] = useState();
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
+    const {token} = useContext(LoginContext);
     const {setUserData} = useContext(LoginContext);
     const {setEcoElement} = useContext(EcoElementContext);
 
@@ -81,22 +81,22 @@ export default function ImgUpload({type, dark, ecoElementId}){
     return (
         <>
             {dark?
-                <StyledEditPictureButtonDark onClick={handleClickOnUploadImageButton}>Edit Picture</StyledEditPictureButtonDark>
-            : <StyledEditPictureButton onClick={handleClickOnUploadImageButton}>Edit Picture</StyledEditPictureButton>}
+                <EditPictureButtonDark onClick={handleClickOnUploadImageButton}>Edit Picture</EditPictureButtonDark>
+            : <EditPictureButton onClick={handleClickOnUploadImageButton}>Edit Picture</EditPictureButton>}
             <input type="file" id="invisibleFileButton" onChange={handlePictureChange} style={{display: "none"}}/>
         </>
     );
 
 }
 
-const StyledEditPictureButton = styled.div`
+const EditPictureButton = styled.div`
   color: white;
   padding-top: 7px;
   font-size: 0.7em;
   text-align: center;
 `
 
-const StyledEditPictureButtonDark = styled.div`
+const EditPictureButtonDark = styled.div`
   color: var(--darkgrey);
   padding-top: 7px;
   font-size: 0.7em;

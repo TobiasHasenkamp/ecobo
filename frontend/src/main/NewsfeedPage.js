@@ -157,7 +157,14 @@ const StyledNewsfeed = styled.div`
   grid-gap: 4px;
   background-color: lightgray;
   
-  @media (min-width:475px) { font-size: 1.25em }
+   @media (max-width: 300px) {font-size: 3.45vw;}
+   @media (min-width: 500px) {font-size: 2.75vw;}
+   @media (min-width: 600px) {font-size: 2.45vw;}
+   @media (min-width: 700px) {font-size: 2.0vw;}
+   @media (min-width: 850px) {font-size: 1.75vw;}  
+   @media (min-width: 1200px) {font-size: 1.35vw;}  
+   @media (min-width: 1600px) {font-size: 0.95vw;}
+   @media (min-width: 2000px) {font-size: 0.72vw;}
   
   a{
       color: var(--darkgrey);
