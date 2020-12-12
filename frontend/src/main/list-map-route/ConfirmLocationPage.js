@@ -3,9 +3,6 @@ import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 import styled from "styled-components/macro";
 import 'leaflet/dist/leaflet.css';
 import 'leaflet/dist/leaflet.js';
-import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import BlackLine from "../designComponents/otherDesignObjects/BlackLine";
 import markerIcon from "../designComponents/mapElements/MarkerIcon";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
@@ -20,27 +17,19 @@ import {updateEcoElement} from "../services/ecoElementService";
 import LoginContext from "../contexts/createContexts/LoginContext";
 
 
-//to fix the "image not found"-bugs that occur when reloading the page
-let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow
-});
-L.Marker.prototype.options.icon = DefaultIcon;
-
-
-
-
 export default function ConfirmLocationPage() {
 
-    const {ecoElement, setEcoElement} = useContext(EcoElementContext);
-    const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
-    const {setShowNonReviewedItems} = useContext(FilterContext);
     const history = useHistory();
+    const markerRef = useRef(null);
     const [stageOfThePage, setStageOfThePage] = useState(1);
+    const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
+    const {ecoElement, setEcoElement} = useContext(EcoElementContext);
+    const {setShowNonReviewedItems} = useContext(FilterContext);
     const {token} = useContext(LoginContext);
     const [position, setPosition] = useState({lng: ecoElement.lat, lat: ecoElement.lon});
-    const markerRef = useRef(null);
 
+
+    //method to handle the marker dragging process in stage 2 of this page
     const eventHandlers = useMemo(
         () => ({
             dragend() {
@@ -49,25 +38,26 @@ export default function ConfirmLocationPage() {
                     setPosition(marker.getLatLng())
                 }
             },
-        }),
-        [],
+        }), [],
     )
 
+    //method to handle a yes for the question whether the location is correct
     function handleYes(){
         setShowNonReviewedItems(true);
         history.push("/loading/map");
         setStageOfThePage(1);
     }
 
+    //method to handle a no for the question whether the location is correct
     function handleNo(){
         setStageOfThePage(2);
         setRandomKeyToForceReload(1);
     }
 
+    //method to handle the confirm in stage 2 of the page after the marker dragging
     function handleConfirm(){
         updateEcoElement(ecoElement.name, ecoElement.id, ecoElement.category, ecoElement.categorySub, ecoElement.district,
-            ecoElement.address, position.lat, position.lng, token, setEcoElement,
-            ecoElement.certificates);
+            ecoElement.address, position.lat, position.lng, token, setEcoElement, ecoElement.certificates);
         history.push("/loading/map");
     }
 
@@ -77,8 +67,7 @@ export default function ConfirmLocationPage() {
         <>
             <PageHeaderWithoutWhiteBorder title="Bestätige die Adresse"/>
             <BlackLine/>
-
-            <StyledContentDiv>
+            <ConfirmLocationPageLayout>
 
                 <MapContainer
                     key={randomKeyToForceRerender}
@@ -98,62 +87,56 @@ export default function ConfirmLocationPage() {
                     />
 
                     { ecoElement.lat && ecoElement.lat && stageOfThePage === 1 &&
+                        <Marker key={ecoElement.id} draggable={false} position={[ecoElement.lon, ecoElement.lat]}
+                                title={ecoElement.name} icon={markerIcon(ecoElement.category, ecoElement.categorySub)}>
+                            <PopupForMarker>
+                                <PopupHeader>
+                                    {ecoElement.name}
+                                    <ShowElementIconButton elementId={ecoElement.id}/>
+                                </PopupHeader>
+                                {translationService(ecoElement.categorySub)} <br/> {ecoElement.address} <br/>
+                                <CertificatesOfItemList>
+                                    {mapCertificates(ecoElement, "small")}
+                                </CertificatesOfItemList>
+                            </PopupForMarker>
+                        </Marker>
+                    }
 
-                    <Marker key={ecoElement.id} draggable={false} position={[ecoElement.lon, ecoElement.lat]}
-                            title={ecoElement.name} icon={markerIcon(ecoElement.category, ecoElement.categorySub)}>
-
-                        <StyledPopup>
-                            <StyledPopupHeader>
-                                {ecoElement.name}
-                                <ShowElementIconButton elementId={ecoElement.id}/>
-                            </StyledPopupHeader>
-                            {translationService(ecoElement.categorySub)} <br/> {ecoElement.address} <br/>
-                            <StyledMappedCertificates>
-                                {mapCertificates(ecoElement, "small")}
-                            </StyledMappedCertificates>
-                        </StyledPopup>
-                    </Marker>}
 
                     { stageOfThePage === 2 &&
-                    <Marker key={ecoElement.id} draggable={true} eventHandlers={eventHandlers}
-                              position={position} ref={markerRef}
-                              title={ecoElement.name} icon={markerIcon(ecoElement.category, ecoElement.categorySub)}>
-
-                        <StyledPopup>
-                            <StyledPopupHeader>
-                                {ecoElement.name}
-                                <ShowElementIconButton elementId={ecoElement.id}/>
-                            </StyledPopupHeader>
-                            {translationService(ecoElement.categorySub)} <br/> {ecoElement.address} <br/>
-                            <StyledMappedCertificates>
-                                {mapCertificates(ecoElement, "small")}
-                            </StyledMappedCertificates>
-                        </StyledPopup>
-                    </Marker>}
+                        <Marker key={ecoElement.id} draggable={true} eventHandlers={eventHandlers}
+                                  position={position} ref={markerRef}
+                                  title={ecoElement.name} icon={markerIcon(ecoElement.category, ecoElement.categorySub)}>
+                            <PopupForMarker>
+                                <PopupHeader>
+                                    {ecoElement.name}
+                                    <ShowElementIconButton elementId={ecoElement.id}/>
+                                </PopupHeader>
+                                {translationService(ecoElement.categorySub)} <br/> {ecoElement.address} <br/>
+                                <CertificatesOfItemList>
+                                    {mapCertificates(ecoElement, "small")}
+                                </CertificatesOfItemList>
+                            </PopupForMarker>
+                        </Marker>
+                    }
 
                 </MapContainer>
-
                 <GreenBoxSmall/>
 
-            </StyledContentDiv>
+            </ConfirmLocationPageLayout>
+
 
             {stageOfThePage === 1 &&
-
-                <StyledTextDiv>Ist diese Ortsangabe korrekt? <br/>
-
+                <MessageDiv>Ist diese Ortsangabe korrekt? <br/>
                     <button onClick={handleYes}>Ja</button>
                     <button onClick={handleNo}>Nein</button>
-
-                </StyledTextDiv>
+                </MessageDiv>
             }
 
             {stageOfThePage === 2 &&
-
-            <StyledTextDiv>Ziehe den Marker zu der richtigen Position auf der Karte. <br/>
-
-                <button onClick={handleConfirm}>Bestätigen</button>
-
-            </StyledTextDiv>
+                <MessageDiv>Ziehe den Marker zu der richtigen Position auf der Karte. <br/>
+                    <button onClick={handleConfirm}>Bestätigen</button>
+                </MessageDiv>
             }
 
         </>
@@ -163,7 +146,7 @@ export default function ConfirmLocationPage() {
 
 
 
-const StyledContentDiv = styled.div`
+const ConfirmLocationPageLayout = styled.section`
   display: grid;
   width: 100%;
   height: 58%;
@@ -179,7 +162,7 @@ const StyledContentDiv = styled.div`
   }
 `
 
-const StyledTextDiv = styled.div`
+const MessageDiv = styled.div`
   margin: 20px 20px;
   font-size: 0.9em;
   
@@ -190,11 +173,11 @@ const StyledTextDiv = styled.div`
   }
 `
 
-const StyledPopup = styled(Popup)`
+const PopupForMarker = styled(Popup)`
     font-size: 1.15em;
 `
 
-const StyledPopupHeader = styled.div`
+const PopupHeader = styled.div`
       font-weight: bold;
       font-size: 1.15em;
       display: grid;
@@ -204,6 +187,6 @@ const StyledPopupHeader = styled.div`
       margin-right: 15px;
 `
 
-const StyledMappedCertificates = styled.div`
+const CertificatesOfItemList = styled.div`
     margin-top: 4px;
 `

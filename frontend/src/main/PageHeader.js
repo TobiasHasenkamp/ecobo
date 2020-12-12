@@ -25,4 +25,11 @@ const StyledTitle = styled.p`
     font-weight: bold;
     font-size: 1.3em;
     text-align: center;
+        
+    @media (max-width:350px) {
+    font-size: 1.15em;
+    
+    @media (max-width:300px) {
+    font-size: 1.05em;
+  }
 `

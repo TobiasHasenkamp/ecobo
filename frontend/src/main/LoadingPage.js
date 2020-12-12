@@ -11,7 +11,7 @@ export default function LoadingPage() {
     const history = useHistory();
 
     const [percentCompleted, setPercentCompleted] = useState(0);
-    const pageHeader = "Add a new item"
+    const pageHeader = "Ein neues Element hinzufügen"
     const location = useLocation();
 
 
