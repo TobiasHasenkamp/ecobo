@@ -1,4 +1,4 @@
-import {StyledCell, StyledElementBody, StyledHeaderRow, StyledWrapperTable} from "../StyledElementsForTableDesign";
+import {StyledCell, StyledElementBody, StyledHeaderRow, StyledWrapperTable} from "../../designComponents/tableDesign/StyledElementsForTableDesign";
 import {FaCheck, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp, FaTimes} from "react-icons/fa";
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";

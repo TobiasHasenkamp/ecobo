@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {
     StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody, StyledElementBodyOneCell
-} from "./StyledElementsForTableDesign";
+} from "../designComponents/tableDesign/StyledElementsForTableDesign";
 import {useParams, useHistory} from "react-router-dom";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import LoginContext from "../contexts/createContexts/LoginContext";

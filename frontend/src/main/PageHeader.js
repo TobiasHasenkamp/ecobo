@@ -23,13 +23,16 @@ const StyledTitle = styled.p`
     text-decoration: none;
     margin: 6px;
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1.2em;
     text-align: center;
+       
+    @media (max-width:425px) {
+    font-size: 1.15em;    
         
     @media (max-width:350px) {
-    font-size: 1.15em;
+    font-size: 1.0em;
     
     @media (max-width:300px) {
-    font-size: 1.05em;
+    font-size: 0.9em;
   }
 `

@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import EcoElementContext from "../../contexts/createContexts/EcoElementContext";
-import {StyledCell, StyledElementBody, StyledHeaderRow, StyledWrapperTable} from "../StyledElementsForTableDesign";
+import {StyledCell, StyledElementBody, StyledHeaderRow, StyledWrapperTable} from "../../designComponents/tableDesign/StyledElementsForTableDesign";
 import {FaCheck} from "react-icons/fa";
 
 //this displays a message for an EcoElement that is was recently successfully reviewed

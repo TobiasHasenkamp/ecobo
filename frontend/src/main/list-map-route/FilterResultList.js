@@ -6,7 +6,7 @@ import {
     StyledElementHeader,
     StyledHeaderRow, StyledIconDiv,
     StyledNameCell, StyledWrapperTable
-} from "./StyledElementsForTableDesign";
+} from "../designComponents/tableDesign/StyledElementsForTableDesign";
 import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import translationService from "../services/translationService";
 import mapCertificates from "../services/mapCertificates";
