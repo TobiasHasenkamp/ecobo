@@ -18,7 +18,6 @@ export default function FilterResultList({ecoElements}){
     const {returnIfItemGetsFiltered} = useContext(FilterContext);
 
     return(
-
         <StyledWrapperTable name="Ergebnisse">
             <StyledHeaderRow className="lightgrey">
                 {"Ergebnisse "}
@@ -54,13 +53,9 @@ export default function FilterResultList({ecoElements}){
             }
             {
                 (ecoElements.filter(element => (returnIfItemGetsFiltered(element)))
-                    .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element)).length === 0) && <p style={{margin: "15px"}}>Keine Ergebnisse gefunden.</p>
+                    .filter(element => ReturnIfElementGetsFilteredForReviewStatus(element)).length === 0) &&
+                                    <p style={{margin: "15px"}}>Keine Ergebnisse gefunden.</p>
             }
-
         </StyledWrapperTable>
-
-
-
     )
-
 }

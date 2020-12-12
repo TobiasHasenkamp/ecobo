@@ -12,23 +12,24 @@ export default function FashionStoreList({ecoElements}){
 
     const [fashionStoreTableIsOpen, setFashionStoreTableIsOpen] = useState(true);
 
-
     function handleShowFashionStoreTable(){
         setFashionStoreTableIsOpen(!fashionStoreTableIsOpen);
     }
 
+    //useEffect to set the Table as open everytime the page reloads
     useEffect(() => {
         setFashionStoreTableIsOpen(true);
     }, [])
 
 
     return (
-
         <StyledWrapperTable name="Kleidungsläden">
             <StyledHeaderRow className="blue">
                 {"Kleidungsläden "}
-                {fashionStoreTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFashionStoreTable}/>
-                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFashionStoreTable}/>}
+                {fashionStoreTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                  onClick={handleShowFashionStoreTable}/>
+                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                               onClick={handleShowFashionStoreTable}/>}
             </StyledHeaderRow>
             { fashionStoreTableIsOpen &&
             ecoElements?.filter(element => element.category === "FASHIONSTORE")
@@ -59,8 +60,6 @@ export default function FashionStoreList({ecoElements}){
                 </StyledElement>
             ))
             }
-
         </StyledWrapperTable>
-
     )
 }

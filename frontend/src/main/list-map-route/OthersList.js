@@ -16,18 +16,20 @@ export default function OthersList({ecoElements}){
         setOthersTableIsOpen(!othersTableIsOpen);
     }
 
+    //useEffect to set the Table as open everytime the page reloads
     useEffect(() => {
         setOthersTableIsOpen(true);
     }, [])
 
 
     return (
-
             <StyledWrapperTable name="Sonstige">
                 <StyledHeaderRow className="green">
                     {"Sonstige "}
-                    {othersTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>
-                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowOthersTable}/>}
+                    {othersTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                onClick={handleShowOthersTable}/>
+                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                   onClick={handleShowOthersTable}/>}
                 </StyledHeaderRow>
                 { othersTableIsOpen &&
                     ecoElements?.filter(element => element.category === "OTHER")
@@ -58,8 +60,6 @@ export default function OthersList({ecoElements}){
                         </StyledElement>
                     ))
                 }
-
             </StyledWrapperTable>
-
     )
 }

@@ -16,6 +16,7 @@ export default function RestaurantList({ecoElements}){
         setRestaurantTableIsOpen(!restaurantTableIsOpen);
     }
 
+    //useEffect to set the Table as open everytime the page reloads
     useEffect(() => {
         setRestaurantTableIsOpen(true);
     }, [])
@@ -26,8 +27,10 @@ export default function RestaurantList({ecoElements}){
         <StyledWrapperTable name="Restaurants">
             <StyledHeaderRow className="orange">
                 {"Restaurants "}
-                {restaurantTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>
-                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowRestaurantTable}/>}
+                {restaurantTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                onClick={handleShowRestaurantTable}/>
+                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                               onClick={handleShowRestaurantTable}/>}
             </StyledHeaderRow>
             {
                 restaurantTableIsOpen &&
@@ -59,8 +62,6 @@ export default function RestaurantList({ecoElements}){
                     </StyledElement>
                 ))
             }
-
         </StyledWrapperTable>
-
     )
 }

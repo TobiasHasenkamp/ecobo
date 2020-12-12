@@ -130,14 +130,12 @@ const StyledPageLayout = styled.div`
   height: 100vh;
   max-width: 450px;
   max-height: 850px;
-  //overflow: scroll;
   margin-top: 61px;
   
-  @media (min-width:450px) {
-    margin: 61px auto 0 0;
+  @media (min-width: 450px) {
+    margin: 61px auto 0 auto;
   }
 `
-
 
 export const ScrollablePageLayout = styled.div`
   overflow: scroll;

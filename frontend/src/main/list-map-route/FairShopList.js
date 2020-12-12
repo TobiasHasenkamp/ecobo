@@ -16,19 +16,20 @@ export default function FairShopList({ecoElements}){
         setFairShopTableIsOpen(!fairShopTableIsOpen);
     }
 
+    //useEffect to set the Table as open everytime the page reloads
     useEffect(() => {
         setFairShopTableIsOpen(true);
     }, [])
 
 
     return (
-
         <StyledWrapperTable name="Weltläden">
             <StyledHeaderRow className="purple">
                 {"Weltläden "}
-                {fairShopTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>
-                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>}
-
+                {fairShopTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                              onClick={handleShowFairShopTable}/>
+                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                               onClick={handleShowFairShopTable}/>}
             </StyledHeaderRow>
             {
                 fairShopTableIsOpen &&
@@ -60,8 +61,6 @@ export default function FairShopList({ecoElements}){
                     </StyledElement>
                 ))
             }
-
         </StyledWrapperTable>
-
     )
 }

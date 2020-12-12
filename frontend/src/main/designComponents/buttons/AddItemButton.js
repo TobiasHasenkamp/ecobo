@@ -45,8 +45,18 @@ const StyledActionButton = styled.div`
   color: white;
   
   @media (min-width:450px) {
-    left: 385px;
+    left: 70%;
     right: auto;
+  }
+  @media (min-width:700px) {
+    left: 60%;
+    right: auto;
+    border: darkgrey solid 2px;
+  }
+  @media (min-width:1200px) {
+    left: 58%;
+    right: auto;
+    border: darkgrey solid 2px;
   }
   
 `

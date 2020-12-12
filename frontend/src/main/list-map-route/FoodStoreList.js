@@ -16,18 +16,20 @@ export default function FoodStoreList({ecoElements}){
         setFoodStoreTableIsOpen(!foodStoreTableIsOpen);
     }
 
+    //useEffect to set the Table as open everytime the page reloads
     useEffect(() => {
         setFoodStoreTableIsOpen(true);
     }, [])
 
 
     return (
-
             <StyledWrapperTable name="Lebensmittelläden">
                 <StyledHeaderRow className="red">
                     {"Lebensmittelläden "}
-                    {foodStoreTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>
-                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFoodStoreTable}/>}
+                    {foodStoreTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                                   onClick={handleShowFoodStoreTable}/>
+                        : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                   onClick={handleShowFoodStoreTable}/>}
                 </StyledHeaderRow>
                 { foodStoreTableIsOpen &&
                     ecoElements?.filter(element => element.category === "FOODSTORE")
@@ -58,8 +60,6 @@ export default function FoodStoreList({ecoElements}){
                         </StyledElement>
                     ))
                 }
-
             </StyledWrapperTable>
-
     )
 }
