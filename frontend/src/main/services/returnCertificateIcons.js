@@ -9,7 +9,7 @@ import {GiPapers, GiShinyApple} from "react-icons/gi";
 import {RiHandbagFill} from "react-icons/ri";
 import {BiHandicap} from "react-icons/bi";
 
-//rewrite this function with a switch statement
+//todo: rewrite this function with a switch statement
 export default function returnCertificateIcons(certificate, size){
 
     if (size === "large"){
