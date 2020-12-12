@@ -26,6 +26,14 @@ export default function NewsfeedPage(){
     }, [setNewsfeed50, ecoElements, token])
 
 
+    //function to shorten the newsfeed message if necessary
+    function returnCorrectNewsfeedMessage(newsfeedElement){
+        if (newsfeedElement.size > 85){
+            return newsfeedElement.message.slice(0, 82) + "...";
+        }
+        else return newsfeedElement.message;
+    }
+
     //function to get the Link for the corresponding newsfeed Element in the newsfeed component
     function getLink(newsfeedElementForLink){
 
@@ -104,7 +112,7 @@ export default function NewsfeedPage(){
                         <div className="row">
                             {returnIcon(newsfeedElement.type)}
                             <div>{getTimeDifference(newsfeedElement.dateInternal)}</div>
-                            <div>{newsfeedElement.message.slice(0, 40)}</div>
+                            <div>{returnCorrectNewsfeedMessage(newsfeedElement)}</div>
                         </div>
                     </Link>
 

@@ -45,6 +45,14 @@ export default function NewsfeedComponent(){
         }
     }
 
+    //function to shorten the newsfeed message if necessary
+    function returnCorrectNewsfeedMessage(newsfeedElement){
+        if (newsfeedElement.size > 85){
+            return newsfeedElement.message.slice(0, 82) + "...";
+        }
+        else return newsfeedElement.message;
+    }
+
     //function to get the time difference between today and the newsfeed event
     function getTimeDifference(dateInternal){
         const today = new Date();
@@ -105,7 +113,7 @@ export default function NewsfeedComponent(){
                         <div className="row">
                             {returnNewsfeedIcon(newsfeedElement.type)}
                             <div>{getTimeDifference(newsfeedElement.dateInternal)}</div>
-                            <div>{newsfeedElement.message.slice(0, 40)}</div>
+                            <div>{returnCorrectNewsfeedMessage(newsfeedElement)}</div>
                         </div>
                     </Link>
                     ))
