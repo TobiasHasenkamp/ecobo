@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function EmptyDivToClosePage(type){
+export default function EmptyDivToClosePage({type}){
 
     if (type === "small"){
         return <div style={{height:"100px"}}/>;
