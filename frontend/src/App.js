@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./main/HomePage";
 import AccountPage from "./main/account-route/AccountPage";
-import BackgroundInfoPage from "./main/BackgroundInfoPage";
-import FeaturePage from "./main/FeaturePage";
 import ListPage from "./main/ListPage";
 import AddElementPage from "./main/list-map-route/AddElementPage";
 import MapPage from "./main/MapPage";
@@ -12,7 +10,7 @@ import LoginPage from "./main/account-route/LoginPage";
 import "./App.css";
 import UnderConstructionPage from "./main/UnderConstructionPage";
 import EcoElementContextProvider from "./main/contexts/EcoElementContextProvider";
-import LoginTokenContextProvider from "./main/contexts/LoginTokenContextProvider";
+import LoginContextProvider from "./main/contexts/LoginContextProvider";
 import styled from "styled-components/macro";
 import LoadingPage from "./main/LoadingPage";
 import EcoElementPage from "./main/list-map-route/EcoElementPage";
@@ -20,7 +18,7 @@ import EditElementPage from "./main/list-map-route/EditElementPage";
 import DeletePage from "./main/list-map-route/DeletePage";
 import NewsfeedContextProvider from "./main/contexts/NewsfeedContextProvider";
 import NewsfeedPage from "./main/NewsfeedPage";
-import FilterListContextProvider from "./main/contexts/FilterListContextProvider";
+import FilterContextProvider from "./main/contexts/FilterContextProvider";
 import FrontendInputContextProvider from "./main/contexts/FrontendInputContextProvider";
 import ConfirmLocationPage from "./main/list-map-route/ConfirmLocationPage";
 
@@ -29,8 +27,8 @@ function App() {
 
   return (
 
-      <LoginTokenContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider>
-          <FilterListContextProvider> <FrontendInputContextProvider>
+      <LoginContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider>
+          <FilterContextProvider> <FrontendInputContextProvider>
 
           <StyledPageLayout>
               <Switch>
@@ -71,14 +69,6 @@ function App() {
                       <NavBar/>
                       <AccountPage/>
                   </Route>
-                  <Route path="/infos">
-                      <NavBar/>
-                      <BackgroundInfoPage/>
-                  </Route>
-                  <Route path="/features">
-                      <NavBar/>
-                      <FeaturePage/>
-                  </Route>
                   <Route path="/home">
                       <NavBar/>
                       <HomePage/>
@@ -115,8 +105,8 @@ function App() {
 
         </StyledPageLayout>
 
-          </FrontendInputContextProvider> </FilterListContextProvider> </NewsfeedContextProvider>
-      </EcoElementContextProvider> </LoginTokenContextProvider>
+          </FrontendInputContextProvider> </FilterContextProvider> </NewsfeedContextProvider>
+      </EcoElementContextProvider> </LoginContextProvider>
 
   );
 }
@@ -130,14 +120,12 @@ const StyledPageLayout = styled.div`
   height: 100vh;
   max-width: 450px;
   max-height: 850px;
-  //overflow: scroll;
   margin-top: 61px;
   
-  @media (min-width:450px) {
-    margin: 61px auto 0 0;
+  @media (min-width: 450px) {
+    margin: 61px auto 0 auto;
   }
 `
-
 
 export const ScrollablePageLayout = styled.div`
   overflow: scroll;

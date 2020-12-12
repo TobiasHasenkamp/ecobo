@@ -1,19 +1,19 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import PageHeader from "../PageHeader";
+import PageHeader from "../designComponents/otherDesignObjects/PageHeader";
 import getLonAndLatForAddress from "../services/mapMarkerService";
 import {addEcoElement} from "../services/ecoElementService";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import styled from "styled-components/macro";
-import tokenValidation from "../account-route/methods/tokenValidation";
-import EcoElementContext from "../contexts/EcoElementContext";
+import tokenValidation from "../services/tokenValidation";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import Menu from "@material-ui/core/Menu";
-import certificateMenuItemsForAddElement from "./subComponents/CertificateMenuItemsForAddElement";
-import subCategoryOptionsForAddElement from "./subComponents/SubCategoryOptionsForAddElement";
+import certificateMenuItemsForAddElement from "./subComponents/AvailableCertificateMenuItems";
+import subCategoryOptionsForAddElement from "./subComponents/AvailableSubcategoryMenuItems";
 import translationService from "../services/translationService";
-import FilterListContext from "../contexts/FilterListContext";
-import {StandardButton} from "../designElements/buttons/StandardButton";
-import {StandardButtonDark} from "../designElements/buttons/StandardButtonDark";
+import FilterContext from "../contexts/createContexts/FilterContext";
+import {StandardButton} from "../designComponents/buttons/StandardButton";
+import {StandardButtonDark} from "../designComponents/buttons/StandardButtonDark";
 
 export default function AddElementPage() {
 
@@ -24,33 +24,30 @@ export default function AddElementPage() {
     const [address, setAddress] = useState("");
     const [lonLatOfRequest, setLonLatOfRequest] = useState({});
     const [buttonHasBeenClicked, setButtonHasBeenClicked] = useState(false);
-    const {token} = useContext(LoginTokenContext);
-    const {setEcoElement} = useContext(EcoElementContext);
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [certificatesToAddList, setCertificatesToAddList] = useState([]);
-    const {setShowNonReviewedItems} = useContext(FilterListContext);
     const [errorMessage, setErrorMessage] = useState("");
+    const {token} = useContext(LoginContext);
+    const {setEcoElement} = useContext(EcoElementContext);
+    const {setShowNonReviewedItems} = useContext(FilterContext);
 
+    //useEffect to set a standard subcategory once the category changes
     useEffect(() => {
-
         if (category === "FOODSTORE"){
             setCategorySub("FOODSTORE_SUPERMARKET");
-        }
-        else if (category === "RESTAURANT"){
+        } else if (category === "RESTAURANT"){
             setCategorySub("RESTAURANT_BAKERY");
-        }
-        else if (category === "FASHIONSTORE"){
+        } else if (category === "FASHIONSTORE"){
             setCategorySub("FASHIONSTORE_ECO_FASHION_STORE");
-        }
-        else if (category === "FAIRSHOP"){
+        } else if (category === "FAIRSHOP"){
             setCategorySub("FAIRSHOP_NORMAL");
-        }
-        else if (category === "OTHER"){
+        } else if (category === "OTHER"){
             setCategorySub("OTHER");
         }
     }, [category])
 
 
+    //useEffect to process the AddElement functionality once the API has returned the Data for an address
     useEffect(() => {
         let finalLat;
         let finalLon;
@@ -71,31 +68,35 @@ export default function AddElementPage() {
             let valueArray = displayInfo.split(", ");
             if (valueArray.length === 9){
                 finalDistrict = valueArray[3];
-            }
-            else if (valueArray.length === 7){
+            } else if (valueArray.length === 7){
                 finalDistrict = valueArray[1];
-            }
-            else {
+            } else {
                 finalDistrict = valueArray[2];
             }
         }
         if ((finalLon === undefined || finalLon === null) && buttonHasBeenClicked){
             setErrorMessage("Die eingegebene Adresse konnte nicht verarbeitet werden.")
-        }
-        else if (buttonHasBeenClicked) {
+        } else if (buttonHasBeenClicked) {
             setButtonHasBeenClicked(false);
-            addEcoElement(name, category, categorySub, finalDistrict, address, finalLat, finalLon, certificatesToAddList, token, setEcoElement);
+            addEcoElement(name, category, categorySub, finalDistrict, address, finalLat, finalLon, certificatesToAddList,
+                token, setEcoElement);
             setShowNonReviewedItems(true);
             history.push("/loading/addElement");
         }
 
-        // this error is wrong, adding other dependencies here will completely change the data flow on this side
+        // React wants me to add additional dependencies: address, buttonHasBeenClicked, category, categorySub, certificatesToAddList,
+        // history, name, setEcoElement, setShowNonReviewedItems and token.
+        // this error is wrong, adding these dependencies here will completely change the data flow on this page.
         // eslint-disable-next-line
     }, [lonLatOfRequest]);
 
+
+    //useEffect to set set the CertificatesToAddList as empty once the category changes
+    //because the different categories have different possible certificates.
     useEffect(() => {
         setCertificatesToAddList([]);
     }, [category])
+
 
     function handleButtonClick(event){
         event.preventDefault();
@@ -108,14 +109,11 @@ export default function AddElementPage() {
     function handleChange(event){
         if (event.target.name === "name"){
             setName(event.target.value);
-        }
-        else if (event.target.name === "category"){
+        } else if (event.target.name === "category"){
             setCategory(event.target.value);
-        }
-        else if (event.target.name === "categorySub"){
+        } else if (event.target.name === "categorySub"){
             setCategorySub(event.target.value);
-        }
-        else if (event.target.name === "address"){
+        } else if (event.target.name === "address"){
             setAddress(event.target.value);
         }
     }
@@ -135,7 +133,7 @@ export default function AddElementPage() {
         setCertificatesMenuStatusAndAnchor(null);
     }
 
-    function handleRemoveCertificates(event){
+    function handleRemoveCertificatesFromAddList(event){
         const certificateToRemove = event.target.getAttribute("name");
         const newCertificateList = certificatesToAddList.filter(value => value !== certificateToRemove);
         setCertificatesToAddList(newCertificateList);
@@ -144,7 +142,7 @@ export default function AddElementPage() {
     function returnActiveCertificates(){
         return(
             certificatesToAddList.map((element) => (
-                <div key={element} name={element} onClick={handleRemoveCertificates}>{element}</div>
+                <div key={element} name={element} onClick={handleRemoveCertificatesFromAddList}>{element}</div>
             ))
         )
     }
@@ -154,7 +152,7 @@ export default function AddElementPage() {
         <div>
             <PageHeader title="Ein neues Element hinzufügen"/>
 
-            <StyledForm>
+            <AddElementForm>
 
                 <label htmlFor="name"> Name: </label>
                 <input name="name" value={name} onChange={handleChange} type="text"/>
@@ -173,7 +171,7 @@ export default function AddElementPage() {
                     {subCategoryOptionsForAddElement(category)}
                 </select>
 
-                <label htmlFor="address"> Addresse:</label>
+                <label htmlFor="address"> Adresse:</label>
                 <input name="address" value={address} onChange={handleChange} />
 
                 <StandardButtonDark onClick={handleOpenCertificatesMenu}>Tags</StandardButtonDark>
@@ -187,34 +185,26 @@ export default function AddElementPage() {
                 >
                         {certificateMenuItemsForAddElement(category, certificatesToAddList,
                                                                     handleAddCertificateToAddList)}
-
                 </Menu>
 
-                <StyledActiveCertificatesList>
-
+                <ActiveCertificatesList>
                     {returnActiveCertificates()}
-
-                </StyledActiveCertificatesList>
-
+                </ActiveCertificatesList>
 
                 <div>
                     <StandardButton onClick={handleButtonClick}>Bestätigen</StandardButton>
                     <br/> <br/> {errorMessage && errorMessage}
                 </div>
 
-            </StyledForm>
-
-            <br/>
-
+            </AddElementForm>
 
         </div>
-
     )
 
 }
 
 
-const StyledForm = styled.form`
+const AddElementForm = styled.form`
   margin: 24px;
   display: grid;
   grid-template-rows: min-content min-content min-content min-content min-content;
@@ -231,7 +221,7 @@ const StyledForm = styled.form`
   }
 `
 
-const StyledActiveCertificatesList = styled.div`
+const ActiveCertificatesList = styled.div`
   font-size: 0.7em;
   line-height: 1.0em;
   display: flex;
@@ -244,7 +234,7 @@ const StyledActiveCertificatesList = styled.div`
   div {
       background: lightgrey;
       opacity: 85%;
-      color: gray();
+      color: grey();
       padding: 5px 6px;
       border-radius: 8px;
       margin: 2px;

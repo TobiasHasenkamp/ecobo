@@ -1,12 +1,12 @@
-import ShowElementIconButton from "../designElements/buttons/ShowElementIconButton";
+import ShowElementIconButton from "../designComponents/buttons/ShowElementIconButton";
 import React, {useEffect, useState} from "react";
 import {StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
-    StyledCell, StyledIconDiv, StyledElementBody} from "./StyledElementsForTableDesign";
+    StyledCell, StyledIconDiv, StyledElementBody} from "../designComponents/tableDesign/StyledElementsForTableDesign";
 import {FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
 import translationService from "../services/translationService";
-import mapCertificates from "../services/mapCertificates";
-import ReturnIfElementGetsFilteredForReviewStatus from "./subComponents/ReturnIfElementGetsFilteredForReviewStatus";
-import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
+import mapCertificates from "./subComponents/mapCertificates";
+import ReturnIfElementGetsFilteredForReviewStatus from "../services/ReturnIfElementGetsFilteredForReviewStatus";
+import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
 
 export default function FairShopList({ecoElements}){
 
@@ -16,19 +16,20 @@ export default function FairShopList({ecoElements}){
         setFairShopTableIsOpen(!fairShopTableIsOpen);
     }
 
+    //useEffect to set the Table as open everytime the page reloads
     useEffect(() => {
         setFairShopTableIsOpen(true);
     }, [])
 
 
     return (
-
         <StyledWrapperTable name="Weltläden">
             <StyledHeaderRow className="purple">
                 {"Weltläden "}
-                {fairShopTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>
-                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}} onClick={handleShowFairShopTable}/>}
-
+                {fairShopTableIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                                              onClick={handleShowFairShopTable}/>
+                    : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                               onClick={handleShowFairShopTable}/>}
             </StyledHeaderRow>
             {
                 fairShopTableIsOpen &&
@@ -60,8 +61,6 @@ export default function FairShopList({ecoElements}){
                     </StyledElement>
                 ))
             }
-
         </StyledWrapperTable>
-
     )
 }

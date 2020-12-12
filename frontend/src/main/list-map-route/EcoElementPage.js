@@ -2,59 +2,47 @@ import React, {useContext, useEffect, useState} from "react";
 import {
     StyledWrapperTable, StyledHeaderRow, StyledElement, StyledElementHeader, StyledNameCell,
     StyledCell, StyledIconDiv, StyledElementBody, StyledElementBodyOneCell
-} from "./StyledElementsForTableDesign";
+} from "../designComponents/tableDesign/StyledElementsForTableDesign";
 import {useParams, useHistory} from "react-router-dom";
-import EcoElementContext from "../contexts/EcoElementContext";
-import LoginTokenContext from "../contexts/LoginTokenContext";
+import EcoElementContext from "../contexts/createContexts/EcoElementContext";
+import LoginContext from "../contexts/createContexts/LoginContext";
 import {getEcoElementById} from "../services/ecoElementService";
-import DeleteIconButtonSmall from "../designElements/buttons/DeleteIconButtonSmall";
+import DeleteIconButton from "../designComponents/buttons/DeleteIconButton";
 import styled from "styled-components/macro";
-import {MapContainer, Marker, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import 'leaflet/dist/leaflet.js';
-import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import EditIconButtonMedium from "../designElements/buttons/EditIconButtonMedium";
+import EditIconButton from "../designComponents/buttons/EditIconButton";
 import {FaFacebook, FaLink, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp} from "react-icons/fa";
-import ReviewBox from "./subComponents/ReviewBox";
-import RecentlyReviewedBox from "./subComponents/RecentlyReviewedBox";
+import ReviewSection from "./subComponents/ReviewSection";
+import RecentlyReviewedItemMessage from "./subComponents/RecentlyReviewedItemMessage";
 import translationService from "../services/translationService";
-import mapCertificates from "../services/mapCertificates";
-import returnMarkerIcon from "../services/returnMarkerIcon";
-import EmptyDivToClosePage from "../designElements/EmptyDivToClosePage";
-import ReturnIfUserIsAllowedToGetRender from "./subComponents/ReturnIfUserIsAllowedToGetRender";
-import InReviewProcessIcon from "../designElements/buttons/InReviewProcessIcon";
-import ImgUpload from "../services/ImgUpload";
-
-//to fix the "image not found"-bugs that occur when reloading the page
-let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow
-});
-L.Marker.prototype.options.icon = DefaultIcon;
+import mapCertificates from "./subComponents/mapCertificates";
+import EmptyDivToClosePage from "../designComponents/otherDesignObjects/EmptyDivToClosePage";
+import ReturnIfUserIsAllowedToGetRender from "../services/ReturnIfUserIsAllowedToGetRender";
+import InReviewProcessIcon from "../designComponents/icons/ItemIsInReviewProcessIcon";
+import ImgUploadComponent from "../services/ImgUploadComponent";
+import SmallMap from "./subComponents/SmallMap";
 
 
 export default function EcoElementPage(){
 
     const history = useHistory();
-    const {ecoElement, setEcoElement} = useContext(EcoElementContext);
-    const {token} = useContext(LoginTokenContext);
     const [tableColor, setTableColor] = useState("lightgreen");
     const [randomKeyToForceRerender, setRandomKeyToForceReload] = useState(1);
     const [certificateLegendIsOpen, setCertificateLegendIsOpen] = useState(false);
-
+    const {ecoElement, setEcoElement} = useContext(EcoElementContext);
+    const {token} = useContext(LoginContext);
     const {ecoElementIDParam} = useParams();
 
+    //useEffect to load the EcoElement data at page load
     useEffect(() => {
         getEcoElementById(ecoElementIDParam, token, setEcoElement);
     }, [ecoElementIDParam, setEcoElement, token]);
 
+    //useEffect set the TableColor in dependency of the category once the EcoElement data has loaded
     useEffect(() => {
-
         let randomValue = Math.random();
         setRandomKeyToForceReload(randomValue);
-
         switch(ecoElement.category){
             case "FAIRSHOP":
                 setTableColor("purple");
@@ -85,18 +73,19 @@ export default function EcoElementPage(){
         history.push("/bo/editElement/" + ecoElement.id);
     }
 
-    function hasTitle(){
-        return ecoElement.title !== "";
-    }
-
     function handleShowCertificateLegend(){
         setCertificateLegendIsOpen(!certificateLegendIsOpen);
+    }
+
+    //tests if the EcoElement has a title to render the header differently but the idea to implement titles
+    // is probably obsolete right now, should probably be deleted soon
+    function hasTitle(){
+        return ecoElement.title !== "";
     }
 
     return (
 
         ecoElement &&
-
         <>
             <ScrollDiv>
 
@@ -108,7 +97,7 @@ export default function EcoElementPage(){
                             <StyledElement>
                                 <div/>
 
-                                {/*Subkategorie*/}
+                                {/*Subcategory*/}
                                 <StyledElementHeader>
                                     <StyledNameCell>
                                         {translationService(ecoElement.categorySub)}
@@ -120,21 +109,21 @@ export default function EcoElementPage(){
                                     <StyledIconDiv>
                                         {ReturnIfUserIsAllowedToGetRender(ecoElement.creator) &&
                                         <>
-                                            <EditIconButtonMedium handle={handleEdit}/>
-                                            <DeleteIconButtonSmall handle={handleDelete}/>
+                                            <EditIconButton handle={handleEdit}/>
+                                            <DeleteIconButton size="small" handle={handleDelete}/>
                                         </>
                                         }
                                     </StyledIconDiv>
                                 </StyledElementHeader>
 
-                                {/*Adresse*/}
+                                {/*Address*/}
                                 <StyledElementBodyOneCell>
                                     <StyledCell>
                                         {ecoElement.address}
                                     </StyledCell>
                                 </StyledElementBodyOneCell>
 
-                                {/*Stadtteil + Stadt*/}
+                                {/*District + City*/}
                                 <StyledElementBodyOneCell>
                                     <StyledCell>
                                         {ecoElement.district?
@@ -143,7 +132,7 @@ export default function EcoElementPage(){
                                     </StyledCell>
                                 </StyledElementBodyOneCell>
 
-                                {/*Öffnungszeiten*/}
+                                {/*Opening times / still hardcoded at the moment*/}
                                 <StyledElementBody>
                                     <StyledCell>
                                         Öffnungszeiten:
@@ -154,7 +143,7 @@ export default function EcoElementPage(){
                                     </StyledCell>
                                 </StyledElementBody>
 
-                                {/*Telefonnummer*/}
+                                {/*Telefonnummer  / still hardcoded at the moment*/}
                                 <StyledElementBody>
                                     <StyledCell>
                                         Telefonnummer:
@@ -164,123 +153,89 @@ export default function EcoElementPage(){
                                     </StyledCell>
                                 </StyledElementBody>
 
-                                {/*Website/Facebook*/}
+                                {/*Website/Facebook / still hardcoded at the moment*/}
                                 <StyledElementBody>
                                     <StyledCell>
                                         Links:
                                     </StyledCell>
                                     <StyledCell>
-                                        <StyledIcons>
-                                            {/*Todo: urls unbedingt ändern*/}
+                                        <WebsiteIcons>
+                                            {/*Todo: urls ändern*/}
                                             <a href="http://www.spiegel.de"> <FaLink/> </a>
                                             <a href="http://www.facebook.de"> <FaFacebook/> </a>
-                                        </StyledIcons>
+                                        </WebsiteIcons>
                                     </StyledCell>
                                 </StyledElementBody>
 
-                                {/*empty line*/}
-                                <StyledElementBody>
-                                    <StyledCell>
-                                    </StyledCell>
-                                    <StyledCell>
-                                    </StyledCell>
-                                </StyledElementBody>
+                                {/*empty row*/}
+                                <StyledElementBodyOneCell>
+                                    <StyledCell/>
+                                </StyledElementBodyOneCell>
 
-                                {/*Zertifikate*/}
+                                {/*certificates*/}
                                 <StyledElementBody>
                                     <StyledCell>
                                         {"Zertifikate: "}
-                                        {certificateLegendIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em", marginBottom: "-1px"}}
+                                        {certificateLegendIsOpen ? <FaRegArrowAltCircleUp style={{fontSize: "0.9em",
+                                                                                                    marginBottom: "-1px"}}
                                                                                           onClick={handleShowCertificateLegend}/>
                                             : <FaRegArrowAltCircleDown style={{fontSize: "0.9em", marginBottom: "-1px"}}
                                                                        onClick={handleShowCertificateLegend}/>}
                                     </StyledCell>
                                     <StyledCell>
                                         {certificateLegendIsOpen ?
-                                            <StyledLegendDiv> <div className="heading">Legende:</div> {mapCertificates(ecoElement, "withText")} </StyledLegendDiv> :
-                                            mapCertificates(ecoElement, "large")}
+                                            <CertificateLegend> <div className="heading">Legende:</div>
+                                                {mapCertificates(ecoElement, "withText")} </CertificateLegend>
+                                            : mapCertificates(ecoElement, "large")}
                                     </StyledCell>
                                 </StyledElementBody>
                             <div/>
                         </StyledElement>
                 </StyledWrapperTable>
 
-                <ReviewBox/>
+                {/*Review section (if not-reviewed)*/}
+                <ReviewSection/>
 
-                <RecentlyReviewedBox/>
+                {/*Recently reviewed message (it recently reviewed)*/}
+                <RecentlyReviewedItemMessage/>
 
-                <StyledDiv>
 
-                    <div>
-                        {ecoElement.pictureUrl? <StyledElementPhoto src={ecoElement.pictureUrl}/>
-                            : <StyledElementPhoto src="/profilePics/placeholder.webp"/>
+                <BottomSection>
+
+                    {/*Small Picture*/}
+                    <section>
+                        {ecoElement.pictureUrl? <EcoElementPhoto src={ecoElement.pictureUrl}/>
+                            : <EcoElementPhoto src="/profilePics/placeholder.webp"/>
                         }
-                        <ImgUpload type="elementImmediate" dark="true" ecoElementId={ecoElement.id}/>
-                    </div>
+                        {ReturnIfUserIsAllowedToGetRender(ecoElement.creator) &&
+                        <ImgUploadComponent type="elementImmediate" dark="true" ecoElementId={ecoElement.id}/>}
+                    </section>
 
-                    <StyledDivForMap>
+                    {/*Small map*/}
+                    <SmallMap ecoElement={ecoElement} randomKeyToForceRerender={randomKeyToForceRerender}/>
 
-                        {ecoElement.lat && ecoElement.lon &&
-                        <MapContainer
-                            key={randomKeyToForceRerender}
-                            center={[ecoElement.lon, ecoElement.lat]}
-                            zoom={16}
-                            minZoom={12}
-                            //topleft, bottomleft, bottomright, topright
-                            maxBounds={[[51.65, 6.4], [51.65, 6.4808], [51.3124, 7.8677], [51.6729, 7.8309]]}
-                            scrollWheelZoom={"center"}
-                            wheelDebounceTime={15}
-                            dragging={false}
-                            className={"map"}
-                        >
-                            <TileLayer
-                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-
-                            { ecoElement.lat && ecoElement.lon &&
-
-                            <Marker key={ecoElement.id} position={[ecoElement.lon, ecoElement.lat]}
-                                            title={ecoElement.name} icon={returnMarkerIcon(ecoElement.category, ecoElement.categorySub)}>
-                            </Marker>}
-
-
-                        </MapContainer>
-                        }
-
-                    </StyledDivForMap>
-
-                    <StyledDivForElementData>
-
+                    {/*EcoElement internal Data*/}
+                    <InternalDataSection>
                         <strong>Erstellt von:</strong>
                         <div>{ecoElement.creator}</div>
                         <br/>
-
                         <strong>Angelegt am:</strong>
                         <div>{ecoElement.dateCreatedExternal}</div>
                         <br/>
-
                         <strong>Zuletzt geändert:</strong>
                         <div>{ecoElement.dateLastUpdatedExternal}</div>
                         <br/>
+                    </InternalDataSection>
 
-
-                    </StyledDivForElementData>
-
-                </StyledDiv>
-
-                <EmptyDivToClosePage/>
+                </BottomSection>
+                <EmptyDivToClosePage type="small"/>
 
             </ScrollDiv>
-
-
     </>
-
-
     )
 }
 
-const StyledDiv = styled.div`
+const BottomSection = styled.section`
   margin: 25px;
   height: auto;
   width: auto;
@@ -290,24 +245,13 @@ const StyledDiv = styled.div`
   grid-gap: 25px;
 `
 
-const StyledElementPhoto = styled.img`
+const EcoElementPhoto = styled.img`
   display: block;
   width: 100%;
   border: var(--darkgrey) solid 1.5px;
 `
 
-const StyledDivForMap = styled.div`
-  grid-row: span 2;
-  height: 98%;
-  width: 99%;
-  .map {
-    height: 100%;
-    width: 100%;
-    border: var(--darkgrey) solid 1.5px;
-  }
-`
-
-const StyledDivForElementData = styled.div`
+const InternalDataSection = styled.section`
   display: grid;
   grid-template-rows: min-content min-content min-content min-content min-content min-content min-content min-content;
   width: 100%;
@@ -316,7 +260,7 @@ const StyledDivForElementData = styled.div`
   line-height: 1.0em;
 `
 
-const StyledIcons = styled.div`
+const WebsiteIcons = styled.div`
   font-size: 1.35em;
   color: var(--darkgrey);
   a {
@@ -331,7 +275,7 @@ const StyledIcons = styled.div`
   }
 `
 
-const StyledLegendDiv = styled.div`
+const CertificateLegend = styled.div`
   margin-top: 5px;
   font-size: 0.9em;
   
@@ -342,7 +286,7 @@ const StyledLegendDiv = styled.div`
   }
 `
 
-const ScrollDiv = styled.div`
+const ScrollDiv = styled.section`
   overflow: scroll;
   height: 100%;
 `
