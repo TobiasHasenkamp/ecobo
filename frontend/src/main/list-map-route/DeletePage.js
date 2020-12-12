@@ -6,6 +6,7 @@ import LoginContext from "../contexts/createContexts/LoginContext";
 import EcoElementContext from "../contexts/createContexts/EcoElementContext";
 import styled from "styled-components/macro";
 import translationService from "../services/translationService";
+import {StandardButton} from "../designComponents/buttons/StandardButton";
 
 export default function DeletePage() {
 
@@ -14,9 +15,11 @@ export default function DeletePage() {
     const {token} = useContext(LoginContext);
     const {ecoElement, setEcoElement} = useContext(EcoElementContext);
 
+    //useEffect to load the EcoElement data at page load
     useEffect(() => {
         getEcoElementById(ecoElementIDParam, token, setEcoElement);
     }, [ecoElementIDParam, setEcoElement, token]);
+
 
     function handleDeleteButtonClick(){
         deleteEcoElement(ecoElement.id, token);
@@ -27,36 +30,33 @@ export default function DeletePage() {
         history.push("/bo/element/" + ecoElement.id)
     }
 
+
     return(
 
         <div>
             <PageHeader title={`Lösche ${ecoElement.name}`}/>
-            <StyledForm>
+            <DeleteItemForm>
                 <p>Möchtest Du dieses Element wirklich löschen?</p> <br/>
                 <div>
                     <p>Name: {ecoElement.name}</p>
                     <p>ID: {ecoElement.id}</p>
                     <p>Kategorie: {translationService(ecoElement.category)}</p>
                     <p>Typ: {translationService(ecoElement.categorySub)}</p>
-                    <p>Addresse: {ecoElement.address}</p>
+                    <p>Adresse: {ecoElement.address}</p>
                     <p>erstellt von: {ecoElement.creator}</p>
                     <p>Erstelldatum: {ecoElement.dateCreatedExternal}</p>
                 </div> <br/>
-
-                <div>
-                    <button onClick={handleDeleteButtonClick}>Confirm changes</button>
-                    <button onClick={handleCancelButtonClick}>Cancel</button>
-                </div>
-
-            </StyledForm>
+                <section>
+                    <StandardButton onClick={handleDeleteButtonClick}>Bestätigen</StandardButton>
+                    <StandardButton onClick={handleCancelButtonClick}>Abbrechen</StandardButton>
+                </section>
+            </DeleteItemForm>
         </div>
-
     );
-
 }
 
 
-const StyledForm = styled.div`
+const DeleteItemForm = styled.section`
   margin: 24px;
   
   div {
@@ -65,6 +65,7 @@ const StyledForm = styled.div`
   }
   
   button {
-    margin: 0 6px;
+    margin-right: 10px;
+    margin-left: 1px;
   }
 `
