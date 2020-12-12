@@ -11,7 +11,7 @@ import 'leaflet/dist/leaflet.js';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
+import FilterAndSwitchViewBar from "./list-map-route/FilterAndSwitchViewBar";
 import BlackLine from "./designComponents/otherDesignObjects/BlackLine";
 import {useLocation} from "react-router-dom";
 import MapMarkersForMap from "./designComponents/mapElements/MapMarkersForMap";
@@ -61,7 +61,7 @@ export default function MapPage() {
     return(
 
         <>
-            <TabBarWithIcons type="map"/>
+            <FilterAndSwitchViewBar type="map"/>
             <BlackLine/>
 
             <StyledContentDiv>

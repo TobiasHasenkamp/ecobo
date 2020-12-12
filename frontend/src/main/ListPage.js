@@ -7,7 +7,7 @@ import RestaurantList from "./list-map-route/RestaurantList";
 import FairShopList from "./list-map-route/FairShopList";
 import AddItemButton from "./designComponents/buttons/AddItemButton";
 import LoginContext from "./contexts/createContexts/LoginContext";
-import TabBarWithIcons from "./list-map-route/TabBarWithIcons";
+import FilterAndSwitchViewBar from "./list-map-route/FilterAndSwitchViewBar";
 import FilterResultList from "./list-map-route/FilterResultList";
 import FilterContext from "./contexts/createContexts/FilterContext";
 import FashionStoreList from "./list-map-route/FashionStoreList";
@@ -29,7 +29,7 @@ export default function ListPage() {
 
         <div>
 
-            <TabBarWithIcons type="list"/>
+            <FilterAndSwitchViewBar type="list"/>
 
             <StyledWrapperDiv>
                 {!filterIsActive && <FoodStoreList ecoElements={ecoElements}/>}

@@ -17,95 +17,81 @@ import LoginContext from "../contexts/createContexts/LoginContext";
 import {StandardButtonDark} from "../designComponents/buttons/StandardButtonDark";
 
 
-export default function TabBarWithIcons({type}) {
+export default function FilterAndSwitchViewBar({type}) {
 
     const history = useHistory();
     const [filterBarIsOpen, setFilterBarisOpen] = useState(false);
     const [categoryMenuStatusAndAnchor, setCategoryMenuStatusAndAnchor] = useState(null);
     const [certificatesMenuStatusAndAnchor, setCertificatesMenuStatusAndAnchor] = useState(null);
     const [locationMenuStatusAndAnchor, setLocationMenuStatusAndAnchor] = useState(null);
+    const [districtList, setDistrictList] = useState([]);
     const {filterListForCategory, setFilterListForCategory} = useContext(FilterContext);
     const {filterListForCertificates, setFilterListForCertificates} = useContext(FilterContext);
     const {filterListForLocation, setFilterListForLocation} = useContext(FilterContext);
-    const [districtList, setDistrictList] = useState([]);
     const {token} = useContext(LoginContext);
 
+    //useEffect to get the list of existing districts from the backend (to render them in the filter menu)
     useEffect(() => {
         getDistrictList(token, setDistrictList);
     }, [token, setDistrictList]);
 
+
     function handleLinkToMap() {
             history.push("/bo/map");
     }
-
     function handleLinkToList() {
         history.push("/bo/list");
     }
-
     function handleLinkToCards() {
         history.push("/404");
     }
-
     function handleOpenFilterBar(){
         setFilterBarisOpen(!filterBarIsOpen);
     }
-
     function handleCloseCategoryFilterMenu(){
         setCategoryMenuStatusAndAnchor(null);
     }
-
     function handleOpenCategoryFilterMenu(event){
         setCategoryMenuStatusAndAnchor(event.currentTarget)
     }
-
     function handleOpenCertificatesFilterMenu(event){
         setCertificatesMenuStatusAndAnchor(event.currentTarget)
     }
-
     function handleOpenLocationFilterMenu(event){
         setLocationMenuStatusAndAnchor(event.currentTarget)
     }
-
     function handleCloseCertificatesFilterMenu(){
         setCertificatesMenuStatusAndAnchor(null);
     }
-
     function handleCloseLocationFilterMenu(){
         setLocationMenuStatusAndAnchor(null);
     }
 
     function handleRemoveFilter(event){
-
-
         const filterToRemove = event.target.getAttribute("name");
 
         if (filterListForCategory !== undefined){
             setFilterListForCategory(filterListForCategory.filter(filterElement => (filterElement !== filterToRemove)));
         }
-
         if (filterListForCertificates !== undefined){
             setFilterListForCertificates(filterListForCertificates.filter(filterElement => (filterElement !== filterToRemove)));
         }
-
         if (filterListForLocation !== undefined){
             setFilterListForLocation(filterListForLocation.filter(filterElement => (filterElement !== filterToRemove)));
         }
     }
 
     function handleAddItemToFilter(event){
-
         const filterToAdd = event.target.getAttribute("name");
         const filterTypeToAdd = event.target.getAttribute("title");
 
         if (filterTypeToAdd === "category"){
             const newFilterList = filterListForCategory.concat([filterToAdd]);
             setFilterListForCategory(newFilterList);
-        }
-        else if (filterTypeToAdd === "certificate"){
+        } else if (filterTypeToAdd === "certificate"){
             const newFilterList = filterListForCertificates.concat([filterToAdd]);
             setFilterListForCertificates(newFilterList);
-        }
-        else if (filterTypeToAdd === "location"){
+        } else if (filterTypeToAdd === "location"){
             const newFilterList = filterListForLocation.concat([filterToAdd]);
             setFilterListForLocation(newFilterList);
         }
@@ -114,8 +100,7 @@ export default function TabBarWithIcons({type}) {
         setLocationMenuStatusAndAnchor(null);
     }
 
-    function returnActiveFilter(){
-
+    function returnActiveFilters(){
         const filterList = filterListForCategory.concat(filterListForCertificates, filterListForLocation);
 
         if (filterList.length !== 0) {
@@ -132,13 +117,12 @@ export default function TabBarWithIcons({type}) {
 
     return(
         <>
-            <StyledTabBar>
+            <FilterAndSwitchBarLayout>
 
-                <StyledFilterCell>
-
+                {/* Filter button to open filter bar */}
+                <FilterButtonCell>
                     <div onClick={handleOpenFilterBar}>
                         Filter
-
                         {filterBarIsOpen ?
                         <FaRegArrowAltCircleLeft onClick={handleOpenFilterBar}
                                                  style={{fontSize: "0.9em", marginLeft: "4px", marginBottom: "-2px"}}
@@ -147,17 +131,18 @@ export default function TabBarWithIcons({type}) {
                                                     style={{fontSize: "0.9em", marginLeft: "4px", marginBottom: "-2px"}}
                          />}
                     </div>
+                </FilterButtonCell>
 
-                </StyledFilterCell>
-
+                {/* Filter bar if opened or otherwise the Checkbox to show NonReviewed items */}
                 {filterBarIsOpen?
-                <StyledFilterBar>
+                <FilterBar>
                     <StandardButtonDark onClick={handleOpenCategoryFilterMenu}>Typ</StandardButtonDark>
                     <StandardButtonDark onClick={handleOpenCertificatesFilterMenu}>Tags</StandardButtonDark>
                     <StandardButtonDark onClick={handleOpenLocationFilterMenu}>Ort</StandardButtonDark>
-                </StyledFilterBar>
+                </FilterBar>
                 : <CheckboxToShowNonReviewedItems/>}
 
+                {/* Filter menu for Category */}
                 {filterListForCategory?
                     <Menu
                         className="filterMenu"
@@ -171,6 +156,7 @@ export default function TabBarWithIcons({type}) {
                     </Menu>
                 : ""}
 
+                {/* Filter menu for Certificates */}
                 {filterListForCertificates?
                     <Menu
                         className="filterMenu"
@@ -184,6 +170,7 @@ export default function TabBarWithIcons({type}) {
                     </Menu>
                 : ""}
 
+                {/* Filter menu for Location */}
                 {filterListForLocation ?
                     <Menu
                         className="filterMenu"
@@ -193,45 +180,38 @@ export default function TabBarWithIcons({type}) {
                         open={Boolean(locationMenuStatusAndAnchor)}
                         onClose={handleCloseLocationFilterMenu}
                     >
-
                         {districtList.map(district => (
-
                             <div key={district}>
                                 {!filterListForLocation.includes(district) &&
-                                <StyledMenuItem name={district} title="location"
+                                <FilterMenuItem name={district} title="location"
                                 onClick={handleAddItemToFilter}>{district}
-                                </StyledMenuItem>}
+                                </FilterMenuItem>}
                             </div>
                             )
-
                         )}
-
                     </Menu>
                 : ""}
 
-                <StyledChangeViewCell>
-
+                {/* change menu icons */}
+                <ChangeViewButtonBar>
                     {(type !== "map") && <ShowAsMapIconButton handle={handleLinkToMap}/>}
                     {(type !== "list") && <ShowsAsListIconButton handle={handleLinkToList}/>}
                     {(type !== "cards") && <ShowAsCardsIconButton handle={handleLinkToCards}/>}
+                </ChangeViewButtonBar>
 
-                </StyledChangeViewCell>
+                {/* Items for all active filters */}
+                <ActiveFilterList>
+                    {returnActiveFilters()}
+                </ActiveFilterList>
 
-                <StyledActiveFilterList>
-
-                    {returnActiveFilter()}
-
-                </StyledActiveFilterList>
-
-
-            </StyledTabBar>
+            </FilterAndSwitchBarLayout>
         </>
     )
 
 }
 
 
-const StyledTabBar = styled.div`
+const FilterAndSwitchBarLayout = styled.div`
   display: grid;
   grid-template-columns: 20% 60% 20%;
   margin: 7px 15px 3px 25px;
@@ -249,10 +229,9 @@ const StyledTabBar = styled.div`
          color: var(--lightgrey);
       }
     }    
-    
 `
 
-const StyledFilterCell = styled.div`
+const FilterButtonCell = styled.div`
   display: flex;
   justify-content: flex-start;
   font-size: 0.9em;
@@ -261,19 +240,24 @@ const StyledFilterCell = styled.div`
   white-space: nowrap;
 `
 
-const StyledChangeViewCell = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
-
-const StyledFilterBar = styled.div`
+const FilterBar = styled.section`
   font-size: 0.75em;
   display: flex;
   justify-content: space-around;
   margin: 1px 25px 4px 10px;
 `
 
-const StyledActiveFilterList = styled.div`
+const FilterMenuItem = styled(MenuItem)`
+    && {
+        min-height: 20px;
+        font-size: 0.92em;
+        margin: 5px;
+        padding: 5px;
+        line-height: 1.5em;
+    }
+`
+
+const ActiveFilterList = styled.div`
   font-size: 0.7em;
   line-height: 1.0em;
   grid-column: 1 / span 3;
@@ -295,12 +279,7 @@ const StyledActiveFilterList = styled.div`
   } 
 `
 
-const StyledMenuItem = styled(MenuItem)`
-    && {
-        min-height: 20px;
-        font-size: 0.92em;
-        margin: 5px;
-        padding: 5px;
-        line-height: 1.5em;
-    }
+const ChangeViewButtonBar = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `
