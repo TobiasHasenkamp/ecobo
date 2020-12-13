@@ -3,7 +3,7 @@
 Ratgeber- und Social-Communication-Platform für nachhaltigen Konsum in Bochum. Kernstück der Web-App ist eine karten- und listenbasierte Darstellung verschiedenster nachhaltiger Angebote in (und um) Bochum, wobei Benutzer eigene Angebote eintragen und reviewen können. Auf diese Weise kann eine lokale Community zu nachhaltigem Konsum wachsen und die eingetragenen Daten aktuell halten.
 
 **Link**: https://ecobo-neuefische.herokuapp.com
-(Die Web-App ist für mobile Endgeräte gedacht und optimiert. Auf großen Displays, wie Bildschrim, Tablet, iPad usw. wird die Seitenbreite automatisch begrenzt).
+(Die Web-App ist für mobile Endgeräte gedacht und optimiert. Auf großen Displays, wie Bildschrim, Tablet, iPad usw., wird die Seitenbreite automatisch begrenzt).
 
 ## Features:
 - User-System mit eigener Passwortwahl, Tracking eingetragener Angebote und Upload eines Profilbildes
