@@ -20,7 +20,7 @@ Link: https://ecobo-neuefische.herokuapp.com
 - Backend mit Java / Spring Boot, Security-System mit Spring Security
 - MongoDB als Datenbank (MongoDB Atlas)
 - Frontend mit React JS
-- umfangreiche Backend- Unit- & Integration-Tests mit JUnit 5
+- umfangreiche Backend- Unit- & Integration-Tests insbesondere mit JUnit 5
 - Frontend-Tests mit Jest
 - Deployment auf Heroku (Stand 12-2020)
 - Bilder-Upload zu AWS S3 (Stand 12-2020)
