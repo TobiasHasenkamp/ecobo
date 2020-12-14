@@ -35,7 +35,7 @@ export default function HomePage() {
 
                 <GreenBoxSmall/>
                 <NewsfeedComponent/>
-                <EmptyDivToClosePage type="small"/>
+                <EmptyDivToClosePage type="medium"/>
 
             </ScrollDiv>
         </>

@@ -115,7 +115,7 @@ function App() {
 export default App;
 
 
-const StyledPageLayout = styled.div`
+const StyledPageLayout = styled.section`
   width: 100vw;
   height: 100vh;
   max-width: 450px;
@@ -127,7 +127,7 @@ const StyledPageLayout = styled.div`
   }
 `
 
-export const ScrollablePageLayout = styled.div`
+export const ScrollablePageLayout = styled.section`
   overflow: scroll;
   height: 100%;
 `

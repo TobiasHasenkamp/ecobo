@@ -44,10 +44,10 @@ export default function ReviewSection(){
     function handleAddNewReview(event){
         if (event.target.getAttribute("name") === "positiveAddReviewButton"){
             addReviewToEcoElement(ecoElement.id, true, reviewComment, token, setEcoElement);
-            setAddReviewSectionIsOpen(false);
+            //setAddReviewSectionIsOpen(false);
         } else if (event.target.getAttribute("name") === "negativeAddReviewButton"){
             addReviewToEcoElement(ecoElement.id, false, reviewComment, token, setEcoElement);
-            setAddReviewSectionIsOpen(false);
+            //setAddReviewSectionIsOpen(false);
         }
     }
     function handleAddNewReviewCommentChange(event){
