@@ -34,7 +34,6 @@ export default function AccountPage() {
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
 
-
     function handleLogoutButton(){
         setToken("");
         setUsername("");
