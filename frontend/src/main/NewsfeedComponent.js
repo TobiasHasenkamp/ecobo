@@ -45,6 +45,14 @@ export default function NewsfeedComponent(){
         }
     }
 
+    //function to shorten the newsfeed message if necessary
+    function returnCorrectNewsfeedMessage(newsfeedElement){
+        if (newsfeedElement.size > 85){
+            return newsfeedElement.message.slice(0, 82) + "...";
+        }
+        else return newsfeedElement.message;
+    }
+
     //function to get the time difference between today and the newsfeed event
     function getTimeDifference(dateInternal){
         const today = new Date();
@@ -105,7 +113,7 @@ export default function NewsfeedComponent(){
                         <div className="row">
                             {returnNewsfeedIcon(newsfeedElement.type)}
                             <div>{getTimeDifference(newsfeedElement.dateInternal)}</div>
-                            <div>{newsfeedElement.message.slice(0, 40)}</div>
+                            <div>{returnCorrectNewsfeedMessage(newsfeedElement)}</div>
                         </div>
                     </Link>
                     ))
@@ -123,7 +131,7 @@ const NewsfeedSection = styled.section`
   width: auto;
   margin: 0 15px 15px 15px;
   font-size: 3.1vmin;
-  border-left: 5px solid var(--darkgreen);
+  border-left: 5px solid var(--main-color);
   padding: 10px 14px 6px 14px;
   display: grid;
   grid-template-rows: min-content min-content min-content min-content min-content;
@@ -131,12 +139,12 @@ const NewsfeedSection = styled.section`
   background-color: lightgray;
   
   a{
-      color: var(--darkgrey);
+      color: var(--neutral-color-darkgrey);
       :active{
-        color: var(--darkgrey);
+        color: var(--neutral-color-darkgrey);
       }
       :hover{
-        color: var(--darkgrey);
+        color: var(--neutral-color-darkgrey);
       }
   }
   .row{
@@ -163,7 +171,7 @@ const NewsfeedHeader = styled.div`
   padding: 10px 14px 5px 10px;
   font-size: 0.85em;
   font-weight: bold;
-  color: var(--darkgrey);
+  color: var(--neutral-color-darkgrey);
 `
 
 const RowWithArrowButton = styled.div`

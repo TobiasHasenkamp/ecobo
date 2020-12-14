@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import GradientBorderlineBottom from "../designComponents/otherDesignObjects/GradientBorderlineBottom";
 import GreenBoxMedium from "../designComponents/otherDesignObjects/GreenBoxMedium.js";
@@ -14,6 +14,7 @@ import {getEcoElements} from "../services/ecoElementService";
 import PageHeaderWithoutWhiteBorder from "../designComponents/otherDesignObjects/PageHeaderWithoutWhiteBorder";
 import ImgUploadFunctionality from "../services/ImgUploadComponent";
 import {StandardButton} from "../designComponents/buttons/StandardButton";
+import ThemeChanger from "./ThemeChanger";
 
 export default function AccountPage() {
     const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginContext);
@@ -21,22 +22,20 @@ export default function AccountPage() {
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
     const history = useHistory();
     const {userNameParam} = useParams();
+    const [theme, setTheme] = useState("Standard");
 
-
-    //useEffects
-
+    //useEffect to load Userdata once the page loads
     useEffect(() => {
         getUserData(userNameParam, token, setUserData);
     }, [userNameParam, token, setUserData])
 
+    //useEffect to load EcoElements once the page loads
     useEffect(() => {
         getEcoElements(token, setEcoElements);
     }, [token, setEcoElements]);
 
 
-    //handles
-
-    function handleLogoutButton() {
+    function handleLogoutButton(){
         setToken("");
         setUsername("");
         setPassword("");
@@ -45,18 +44,19 @@ export default function AccountPage() {
         history.push("/home");
     }
 
-    function handleEditButton() {
+    function handleEditButton(){
         history.push("/404");
         //not working yet
     }
 
-    function handleDeleteButton() {
+    function handleDeleteButton(){
         history.push("/404");
         //not working yet
     }
 
-
-    //return
+    function handleThemeChange(event){
+        ThemeChanger(event.target.value, theme, setTheme);
+    }
 
     return(
 
@@ -105,15 +105,23 @@ export default function AccountPage() {
                 <GradientBorderlineBottom/>
 
                 <BottomSection>
+                    <h3>Theme festlegen:</h3>
+                    <select name="themeSelect" value={theme} onChange={handleThemeChange}>
+                        <option value="Standard">Standard</option>
+                        <option value="Dark Mode">Dark Mode WIP</option>
+                        <option value="Blue theme">Blue theme</option>
+                        <option value="Red theme">Red theme</option>
+                        <option value="Purple theme">Purple theme</option>
+                    </select>
+                    <br/>
                     {/*<h3>Verwaltete Seiten:</h3>
                     none<br/><br/>*/}
                     <h3>Angelegte Seiten:</h3>
                     <ul>
-                        {ecoElements?.filter(element => (element.creator === userData.username)).map(element => (
-                            <li key={element.id}>{element.name} ({element.dateCreatedExternal})</li>
-                        ))}
+                        {(ecoElements.size > 0) ? ecoElements?.filter(element => (element.creator === userData.username)).map(
+                            element => (<li key={element.id}>{element.name} ({element.dateCreatedExternal})</li>
+                        )) : "..." }
                     </ul>
-
                 </BottomSection>
 
                 <EmptyDivToClosePage/><br/><br/>
@@ -156,7 +164,7 @@ const TopUserSection = styled.section`
 const LeftSideBar = styled.section`
   display: grid;
   grid-template-rows: 5% 40% 50% 5%;
-  background-color: var(--darkgreen);
+  background-color: var(--main-color);
   margin-bottom: -10px;
   padding-top: 25px;
   width: 100%;
@@ -166,7 +174,7 @@ const PhotoSection = styled.section`
   width: auto;
   overflow: hidden;
   align-self: center;
-  background-color: var(--darkgreen);
+  background-color: var(--main-color);
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 20px;
@@ -187,7 +195,7 @@ const UserDataSection = styled.section`
   font-size: 0.65em;
   line-height: 0.75em;
   h3{
-      color: var(--lightgrey);
+      color: var(--neutral-color-lightgrey);
       font-size: 1em;
   }
   h3 + div {
@@ -199,20 +207,20 @@ const RightUserSection = styled.section`
     margin: 7% 10%;
     line-height: 0.85em;
     font-size: 1.0em;
-    color: var(--darkgrey);
+    color: var(--neutral-color-darkgrey);
     display: grid;
     grid-template-columns: 75% 25%;
     grid-gap: 30px 5px;
     
   h3{
-      color: black;
+      color: var(--neutral-color-black);
       font-size: 0.9em;
   }
   h3 + div {
     line-height: 0.7em;
   }
   h4 {
-    color: var(--darkgrey);
+    color: var(--neutral-color-darkgrey);
     line-height: 0;
     font-size: 0.75em;
     font-weight: normal;

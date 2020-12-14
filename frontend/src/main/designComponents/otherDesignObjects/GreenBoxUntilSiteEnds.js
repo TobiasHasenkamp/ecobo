@@ -14,11 +14,11 @@ export default function GreenBoxUntilSiteEnds() {
 
 const StyledGreenBox = styled.div`
   width: 100%;
-  background-color: var(--darkgreen);
+  background-color: var(--main-color);
   height: 138px;
 `
 
 const StyledDiv = styled.div`
   width: 100%;
-  background-color: var(--darkgreen);
+  background-color: var(--main-color);
 `

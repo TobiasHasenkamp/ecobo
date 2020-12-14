@@ -97,7 +97,7 @@ const EditPictureButton = styled.div`
 `
 
 const EditPictureButtonDark = styled.div`
-  color: var(--darkgrey);
+  color: var(--neutral-color-darkgrey);
   padding-top: 7px;
   font-size: 0.7em;
   text-align: center;

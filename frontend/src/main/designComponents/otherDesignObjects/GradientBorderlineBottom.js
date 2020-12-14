@@ -12,5 +12,5 @@ const StyledDarkGradientLineTop = styled.div`
   display: block;
   width: 100%;
   height: 5px;
-  background-image: linear-gradient(var(--grey), ghostwhite);
+  background-image: linear-gradient(var(--neutral-color-lightgrey), var(--main-background-color));
 `

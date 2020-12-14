@@ -15,24 +15,34 @@ body {
     font-family: Helvetica;
     margin: 0;
     height: 100%;
+    background: var(--main-background-color);
     
     a {
       color: var(--white);
       text-decoration: none;
       
       :hover {
-          color: var(--lightgrey);
+          color: var(--neutral-color-lightgrey);
       }
       
       :active {
-          color: var(--lightgrey);
+          color: var(--neutral-color-lightgrey);
       }
       
     }
 }
 
   :root {
-    --green: #158467;
+  
+    //Standard theme
+    --main-color: #008744;
+    --main-background-color: white;
+    --neutral-color-black: black; 
+    --neutral-color-darkgrey: #222831;
+    --neutral-color-lightgrey: #9BAEBC;
+    --tag-color-grey: lightgrey;
+  
+    /*--green: #158467;
     --darkgreen: #008744;
     --lightyellow: #fadcac;
     --white: #EEEDFF;
@@ -42,7 +52,7 @@ body {
     --grey: #9EADBD;
     --lightgrey: #9BAEBC;
     --darkgrey2: #5F788A;
-    --lightblue: #8BA1FF;
+    --lightblue: #8BA1FF;*/
     
     --xs: 4px;
     --s: 8px;

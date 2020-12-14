@@ -57,8 +57,8 @@ public class NewsfeedService {
 
         String newsfeedMessage = "";
 
-        if (ecoElementName.length() > 25){
-            ecoElementName = ecoElementName.substring(0, 23) + "...";
+        if (ecoElementName.length() > 50){
+            ecoElementName = ecoElementName.substring(0, 47) + "...";
         }
 
         if (type == NewsfeedType.ECOELEMENT_ADDED){
@@ -94,8 +94,8 @@ public class NewsfeedService {
 
         String originalUsername = userName;
 
-        if (userName.length() > 25){
-            userName = userName.substring(0, 23) + "...";
+        if (userName.length() > 45){
+            userName = userName.substring(0, 43) + "...";
         }
 
         String newsfeedMessage = "Willkommen " + userName + "!";
