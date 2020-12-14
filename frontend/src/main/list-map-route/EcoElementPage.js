@@ -227,7 +227,7 @@ export default function EcoElementPage(){
                     </InternalDataSection>
 
                 </BottomSection>
-                <EmptyDivToClosePage type="small"/>
+                <EmptyDivToClosePage type="medium"/>
 
             </ScrollDiv>
     </>
