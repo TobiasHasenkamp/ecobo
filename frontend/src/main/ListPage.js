@@ -39,7 +39,7 @@ export default function ListPage() {
                 {!filterIsActive && <FairShopList ecoElements={ecoElements}/>}
                 {!filterIsActive && <OthersList ecoElements={ecoElements}/>}
                 {filterIsActive && <FilterResultList ecoElements={ecoElements}/>}
-                <EmptyDivToClosePage type="large"/>
+                <EmptyDivToClosePage type="very_large"/>
                 <WhiteSpaceAtTheBottom/>
             </ListSection>
 
