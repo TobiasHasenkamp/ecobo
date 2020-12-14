@@ -35,7 +35,7 @@ export default function HomePage() {
 
                 <GreenBoxSmall/>
                 <NewsfeedComponent/>
-                <EmptyDivToClosePage type="small"/>
+                <EmptyDivToClosePage type="medium"/>
 
             </ScrollDiv>
         </>
@@ -55,7 +55,7 @@ const HomeImage = styled.img`
 const HomePageMenu = styled.div`
   display: grid;
   grid-template-columns: 15px 1fr 15px 1fr 15px;
-  background-color: var(--darkgreen);
+  background-color: var(--main-color);
   margin: 0;
   padding: 0;
 `
@@ -71,7 +71,7 @@ const HomePageMenuSubElement = styled.div`
   background-color: white;
   
   div {
-      color: var(--darkgrey);
+      color: var(--neutral-color-darkgrey);
       font-size: 1.5em;
       font-weight: bold;
       position: absolute;
@@ -81,15 +81,15 @@ const HomePageMenuSubElement = styled.div`
   }
   
   a {
-      color: var(--darkgrey);
+      color: var(--neutral-color-darkgrey);
       text-decoration: none;
       
       :hover {
-          color: var(--darkgrey);
+          color: var(--neutral-color-darkgrey);
       }
       
       :active {
-          color: var(--darkgrey);
+          color: var(--neutral-color-darkgrey);
       }
       
     }
@@ -107,7 +107,7 @@ const ScrollDiv = styled.div`
 `
 
 const StyledGreenColumn = styled.div`
-  background-color: var(--darkgreen);
+  background-color: var(--main-color);
   height: 131px;
 `
 

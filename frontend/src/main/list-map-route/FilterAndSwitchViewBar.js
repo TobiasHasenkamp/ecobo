@@ -217,16 +217,16 @@ const FilterAndSwitchBarLayout = styled.div`
   margin: 7px 15px 3px 25px;
   line-height: 1.4em;
   font-size: 1.2em;
-  color: var(--darkgrey);
+  color: var(--neutral-color-darkgrey);
     
     a {
-     color: var(--darkgrey);
+     color: var(--neutral-color-darkgrey);
      text-decoration: none;
      &hover {
-         color: var(--darkgrey2);
+         color: var(--neutral-color-darkgrey);
       }
      &active {
-         color: var(--lightgrey);
+         color: var(--neutral-color-lightgrey);
       }
     }    
 `
@@ -269,7 +269,7 @@ const ActiveFilterList = styled.div`
   overflow-wrap: anywhere;
   
   div {
-      background: lightgrey;
+      background: var(--tag-color-grey);
       opacity: 85%;
       color: gray();
       padding: 5px 6px;

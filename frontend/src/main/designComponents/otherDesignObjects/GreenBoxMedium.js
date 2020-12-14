@@ -11,6 +11,6 @@ export default function GreenBoxMedium() {
 const StyledGreenBox = styled.div`
   display: block;
   width: 100%;
-  background-color: var(--darkgreen);
+  background-color: var(--main-color);
   height: 25px;
 `

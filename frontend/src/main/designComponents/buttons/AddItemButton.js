@@ -33,7 +33,7 @@ const StyledActionButton = styled.div`
   padding: 10px 10px 5px 10px;
   border-radius: 50%;
   align-self: flex-start;
-  background: var(--darkgreen);
+  background: var(--main-color);
   opacity: 85%;
   border: none;
   font: inherit;

@@ -18,7 +18,7 @@ export default function CheckboxToShowNonReviewedItems(){
                       checked={showNonReviewedItems}
                       inputProps={{ 'aria-label': 'uncontrolled-checkbox' }}
                       size="small"
-                      style={{color: "var(--darkgrey)", marginLeft: "3px", padding: "0"}}/>
+                      style={{color: "var(--neutral-color-darkgrey)", marginLeft: "3px", padding: "0"}}/>
         </StyledLabel>
     )
 }

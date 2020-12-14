@@ -232,7 +232,7 @@ const ActiveCertificatesList = styled.div`
   overflow-wrap: anywhere;
   
   div {
-      background: lightgrey;
+      background: var(--tag-color-grey);
       opacity: 85%;
       color: grey();
       padding: 5px 6px;
