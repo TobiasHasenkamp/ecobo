@@ -21,6 +21,7 @@ import NewsfeedPage from "./main/NewsfeedPage";
 import FilterContextProvider from "./main/contexts/FilterContextProvider";
 import FrontendInputContextProvider from "./main/contexts/FrontendInputContextProvider";
 import ConfirmLocationPage from "./main/list-map-route/ConfirmLocationPage";
+import ThemeContextProvider from "./main/contexts/ThemeContextProvider";
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
   return (
 
       <LoginContextProvider> <EcoElementContextProvider> <NewsfeedContextProvider>
-          <FilterContextProvider> <FrontendInputContextProvider>
+          <FilterContextProvider> <FrontendInputContextProvider> <ThemeContextProvider>
 
           <StyledPageLayout>
               <Switch>
@@ -105,7 +106,7 @@ function App() {
 
         </StyledPageLayout>
 
-          </FrontendInputContextProvider> </FilterContextProvider> </NewsfeedContextProvider>
+          </ThemeContextProvider> </FrontendInputContextProvider> </FilterContextProvider> </NewsfeedContextProvider>
       </EcoElementContextProvider> </LoginContextProvider>
 
   );

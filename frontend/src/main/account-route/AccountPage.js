@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import styled from "styled-components/macro";
 import GradientBorderlineBottom from "../designComponents/otherDesignObjects/GradientBorderlineBottom";
 import GreenBoxMedium from "../designComponents/otherDesignObjects/GreenBoxMedium.js";
@@ -14,15 +14,15 @@ import {getEcoElements} from "../services/ecoElementService";
 import PageHeaderWithoutWhiteBorder from "../designComponents/otherDesignObjects/PageHeaderWithoutWhiteBorder";
 import ImgUploadFunctionality from "../services/ImgUploadComponent";
 import {StandardButton} from "../designComponents/buttons/StandardButton";
-import ThemeChanger from "./ThemeChanger";
+import ThemeContext from "../contexts/createContexts/ThemeContext";
 
 export default function AccountPage() {
     const {token, setToken, setUsername, setPassword, setIsLoggedIn} = useContext(LoginContext);
     const {userData, setUserData} = useContext(LoginContext);
     const {ecoElements, setEcoElements} = useContext(EcoElementContext);
+    const {theme, setTheme} = useContext(ThemeContext);
     const history = useHistory();
     const {userNameParam} = useParams();
-    const [theme, setTheme] = useState("Standard");
 
     //useEffect to load Userdata once the page loads
     useEffect(() => {
@@ -54,7 +54,7 @@ export default function AccountPage() {
     }
 
     function handleThemeChange(event){
-        ThemeChanger(event.target.value, theme, setTheme);
+        setTheme(event.target.value);
     }
 
     return(
