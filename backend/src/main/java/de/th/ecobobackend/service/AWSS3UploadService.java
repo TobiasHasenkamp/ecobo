@@ -85,7 +85,7 @@ public class AWSS3UploadService {
                         .password(existingUser.get().getPassword())
                         .registrationDateExternal(existingUser.get().getRegistrationDateExternal())
                         .registrationDateInternal(existingUser.get().getRegistrationDateInternal())
-                        .profilePic("http://ecobo-bucket.s3-website.eu-central-1.amazonaws.com/" + fileObjKeyName.trim())
+                        .profilePic("https://ecobo-bucket.s3.eu-central-1.amazonaws.com/" + fileObjKeyName.trim())
                         .build();
 
                 userProfileMongoDB.save(updatedUser);
@@ -94,7 +94,7 @@ public class AWSS3UploadService {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
 
-            return "http://ecobo-bucket.s3-website.eu-central-1.amazonaws.com/" + fileObjKeyName.trim();
+            return "https://ecobo-bucket.s3.eu-central-1.amazonaws.com/" + fileObjKeyName.trim();
         } catch (AmazonS3Exception e){
             e.printStackTrace();
         } catch (SdkClientException e){
@@ -142,11 +142,11 @@ public class AWSS3UploadService {
             }
 
             EcoElement updatedEcoElement = ecoElementBuilder.buildEcoElementWithNewPicture(
-                    existingEcoElement.get(), ecoElementId.get(), "http://ecobo-bucket.s3-website.eu-central-1.amazonaws.com/" + fileObjKeyName.trim());
+                    existingEcoElement.get(), ecoElementId.get(), "https://ecobo-bucket.s3.eu-central-1.amazonaws.com/" + fileObjKeyName.trim());
 
             ecoElementMongoDB.save(updatedEcoElement);
 
-            return "http://ecobo-bucket.s3-website.eu-central-1.amazonaws.com/" + fileObjKeyName.trim();
+            return "https://ecobo-bucket.s3.eu-central-1.amazonaws.com/" + fileObjKeyName.trim();
         } catch (AmazonS3Exception e){
             e.printStackTrace();
         } catch (SdkClientException e){

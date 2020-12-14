@@ -199,7 +199,6 @@ export default function EcoElementPage(){
                 {/*Recently reviewed message (it recently reviewed)*/}
                 <RecentlyReviewedItemMessage/>
 
-
                 <BottomSection>
 
                     {/*Small Picture*/}
