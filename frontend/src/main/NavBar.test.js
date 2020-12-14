@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import NavBar from "./NavBar";
 import {BrowserRouter} from 'react-router-dom';
 
-test('renders learn react link', () => {
+test('if it renders the NavBars text content', () => {
     const { getByText } = render(
         <BrowserRouter>
             <NavBar/>
