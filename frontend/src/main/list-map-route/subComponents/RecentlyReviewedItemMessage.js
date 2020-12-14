@@ -24,7 +24,7 @@ export default function RecentlyReviewedItemMessage(){
                 {"Kürzlich erfolgreich reviewed "} <FaCheck style={{fontSize: "0.85em", color: "green", marginBottom: "-1px"}}/>
             </StyledHeaderRow>
             <StyledElementBody>
-                <StyledCell style={{ gridColumn: "1 / span 2" }}>
+                <StyledCell style={{ gridColumn: "1 / span 2", backgroundColor: "var(--list-second-row-color)" }}>
                     {"Dieses Element hat den Review-Prozess am "}{ecoElement.dateReviewedExternal}{" erfolgreich abgeschlossen."}
                 </StyledCell>
             </StyledElementBody>

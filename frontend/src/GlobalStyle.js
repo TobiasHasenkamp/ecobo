@@ -41,6 +41,7 @@ body {
     --neutral-color-darkgrey: #222831;
     --neutral-color-lightgrey: #9BAEBC;
     --tag-color-grey: lightgrey;
+    --list-second-row-color: white;
   
     /*--green: #158467;
     --darkgreen: #008744;
