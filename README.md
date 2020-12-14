@@ -5,7 +5,7 @@ Ratgeber- und Social-Communication-Platform für nachhaltigen Konsum in Bochum. 
 **Link**: https://ecobo-neuefische.herokuapp.com
 (Die Web-App ist für mobile Endgeräte gedacht und optimiert. Auf großen Displays, wie Bildschrim, Tablet, iPad usw., wird die Seitenbreite automatisch begrenzt).
 
-![Gif der App (Stand 12-2020)](https://github.com/TobiasHasenkamp/ecobo/blob/main/frontend/public/hasenkamp_tobias_ecoBo_gif.gif)
+![Gif der App (Stand 12-2020)](https://github.com/TobiasHasenkamp/ecobo/blob/main/frontend/public/hasenkamp_tobias_ecoBo_gif.gif =150x)
 
 ## Features:
 - User-System mit eigener Passwortwahl, Tracking eingetragener Angebote und Upload eines Profilbildes
