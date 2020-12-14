@@ -120,7 +120,7 @@ export const StyledElement = styled.div`
   grid-template-rows: 0.15fr 1fr 1fr 0.35fr;
   background-color: var(--tag-color-grey);
   :nth-of-type(even){
-    background: white;
+    background: var(--list-second-row-color);
   }
 `
 

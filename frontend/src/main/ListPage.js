@@ -39,7 +39,7 @@ export default function ListPage() {
                 {!filterIsActive && <FairShopList ecoElements={ecoElements}/>}
                 {!filterIsActive && <OthersList ecoElements={ecoElements}/>}
                 {filterIsActive && <FilterResultList ecoElements={ecoElements}/>}
-                <EmptyDivToClosePage type="medium"/>
+                <EmptyDivToClosePage type="large"/>
                 <WhiteSpaceAtTheBottom/>
             </ListSection>
 
@@ -58,7 +58,7 @@ const ListSection = styled.section`
 `
 
 const WhiteSpaceAtTheBottom = styled.div`
-  background: white;
+  background: var(--main-background-color);
   position: fixed;
   right: 0;
   bottom: 0;

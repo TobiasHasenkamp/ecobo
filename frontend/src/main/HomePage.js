@@ -45,8 +45,8 @@ export default function HomePage() {
 
 const HomeImage = styled.img`
   width: 100%;
-  border-bottom: ghostwhite solid 4px;
-  border-top: ghostwhite solid 4px;
+  border-bottom: var(--main-background-color) solid 4px;
+  border-top: var(--main-background-color) solid 4px;
   max-height: 250px;
   max-width: 450px;
   grid-gap: 0;
