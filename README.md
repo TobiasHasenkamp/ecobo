@@ -16,7 +16,7 @@ Ratgeber- und Social-Communication-Platform für nachhaltigen Konsum in Bochum. 
 - umfangreiche Filterfunktionen nach Subkategorien, Tags und Stadtteilen
 - Review-System zum "Approven" neu-hinzugefügter Elemente durch User. Erst mit mindestens drei positiven Reviews (und einem ausreichenden prozentualen Anteil) werden diese Angebote gleichwertig angezeigt.
 - Newsfeed-System, welches auf der Homepage über aktuelle Ereignisse auf der Seite (neue Angebote, neue User, erfolgreiche Approvals usw.) informiert
-- [teilweise fertig] Wechseln von verschiedenen Designthemes
+- Verschiedenen Designthemes (Darkmode usw.), die im Local Storage gespeichert werden
 
 ## technische Aspekte:
 - Backend mit Java / Spring Boot, Security-System mit Spring Security
