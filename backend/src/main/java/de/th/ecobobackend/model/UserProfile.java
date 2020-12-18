@@ -22,4 +22,7 @@ public class UserProfile {
     private Instant registrationDateInternal;
     private String registrationDateExternal;
     private String profilePic;
+    private String email;
+    private boolean activated;
+    private String activationToken;
 }

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewDto {
 
-    boolean positive;
-    String reviewComment;
+    private boolean positive;
+    private String reviewComment;
 }

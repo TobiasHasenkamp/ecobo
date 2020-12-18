@@ -17,6 +17,7 @@ export default function LoginPage() {
     const [registrationUsername, setRegistrationUsername] = useState("");
     const [registrationPassword1, setRegistrationPassword1] = useState("");
     const [registrationPassword2, setRegistrationPassword2] = useState("");
+    const [registrationEmail, setRegistrationEmail] = useState("");
     const [errorLogin, setErrorLogin] = useState("");
     const [errorRegistration, setErrorRegistration] = useState("");
 
@@ -54,7 +55,7 @@ export default function LoginPage() {
         if (registrationPassword1 !== registrationPassword2){
             setErrorRegistration("Passwörter passen nicht zueinander.")
         } else {
-            RegistrationRequest(registrationUsername, registrationPassword1)
+            RegistrationRequest(registrationUsername, registrationPassword1, registrationEmail)
                 .then((data) => setErrorRegistration(data))
         }
     }
@@ -73,6 +74,9 @@ export default function LoginPage() {
     }
     function handlePasswordChange2Registration(event) {
         setRegistrationPassword2(event.target.value)
+    }
+    function handleEmailChangeRegistration(event) {
+        setRegistrationEmail(event.target.value)
     }
 
     return(
@@ -106,6 +110,8 @@ export default function LoginPage() {
                         <input type="password" name="passwordNew1" value={registrationPassword1} onChange={handlePasswordChange1Registration}/>
                         <label htmlFor="passwordNew2">Passwort wiederholen</label>
                         <input type="password" name="passwordNew2" value={registrationPassword2} onChange={handlePasswordChange2Registration}/>
+                        <label htmlFor="emailNew">E-Mail</label>
+                        <input type="text" name="emailNew" value={registrationEmail} onChange={handleEmailChangeRegistration}/>
                         <div>
                             <StandardButton>Registrierung</StandardButton>
                         </div>

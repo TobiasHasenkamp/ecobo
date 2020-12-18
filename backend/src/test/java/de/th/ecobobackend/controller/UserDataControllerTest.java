@@ -69,7 +69,8 @@ class UserDataControllerTest {
 
         UserLoginDto userLoginDto = new UserLoginDto(
                 "Angela Merkel",
-                "Abc123"
+                "Abc123",
+                ""
         );
 
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:" + port + "/auth/login",
@@ -82,7 +83,8 @@ class UserDataControllerTest {
 
         UserLoginDto userLoginDto = new UserLoginDto(
                 "Donald Trump",
-                "Abc123"
+                "Abc123",
+                ""
         );
 
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:" + port + "/auth/login",

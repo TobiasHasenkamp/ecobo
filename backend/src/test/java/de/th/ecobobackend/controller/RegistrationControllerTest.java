@@ -49,7 +49,8 @@ class RegistrationControllerTest {
         //GIVEN
         UserLoginDto userLoginDto = new UserLoginDto(
                 "Tobias",
-                "Abc123"
+                "Abc123",
+                ""
         );
 
         //WHEN
@@ -70,11 +71,12 @@ class RegistrationControllerTest {
         //GIVEN
         UserLoginDto userLoginDto = new UserLoginDto(
                 "Tobias",
-                "Abc123"
+                "Abc123",
+                ""
         );
 
         String password = new BCryptPasswordEncoder().encode("Abc123");
-        userProfileMongoDB.save(new UserProfile("Tobias", password, Instant.now(), "20.10.1990", ""));
+        userProfileMongoDB.save(new UserProfile("Tobias", password, Instant.now(), "20.10.1990", "", "", true, ""));
 
         //WHEN
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:" + port + "/auth/registration",
@@ -94,7 +96,8 @@ class RegistrationControllerTest {
         //GIVEN
         UserLoginDto userLoginDto = new UserLoginDto(
                 "Tobias",
-                "123"
+                "123",
+                ""
         );
 
         //WHEN
@@ -115,7 +118,8 @@ class RegistrationControllerTest {
         //GIVEN
         UserLoginDto userLoginDto = new UserLoginDto(
                 "Tobias",
-                "Ab"
+                "Ab",
+                ""
         );
 
         //WHEN
