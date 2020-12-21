@@ -43,7 +43,7 @@ public class RegistrationMailService {
         });
 
         //change later to the deployment server
-        String activationLink = "http://localhost:3000/acc/activation/" + activationToken;
+        String activationLink = "https://ecobo-neuefische.herokuapp.com/acc/activation/" + activationToken;
         String content = "Guten Tag,\n" +
                 "\n" +
                 "Um die Einrichtung deines Accounts bei der EcoBo-App abzuschliessen, musst Du diese E-Mail-Adresse bestaetigen," +
