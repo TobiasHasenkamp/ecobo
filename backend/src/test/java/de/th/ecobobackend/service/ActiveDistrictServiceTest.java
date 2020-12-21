@@ -1,26 +1,15 @@
 package de.th.ecobobackend.service;
 
 import de.th.ecobobackend.model.EcoElement;
-import de.th.ecobobackend.model.Review;
-import de.th.ecobobackend.model.dto.EcoElementDto;
-import de.th.ecobobackend.model.dto.ReviewDto;
 import de.th.ecobobackend.model.enums.Category;
 import de.th.ecobobackend.model.enums.CategorySub;
 import de.th.ecobobackend.mongoDB.EcoElementMongoDB;
-import de.th.ecobobackend.utils.IDUtils;
-import de.th.ecobobackend.utils.TimestampUtils;
-import org.apache.commons.compress.utils.Lists;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.security.Principal;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
