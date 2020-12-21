@@ -1,5 +1,7 @@
 package de.th.ecobobackend.controller;
 
+import com.sun.mail.iap.Response;
+import de.th.ecobobackend.model.EcoElement;
 import de.th.ecobobackend.model.UserProfile;
 import de.th.ecobobackend.model.dto.UserLoginDto;
 import de.th.ecobobackend.mongoDB.UserProfileMongoDB;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +22,7 @@ import org.springframework.test.context.TestPropertySource;
 import javax.mail.MessagingException;
 import java.security.Principal;
 import java.time.Instant;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -145,6 +149,27 @@ class RegistrationControllerTest {
         String resultingString = response.getBody();
 
         assertThat(resultingString, is("Unsicheres Passwort. Es benötigt mindestens 3 Zeichen."));
+    }
+
+    @Test
+    public void activationOfNewUserShouldHappenIfActivationCodeGetsConfirmed(){
+
+        //GIVEN
+        String password = new BCryptPasswordEncoder().encode("Abc123");
+        UserProfile userProfileBeforeActivation = UserProfile.builder().username("Donald Trump").password("ABC123")
+                            .activated(false).activationToken("Abc1000").build();
+        UserProfile userProfileAfterActivation = UserProfile.builder().username("Donald Trump").password("ABC123")
+                .activated(true).activationToken(null).build();
+        userProfileMongoDB.save(userProfileBeforeActivation);
+
+        //WHEN
+        ResponseEntity<String> response = restTemplate.exchange("http://localhost:" + port +
+                "/auth/registration/activation/" + "Abc1000", HttpMethod.PUT, null, String.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), is("Accountaktivierung erfolgreich."));
+        assertThat(userProfileMongoDB.findById("Donald Trump"), is(Optional.of(userProfileAfterActivation)));
     }
 
 }
