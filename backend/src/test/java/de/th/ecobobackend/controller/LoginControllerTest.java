@@ -27,7 +27,8 @@ import java.time.Instant;
 @TestPropertySource(properties = {
         "jwt.secretkey=12345678910",
         "aws.accesskey=12345678910",
-        "aws.secretkey=12345678910"
+        "aws.secretkey=12345678910",
+        "email.password=12345678910"
 })
 class LoginControllerTest {
 
@@ -52,7 +53,6 @@ class LoginControllerTest {
                 Instant.now(), "20.10.2020", "", "", true, ""));
         userProfileMongoDB.save(new UserProfile("Angela Merkel", password,
                 Instant.now(), "20.10.2020", "", "", true, ""));
-
     }
 
     @Test

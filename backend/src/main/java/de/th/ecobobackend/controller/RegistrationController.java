@@ -55,7 +55,7 @@ public class RegistrationController {
                 userProfileService.registerNewUser(loginDto, passwordToRegisterEncoded);
                 return "Registrierung erfolgreich. Schau in dein E-Mail Postfach für die Bestätigungsemail.";
             } catch (Exception e) {
-                return "Registration nicht möglich. Versuche es später noch einmal.";
+                return "Registrierung nicht möglich. Versuche es später noch einmal.";
             }
         }
         return "Username existiert bereits. Versuche es mit einem anderen Namen.";

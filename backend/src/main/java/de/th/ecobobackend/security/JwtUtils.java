@@ -27,7 +27,6 @@ public class JwtUtils {
                 .setExpiration(Date.from(Instant.now().plus(Duration.ofHours(2)))) //expires in 2 Hours
                 .signWith(SignatureAlgorithm.HS512,key) //sign token with algorithm and key
                 .compact();
-
     }
 
     public Claims parseToken(String token){

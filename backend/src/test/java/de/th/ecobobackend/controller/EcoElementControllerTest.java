@@ -33,7 +33,8 @@ import static org.mockito.Mockito.when;
 @TestPropertySource(properties = {
         "jwt.secretkey=12345678910",
         "aws.accesskey=12345678910",
-        "aws.secretkey=12345678910"
+        "aws.secretkey=12345678910",
+        "email.password=12345678910"
 })
 class EcoElementControllerTest {
 
