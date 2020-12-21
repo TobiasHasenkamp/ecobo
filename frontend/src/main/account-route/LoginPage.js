@@ -117,7 +117,7 @@ export default function LoginPage() {
                         </div>
                     </LoginAndRegistrationForm>
                     <p>{errorRegistration}</p>
-                    <EmptyDivToClosePage type="small"/>
+                    <EmptyDivToClosePage type="very_large"/>
 
                 </SectionLayout>
 
