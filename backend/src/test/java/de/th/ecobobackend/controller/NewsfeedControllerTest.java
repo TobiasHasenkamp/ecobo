@@ -28,7 +28,8 @@ import static org.hamcrest.Matchers.is;
 @TestPropertySource(properties = {
         "jwt.secretkey=12345678910",
         "aws.accesskey=12345678910",
-        "aws.secretkey=12345678910"
+        "aws.secretkey=12345678910",
+        "email.password=12345678910"
 })
 class NewsfeedControllerTest {
 
@@ -61,11 +62,11 @@ class NewsfeedControllerTest {
         String password = new BCryptPasswordEncoder().encode("Abc123");
 
         userProfileMongoDB.save(new UserProfile("Tobias", password,
-                Instant.now(), "20.10.2020", ""));
+                Instant.now(), "20.10.2020", "", "", true, ""));
         userProfileMongoDB.save(new UserProfile("Donald Trump", password,
-                Instant.now(), "20.10.2020", ""));
+                Instant.now(), "20.10.2020", "", "", true, ""));
         userProfileMongoDB.save(new UserProfile("Angela Merkel", password,
-                Instant.now(), "20.10.2020", ""));
+                Instant.now(), "20.10.2020", "", "", true, ""));
 
     }
 
@@ -74,7 +75,8 @@ class NewsfeedControllerTest {
 
         UserLoginDto userLoginDto = new UserLoginDto(
                 "Tobias",
-                "Abc123"
+                "Abc123",
+                ""
         );
 
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:" + port + "/auth/login",

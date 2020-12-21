@@ -1,12 +1,13 @@
 package de.th.ecobobackend.controller;
 import de.th.ecobobackend.model.dto.UserLoginDto;
+import de.th.ecobobackend.service.RegistrationMailService;
 import de.th.ecobobackend.service.UserProfileService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @RestController
@@ -52,12 +53,26 @@ public class RegistrationController {
             try {
                 //add the username
                 userProfileService.registerNewUser(loginDto, passwordToRegisterEncoded);
-                return "Registrierung erfolgreich.";
+                return "Registrierung erfolgreich. Schau in dein E-Mail Postfach für die Bestätigungsemail.";
             } catch (Exception e) {
-                return "Registration nicht möglich. Versuche es später noch einmal.";
+                return "Registrierung nicht möglich. Versuche es später noch einmal.";
             }
         }
         return "Username existiert bereits. Versuche es mit einem anderen Namen.";
     }
 
+    @PutMapping("/activation/{activationToken}")
+    public String accountActivation(@PathVariable @NonNull Optional<String> activationToken){
+        try {
+            if (activationToken.isPresent()){
+                userProfileService.activateNewUser(activationToken.get());
+                return "Accountaktivierung erfolgreich.";
+            } else {
+                return "Accountaktivierung konnte nicht durchgeführt werden.";
+            }
+        } catch (Exception e){
+            return e.getMessage();
+            //return "Accountaktivierung konnte nicht durchgeführt werden.";
+        }
+    }
 }

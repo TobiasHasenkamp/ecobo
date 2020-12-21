@@ -1,6 +1,5 @@
 package de.th.ecobobackend.controller;
 
-import de.th.ecobobackend.model.UserProfile;
 import de.th.ecobobackend.model.dto.UserLoginDto;
 import de.th.ecobobackend.security.JwtUtils;
 import de.th.ecobobackend.service.UserProfileService;
@@ -20,11 +19,13 @@ public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final UserProfileService userProfileService;
 
     @Autowired
-    public LoginController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    public LoginController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, UserProfileService userProfileService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
+        this.userProfileService = userProfileService;
     }
 
     @PostMapping
@@ -32,6 +33,10 @@ public class LoginController {
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+
+        if (!userProfileService.checkIfUserIsActivated(loginDto.getUsername())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Wrong Username or Password");
+        }
 
         try {
             authenticationManager.authenticate(authenticationToken);

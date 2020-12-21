@@ -22,6 +22,7 @@ import FilterContextProvider from "./main/contexts/FilterContextProvider";
 import FrontendInputContextProvider from "./main/contexts/FrontendInputContextProvider";
 import ConfirmLocationPage from "./main/list-map-route/ConfirmLocationPage";
 import ThemeContextProvider from "./main/contexts/ThemeContextProvider";
+import AccountActivationPage from "./main/account-route/AccountActivationPage";
 
 
 function App() {
@@ -65,6 +66,10 @@ function App() {
                   <Route path="/bo/element/:ecoElementIDParam">
                       <NavBar/>
                       <EcoElementPage/>
+                  </Route>
+                  <Route path="/acc/activation/:activationToken">
+                      <NavBar/>
+                      <AccountActivationPage/>
                   </Route>
                   <Route path="/acc/:userNameParam">
                       <NavBar/>
